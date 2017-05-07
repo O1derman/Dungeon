@@ -1,3 +1,5 @@
+include 'core'
+
 if (properties['android.injected.invoked.from.ide'] == 'true'){
 	include 'android'
 }
