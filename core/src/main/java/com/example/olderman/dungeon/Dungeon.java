@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.Random;
 
 public class Dungeon {
-
+//komentar!!!
 	private ForAll forAll;
 	private Character character;
 
