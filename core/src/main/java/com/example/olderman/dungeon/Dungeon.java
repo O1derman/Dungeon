@@ -8,7 +8,6 @@ import static com.example.olderman.dungeon.Style.*;
 
 public class Dungeon {
 <<<<<<< HEAD
-	// komentar!!!
 =======
 
 >>>>>>> branch 'master' of https://O1derman@bitbucket.org/abc55/dungeon.git
