@@ -1,8 +1,11 @@
 package com.example.olderman.dungeon;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.Random;
+
+import static com.example.olderman.dungeon.Style.*;
 
 public class Dungeon {
 
@@ -31,20 +34,42 @@ public class Dungeon {
 		return os.uzivatVolba(options);
 	}
 
-	public void print(String string) {
-		os.print(string);
+	private void print0(Object... text) {
+		for (Object o : text) {
+			if (o instanceof Style) {
+				if (o instanceof ColorStyle) {
+					os.color((ColorStyle) o);
+				} else if (o instanceof AttributeStyle) {
+					os.attribute((AttributeStyle) o);
+				} else if (o instanceof Reset) {
+					os.reset();
+				}
+			} else {
+				os.print(o.toString());
+			}
+		}
+		os.reset();
 	}
 
-	public void println(String string) {
-		os.println(string);
+	public void print(Object... text) {
+		print0(text);
+		os.flush();
+	}
+
+	public void println(Object... text) {
+		print0(text);
+		os.println();
+		os.flush();
 	}
 
 	public void println() {
 		os.println();
+		os.flush();
 	}
 
 	public void printf(String string, Object... args) {
-		os.printf(string, args);
+		os.print(String.format(string, args));
+		os.flush();
 	}
 
 	public void run() throws IOException {
@@ -320,7 +345,7 @@ public class Dungeon {
 					println("\tYour keyboard still isn't broken from smashing those two buttons?");
 					println("\tYOU WON!!!");
 					println("\tBut your keyboard died in the last fight.");
-					println("RIP keyboard" + (new Date().toString()));
+					println("RIP keyboard " + DateFormat.getDateInstance().format(new Date()));
 					continue MENU;
 				}
 				// println("#############################################################################");
