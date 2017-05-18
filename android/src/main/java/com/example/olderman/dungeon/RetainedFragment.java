@@ -12,12 +12,14 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.IOException;
+
 /**
  *
  */
 public class RetainedFragment extends Fragment {
 
-    private OS os = new OS();
+    private AndroidOS os = new AndroidOS();
     private Dungeon dungeon = new Dungeon(os);
     private boolean running = false;
 
@@ -34,6 +36,8 @@ public class RetainedFragment extends Fragment {
                     try {
                         dungeon.run();
                     } catch (ExitException e) {
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
                 }
             }).start();

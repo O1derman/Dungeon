@@ -7,17 +7,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class OS {
+public class AndroidOS implements OS {
 
     private Activity activity;
     private TextView textView;
     private LinearLayout buttons;
 
-    public OS() {
-
+    public AndroidOS() {
     }
 
-    public OS(Activity activity, TextView textView, LinearLayout buttons) {
+    public AndroidOS(Activity activity, TextView textView, LinearLayout buttons) {
         set(activity, textView, buttons);
     }
 
@@ -79,9 +78,9 @@ public class OS {
             public void onClick(View v) {
                 buttons.removeAllViews();
                 buttonLabels = null;
-                synchronized (OS.this) {
+                synchronized (AndroidOS.this) {
                     result = i;
-                    OS.this.notifyAll();
+                    AndroidOS.this.notifyAll();
                 }
             }
         });
@@ -127,17 +126,28 @@ public class OS {
         });
     }
 
-    public void println(String string) {
-        print(string);
-        println();
-    }
-
     public void println() {
         print("\n");
     }
 
-    public void printf(String string, Object... args) {
-        print(String.format(string, args));
+    @Override
+    public void reset() {
+
+    }
+
+    @Override
+    public void color(Style.ColorStyle style) {
+
+    }
+
+    @Override
+    public void attribute(Style.AttributeStyle style) {
+
+    }
+
+    @Override
+    public void flush() {
+
     }
 
 }
