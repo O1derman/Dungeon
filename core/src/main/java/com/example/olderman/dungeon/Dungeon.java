@@ -1,16 +1,13 @@
 package com.example.olderman.dungeon;
 
-import java.io.IOException;<<<<<<<HEAD=======import java.text.DateFormat;>>>>>>>branch'master'of https://O1derman@bitbucket.org/abc55/dungeon.git
+import java.io.IOException;
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.Random;
 
 import static com.example.olderman.dungeon.Style.*;
 
 public class Dungeon {
-<<<<<<< HEAD
-=======
-
->>>>>>> branch 'master' of https://O1derman@bitbucket.org/abc55/dungeon.git
 	private ForAll forAll;
 	private Character character;
 
@@ -81,10 +78,10 @@ public class Dungeon {
 
 		boolean running = true;
 		String orc = Resources.getString("/orc");
-		String dwarf = FileUtils.convertStreamToString("/dwarf");
-		String elf = FileUtils.convertStreamToString("/elf");
-		String superman = FileUtils.convertStreamToString("/superman");
-		String headLine = FileUtils.convertStreamToString("/headline");
+		String dwarf = Resources.getString("/dwarf");
+		String elf = Resources.getString("/elf");
+		String superman = Resources.getString("/superman");
+		String headLine = Resources.getString("/headline");
 
 		MENU: while (true) {
 
@@ -178,17 +175,23 @@ public class Dungeon {
 						println();
 						forAll.resetDrinkHealthPotionCount();
 
-						volba = uzivatVolba("Attack", "Drink health potion", "Go on", "Throw bomb", "Open inventory and info", "Buy pot", "Go in shop", "Go in workhouse", "Exit");
+						volba = uzivatVolba("Attack", "Drink health potion", "Go on", "Throw bomb",
+								"Open inventory and info", "Buy pot", "Go in shop", "Go in workhouse", "Exit");
 
 					} else {
 						forAll.resetDrinkHealthPotionCount();
 
-						volba = uzivatVolba("Attack", "Drink health potion", "Go on", "Throw bomb", "Open inventory and info", "Use pot", "Go in shop", "Go in workhouse", "Exit");
+						volba = uzivatVolba("Attack", "Drink health potion", "Go on", "Throw bomb",
+								"Open inventory and info", "Use pot", "Go in shop", "Go in workhouse", "Exit");
 
 					}
 					if (volba == 1) { // Attack
-						int damageDealt = (rand.nextInt(character.getAttackDamage()) + rand.nextInt(character.getAttackDamage()) + forAll.level * 5 + character.getFlatDamage());
-						int damageTaken = ((rand.nextInt(forAll.enemyAttackDamage) + rand.nextInt(forAll.enemyAttackDamage)) + forAll.floor * 5 + 10) * forAll.resistence / 100;
+						int damageDealt = (rand.nextInt(character.getAttackDamage())
+								+ rand.nextInt(character.getAttackDamage()) + forAll.level * 5
+								+ character.getFlatDamage());
+						int damageTaken = ((rand.nextInt(forAll.enemyAttackDamage)
+								+ rand.nextInt(forAll.enemyAttackDamage)) + forAll.floor * 5 + 10) * forAll.resistence
+								/ 100;
 
 						if (rand.nextInt(100) <= character.getMissChance()) {
 							println("\tYou MISS!");
@@ -301,8 +304,12 @@ public class Dungeon {
 					println();
 					volba = uzivatVolba("Attack", "Drink health potion", "Run", "Throw bomb");
 					if (volba == 1) { // Attack
-						int damageDealt = (rand.nextInt(character.getAttackDamage()) + rand.nextInt(character.getAttackDamage()) + forAll.level * 5 + character.getFlatDamage());
-						int damageTaken = ((rand.nextInt(forAll.enemyAttackDamage) + rand.nextInt(forAll.enemyAttackDamage)) + forAll.floor * 5 + 10) * forAll.resistence / 100;
+						int damageDealt = (rand.nextInt(character.getAttackDamage())
+								+ rand.nextInt(character.getAttackDamage()) + forAll.level * 5
+								+ character.getFlatDamage());
+						int damageTaken = ((rand.nextInt(forAll.enemyAttackDamage)
+								+ rand.nextInt(forAll.enemyAttackDamage)) + forAll.floor * 5 + 10) * forAll.resistence
+								/ 100;
 
 						if (rand.nextInt(100) <= character.getMissChance()) {
 							println("\tYou MISS!");
@@ -402,7 +409,8 @@ public class Dungeon {
 					println("\t************************************************");
 					println("\t*Congratulations! Level Up! Level " + forAll.level + "!");
 					println("\t************************************************");
-					println("\tYour " + character.getMaximumHealth() + " + " + forAll.levelUpHealth + " maximum health.");
+					println("\tYour " + character.getMaximumHealth() + " + " + forAll.levelUpHealth
+							+ " maximum health.");
 					println("\tYour " + character.getAttackDamage() + " + " + forAll.levelUpDamage + " damage.");
 					character.increaseMaximumHealth(10 * forAll.floor);
 					character.increaseHealth(forAll.levelUpHealth);
@@ -421,24 +429,31 @@ public class Dungeon {
 				println("# " + forAll.enemy + " was defeated!                                                ");
 				println("# You have " + character.getHealth() + "HP left ");
 				println("# You have earned " + forAll.experienceGain + " exp!");
-				println("# You have " + forAll.experience + " experience! You need " + forAll.levelUp + " experience for level up.");
+				println("# You have " + forAll.experience + " experience! You need " + forAll.levelUp
+						+ " experience for level up.");
 				println("# You have level " + forAll.level + "!");
 				println("# You found " + goldFound + " gold (" + forAll.gold + " gold total)");
-				if (rand.nextInt(100) < forAll.smallHealthPotionDropChance || rand.nextInt(100) <= character.getLuck()) {
+				if (rand.nextInt(100) < forAll.smallHealthPotionDropChance
+						|| rand.nextInt(100) <= character.getLuck()) {
 					forAll.numSmallHealthPotions++;
-					println("# The " + forAll.enemy + " dropped a small health potion! (" + forAll.numSmallHealthPotions + " total)");
+					println("# The " + forAll.enemy + " dropped a small health potion! (" + forAll.numSmallHealthPotions
+							+ " total)");
 
 				}
 
-				if (rand.nextInt(100) < forAll.mediumHealthPotionDropChance || rand.nextInt(100) <= character.getLuck()) {
+				if (rand.nextInt(100) < forAll.mediumHealthPotionDropChance
+						|| rand.nextInt(100) <= character.getLuck()) {
 					forAll.numMediumHealthPotions++;
-					println("# The " + forAll.enemy + " dropped a medium health potion! (" + forAll.numMediumHealthPotions + " total)");
+					println("# The " + forAll.enemy + " dropped a medium health potion! ("
+							+ forAll.numMediumHealthPotions + " total)");
 
 				}
 
-				if (rand.nextInt(100) < forAll.largeHealthPotionDropChance || rand.nextInt(100) <= character.getLuck()) {
+				if (rand.nextInt(100) < forAll.largeHealthPotionDropChance
+						|| rand.nextInt(100) <= character.getLuck()) {
 					forAll.numLargeHealthPotions++;
-					println("# The " + forAll.enemy + " dropped a large health potion! (" + forAll.numLargeHealthPotions + " total)");
+					println("# The " + forAll.enemy + " dropped a large health potion! (" + forAll.numLargeHealthPotions
+							+ " total)");
 
 				}
 
@@ -448,12 +463,12 @@ public class Dungeon {
 					println("\tYour keyboard still isn't broken from smashing those two buttons?");
 					println("\tYOU WON!!!");
 					println("\tBut your keyboard died in the last fight.");
-					println("RIP keyboard" + (new Date().toString()));
+					println("RIP keyboard" + DateFormat.getDateInstance().format(new Date()));
 					continue MENU;
 				}
 				// println("#############################################################################");
 				// println("#" + forAll.enemy +
-				// " was defeated!                                                ");
+				// " was defeated! ");
 				// println("# You have " + character.getHealth() + "HP left ");
 				// println("#You have earned " + forAll.experienceGain +
 				// " exp!");
@@ -462,9 +477,9 @@ public class Dungeon {
 				// if (rand.nextInt(100) < forAll.smallHealthPotionDropChance) {
 				// forAll.numSmallHealthPotions++;
 				// println("# The " + forAll.enemy +
-				// " dropped a small health potion!                          ");
+				// " dropped a small health potion! ");
 				// println("# You now have " + forAll.numSmallHealthPotions +
-				// " small health potion(s).        ");
+				// " small health potion(s). ");
 				//
 				// }
 				//
@@ -472,18 +487,18 @@ public class Dungeon {
 				// {
 				// forAll.numMediumHealthPotions++;
 				// println("# The " + forAll.enemy +
-				// " dropped a medium health potion!                         ");
+				// " dropped a medium health potion! ");
 				// println("# You now have " + forAll.numMediumHealthPotions +
-				// " medium health potion(s).      ");
+				// " medium health potion(s). ");
 				//
 				// }
 				//
 				// if (rand.nextInt(100) < forAll.largeHealthPotionDropChance) {
 				// forAll.numLargeHealthPotions++;
 				// println("# The " + forAll.enemy +
-				// " dropped a large health potion!                          ");
+				// " dropped a large health potion! ");
 				// println("# You now have " + forAll.numLargeHealthPotions +
-				// " large health potion(s).        ");
+				// " large health potion(s). ");
 				//
 				// }
 				println("\n#############################################################################\n");
@@ -505,10 +520,4 @@ public class Dungeon {
 		}
 	}
 
-	public static void main(String[] args) throws IOException {
-		if (args.length >= 1 && "--noClear".equals(args[0])) {
-			OS.enableClear = false;
-		}
-		new Dungeon(new OS()).run();
-	}
 }

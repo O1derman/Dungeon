@@ -1,6 +1,5 @@
 package com.example.olderman.dungeon;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -8,6 +7,7 @@ import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
 import com.example.olderman.dungeon.Style.AttributeStyle;
+import com.example.olderman.dungeon.Style.Color;
 import com.example.olderman.dungeon.Style.ColorStyle;
 
 public class DesktopOS implements OS {
