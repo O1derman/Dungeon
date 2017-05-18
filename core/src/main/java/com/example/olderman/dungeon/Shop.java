@@ -25,6 +25,7 @@ public class Shop {
 	int bombRangeDamage = bombBoomMaxDamage - bombBoomMinDamage;
 	int hamburgerCost = 1000;
 	int hamburgerResist = 65;// %
+	int knifeCost = 200;
 
 	public void shop() {
 
