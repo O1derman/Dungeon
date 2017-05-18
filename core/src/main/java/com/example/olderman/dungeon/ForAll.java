@@ -21,10 +21,28 @@ public class ForAll {
 		enemy = enemies[rand.nextInt(enemies.length)];
 	}
 
+	public void resetDrinkHealthPotionCount() {
+		drinkHealthPotionCount = 0;
+	}
+
 	// Player variables
 
 	public int gold = 0;
+	public int knife = 0;
+	public int wood = 0;
+	public int bird = 0;
+	public int feather = 0;
+	public int pot = 0;
+	public int drinkHealthPotionCount = 0;
 	public int frogLeg = 0;
+	public int frogHeart = 0;
+	public int frogLeftEye = 0;
+	public int frogRightEye = 0;
+	public int warm = 0;
+	public int sneakBrain = 0;
+	public int squirelTails = 0;
+	public int frogHead = 0;
+	public int snake = 0;
 	public int maxGoldFound = 100;
 	public int levelUpHealth = 20;
 	public int levelUpDamage = 15;
@@ -45,7 +63,7 @@ public class ForAll {
 	public int smallHealthPotionDropChance = 80; // percentage
 	public int mediumHealthPotionDropChance = 50; // percentage
 	public int largeHealthPotionDropChance = 20; // percentage
-	
+
 	public ForAll() {
 		resetEnemy();
 	}
