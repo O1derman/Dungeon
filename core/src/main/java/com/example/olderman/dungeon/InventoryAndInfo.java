@@ -7,8 +7,9 @@ public class InventoryAndInfo {
 
 	private final Dungeon dungeon;
 
-	public void inventoryAndInfo() {
-		dungeon.println(dungeon.getCharacter().getHealth() + "/" + dungeon.getCharacter().getMaximumHealth() + " health" );
+	public InventoryItem inventoryAndInfo(boolean fighting) {
+		dungeon.println(
+				dungeon.getCharacter().getHealth() + "/" + dungeon.getCharacter().getMaximumHealth() + " health");
 		if (dungeon.getForAll().experience > 0) {
 			dungeon.println(dungeon.getForAll().experience + " experience");
 		}
@@ -24,15 +25,6 @@ public class InventoryAndInfo {
 		if (dungeon.getForAll().resistence > 0) {
 			dungeon.println(100 - dungeon.getForAll().resistence + "% resistance");
 		}
-		if (dungeon.getForAll().numSmallHealthPotions > 0) {
-			dungeon.println(dungeon.getForAll().numSmallHealthPotions + " small health potion(s)");
-		}
-		if (dungeon.getForAll().numMediumHealthPotions > 0) {
-			dungeon.println(dungeon.getForAll().numMediumHealthPotions + " medium health potion(s)");
-		}
-		if (dungeon.getForAll().numLargeHealthPotions > 0) {
-			dungeon.println(dungeon.getForAll().numLargeHealthPotions + " large health potion(s)");
-		}
 		if (dungeon.getForAll().numPotionOfStrength > 0) {
 			dungeon.println(dungeon.getForAll().numPotionOfStrength + " potion(s) of strength");
 		}
@@ -43,13 +35,7 @@ public class InventoryAndInfo {
 		dungeon.println(dungeon.getCharacter().getMissChance() + "% miss chance");
 
 		dungeon.println();
-		while (true) {
-			int volba = dungeon.uzivatVolba("Exit inventory and info.");
-			if (volba == 1) {
-				break;
-			} else {
-				dungeon.println("Invalid command");
-			}
-		}
+
+		return dungeon.getInventory().showInventory(fighting);
 	}
 }

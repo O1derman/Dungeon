@@ -30,8 +30,6 @@ public interface Character {
 
 	public void increaseHealth(int healthIncrease);
 
-	public void drinkPotion(ForAll forAll);
-
 	public void increaseAttackDamage(int damageIncrease);
 
 	public void increaseMaximumHealth(int maximumHealthIncrease);

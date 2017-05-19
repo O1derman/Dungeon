@@ -22,7 +22,7 @@ public class ForAll {
 	}
 
 	public void resetDrinkHealthPotionCount() {
-		drinkHealthPotionCount = 0;
+		hasDrunkHealthPotion = false;
 	}
 
 	// Player variables
@@ -33,7 +33,7 @@ public class ForAll {
 	public int bird = 0;
 	public int feather = 0;
 	public int pot = 0;
-	public int drinkHealthPotionCount = 0;
+	public boolean hasDrunkHealthPotion = false;
 	public int frogLeg = 0;
 	public int frogHeart = 0;
 	public int frogLeftEye = 0;
@@ -53,13 +53,7 @@ public class ForAll {
 	public int experience = 0;
 	public int numPotionOfStrength = 0;
 	public int potionOfStrengthPower = 500;
-	public int numSmallHealthPotions = 3;
-	public int numMediumHealthPotions = 0;
-	public int numLargeHealthPotions = 0;
 	public int numPotionOfInvisibility = 0;
-	public int smallHealthPotionHealAmount = 20;
-	public int mediumHealthPotionHealAmount = 50;
-	public int largeHealthPotionHealAmount = 100;
 	public int smallHealthPotionDropChance = 80; // percentage
 	public int mediumHealthPotionDropChance = 50; // percentage
 	public int largeHealthPotionDropChance = 20; // percentage

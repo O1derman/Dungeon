@@ -5,11 +5,15 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Random;
 
+import com.example.olderman.dungeon.InventoryItem.Type;
+
 import static com.example.olderman.dungeon.Style.*;
 
 public class Dungeon {
 	private ForAll forAll;
 	private Character character;
+	private Shop shop;
+	private Inventory inventory;
 
 	public ForAll getForAll() {
 		return forAll;
@@ -19,7 +23,12 @@ public class Dungeon {
 		return character;
 	}
 
+	public Inventory getInventory() {
+		return inventory;
+	}
+
 	private final OS os;
+	private final Random rand = new Random();
 
 	public Dungeon(OS os) {
 		this.os = os;
@@ -74,8 +83,6 @@ public class Dungeon {
 	public void run() throws IOException {
 		clear();
 
-		Random rand = new Random();
-
 		boolean running = true;
 		String orc = Resources.getString("/orc");
 		String dwarf = Resources.getString("/dwarf");
@@ -115,11 +122,12 @@ public class Dungeon {
 
 				}
 			}
-			Shop shop = new Shop(this);
+			shop = new Shop(this);
 			Pot pot = new Pot(this);
 			WorkHouse workHouse = new WorkHouse(this);
 			InventoryAndInfo inventoryAndInfo = new InventoryAndInfo(this);
 			forAll = new ForAll();
+			this.inventory = new Inventory(this);
 
 			println("\n\n\t\tWelcome to the dungeon!\n");
 			println("\tYou can play this game however you want to.");
@@ -168,76 +176,26 @@ public class Dungeon {
 				println("\t#You see " + forAll.enemy.nameWithArticle() + "!");
 				println("\n\tWhat would you like to do?");
 				println();
+				forAll.resetDrinkHealthPotionCount();
 				while (true) {
 					if (forAll.pot == 0) {
 						println();
 						println("\tPot costs 450G");
 						println();
-						forAll.resetDrinkHealthPotionCount();
 
-						volba = uzivatVolba("Attack", "Drink health potion", "Go on", "Throw bomb",
-								"Open inventory and info", "Buy pot", "Go in shop", "Go in workhouse", "Exit");
+						volba = uzivatVolba("Attack", "Go on", "Throw bomb", "Open inventory and info", "Buy pot",
+								"Go in shop", "Go in workhouse", "Exit");
 
 					} else {
-						forAll.resetDrinkHealthPotionCount();
 
-						volba = uzivatVolba("Attack", "Drink health potion", "Go on", "Throw bomb",
-								"Open inventory and info", "Use pot", "Go in shop", "Go in workhouse", "Exit");
+						volba = uzivatVolba("Attack", "Go on", "Throw bomb", "Open inventory and info", "Use pot",
+								"Go in shop", "Go in workhouse", "Exit");
 
 					}
 					if (volba == 1) { // Attack
-						int damageDealt = (rand.nextInt(character.getAttackDamage())
-								+ rand.nextInt(character.getAttackDamage()) + forAll.level * 5
-								+ character.getFlatDamage());
-						int damageTaken = ((rand.nextInt(forAll.enemyAttackDamage)
-								+ rand.nextInt(forAll.enemyAttackDamage)) + forAll.floor * 5 + 10) * forAll.resistence
-								/ 100;
-
-						boolean youMiss = rand.nextInt(100) <= character.getMissChance();
-						boolean enemyMiss = rand.nextInt(100) <= forAll.enemyMissChance;
-
-						if (youMiss) {
-							println("\tYou MISS!");
-						}
-						if (enemyMiss) {
-							println("\tEnemy MISS!");
-						}
-
-						if (!youMiss) {
-							forAll.enemyHealth -= damageDealt;
-
-							if (damageDealt == character.getAttackDamage()) {
-								println("WOOOW, excelent hit!!!");
-							}
-							println("\t> You strike the " + forAll.enemy.name + " for " + damageDealt + " damage.");
-						}
-
-						if (!enemyMiss) {
-							println("\t> You recieve " + damageTaken + " damage.");
-							character.decreaseHealth(damageTaken);
-						}
-
-						if (character.getHealth() < 1) {
-							println("\t> You have taken too much damage, you are dying in pain covered in the shit of your enemy while they are celebrating...zombies will a have tasty dinner! ");
-							break;
-						}
-
-						if (character.getHealth() < 30) {
-							println("\n\t!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@\n");
-							println("\t> <ALERT>Your HP is very low " + "(" + character.getHealth() + " HP left)");
-							println("\n\t!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@\n");
-						}
-						forAll.resetDrinkHealthPotionCount();
+						attack();
 						break;
-					} else if (volba == 2) { // Drink health potion
-						if (forAll.drinkHealthPotionCount == 0) {
-							character.drinkPotion(forAll);
-							forAll.drinkHealthPotionCount++;
-						} else {
-							println("You can't drink more health potions this turn!");
-						}
-
-					} else if (volba == 3) { // Run
+					} else if (volba == 2) { // Run
 						println("\t>You run!");
 						forAll.resetEnemy();
 						forAll.resetDrinkHealthPotionCount();
@@ -255,23 +213,15 @@ public class Dungeon {
 						// " HP.\n\n\n\n\n");
 						// continue GAME;
 
-					} else if (volba == 7) { // Go in shop
-						shop.shop();
-					} else if (volba == 5) {// Open inventory and info
-						inventoryAndInfo.inventoryAndInfo();
-					} else if (volba == 4) {// throw bomb
-						if (forAll.bombCount > 0) {
-							forAll.bombCount--;
-							int actualBombDamage = rand.nextInt(shop.bombRangeDamage) + shop.bombBoomMinDamage;
-							forAll.enemyHealth -= actualBombDamage;
-							println("You hit enemy for " + actualBombDamage + " damage!");
-							forAll.resetDrinkHealthPotionCount();
+					} else if (volba == 3) {// throw bomb
+						if (throwBomb())
 							break;
-						} else {
-							println("You don't have any bombs left.");
+					} else if (volba == 4) {// Open inventory and info
+						InventoryItem usedItem = inventoryAndInfo.inventoryAndInfo(false);
+						if (usedItem != null && usedItem.getType() == Type.WEAPON) {
+							break;
 						}
-
-					} else if (volba == 6) { // Buy pot + use pot
+					} else if (volba == 5) { // Buy pot + use pot
 						if (forAll.pot == 0) {
 							if (forAll.gold >= pot.potCost) {
 								println("You bought a pot!");
@@ -283,72 +233,25 @@ public class Dungeon {
 						} else {
 							pot.pot();
 						}
-					} else if (volba == 9) { // Exit
+					} else if (volba == 6) { // Go in shop
+						shop.shop();
+					} else if (volba == 7) {
+						workHouse.WorkHouse();
+					} else if (volba == 8) { // Exit
 						println("Yout exit the dungeon.");
 						println("Thanks for playing!");
 						continue MENU;
-					} else if (volba == 8) {
-						workHouse.WorkHouse();
 					}
 				}
-				while (forAll.enemyHealth > 0) {
+				while (forAll.enemyHealth > 0 && character.getHealth() > 0) {
 					println("\tYour HP: " + character.getHealth());
 					println("\t" + forAll.enemy.name + "'s HP: " + forAll.enemyHealth);
 					println("\n\tWhat would you like to do?");
 					println();
-					volba = uzivatVolba("Attack", "Drink health potion", "Run", "Throw bomb");
+					volba = uzivatVolba("Attack", "Run", "Throw bomb", "Open inventory and info");
 					if (volba == 1) { // Attack
-						int damageDealt = (rand.nextInt(character.getAttackDamage())
-								+ rand.nextInt(character.getAttackDamage()) + forAll.level * 5
-								+ character.getFlatDamage());
-						int damageTaken = ((rand.nextInt(forAll.enemyAttackDamage)
-								+ rand.nextInt(forAll.enemyAttackDamage)) + forAll.floor * 5 + 10) * forAll.resistence
-								/ 100;
-
-						if (rand.nextInt(100) <= character.getMissChance()) {
-							println("\tYou MISS!");
-							if (rand.nextInt(100) <= forAll.enemyMissChance) {
-								println("\tEnemy MISS!");
-							} else {
-								println("\t> You recieve " + damageTaken + " damage.");
-								character.decreaseHealth(damageTaken);
-							}
-
-						} else {
-							if (rand.nextInt(100) <= forAll.enemyMissChance) {
-								println("\tEnemy MISS!");
-							} else {
-								println("\t> You recieve " + damageTaken + " damage.");
-								character.decreaseHealth(damageTaken);
-							}
-							forAll.enemyHealth -= damageDealt;
-
-							if (damageDealt == character.getAttackDamage()) {
-								println("WOOOW, excelent hit!!!");
-							}
-							println("\t> You strike the " + forAll.enemy.name + " for " + damageDealt + " damage.");
-						}
-
-						if (character.getHealth() < 1) {
-							println("\t> You have taken too much damage, you are dying in pain covered in the shit of your enemy while they are celebrating...zombies will a have tasty dinner! ");
-							break;
-						}
-
-						if (character.getHealth() < 30) {
-							println("\n\t!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@\n");
-							println("\t> <ALERT>Your HP is very low " + "(" + character.getHealth() + " HP left)");
-							println("\n\t!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@\n");
-						}
-						forAll.resetDrinkHealthPotionCount();
-					} else if (volba == 2) { // Drink health potion
-						if (forAll.drinkHealthPotionCount == 0) {
-							character.drinkPotion(forAll);
-							forAll.drinkHealthPotionCount++;
-						} else {
-							println("You can't drink more health potions this turn!");
-						}
-
-					} else if (volba == 3) { // Run
+						attack();
+					} else if (volba == 2) { // Run
 						if (forAll.numPotionOfInvisibility == 0) {
 							println("\t> No time to run!\n");
 						} else {
@@ -371,17 +274,11 @@ public class Dungeon {
 						// " HP.\n\n\n\n\n");
 						// continue GAME;
 
-					} else if (volba == 4) {// throw bomb
-						if (forAll.bombCount > 0) {
-							forAll.bombCount--;
-							int actualBombDamage = rand.nextInt(shop.bombRangeDamage) + shop.bombBoomMinDamage;
-							forAll.enemyHealth -= actualBombDamage;
-							println("You hit enemy for " + actualBombDamage + " damage!");
-							forAll.resetDrinkHealthPotionCount();
-						} else {
-							println("You don't have any bombs left.");
-						}
+					} else if (volba == 3) {// throw bomb
+						throwBomb();
 
+					} else if (volba == 4) {// Open inventory and info
+						inventoryAndInfo.inventoryAndInfo(true);
 					}
 
 				}
@@ -427,25 +324,25 @@ public class Dungeon {
 				println("# You found " + goldFound + " gold (" + forAll.gold + " gold total)");
 				if (rand.nextInt(100) < forAll.smallHealthPotionDropChance
 						|| rand.nextInt(100) <= character.getLuck()) {
-					forAll.numSmallHealthPotions++;
+					inventory.add(HealthPotion.SMALL);
 					println("# The " + forAll.enemy.name + " dropped a small health potion! ("
-							+ forAll.numSmallHealthPotions + " total)");
+							+ inventory.getCount(HealthPotion.SMALL) + " total)");
 
 				}
 
 				if (rand.nextInt(100) < forAll.mediumHealthPotionDropChance
 						|| rand.nextInt(100) <= character.getLuck()) {
-					forAll.numMediumHealthPotions++;
+					inventory.add(HealthPotion.MEDIUM);
 					println("# The " + forAll.enemy.name + " dropped a medium health potion! ("
-							+ forAll.numMediumHealthPotions + " total)");
+							+ inventory.getCount(HealthPotion.MEDIUM) + " total)");
 
 				}
 
 				if (rand.nextInt(100) < forAll.largeHealthPotionDropChance
 						|| rand.nextInt(100) <= character.getLuck()) {
-					forAll.numLargeHealthPotions++;
+					inventory.add(HealthPotion.LARGE);
 					println("# The " + forAll.enemy.name + " dropped a large health potion! ("
-							+ forAll.numLargeHealthPotions + " total)");
+							+ inventory.getCount(HealthPotion.LARGE) + " total)");
 
 				}
 
@@ -510,6 +407,61 @@ public class Dungeon {
 			}
 
 		}
+	}
+
+	private boolean throwBomb() {
+		if (forAll.bombCount > 0) {
+			forAll.bombCount--;
+			int actualBombDamage = rand.nextInt(shop.bombRangeDamage) + shop.bombBoomMinDamage;
+			forAll.enemyHealth -= actualBombDamage;
+			println("You hit enemy for " + actualBombDamage + " damage!");
+			forAll.resetDrinkHealthPotionCount();
+			return true;
+		} else {
+			println("You don't have any bombs left.");
+			return false;
+		}
+	}
+
+	private void attack() {
+		int damageDealt = (rand.nextInt(character.getAttackDamage()) + rand.nextInt(character.getAttackDamage())
+				+ forAll.level * 5 + character.getFlatDamage());
+		int damageTaken = ((rand.nextInt(forAll.enemyAttackDamage) + rand.nextInt(forAll.enemyAttackDamage))
+				+ forAll.floor * 5 + 10) * forAll.resistence / 100;
+
+		boolean youMiss = rand.nextInt(100) <= character.getMissChance();
+		boolean enemyMiss = rand.nextInt(100) <= forAll.enemyMissChance;
+
+		if (youMiss) {
+			println("\tYou MISS!");
+		}
+		if (enemyMiss) {
+			println("\tEnemy MISS!");
+		}
+
+		if (!youMiss) {
+			forAll.enemyHealth -= damageDealt;
+
+			if (damageDealt == character.getAttackDamage()) {
+				println("WOOOW, excelent hit!!!");
+			}
+			println("\t> You strike the " + forAll.enemy.name + " for " + damageDealt + " damage.");
+		}
+
+		if (!enemyMiss) {
+			println("\t> You recieve " + damageTaken + " damage.");
+			character.decreaseHealth(damageTaken);
+		}
+
+		if (character.getHealth() < 1) {
+			println("\t> You have taken too much damage, you are dying in pain covered in the shit of your enemy while they are celebrating...zombies will a have tasty dinner! ");
+		} else if (character.getHealth() < 30) {
+			println("\n\t!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@\n");
+			println("\t> <ALERT>Your HP is very low " + "(" + character.getHealth() + " HP left)");
+			println("\n\t!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@\n");
+		}
+		forAll.resetDrinkHealthPotionCount();
+
 	}
 
 }
