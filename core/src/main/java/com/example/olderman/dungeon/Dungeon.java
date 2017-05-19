@@ -202,9 +202,7 @@ public class Dungeon {
 								character.decreaseHealth(damageTaken);
 							}
 
-						}
-
-						else {
+						} else {
 							if (rand.nextInt(100) <= forAll.enemyMissChance) {
 								println("\tEnemy MISS!");
 							} else {
@@ -257,9 +255,7 @@ public class Dungeon {
 						// " HP.\n\n\n\n\n");
 						// continue GAME;
 
-					}
-
-					else if (volba == 7) { // Go in shop
+					} else if (volba == 7) { // Go in shop
 						shop.shop();
 					} else if (volba == 5) {// Open inventory and info
 						inventoryAndInfo.inventoryAndInfo();
@@ -287,9 +283,7 @@ public class Dungeon {
 						} else {
 							pot.pot();
 						}
-					}
-
-					else if (volba == 9) { // Exit
+					} else if (volba == 9) { // Exit
 						println("Yout exit the dungeon.");
 						println("Thanks for playing!");
 						continue MENU;
@@ -320,9 +314,7 @@ public class Dungeon {
 								character.decreaseHealth(damageTaken);
 							}
 
-						}
-
-						else {
+						} else {
 							if (rand.nextInt(100) <= forAll.enemyMissChance) {
 								println("\tEnemy MISS!");
 							} else {
@@ -463,7 +455,7 @@ public class Dungeon {
 					println("\tYour keyboard still isn't broken from smashing those two buttons?");
 					println("\tYOU WON!!!");
 					println("\tBut your keyboard died in the last fight.");
-					println("RIP keyboard" + DateFormat.getDateInstance().format(new Date()));
+					println("RIP keyboard " + DateFormat.getDateInstance().format(new Date()));
 					continue MENU;
 				}
 				// println("#############################################################################");
