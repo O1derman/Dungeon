@@ -12,13 +12,13 @@ public class ForAll {
 	public int enemyAttackDamage = 5;
 	public int experienceGain = 20;
 	public int enemyHealth;
-	public String enemy;
+	public Enemy enemy;
 	public int floor = 1;
 	public int enemyMissChance = 20;
 
 	public void resetEnemy() {
 		enemyHealth = (rand.nextInt(maxEnemyHealth) + rand.nextInt(maxEnemyHealth)) + floor * 5 + 50;
-		enemy = enemies[rand.nextInt(enemies.length)];
+		this.enemy = Enemy.values()[rand.nextInt(Enemy.values().length)];
 	}
 
 	public void resetDrinkHealthPotionCount() {

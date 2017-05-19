@@ -165,7 +165,7 @@ public class Dungeon {
 				println("###############################################################################################################\n");
 				println("\n\t>You are on floor " + forAll.floor + "!");
 
-				println("\t#You see a(n) " + forAll.enemy + "!");
+				println("\t#You see " + forAll.enemy.nameWithArticle() + "!");
 				println("\n\tWhat would you like to do?");
 				println();
 				while (true) {
@@ -193,28 +193,28 @@ public class Dungeon {
 								+ rand.nextInt(forAll.enemyAttackDamage)) + forAll.floor * 5 + 10) * forAll.resistence
 								/ 100;
 
-						if (rand.nextInt(100) <= character.getMissChance()) {
-							println("\tYou MISS!");
-							if (rand.nextInt(100) <= forAll.enemyMissChance) {
-								println("\tEnemy MISS!");
-							} else {
-								println("\t> You recieve " + damageTaken + " damage.");
-								character.decreaseHealth(damageTaken);
-							}
+						boolean youMiss = rand.nextInt(100) <= character.getMissChance();
+						boolean enemyMiss = rand.nextInt(100) <= forAll.enemyMissChance;
 
-						} else {
-							if (rand.nextInt(100) <= forAll.enemyMissChance) {
-								println("\tEnemy MISS!");
-							} else {
-								println("\t> You recieve " + damageTaken + " damage.");
-								character.decreaseHealth(damageTaken);
-							}
+						if (youMiss) {
+							println("\tYou MISS!");
+						}
+						if (enemyMiss) {
+							println("\tEnemy MISS!");
+						}
+
+						if (!youMiss) {
 							forAll.enemyHealth -= damageDealt;
 
 							if (damageDealt == character.getAttackDamage()) {
 								println("WOOOW, excelent hit!!!");
 							}
-							println("\t> You strike the " + forAll.enemy + " for " + damageDealt + " damage.");
+							println("\t> You strike the " + forAll.enemy.name + " for " + damageDealt + " damage.");
+						}
+
+						if (!enemyMiss) {
+							println("\t> You recieve " + damageTaken + " damage.");
+							character.decreaseHealth(damageTaken);
 						}
 
 						if (character.getHealth() < 1) {
@@ -293,7 +293,7 @@ public class Dungeon {
 				}
 				while (forAll.enemyHealth > 0) {
 					println("\tYour HP: " + character.getHealth());
-					println("\t" + forAll.enemy + "'s HP: " + forAll.enemyHealth);
+					println("\t" + forAll.enemy.name + "'s HP: " + forAll.enemyHealth);
 					println("\n\tWhat would you like to do?");
 					println();
 					volba = uzivatVolba("Attack", "Drink health potion", "Run", "Throw bomb");
@@ -326,7 +326,7 @@ public class Dungeon {
 							if (damageDealt == character.getAttackDamage()) {
 								println("WOOOW, excelent hit!!!");
 							}
-							println("\t> You strike the " + forAll.enemy + " for " + damageDealt + " damage.");
+							println("\t> You strike the " + forAll.enemy.name + " for " + damageDealt + " damage.");
 						}
 
 						if (character.getHealth() < 1) {
@@ -418,7 +418,7 @@ public class Dungeon {
 				int goldFound = (forAll.getGoldFound() + forAll.getGoldFound()) + forAll.floor * 20;
 				character.increaseGold(goldFound);
 				println("\n#############################################################################\n");
-				println("# " + forAll.enemy + " was defeated!                                                ");
+				println("# " + forAll.enemy.name + " was defeated!                                                ");
 				println("# You have " + character.getHealth() + "HP left ");
 				println("# You have earned " + forAll.experienceGain + " exp!");
 				println("# You have " + forAll.experience + " experience! You need " + forAll.levelUp
@@ -428,15 +428,15 @@ public class Dungeon {
 				if (rand.nextInt(100) < forAll.smallHealthPotionDropChance
 						|| rand.nextInt(100) <= character.getLuck()) {
 					forAll.numSmallHealthPotions++;
-					println("# The " + forAll.enemy + " dropped a small health potion! (" + forAll.numSmallHealthPotions
-							+ " total)");
+					println("# The " + forAll.enemy.name + " dropped a small health potion! ("
+							+ forAll.numSmallHealthPotions + " total)");
 
 				}
 
 				if (rand.nextInt(100) < forAll.mediumHealthPotionDropChance
 						|| rand.nextInt(100) <= character.getLuck()) {
 					forAll.numMediumHealthPotions++;
-					println("# The " + forAll.enemy + " dropped a medium health potion! ("
+					println("# The " + forAll.enemy.name + " dropped a medium health potion! ("
 							+ forAll.numMediumHealthPotions + " total)");
 
 				}
@@ -444,8 +444,8 @@ public class Dungeon {
 				if (rand.nextInt(100) < forAll.largeHealthPotionDropChance
 						|| rand.nextInt(100) <= character.getLuck()) {
 					forAll.numLargeHealthPotions++;
-					println("# The " + forAll.enemy + " dropped a large health potion! (" + forAll.numLargeHealthPotions
-							+ " total)");
+					println("# The " + forAll.enemy.name + " dropped a large health potion! ("
+							+ forAll.numLargeHealthPotions + " total)");
 
 				}
 
