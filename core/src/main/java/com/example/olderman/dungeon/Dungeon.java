@@ -10,6 +10,7 @@ import com.example.olderman.dungeon.inventory.Inventory;
 import com.example.olderman.dungeon.inventory.InventoryItem;
 import com.example.olderman.dungeon.inventory.Pot;
 import com.example.olderman.dungeon.inventory.InventoryItem.Type;
+import com.example.olderman.dungeon.shop.Shop;
 
 import static com.example.olderman.dungeon.Style.*;
 
@@ -171,8 +172,6 @@ public class Dungeon {
 				break;
 
 			}
-
-			shop.setCharacter(character);
 
 			println("###############################################################################################################\n");
 			println(character.getBeginning());
