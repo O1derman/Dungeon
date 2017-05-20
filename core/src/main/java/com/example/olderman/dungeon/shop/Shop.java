@@ -6,6 +6,7 @@ import java.util.List;
 import com.example.olderman.dungeon.Character;
 import com.example.olderman.dungeon.Dungeon;
 import com.example.olderman.dungeon.inventory.Bomb;
+import com.example.olderman.dungeon.inventory.Pot;
 
 public class Shop {
 
@@ -16,24 +17,12 @@ public class Shop {
 				new WeaponShopItem(dungeon, "Onehand axe", 600, 20),
 				new WeaponShopItem(dungeon, "Twohand axe", 800, 40),
 				new InventoryShopItem(dungeon, Bomb.BOMB, 400, "deals 100-300 damage! (only for 1 use)"),
-				new Hamburger(dungeon) };
+				new InventoryShopItem(dungeon, Pot.POT, 450, "allows you to create potions"), new Hamburger(dungeon) };
 	}
 
 	private final Dungeon dungeon;
 
-	int maletCost = 500;
-	int maletDamage = 15;
-	int oneHandAxeCost = 600;
-	int oneHandAxeDamage = 20;
-	int twoHandAxeCost = 800;
-	int twoHandAxeDamage = 40;
-	int bombCost = 400;
-	public int bombBoomMinDamage = 100;
-	public int bombBoomMaxDamage = 300;
-	public int bombRangeDamage = bombBoomMaxDamage - bombBoomMinDamage;
-	public int hamburgerCost = 1000;
-	public int hamburgerResist = 65;// %
-	int knifeCost = 200;
+	// int knifeCost = 200;
 
 	private final ShopItem[] items;
 

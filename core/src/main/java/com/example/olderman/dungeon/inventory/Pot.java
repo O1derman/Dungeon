@@ -10,8 +10,6 @@ public class Pot extends InventoryItem {
 		super("Pot", "use", false, false, Type.OTHER);
 	}
 
-	public int potCost = 450;
-
 	public boolean use(Dungeon dungeon) {
 		while (true) {
 			int potCrafting = dungeon.uzivatVolba("Read dormitory", "Create small health potion",

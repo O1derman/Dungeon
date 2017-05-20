@@ -4,6 +4,10 @@ import com.example.olderman.dungeon.Dungeon;
 
 public class Bomb extends InventoryItem {
 
+	public static final int MIN_DAMAGE = 100;
+	public static final int MAX_DAMAGE = 300;
+	public static final int DAMAGE_RANGE = MAX_DAMAGE - MIN_DAMAGE;
+
 	public static final Bomb BOMB = new Bomb();
 
 	private Bomb() {
@@ -12,8 +16,7 @@ public class Bomb extends InventoryItem {
 
 	@Override
 	public boolean use(Dungeon dungeon) {
-		int actualBombDamage = dungeon.rand.nextInt(dungeon.getShop().bombRangeDamage)
-				+ dungeon.getShop().bombBoomMinDamage;
+		int actualBombDamage = dungeon.rand.nextInt(DAMAGE_RANGE) + MIN_DAMAGE;
 		dungeon.getForAll().enemyHealth -= actualBombDamage;
 		dungeon.println("You hit enemy for " + actualBombDamage + " damage!");
 		return true;

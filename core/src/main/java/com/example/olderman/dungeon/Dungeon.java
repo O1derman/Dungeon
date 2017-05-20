@@ -185,20 +185,8 @@ public class Dungeon {
 				println();
 				forAll.resetDrinkHealthPotionCount();
 				while (true) {
-					if (forAll.pot == 0) {
-						println();
-						println("\tPot costs 450G");
-						println();
-
-						volba = uzivatVolba("Attack", "Go on", "Open inventory and info", "Buy pot", "Go in shop",
-								"Go in workhouse", "Exit");
-
-					} else {
-
-						volba = uzivatVolba("Attack", "Go on", "Open inventory and info", "Use pot", "Go in shop",
-								"Go in workhouse", "Exit");
-
-					}
+					volba = uzivatVolba("Attack", "Go on", "Open inventory and info", "Go in shop", "Go in workhouse",
+							"Exit");
 					if (volba == 1) { // Attack
 						attack();
 						break;
@@ -225,23 +213,11 @@ public class Dungeon {
 						if (usedItem != null && usedItem.getType() == Type.WEAPON) {
 							break;
 						}
-					} else if (volba == 4) { // Buy pot + use pot
-						if (forAll.pot == 0) {
-							if (forAll.gold >= pot.potCost) {
-								println("You bought a pot!");
-								forAll.pot++;
-								forAll.gold -= pot.potCost;
-							} else {
-								println("You dont have enough gold.");
-							}
-						} else {
-							pot.use(this);
-						}
-					} else if (volba == 5) { // Go in shop
+					} else if (volba == 4) { // Go in shop
 						shop.shop();
-					} else if (volba == 6) {
-						workHouse.WorkHouse();
-					} else if (volba == 7) { // Exit
+					} else if (volba == 5) {
+						workHouse.workHouse();
+					} else if (volba == 6) { // Exit
 						println("Yout exit the dungeon.");
 						println("Thanks for playing!");
 						continue MENU;

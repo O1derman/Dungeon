@@ -32,7 +32,6 @@ public class ForAll {
 	public int wood = 0;
 	public int bird = 0;
 	public int feather = 0;
-	public int pot = 0;
 	public boolean hasDrunkHealthPotion = false;
 	public int frogLeg = 0;
 	public int frogHeart = 0;

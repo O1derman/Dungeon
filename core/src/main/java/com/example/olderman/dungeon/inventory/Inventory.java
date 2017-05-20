@@ -63,17 +63,25 @@ public class Inventory {
 		List<String> names = new ArrayList<>();
 		List<InventoryItem> items = new ArrayList<>();
 
+		boolean hasItemWichCantBeUsed = false;
+
 		for (Entry<InventoryItem, Integer> entry : entries) {
 			InventoryItem item = entry.getKey();
 			int count = entry.getValue();
 			if (!fighting || item.canUseWhileFighting()) {
 				names.add(item.getName() + (count > 1 ? " x" + count : "") + " - " + item.getUseText());
 				items.add(item);
+			} else {
+				hasItemWichCantBeUsed = true;
 			}
 		}
 
 		names.add("Exit inventory");
 		items.add(null);
+
+		if (hasItemWichCantBeUsed) {
+			dungeon.print("Some of your items cannot be used while fighting.");
+		}
 
 		InventoryItem item = items.get(dungeon.uzivatVolba(names.toArray(new String[names.size()])) - 1);
 		if (item == null) {
