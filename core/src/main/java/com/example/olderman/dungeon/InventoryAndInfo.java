@@ -21,9 +21,6 @@ public class InventoryAndInfo {
 		if (dungeon.getForAll().floor > 0) {
 			dungeon.println("floor " + dungeon.getForAll().floor);
 		}
-		if (dungeon.getForAll().bombCount > 0) {
-			dungeon.println(dungeon.getForAll().bombCount + " bomb(s)");
-		}
 		if (dungeon.getForAll().resistence > 0) {
 			dungeon.println(100 - dungeon.getForAll().resistence + "% resistance");
 		}

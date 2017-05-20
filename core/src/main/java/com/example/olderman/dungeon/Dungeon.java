@@ -191,13 +191,13 @@ public class Dungeon {
 						println("\tPot costs 450G");
 						println();
 
-						volba = uzivatVolba("Attack", "Go on", "Throw bomb", "Open inventory and info", "Buy pot",
-								"Go in shop", "Go in workhouse", "Exit");
+						volba = uzivatVolba("Attack", "Go on", "Open inventory and info", "Buy pot", "Go in shop",
+								"Go in workhouse", "Exit");
 
 					} else {
 
-						volba = uzivatVolba("Attack", "Go on", "Throw bomb", "Open inventory and info", "Use pot",
-								"Go in shop", "Go in workhouse", "Exit");
+						volba = uzivatVolba("Attack", "Go on", "Open inventory and info", "Use pot", "Go in shop",
+								"Go in workhouse", "Exit");
 
 					}
 					if (volba == 1) { // Attack
@@ -221,15 +221,12 @@ public class Dungeon {
 						// " HP.\n\n\n\n\n");
 						// continue GAME;
 
-					} else if (volba == 3) {// throw bomb
-						if (throwBomb())
-							break;
-					} else if (volba == 4) {// Open inventory and info
+					} else if (volba == 3) {// Open inventory and info
 						InventoryItem usedItem = inventoryAndInfo.inventoryAndInfo(false);
 						if (usedItem != null && usedItem.getType() == Type.WEAPON) {
 							break;
 						}
-					} else if (volba == 5) { // Buy pot + use pot
+					} else if (volba == 4) { // Buy pot + use pot
 						if (forAll.pot == 0) {
 							if (forAll.gold >= pot.potCost) {
 								println("You bought a pot!");
@@ -241,11 +238,11 @@ public class Dungeon {
 						} else {
 							pot.use(this);
 						}
-					} else if (volba == 6) { // Go in shop
+					} else if (volba == 5) { // Go in shop
 						shop.shop();
-					} else if (volba == 7) {
+					} else if (volba == 6) {
 						workHouse.WorkHouse();
-					} else if (volba == 8) { // Exit
+					} else if (volba == 7) { // Exit
 						println("Yout exit the dungeon.");
 						println("Thanks for playing!");
 						continue MENU;
@@ -256,7 +253,7 @@ public class Dungeon {
 					println("\t" + forAll.enemy.name + "'s HP: " + forAll.enemyHealth);
 					println("\n\tWhat would you like to do?");
 					println();
-					volba = uzivatVolba("Attack", "Run", "Throw bomb", "Open inventory and info");
+					volba = uzivatVolba("Attack", "Run", "Open inventory and info");
 					if (volba == 1) { // Attack
 						attack();
 					} else if (volba == 2) { // Run
@@ -282,10 +279,7 @@ public class Dungeon {
 						// " HP.\n\n\n\n\n");
 						// continue GAME;
 
-					} else if (volba == 3) {// throw bomb
-						throwBomb();
-
-					} else if (volba == 4) {// Open inventory and info
+					} else if (volba == 3) {// Open inventory and info
 						inventoryAndInfo.inventoryAndInfo(true);
 					}
 
@@ -414,20 +408,6 @@ public class Dungeon {
 
 			}
 
-		}
-	}
-
-	private boolean throwBomb() {
-		if (forAll.bombCount > 0) {
-			forAll.bombCount--;
-			int actualBombDamage = rand.nextInt(shop.bombRangeDamage) + shop.bombBoomMinDamage;
-			forAll.enemyHealth -= actualBombDamage;
-			println("You hit enemy for " + actualBombDamage + " damage!");
-			forAll.resetDrinkHealthPotionCount();
-			return true;
-		} else {
-			println("You don't have any bombs left.");
-			return false;
 		}
 	}
 

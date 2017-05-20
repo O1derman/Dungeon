@@ -47,7 +47,6 @@ public class ForAll {
 	public int levelUpHealth = 20;
 	public int levelUpDamage = 15;
 	public int resistence = 100;// %
-	public int bombCount = 0;
 	public int level = 1;
 	public int levelUp = 50;
 	public int experience = 0;
