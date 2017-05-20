@@ -8,13 +8,14 @@ import java.util.Random;
 import com.example.olderman.dungeon.inventory.HealthPotion;
 import com.example.olderman.dungeon.inventory.Inventory;
 import com.example.olderman.dungeon.inventory.InventoryItem;
-import com.example.olderman.dungeon.inventory.Pot;
 import com.example.olderman.dungeon.inventory.InventoryItem.Type;
 import com.example.olderman.dungeon.shop.Shop;
 
 import static com.example.olderman.dungeon.Style.*;
 
 public class Dungeon {
+	public final Random rand = new Random();
+
 	private ForAll forAll;
 	private Character character;
 	private Shop shop;
@@ -37,7 +38,6 @@ public class Dungeon {
 	}
 
 	private final OS os;
-	public final Random rand = new Random();
 
 	public Dungeon(OS os) {
 		this.os = os;
@@ -132,11 +132,10 @@ public class Dungeon {
 				}
 			}
 			shop = new Shop(this);
-			Pot pot = Pot.POT;
 			WorkHouse workHouse = new WorkHouse(this);
 			InventoryAndInfo inventoryAndInfo = new InventoryAndInfo(this);
 			forAll = new ForAll();
-			this.inventory = new Inventory(this);
+			inventory = new Inventory(this);
 
 			println("\n\n\t\tWelcome to the dungeon!\n");
 			println("\tYou can play this game however you want to.");
