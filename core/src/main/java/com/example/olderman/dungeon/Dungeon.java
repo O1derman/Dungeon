@@ -5,7 +5,10 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Random;
 
-import com.example.olderman.dungeon.InventoryItem.Type;
+import com.example.olderman.dungeon.inventory.HealthPotion;
+import com.example.olderman.dungeon.inventory.Inventory;
+import com.example.olderman.dungeon.inventory.InventoryItem;
+import com.example.olderman.dungeon.inventory.InventoryItem.Type;
 
 import static com.example.olderman.dungeon.Style.*;
 
@@ -123,7 +126,7 @@ public class Dungeon {
 				}
 			}
 			shop = new Shop(this);
-			Pot pot = new Pot(this);
+			Pot pot = Pot.POT;
 			WorkHouse workHouse = new WorkHouse(this);
 			InventoryAndInfo inventoryAndInfo = new InventoryAndInfo(this);
 			forAll = new ForAll();
@@ -231,7 +234,7 @@ public class Dungeon {
 								println("You dont have enough gold.");
 							}
 						} else {
-							pot.pot();
+							pot.use(this);
 						}
 					} else if (volba == 6) { // Go in shop
 						shop.shop();

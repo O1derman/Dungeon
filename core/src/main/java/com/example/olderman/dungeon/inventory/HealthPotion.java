@@ -1,4 +1,6 @@
-package com.example.olderman.dungeon;
+package com.example.olderman.dungeon.inventory;
+
+import com.example.olderman.dungeon.Dungeon;
 
 public class HealthPotion extends InventoryItem {
 

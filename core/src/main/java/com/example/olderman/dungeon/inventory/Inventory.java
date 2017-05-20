@@ -1,14 +1,16 @@
-package com.example.olderman.dungeon;
+package com.example.olderman.dungeon.inventory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import com.example.olderman.dungeon.Dungeon;
+import com.example.olderman.dungeon.inventory.InventoryItem.Type;
+
 import java.util.NoSuchElementException;
 import java.util.Set;
-
-import com.example.olderman.dungeon.InventoryItem.Type;
 
 public class Inventory {
 	private final Dungeon dungeon;

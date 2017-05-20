@@ -1,5 +1,7 @@
 package com.example.olderman.dungeon;
 
+import com.example.olderman.dungeon.inventory.InventoryItem;
+
 public class InventoryAndInfo {
 	public InventoryAndInfo(Dungeon dungeon) {
 		this.dungeon = dungeon;
