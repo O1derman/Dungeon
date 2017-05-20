@@ -1,5 +1,7 @@
 package com.example.olderman.dungeon;
 
+import com.example.olderman.dungeon.inventory.Bomb;
+
 public class Shop {
 
 	public Shop(Dungeon dungeon) {
@@ -20,9 +22,9 @@ public class Shop {
 	int twoHandAxeCost = 800;
 	int twoHandAxeDamage = 40;
 	int bombCost = 400;
-	int bombBoomMinDamage = 100;
-	int bombBoomMaxDamage = 300;
-	int bombRangeDamage = bombBoomMaxDamage - bombBoomMinDamage;
+	public int bombBoomMinDamage = 100;
+	public int bombBoomMaxDamage = 300;
+	public int bombRangeDamage = bombBoomMaxDamage - bombBoomMinDamage;
 	int hamburgerCost = 1000;
 	int hamburgerResist = 65;// %
 	int knifeCost = 200;
@@ -44,9 +46,9 @@ public class Shop {
 
 				int nabidkaObchodu = dungeon.uzivatVolba("malet -> gives you 15 more damge!...costs 500 Gold.", //
 						"onehand axe -> gives you 20 more damage!...costs 600 Gold.", //
-						"twohand axe -> gives you 40 more damage!...costs 800 Gold.",//
-						"bomb -> deals 100-300 damage! (only for 1 use!...costs 400 Gold.",//
-						"hamburger -> reduces enemy damage for 35%...costs " + hamburgerCost + " Gold",//
+						"twohand axe -> gives you 40 more damage!...costs 800 Gold.", //
+						"bomb -> deals 100-300 damage! (only for 1 use!...costs 400 Gold.", //
+						"hamburger -> reduces enemy damage for 35%...costs " + hamburgerCost + " Gold", //
 						"Exit");
 
 				if (nabidkaObchodu == 1) {
@@ -82,8 +84,9 @@ public class Shop {
 				} else if (nabidkaObchodu == 4) {
 					if (buyWithGold(bombCost)) {
 						dungeon.println("\tYou bought a bomb!");
-						dungeon.getForAll().bombCount++;
-						dungeon.println("\tYou now have " + dungeon.getForAll().bombCount + " bomb(s) in your inventory!");
+						dungeon.getInventory().add(Bomb.BOMB);
+						dungeon.println("\tYou now have " + dungeon.getInventory().getCount(Bomb.BOMB)
+								+ " bomb(s) in your inventory!");
 
 					} else {
 						dungeon.println("\tYou don't have enough gold to buy a bomb!");

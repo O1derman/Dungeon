@@ -1,6 +1,6 @@
-package com.example.olderman.dungeon;
+package com.example.olderman.dungeon.inventory;
 
-import com.example.olderman.dungeon.inventory.InventoryItem;
+import com.example.olderman.dungeon.Dungeon;
 
 public class Pot extends InventoryItem {
 
@@ -10,7 +10,7 @@ public class Pot extends InventoryItem {
 		super("Pot", "use", false, false, Type.OTHER);
 	}
 
-	int potCost = 450;
+	public int potCost = 450;
 
 	public boolean use(Dungeon dungeon) {
 		while (true) {

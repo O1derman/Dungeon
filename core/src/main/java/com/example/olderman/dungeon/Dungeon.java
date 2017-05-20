@@ -8,6 +8,7 @@ import java.util.Random;
 import com.example.olderman.dungeon.inventory.HealthPotion;
 import com.example.olderman.dungeon.inventory.Inventory;
 import com.example.olderman.dungeon.inventory.InventoryItem;
+import com.example.olderman.dungeon.inventory.Pot;
 import com.example.olderman.dungeon.inventory.InventoryItem.Type;
 
 import static com.example.olderman.dungeon.Style.*;
@@ -26,12 +27,16 @@ public class Dungeon {
 		return character;
 	}
 
+	public Shop getShop() {
+		return shop;
+	}
+
 	public Inventory getInventory() {
 		return inventory;
 	}
 
 	private final OS os;
-	private final Random rand = new Random();
+	public final Random rand = new Random();
 
 	public Dungeon(OS os) {
 		this.os = os;
