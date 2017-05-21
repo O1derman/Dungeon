@@ -89,6 +89,11 @@ public class Dungeon {
 		os.flush();
 	}
 
+	public void printAsciiArt(String asciiArt) {
+		os.printAsciiArt(asciiArt);
+		os.flush();
+	}
+
 	public void run() throws IOException {
 		clear();
 
@@ -102,7 +107,8 @@ public class Dungeon {
 		MENU: while (true) {
 
 			HLAVNI_NABIDKA: while (true) {
-				println(headLine);
+				printAsciiArt(headLine);
+				println();
 				int volba0 = uzivatVolba("Start", "Help", "Exit");
 				switch (volba0) {
 				case 1:
@@ -155,19 +161,23 @@ public class Dungeon {
 			switch (volba) {
 			case 1:
 				character = new Dwarf(this);
-				println(dwarf);
+				printAsciiArt(dwarf);
+				println();
 				break;
 			case 2:
 				character = new Orc(this);
-				println(orc);
+				printAsciiArt(orc);
+				println();
 				break;
 			case 3:
 				character = new Elf(this);
-				println(elf);
+				printAsciiArt(elf);
+				println();
 				break;
 			case 4:
 				character = new Superman(this);
-				println(superman);
+				printAsciiArt(superman);
+				println();
 				break;
 
 			}

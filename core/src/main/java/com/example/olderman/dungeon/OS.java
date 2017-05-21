@@ -21,4 +21,6 @@ public interface OS {
 
 	public void flush();
 
+	public void printAsciiArt(String asciiArt);
+
 }

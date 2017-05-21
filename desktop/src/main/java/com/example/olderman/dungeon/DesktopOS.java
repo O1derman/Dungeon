@@ -79,6 +79,11 @@ public class DesktopOS implements OS {
 		mAnsi = null;
 	}
 
+	@Override
+	public void printAsciiArt(String asciiArt) {
+		print(asciiArt);
+	}
+
 	private Ansi mAnsi = null;
 
 	private Ansi ansi() {

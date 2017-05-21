@@ -49,13 +49,13 @@ public class Inventory {
 	}
 
 	public int getCount(InventoryItem item) {
-		return items.getOrDefault(item, 0);
+		Integer count = items.get(item);
+		return count == null ? 0 : count;
 	}
 
 	/**
 	 * 
 	 * @param fighting
-	 * @param canUsePotion
 	 * @return used item
 	 */
 	public InventoryItem showInventory(boolean fighting) {
