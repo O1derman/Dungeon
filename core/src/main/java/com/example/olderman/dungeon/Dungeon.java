@@ -192,7 +192,6 @@ public class Dungeon {
 					} else if (volba == 2) { // Run
 						println("\t>You run!");
 						forAll.resetEnemy();
-						forAll.resetDrinkHealthPotionCount();
 						continue RUN;
 
 						// int runEnemyAttackDamage = 25;
