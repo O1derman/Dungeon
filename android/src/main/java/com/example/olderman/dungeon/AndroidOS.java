@@ -1,6 +1,13 @@
 package com.example.olderman.dungeon;
 
 import android.app.Activity;
+import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.CharacterStyle;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -11,6 +18,7 @@ public class AndroidOS implements OS {
 
     private Activity activity;
     private TextView textView;
+    private SpannableStringBuilder sb = new SpannableStringBuilder();
     private LinearLayout buttons;
 
     public AndroidOS() {
@@ -43,15 +51,6 @@ public class AndroidOS implements OS {
         activity = null;
         textView = null;
         buttons = null;
-    }
-
-    public void clear() {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                textView.setText("");
-            }
-        });
     }
 
     private volatile int result;
@@ -94,6 +93,7 @@ public class AndroidOS implements OS {
         }
     }
 
+    @Override
     public int uzivatVolba(final String... options) {
 
         result = -1;
@@ -116,29 +116,107 @@ public class AndroidOS implements OS {
         return result;
     }
 
-    public void print(final String string) {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                textView.append(string);
-                textView.requestLayout();
-            }
-        });
+    @Override
+    public void clear() {
+        sb.clear();
+        flush();
     }
 
+    @Override
+    public void print(String string) {
+        sb.append(string);
+    }
+
+    @Override
     public void println() {
         print("\n");
     }
 
     @Override
     public void reset() {
-
+        for (int i = 0; i < spans.length; i++) {
+            reset(i);
+        }
     }
+
+    private void reset(int i) {
+        if (spans[i] != null) {
+            sb.setSpan(spans[i], spanStarts[i], sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spans[i] = null;
+        }
+    }
+
+    private final CharacterStyle[] spans = new CharacterStyle[NUM_SPANS];
+    private final int[] spanStarts = new int[NUM_SPANS];
+
+    private static final int BG = 0;
+    private static final int FG = 1;
+    private static final int NUM_SPANS = 2;
 
     @Override
     public void color(Style.ColorStyle style) {
+        int i = style.isBg() ? BG : FG;
+        reset(i);
+        spanStarts[i] = sb.length();
+        if (style.getColor() == null) {
+            spans[i] = null;
+        } else {
+            int color = ContextCompat.getColor(activity, mapColor(style));
+            if (style.isBg()) {
+                spans[i] = new BackgroundColorSpan(color);
+            } else {
+                spans[i] = new ForegroundColorSpan(color);
+            }
+        }
 
     }
+
+    private int mapColor(Style.ColorStyle color) {
+        if (color.isBright()) {
+            switch (color.getColor()) {
+                case BLACK:
+                    return R.color.brightBlack;
+                case RED:
+                    return R.color.brightRed;
+                case GREEN:
+                    return R.color.brightGreen;
+                case YELLOW:
+                    return R.color.brightYellow;
+                case BLUE:
+                    return R.color.brightBlue;
+                case MAGENTA:
+                    return R.color.brightMagenta;
+                case CYAN:
+                    return R.color.brightCyan;
+                case WHITE:
+                    return R.color.brightWhite;
+                default:
+                    throw new IllegalArgumentException();
+            }
+        } else {
+            switch (color.getColor()) {
+                case BLACK:
+                    return R.color.black;
+                case RED:
+                    return R.color.red;
+                case GREEN:
+                    return R.color.green;
+                case YELLOW:
+                    return R.color.yellow;
+                case BLUE:
+                    return R.color.blue;
+                case MAGENTA:
+                    return R.color.magenta;
+                case CYAN:
+                    return R.color.cyan;
+                case WHITE:
+                    return R.color.white;
+                default:
+                    throw new IllegalArgumentException();
+            }
+        }
+    }
+
 
     @Override
     public void attribute(Style.AttributeStyle style) {
@@ -147,7 +225,13 @@ public class AndroidOS implements OS {
 
     @Override
     public void flush() {
-
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                textView.setText(sb);
+                textView.requestLayout();
+            }
+        });
     }
 
 }
