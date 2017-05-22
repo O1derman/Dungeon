@@ -246,16 +246,17 @@ public class AndroidOS implements OS {
 		int textSize = (int) textView.getTextSize();
 		int width = textView.getWidth();
 		Matcher matcher = NEWLINE.matcher(asciiArt);
-		int asciiArtWidth = 0;
+		float asciiArtWidth = 0;
 		int previousEnd = 0;
 		Paint paint = textView.getPaint();
 		while (matcher.find()) {
-			int lineWidth = (int) paint.measureText(asciiArt, previousEnd, matcher.start());
+			float lineWidth = paint.measureText(asciiArt, previousEnd, matcher.start());
 			previousEnd = matcher.end();
 			if (lineWidth > asciiArtWidth)
 				asciiArtWidth = lineWidth;
 		}
-		textSize = Math.min(textSize, textSize * width / asciiArtWidth);
+		if (asciiArtWidth > width)
+			textSize = (int) (textSize * width / asciiArtWidth);
 
 		int start = sb.length();
 		print(asciiArt);
