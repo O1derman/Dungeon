@@ -1,6 +1,8 @@
 package com.example.olderman.dungeon;
 
 import android.app.Activity;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.SpannableStringBuilder;
@@ -246,13 +248,14 @@ public class AndroidOS implements OS {
 		Matcher matcher = NEWLINE.matcher(asciiArt);
 		int asciiArtWidth = 0;
 		int previousEnd = 0;
+		Paint paint = textView.getPaint();
 		while (matcher.find()) {
-			int lineLength = matcher.start() - previousEnd;
+			int lineWidth = (int) paint.measureText(asciiArt, previousEnd, matcher.start());
 			previousEnd = matcher.end();
-			if (lineLength > asciiArtWidth)
-				asciiArtWidth = lineLength;
+			if (lineWidth > asciiArtWidth)
+				asciiArtWidth = lineWidth;
 		}
-		textSize = Math.min(textSize, width / asciiArtWidth);
+		textSize = Math.min(textSize, textSize * width / asciiArtWidth);
 
 		int start = sb.length();
 		print(asciiArt);
