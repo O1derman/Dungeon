@@ -110,6 +110,8 @@ public class DesktopOS implements OS {
 	}
 
 	private Ansi.Color mapColor(Color color) {
+		if (color == null)
+			return Ansi.Color.DEFAULT;
 		switch (color) {
 		case BLACK:
 			return Ansi.Color.BLACK;
@@ -128,7 +130,7 @@ public class DesktopOS implements OS {
 		case WHITE:
 			return Ansi.Color.WHITE;
 		default:
-			return Ansi.Color.DEFAULT;
+			throw new IllegalArgumentException();
 		}
 	}
 

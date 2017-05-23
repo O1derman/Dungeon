@@ -280,9 +280,9 @@ public class Dungeon {
 				if (forAll.experience >= forAll.levelUp) {
 					forAll.levelUp += 50;
 					forAll.level++;
-					println("\t************************************************");
-					println("\t*Congratulations! Level Up! Level " + forAll.level + "!");
-					println("\t************************************************");
+					println(GREEN.BRIGHT, "\t************************************************");
+					println(GREEN.BRIGHT, "\t*Congratulations! Level Up! Level " + forAll.level + "!");
+					println(GREEN.BRIGHT, "\t************************************************");
 					println("\tYour " + character.getMaximumHealth() + " + " + ForAll.LEVEL_UP_HEALTH
 							+ " maximum health.");
 					println("\tYour " + character.getAttackDamage() + " + " + ForAll.LEVEL_UP_DAMAGE + " damage.");
@@ -301,12 +301,13 @@ public class Dungeon {
 				forAll.gold += goldFound;
 				println("\n#############################################################################\n");
 				println("# " + forAll.enemy.name + " was defeated!                                                ");
-				println("# You have " + character.getHealth() + "HP left ");
-				println("# You have earned " + forAll.experienceGain + " exp!");
-				println("# You have " + forAll.experience + " experience! You need " + forAll.levelUp
-						+ " experience for level up.");
+				println("# You have ", RED.BRIGHT, character.getHealth() + "HP", DEFAULT_COLOR, " left ");
+				println("# You have earned ", GREEN.BRIGHT, forAll.experienceGain + " exp!");
+				println("# You have ", GREEN.BRIGHT, forAll.experience + " experience", DEFAULT_COLOR,
+						"! You need " + forAll.levelUp + " experience for level up.");
 				println("# You have level " + forAll.level + "!");
-				println("# You found " + goldFound + " gold (" + forAll.gold + " gold total)");
+				println("# You found ", YELLOW.BRIGHT, goldFound + " gold", DEFAULT_COLOR, " (", YELLOW.BRIGHT,
+						forAll.gold + " gold", DEFAULT_COLOR, " total)");
 				if (rand.nextInt(100) < ForAll.SMALL_HEALTH_POTION_DROP_CHANCE
 						|| rand.nextInt(100) <= character.getLuck()) {
 					inventory.add(HealthPotion.SMALL);
