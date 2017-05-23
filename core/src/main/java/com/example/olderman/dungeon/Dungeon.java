@@ -17,7 +17,7 @@ public class Dungeon {
 	public final Random rand = new Random();
 
 	private ForAll forAll;
-	private Character character;
+	private AbstractCharacter character;
 	private Shop shop;
 	private Inventory inventory;
 
@@ -25,7 +25,7 @@ public class Dungeon {
 		return forAll;
 	}
 
-	public Character getCharacter() {
+	public AbstractCharacter getCharacter() {
 		return character;
 	}
 
@@ -160,22 +160,22 @@ public class Dungeon {
 
 			switch (volba) {
 			case 1:
-				character = new Dwarf(this);
+				character = new Dwarf();
 				printAsciiArt(dwarf);
 				println();
 				break;
 			case 2:
-				character = new Orc(this);
+				character = new Orc();
 				printAsciiArt(orc);
 				println();
 				break;
 			case 3:
-				character = new Elf(this);
+				character = new Elf();
 				printAsciiArt(elf);
 				println();
 				break;
 			case 4:
-				character = new Superman(this);
+				character = new Superman();
 				printAsciiArt(superman);
 				println();
 				break;
@@ -283,12 +283,12 @@ public class Dungeon {
 					println("\t************************************************");
 					println("\t*Congratulations! Level Up! Level " + forAll.level + "!");
 					println("\t************************************************");
-					println("\tYour " + character.getMaximumHealth() + " + " + forAll.levelUpHealth
+					println("\tYour " + character.getMaximumHealth() + " + " + ForAll.LEVEL_UP_HEALTH
 							+ " maximum health.");
-					println("\tYour " + character.getAttackDamage() + " + " + forAll.levelUpDamage + " damage.");
+					println("\tYour " + character.getAttackDamage() + " + " + ForAll.LEVEL_UP_DAMAGE + " damage.");
 					character.increaseMaximumHealth(10 * forAll.floor);
-					character.increaseHealth(forAll.levelUpHealth);
-					character.setHealth(character.getHealth() + forAll.levelUpHealth);
+					character.increaseHealth(ForAll.LEVEL_UP_HEALTH);
+					character.setHealth(character.getHealth() + ForAll.LEVEL_UP_HEALTH);
 
 				}
 
@@ -297,8 +297,8 @@ public class Dungeon {
 					continue MENU;
 				}
 
-				int goldFound = (forAll.getGoldFound() + forAll.getGoldFound()) + forAll.floor * 20;
-				character.increaseGold(goldFound);
+				int goldFound = (rand.nextInt(100) + rand.nextInt(100)) + forAll.floor * 20;
+				forAll.gold += goldFound;
 				println("\n#############################################################################\n");
 				println("# " + forAll.enemy.name + " was defeated!                                                ");
 				println("# You have " + character.getHealth() + "HP left ");
@@ -307,7 +307,7 @@ public class Dungeon {
 						+ " experience for level up.");
 				println("# You have level " + forAll.level + "!");
 				println("# You found " + goldFound + " gold (" + forAll.gold + " gold total)");
-				if (rand.nextInt(100) < forAll.smallHealthPotionDropChance
+				if (rand.nextInt(100) < ForAll.SMALL_HEALTH_POTION_DROP_CHANCE
 						|| rand.nextInt(100) <= character.getLuck()) {
 					inventory.add(HealthPotion.SMALL);
 					println("# The " + forAll.enemy.name + " dropped a small health potion! ("
@@ -315,7 +315,7 @@ public class Dungeon {
 
 				}
 
-				if (rand.nextInt(100) < forAll.mediumHealthPotionDropChance
+				if (rand.nextInt(100) < ForAll.MEDIUM_HEALTH_POTION_DROP_CHANCE
 						|| rand.nextInt(100) <= character.getLuck()) {
 					inventory.add(HealthPotion.MEDIUM);
 					println("# The " + forAll.enemy.name + " dropped a medium health potion! ("
@@ -323,7 +323,7 @@ public class Dungeon {
 
 				}
 
-				if (rand.nextInt(100) < forAll.largeHealthPotionDropChance
+				if (rand.nextInt(100) < ForAll.LARGE_HEALTH_POTION_DROP_CHANCE
 						|| rand.nextInt(100) <= character.getLuck()) {
 					inventory.add(HealthPotion.LARGE);
 					println("# The " + forAll.enemy.name + " dropped a large health potion! ("

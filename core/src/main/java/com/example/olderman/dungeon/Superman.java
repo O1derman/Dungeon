@@ -2,15 +2,13 @@ package com.example.olderman.dungeon;
 
 public class Superman extends AbstractCharacter {
 
-	public Superman(Dungeon dungeon) {
-
-		super(dungeon);
+	public Superman() {
 		setHealth(999999999);
-		setMaximumHealth(999999999);
-		setAttackDamage(999999999);
-		setExperienceForVictory(10000);
-		setMissChance(0);
-		setLuck(100);
+		this.maximumHealth = 999999999;
+		this.attackDamage = 999999999;
+		this.experienceForVictory = 10000;
+		this.missChance = 0;
+		this.luck = 100;
 
 	};
 

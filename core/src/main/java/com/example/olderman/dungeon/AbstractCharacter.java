@@ -1,72 +1,38 @@
 package com.example.olderman.dungeon;
 
-public abstract class AbstractCharacter implements Character {
+public abstract class AbstractCharacter {
 
-	private final Dungeon dungeon;
+	protected int health;
+	protected int maximumHealth;
+	protected int attackDamage;
+	protected int experienceForVictory;
+	protected int missChance;
+	protected int luck;
+	protected int flatDamage;
 
-	private int health;
-	private int maximumHealth;
-	private int attackDamage;
-	private int experienceForVictory;
-	private int missChance;
-	private int luck;
-	private int flatDamage;
-
-	public AbstractCharacter(Dungeon dungeon) {
-		this.dungeon = dungeon;
+	public AbstractCharacter() {
 	};
 
-	@Override
-	public void setFlatDamage(int flatDamage) {
-		this.flatDamage = flatDamage;
-	}
-
-	@Override
 	public int getHealth() {
 		return health;
 	}
 
-	@Override
 	public int getMissChance() {
 		return missChance;
 	}
 
-	@Override
 	public int getLuck() {
 		return luck;
 	}
 
-	@Override
-	public void setLuck(int luck) {
-		this.luck = luck;
-	}
-
-	@Override
 	public int getFlatDamage() {
 		return flatDamage;
 	}
 
-	@Override
-	public void setMaximumHealth(int maximumHealth) {
-		this.maximumHealth = maximumHealth;
-	}
-
-	@Override
-	public void setAttackDamage(int attackDamage) {
-		this.attackDamage = attackDamage;
-	}
-
-	@Override
-	public void setExperienceForVictory(int experienceForVictory) {
-		this.experienceForVictory = experienceForVictory;
-	}
-
-	@Override
 	public int getMaximumHealth() {
 		return maximumHealth;
 	}
 
-	@Override
 	public int getAttackDamage() {
 		return attackDamage;
 	}
@@ -75,22 +41,14 @@ public abstract class AbstractCharacter implements Character {
 		return experienceForVictory;
 	}
 
-	@Override
 	public void setHealth(int health) {
 		this.health = health;
 	}
 
-	@Override
-	public int setMissChance(int missChance) {
-		return this.missChance = missChance;
-	}
-
-	@Override
 	public void decreaseHealth(int healthDecrease) {
 		health -= healthDecrease;
 	}
 
-	@Override
 	public void increaseHealth(int healthIncrease) {
 		health += healthIncrease;
 		if (health > maximumHealth) {
@@ -98,25 +56,14 @@ public abstract class AbstractCharacter implements Character {
 		}
 	}
 
-	@Override
 	public void increaseAttackDamage(int damageIncrease) {
 		attackDamage += damageIncrease;
-
 	}
 
-	@Override
 	public void increaseMaximumHealth(int maximumHealthIncrease) {
 		maximumHealth += maximumHealthIncrease;
-
 	}
 
-	@Override
-	public void decreaseEnemyDamage(int myDamageReduction) {
-		dungeon.getForAll().enemyAttackDamage -= myDamageReduction;
-	}
-
-	public void increaseGold(int goldIncrease) {
-		dungeon.getForAll().gold += goldIncrease;
-	}
+	public abstract String getBeginning();
 
 }

@@ -2,17 +2,14 @@ package com.example.olderman.dungeon;
 
 public class Dwarf extends AbstractCharacter {
 
-	public Dwarf(Dungeon dungeon) {
-		super(dungeon);
+	public Dwarf() {
 		setHealth(100);
-		setMaximumHealth(100);
-		setAttackDamage(10);
-		setExperienceForVictory(230);
-		setMissChance(20);
-		setFlatDamage(20);
-		setLuck(20);
-
-
+		this.maximumHealth = 100;
+		this.flatDamage = 20;
+		this.attackDamage = 10;
+		this.experienceForVictory = 230;
+		this.missChance = 20;
+		this.luck = 20;
 	};
 
 	@Override

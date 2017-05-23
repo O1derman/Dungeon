@@ -2,15 +2,14 @@ package com.example.olderman.dungeon;
 
 public class Orc extends AbstractCharacter {
 
-	public Orc(Dungeon dungeon) {
-		super(dungeon);
+	public Orc() {
 		setHealth(200);
-		setMaximumHealth(200);
-		setAttackDamage(10);
-		setExperienceForVictory(420);
-		setMissChance(30);
-		setFlatDamage(40);
-		setLuck(0);
+		this.maximumHealth = 200;
+		this.flatDamage = 40;
+		this.attackDamage = 10;
+		this.experienceForVictory = 420;
+		this.missChance = 30;
+		this.luck = 0;
 	};
 
 	public String getBeginning() {

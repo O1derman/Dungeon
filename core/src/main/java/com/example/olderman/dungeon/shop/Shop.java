@@ -3,7 +3,6 @@ package com.example.olderman.dungeon.shop;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.olderman.dungeon.Character;
 import com.example.olderman.dungeon.Dungeon;
 import com.example.olderman.dungeon.inventory.Bomb;
 import com.example.olderman.dungeon.inventory.Pot;
@@ -28,54 +27,42 @@ public class Shop {
 
 	public void shop() {
 
-		boolean running = true;
-
 		dungeon.println("\tWelcome to a weapon shop \"Broken axe\"!");
 		dungeon.println("\tWe have some great offers for you!");
 		dungeon.println("\tI know you will choose visely!");
 
-		while (running) {
-			int volba = dungeon.uzivatVolba("Look around!", "Leave!");
+		while (dungeon.uzivatVolba("Look around!", "Leave!") == 1) {
+			
+			dungeon.println("You have " + dungeon.getForAll().gold + " gold.");
+			dungeon.println("\n\tWhat will you get?");
 
-			if (volba == 1) {
-				dungeon.println("You have " + dungeon.getForAll().gold + " gold.");
-				dungeon.println("\n\tWhat will you get?");
+			List<ShopItem> avilableItems = new ArrayList<>();
+			List<String> descriptions = new ArrayList<>();
 
-				List<ShopItem> avilableItems = new ArrayList<>();
-				List<String> descriptions = new ArrayList<>();
-
-				for (ShopItem item : items) {
-					if (item.isAvailable()) {
-						avilableItems.add(item);
-						descriptions.add(item.getName() + " -> " + item.getDescription() + "...costs " + item.getCost()
-								+ " Gold.");
-					}
+			for (ShopItem item : items) {
+				if (item.isAvailable()) {
+					avilableItems.add(item);
+					descriptions.add(
+							item.getName() + " -> " + item.getDescription() + "...costs " + item.getCost() + " Gold.");
 				}
-
-				avilableItems.add(null);
-				descriptions.add("Exit");
-
-				ShopItem selectedItem = avilableItems
-						.get(dungeon.uzivatVolba(descriptions.toArray(new String[descriptions.size()])) - 1);
-
-				if (selectedItem == null) {
-					break;
-				}
-
-				if (buyWithGold(selectedItem.getCost())) {
-					dungeon.println("\tYou bought a " + selectedItem.getName() + "!");
-					selectedItem.buy();
-				} else {
-					dungeon.println("\tYou don't have enough gold to buy a " + selectedItem.getName() + "!");
-
-				}
-
-			} else if (volba == 2) {
-				break;
-			} else {
-				dungeon.println("Invalid command");
 			}
 
+			avilableItems.add(null);
+			descriptions.add("Exit");
+
+			ShopItem selectedItem = avilableItems
+					.get(dungeon.uzivatVolba(descriptions.toArray(new String[descriptions.size()])) - 1);
+
+			if (selectedItem == null) {
+				break;
+			}
+
+			if (buyWithGold(selectedItem.getCost())) {
+				dungeon.println("\tYou bought a " + selectedItem.getName() + "!");
+				selectedItem.buy();
+			} else {
+				dungeon.println("\tYou don't have enough gold to buy a " + selectedItem.getName() + "!");
+			}
 		}
 	}
 

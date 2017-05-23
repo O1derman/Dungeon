@@ -2,17 +2,14 @@ package com.example.olderman.dungeon;
 
 public class Elf extends AbstractCharacter {
 
-	public Elf(Dungeon dungeon) {
-		super(dungeon);
+	public Elf() {
 		setHealth(100);
-		setMaximumHealth(120);
-		setAttackDamage(5);
-		setExperienceForVictory(300);
-		setMissChance(5);
-		setFlatDamage(10);
-		setLuck(10);
-
-
+		this.maximumHealth = 120;
+		this.flatDamage = 10;
+		this.attackDamage = 5;
+		this.experienceForVictory = 300;
+		this.missChance = 5;
+		this.luck = 10;
 	};
 
 	@Override
