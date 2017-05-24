@@ -15,7 +15,7 @@ public class ForAll {
 	// Enemy variables
 	public Enemy enemy;
 	public int enemyHealth;
-	
+
 	public int enemyAttackDamage = 5;
 	public int experienceGain = 20;
 	public int enemyMissChance = 20;
@@ -31,7 +31,6 @@ public class ForAll {
 
 	// Player constants
 	public static final int LEVEL_UP_HEALTH = 20;
-	public static final int LEVEL_UP_DAMAGE = 15;
 	public static final int POTION_OF_STRENGTH_POWER = 500;
 	public static final int SMALL_HEALTH_POTION_DROP_CHANCE = 80; // %
 	public static final int MEDIUM_HEALTH_POTION_DROP_CHANCE = 50; // %

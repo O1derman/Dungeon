@@ -14,7 +14,8 @@ public class WeaponShopItem extends ShopItem {
 	@Override
 	public void buy() {
 		dungeon.getCharacter().increaseAttackDamage(damageIncrease);
-		dungeon.println("\tYou now have " + dungeon.getCharacter().getAttackDamage() + " attack damage!");
+		dungeon.println(
+				"\tYou now have " + dungeon.getCharacter().getDamage().maxValue(dungeon) + " maximum attack damage!");
 		setAvailable(false);
 	}
 

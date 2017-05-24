@@ -5,11 +5,11 @@ public class Superman extends AbstractCharacter {
 	public Superman() {
 		setHealth(999999999);
 		this.maximumHealth = 999999999;
-		this.attackDamage = 999999999;
 		this.experienceForVictory = 10000;
 		this.missChance = 0;
 		this.luck = 100;
-
+		this.damage = new RandomValue(999999999 /* minimum damage */,
+				0 /* damage range */, 0, 0 /* increase per level */);
 	};
 
 	public String getBeginning() {
@@ -54,7 +54,8 @@ public class Superman extends AbstractCharacter {
 // + " large health potions\n\t"
 // + numPotionOfStrength
 // +
-// " potions of srength\n\n###############################################################################################################");
+// " potions of
+// srength\n\n###############################################################################################################");
 //
 // String input = in.nextLine();
 // if (input.equals("1")) {
@@ -71,13 +72,16 @@ public class Superman extends AbstractCharacter {
 //
 // if (health < 1) {
 // System.out
-// .println("\t> You have taken too much damage, you are dying with pain in shits of your enemy while they are celebrating...zombies will have tasty dinner! ");
+// .println("\t> You have taken too much damage, you are dying with pain in
+// shits of your enemy while they are celebrating...zombies will have tasty
+// dinner! ");
 // break;
 // }
 //
 // else if (health < 30 && health > 1) {
 // System.out
-// .println("You look like red tomato raced out by truck! You should go to a hospital imidietly!\n\n\n\n\n");
+// .println("You look like red tomato raced out by truck! You should go to a
+// hospital imidietly!\n\n\n\n\n");
 // }
 //
 // } else if (input.equals("2")) {

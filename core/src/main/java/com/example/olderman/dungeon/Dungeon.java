@@ -283,13 +283,11 @@ public class Dungeon {
 					println(GREEN.BRIGHT, "\t************************************************");
 					println(GREEN.BRIGHT, "\t*Congratulations! Level Up! Level " + forAll.level + "!");
 					println(GREEN.BRIGHT, "\t************************************************");
-					println("\tYour " + character.getMaximumHealth() + " + " + ForAll.LEVEL_UP_HEALTH
-							+ " maximum health.");
-					println("\tYour " + character.getAttackDamage() + " + " + ForAll.LEVEL_UP_DAMAGE + " damage.");
-					character.increaseMaximumHealth(10 * forAll.floor);
+					character.increaseMaximumHealth(ForAll.LEVEL_UP_HEALTH);
 					character.increaseHealth(ForAll.LEVEL_UP_HEALTH);
-					character.setHealth(character.getHealth() + ForAll.LEVEL_UP_HEALTH);
 
+					println("\tYour maximum health is " + character.getMaximumHealth() + "HP.");
+					println("\tYour maximum damage is " + character.getDamage().maxValue(this) + ".");
 				}
 
 				if (forAll.level >= 10) {
@@ -396,11 +394,6 @@ public class Dungeon {
 	}
 
 	private void attack() {
-		int damageDealt = (rand.nextInt(character.getAttackDamage()) + rand.nextInt(character.getAttackDamage())
-				+ forAll.level * 5 + character.getFlatDamage());
-		int damageTaken = ((rand.nextInt(forAll.enemyAttackDamage) + rand.nextInt(forAll.enemyAttackDamage))
-				+ forAll.floor * 5 + 10) * forAll.resistence / 100;
-
 		boolean youMiss = rand.nextInt(100) <= character.getMissChance();
 		boolean enemyMiss = rand.nextInt(100) <= forAll.enemyMissChance;
 
@@ -412,15 +405,18 @@ public class Dungeon {
 		}
 
 		if (!youMiss) {
-			forAll.enemyHealth -= damageDealt;
-
-			if (damageDealt == character.getAttackDamage()) {
+			int damageDealt = character.getDamage().nextValue(this);
+			if (damageDealt == character.getDamage().maxValue(this)) {
 				println("WOOOW, excelent hit!!!");
 			}
 			println("\t> You strike the " + forAll.enemy.name + " for " + damageDealt + " damage.");
+			forAll.enemyHealth -= damageDealt;
 		}
 
 		if (!enemyMiss) {
+			int damageTaken = ((rand.nextInt(forAll.enemyAttackDamage) + rand.nextInt(forAll.enemyAttackDamage))
+					+ forAll.floor * 5 + 10) * forAll.resistence / 100;
+
 			println("\t> You recieve " + damageTaken + " damage.");
 			character.decreaseHealth(damageTaken);
 		}

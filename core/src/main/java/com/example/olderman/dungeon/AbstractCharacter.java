@@ -4,14 +4,10 @@ public abstract class AbstractCharacter {
 
 	protected int health;
 	protected int maximumHealth;
-	protected int attackDamage;
 	protected int experienceForVictory;
 	protected int missChance;
 	protected int luck;
-	protected int flatDamage;
-
-	public AbstractCharacter() {
-	};
+	protected RandomValue damage;
 
 	public int getHealth() {
 		return health;
@@ -25,20 +21,16 @@ public abstract class AbstractCharacter {
 		return luck;
 	}
 
-	public int getFlatDamage() {
-		return flatDamage;
-	}
-
 	public int getMaximumHealth() {
 		return maximumHealth;
 	}
 
-	public int getAttackDamage() {
-		return attackDamage;
-	}
-
 	public int getExperienceForVictory() {
 		return experienceForVictory;
+	}
+
+	public RandomValue getDamage() {
+		return damage;
 	}
 
 	public void setHealth(int health) {
@@ -57,7 +49,8 @@ public abstract class AbstractCharacter {
 	}
 
 	public void increaseAttackDamage(int damageIncrease) {
-		attackDamage += damageIncrease;
+		damage = new RandomValue(damage.getConstantFactor() + damageIncrease, damage.getRandomFactor(),
+				damage.getFloorFactor(), damage.getLevelFactor());
 	}
 
 	public void increaseMaximumHealth(int maximumHealthIncrease) {

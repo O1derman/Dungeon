@@ -5,11 +5,11 @@ public class Orc extends AbstractCharacter {
 	public Orc() {
 		setHealth(200);
 		this.maximumHealth = 200;
-		this.flatDamage = 40;
-		this.attackDamage = 10;
 		this.experienceForVictory = 420;
 		this.missChance = 30;
 		this.luck = 0;
+		this.damage = new RandomValue(40 /* minimum damage */,
+				20 /* damage range */, 0, 5 /* increase per level */);
 	};
 
 	public String getBeginning() {

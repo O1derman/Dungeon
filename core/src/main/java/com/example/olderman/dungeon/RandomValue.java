@@ -44,4 +44,13 @@ public class RandomValue {
 				+ floorFactor * dungeon.getForAll().floor + levelFactor * dungeon.getForAll().level;
 	}
 
+	public int maxValue(Dungeon dungeon) {
+		return constantFactor + randomFactor + floorFactor * dungeon.getForAll().floor
+				+ levelFactor * dungeon.getForAll().level;
+	}
+
+	public int minValue(Dungeon dungeon) {
+		return constantFactor + floorFactor * dungeon.getForAll().floor + levelFactor * dungeon.getForAll().level;
+	}
+
 }

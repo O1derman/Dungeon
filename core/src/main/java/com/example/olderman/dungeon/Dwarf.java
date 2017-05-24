@@ -5,11 +5,11 @@ public class Dwarf extends AbstractCharacter {
 	public Dwarf() {
 		setHealth(100);
 		this.maximumHealth = 100;
-		this.flatDamage = 20;
-		this.attackDamage = 10;
 		this.experienceForVictory = 230;
 		this.missChance = 20;
 		this.luck = 20;
+		this.damage = new RandomValue(20 /* minimum damage */,
+				20 /* damage range */, 0, 5 /* increase per level */);
 	};
 
 	@Override
