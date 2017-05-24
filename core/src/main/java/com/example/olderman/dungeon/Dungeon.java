@@ -302,7 +302,7 @@ public class Dungeon {
 				println("\n#############################################################################\n");
 				println("# " + forAll.enemy.name + " was defeated!                                                ");
 				println("# You have ", RED.BRIGHT, character.getHealth() + "HP", DEFAULT_COLOR, " left ");
-				println("# You have earned ", GREEN.BRIGHT, forAll.experienceGain + " exp!");
+				println("# You have earned ", GREEN.BRIGHT, forAll.experienceGain + " exp", DEFAULT_COLOR, "!");
 				println("# You have ", GREEN.BRIGHT, forAll.experience + " experience", DEFAULT_COLOR,
 						"! You need " + forAll.levelUp + " experience for level up.");
 				println("# You have level " + forAll.level + "!");
@@ -428,9 +428,9 @@ public class Dungeon {
 		if (character.getHealth() < 1) {
 			println("\t> You have taken too much damage, you are dying in pain covered in the shit of your enemy while they are celebrating...zombies will a have tasty dinner! ");
 		} else if (character.getHealth() < 30) {
-			println("\n\t!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@\n");
-			println("\t> <ALERT>Your HP is very low " + "(" + character.getHealth() + " HP left)");
-			println("\n\t!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@\n");
+			println(RED.BRIGHT, "\n\t!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@\n");
+			println(RED.BRIGHT, "\t> <ALERT>Your HP is very low " + "(" + character.getHealth() + " HP left)");
+			println(RED.BRIGHT, "\n\t!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@\n");
 		}
 		forAll.resetDrinkHealthPotionCount();
 
