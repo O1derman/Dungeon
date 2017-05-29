@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Dungeon</string>
+    <string name="confirm_exit">Are you sure you want to exit Dungeon? You will lose your progress.</string>
 </resources>
