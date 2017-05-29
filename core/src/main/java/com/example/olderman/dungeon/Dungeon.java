@@ -287,6 +287,7 @@ public class Dungeon {
 					character.increaseHealth(ForAll.LEVEL_UP_HEALTH);
 
 					println("\tYour maximum health is " + character.getMaximumHealth() + "HP.");
+					println("\tYour minimum damage is " + character.getDamage().minValue(this) + ".");
 					println("\tYour maximum damage is " + character.getDamage().maxValue(this) + ".");
 				}
 

@@ -2,9 +2,7 @@ package com.example.olderman.dungeon;
 
 import android.app.Activity;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.support.v4.content.ContextCompat;
-import android.text.Editable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
@@ -34,15 +32,13 @@ public class AndroidOS implements OS {
 		set(activity, textView, buttons);
 	}
 
-	private CharSequence text = "";
-
 	public void set(Activity activity, TextView textView, LinearLayout buttons) {
 		if (this.activity != null) {
 			throw new IllegalStateException();
 		}
 		activity.getClass();// null check
 		buttons.getClass();
-		textView.setText(text);// also a null check
+		textView.setText(sb);// also a null check
 		this.activity = activity;
 		this.textView = textView;
 		this.buttons = buttons;
@@ -53,7 +49,6 @@ public class AndroidOS implements OS {
 		if (activity == null) {
 			throw new IllegalStateException();
 		}
-		text = textView.getText();
 		activity = null;
 		textView = null;
 		buttons = null;
