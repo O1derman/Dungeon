@@ -3,8 +3,8 @@ package com.example.olderman.dungeon;
 public class Orc extends AbstractCharacter {
 
 	public Orc() {
-		setHealth(200);
-		this.maximumHealth = 200;
+		this.initialHealth = 200;
+		this.initialMaximumHealth = 200;
 		this.experienceForVictory = 420;
 		this.missChance = 30;
 		this.luck = 0;

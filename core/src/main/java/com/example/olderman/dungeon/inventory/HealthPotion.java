@@ -20,18 +20,19 @@ public class HealthPotion extends InventoryItem {
 
 	@Override
 	public boolean use(Dungeon dungeon) {
-		int health = dungeon.getCharacter().getHealth();
-		int maximumHealth = dungeon.getCharacter().getMaximumHealth();
+		int health = dungeon.getHealth();
+		int maximumHealth = dungeon.getForAll().maximumHealth;
 		health += healAmount;
 		if (health <= maximumHealth) {
-			dungeon.println("\t> You drink a " + type + " health potion, healing yourself for " + healAmount + ".");
+			dungeon.println(
+					"\t> You drink a " + type + " health potion, healing yourself for " + healAmount + ".");
 			dungeon.println("\t> You now have " + health + "HP.");
 		} else {
 			health = maximumHealth;
 			dungeon.println(
 					"You drank health potion while you would overheal your maximum health, you have maximum health now!");
 		}
-		dungeon.getCharacter().setHealth(health);
+		dungeon.setHealth(health);
 		return true;
 	}
 

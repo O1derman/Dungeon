@@ -3,8 +3,8 @@ package com.example.olderman.dungeon;
 public class Elf extends AbstractCharacter {
 
 	public Elf() {
-		setHealth(100);
-		this.maximumHealth = 120;
+		this.initialHealth = 100;
+		this.initialMaximumHealth = 120;
 		this.experienceForVictory = 300;
 		this.missChance = 5;
 		this.luck = 10;
@@ -22,22 +22,22 @@ public class Elf extends AbstractCharacter {
 }
 
 // while (enemyHealth > 0) {
-// System.out.println("\tYour HP: " + health);
+// System.out.println("\tYour HP: " + initialHealth);
 // System.out.println("\t" + enemy + "'s HP: " + enemyHealth);
 // System.out.println("\n\tWhat would you like to do?");
 // System.out.println("\t1. Attack");
-// System.out.println("\t2. Drink health potion");
+// System.out.println("\t2. Drink initialHealth potion");
 // System.out.println("\t3. Drink potion of strength");
 // System.out.println("\t4. Run");
 // System.out.println("\t5. Exit\n\n");
 // System.out
 // .println("\tYou have:\n\t"
 // + numSmallHealthPotions
-// + " small health potions\n\t"
+// + " small initialHealth potions\n\t"
 // + numMediumHealthPotions
-// + " medium health potions\n\t"
+// + " medium initialHealth potions\n\t"
 // + numLargeHealthPotions
-// + " large health potions\n\t"
+// + " large initialHealth potions\n\t"
 // + numPotionOfStrength
 // +
 // " potions of
@@ -49,14 +49,14 @@ public class Elf extends AbstractCharacter {
 // int damageTaken = rand.nextInt(enemyAttackDamage);
 //
 // enemyHealth -= damageDealt;
-// health -= damageTaken;
+// initialHealth -= damageTaken;
 //
 // System.out.println("\t> You strike the " + enemy
 // + " for " + damageDealt + " damage.");
 // System.out.println("\t> You recieve " + damageTaken
 // + " damage.");
 //
-// if (health < 1) {
+// if (initialHealth < 1) {
 // System.out
 // .println("\t> You have taken too much damage, you are dying with pain in
 // shits of your enemy while they are celebrating...zombies will have tasty
@@ -64,7 +64,7 @@ public class Elf extends AbstractCharacter {
 // break;
 // }
 //
-// else if (health < 30 && health > 1) {
+// else if (initialHealth < 30 && initialHealth > 1) {
 // System.out
 // .println("You look like red tomato raced out by truck! You should go to a
 // hospital imidietly!\n\n\n\n\n");
@@ -72,72 +72,72 @@ public class Elf extends AbstractCharacter {
 //
 // } else if (input.equals("2")) {
 // System.out.println("\tWhich one?");
-// System.out.println("\t1. Small health potion.");
-// System.out.println("\t2. Medium health potion.");
+// System.out.println("\t1. Small initialHealth potion.");
+// System.out.println("\t2. Medium initialHealth potion.");
 // System.out
-// .println("\t3. Large health potion.\n\n\n\n\n");
+// .println("\t3. Large initialHealth potion.\n\n\n\n\n");
 //
 // String vlozene = in.nextLine();
 // if (vlozene.equals("1")) {
 // if (numSmallHealthPotions > 0) {
-// health += smallHealthPotionHealAmount;
+// initialHealth += smallHealthPotionHealAmount;
 // numSmallHealthPotions--;
 // System.out
-// .println("\t> You drink a small health potion, healing yourself for "
+// .println("\t> You drink a small initialHealth potion, healing yourself for "
 // + smallHealthPotionHealAmount
 // + "."
 // + "\n\t> You now have "
-// + health
+// + initialHealth
 // + "HP."
 // + "\n\t> You have "
 // + numSmallHealthPotions
-// + " small health potions left. \n\n\n\n\n");
+// + " small initialHealth potions left. \n\n\n\n\n");
 //
 // } else {
 // System.out
-// .println("\t> You have no small health potions left! Defeat enemies for a
+// .println("\t> You have no small initialHealth potions left! Defeat enemies for a
 // chance to get one!\n\n\n\n\n");
 // }
 //
 // } else if (vlozene.equals("2")) {
 // if (numMediumHealthPotions > 0) {
-// health += mediumHealthPotionHealAmount;
+// initialHealth += mediumHealthPotionHealAmount;
 // numMediumHealthPotions--;
 // System.out
-// .println("\t> You drink a medium health potion, healing yourself for "
+// .println("\t> You drink a medium initialHealth potion, healing yourself for "
 // + mediumHealthPotionHealAmount
 // + "."
 // + "\n\t> You now have "
-// + health
+// + initialHealth
 // + "HP."
 // + "\n\t> You have "
 // + numMediumHealthPotions
-// + " medium health potions left. \n\n\n\n\n");
+// + " medium initialHealth potions left. \n\n\n\n\n");
 //
 // } else {
 // System.out
-// .println("\t> You have no medium health potions left! Defeat enemies for a
+// .println("\t> You have no medium initialHealth potions left! Defeat enemies for a
 // chance to get one!\n\n\n\n\n");
 // }
 //
 // } else if (vlozene.equals("3")) {
 // if (numLargeHealthPotions > 0) {
-// health += largeHealthPotionHealAmount;
+// initialHealth += largeHealthPotionHealAmount;
 // numLargeHealthPotions--;
 // System.out
-// .println("\t> You drink a large health potion, healing yourself for "
+// .println("\t> You drink a large initialHealth potion, healing yourself for "
 // + largeHealthPotionHealAmount
 // + "."
 // + "\n\t> You now have "
-// + health
+// + initialHealth
 // + "HP."
 // + "\n\t> You have "
 // + numLargeHealthPotions
-// + " large health potions left. \n\n\n\n\n");
+// + " large initialHealth potions left. \n\n\n\n\n");
 //
 // } else {
 // System.out
-// .println("\t> You have no large health potions left! Defeat enemies for a
+// .println("\t> You have no large initialHealth potions left! Defeat enemies for a
 // chance to get one!\n\n\n\\n\n");
 // }
 //
@@ -164,12 +164,12 @@ public class Elf extends AbstractCharacter {
 // // int runEnemyAttackDamage = 25;
 // // int runDamageTaken =
 // // rand.nextInt(runEnemyAttackDamage);
-// // health -= runDamageTaken;
+// // initialHealth -= runDamageTaken;
 // // System.out.println("\tThe " + enemy + " hit you for "
 // // + runDamageTaken + "!");
 // System.out.println("\tYou run away from the " + enemy
 // + "!");
-// // System.out.println("\tYou now have " + health +
+// // System.out.println("\tYou now have " + initialHealth +
 // // " HP.\n\n\n\n\n");
 // System.out.println("\t1. Go on");
 // System.out.println("\t2. Create potion");
@@ -184,7 +184,7 @@ public class Elf extends AbstractCharacter {
 // System.out.println("You have " + experience
 // + "exp.");
 // System.out
-// .println("\n\t1. Medium health potion (costs 20 exp)");
+// .println("\n\t1. Medium initialHealth potion (costs 20 exp)");
 // System.out
 // .println("\t2. Potion of strength (costs 100 exp)");
 // System.out.println("\t3. Exit");
@@ -195,7 +195,7 @@ public class Elf extends AbstractCharacter {
 // numMediumHealthPotions++;
 // experience -= 10;
 // System.out
-// .println("You created a medium health potion! ");
+// .println("You created a medium initialHealth potion! ");
 // } else {
 // System.out
 // .println("Not enough experience to create this type of potion! ");
@@ -234,7 +234,7 @@ public class Elf extends AbstractCharacter {
 //
 // }
 //
-// if (health < 1) {
+// if (initialHealth < 1) {
 // System.out
 // .println("You limp out of the dungeon, weak from battle.\n\n\n\n\n");
 // break;
@@ -253,7 +253,7 @@ public class Elf extends AbstractCharacter {
 // .println("#"
 // + enemy
 // + " was defeated! ");
-// System.out.println("# You have " + health + "HP left ");
+// System.out.println("# You have " + initialHealth + "HP left ");
 // System.out.println("#You have earned " + experienceGain
 // + " exp!");
 // System.out.println("#You have " + experience
@@ -264,9 +264,9 @@ public class Elf extends AbstractCharacter {
 // System.out
 // .println("# The "
 // + enemy
-// + " dropped a small health potion! ");
+// + " dropped a small initialHealth potion! ");
 // System.out.println("# You have " + numSmallHealthPotions
-// + " small health potion(s). ");
+// + " small initialHealth potion(s). ");
 //
 // }
 //
@@ -275,10 +275,10 @@ public class Elf extends AbstractCharacter {
 // System.out
 // .println("# The "
 // + enemy
-// + " dropped a medium health potion! ");
+// + " dropped a medium initialHealth potion! ");
 // System.out.println("# You now have "
 // + numMediumHealthPotions
-// + " medium health potion(s). ");
+// + " medium initialHealth potion(s). ");
 //
 // }
 //
@@ -287,10 +287,10 @@ public class Elf extends AbstractCharacter {
 // System.out
 // .println("# The "
 // + enemy
-// + " dropped a large health potion! ");
+// + " dropped a large initialHealth potion! ");
 // System.out.println("# You now have "
 // + numLargeHealthPotions
-// + " large health potion(s). ");
+// + " large initialHealth potion(s). ");
 //
 // }
 // System.out

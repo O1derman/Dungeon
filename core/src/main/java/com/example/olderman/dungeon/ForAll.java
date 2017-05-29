@@ -37,6 +37,8 @@ public class ForAll {
 	public static final int LARGE_HEALTH_POTION_DROP_CHANCE = 20; // %
 
 	// Player variables
+	public int maximumHealth;
+	public int health;
 	public int gold = 0;
 	public boolean hasDrunkHealthPotion = false;
 	public int resistence = 100;// %

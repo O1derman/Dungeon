@@ -3,8 +3,8 @@ package com.example.olderman.dungeon;
 public class Superman extends AbstractCharacter {
 
 	public Superman() {
-		setHealth(999999999);
-		this.maximumHealth = 999999999;
+		this.initialHealth = 999999999;
+		this.initialMaximumHealth = 999999999;
 		this.experienceForVictory = 10000;
 		this.missChance = 0;
 		this.luck = 100;
@@ -25,7 +25,7 @@ public class Superman extends AbstractCharacter {
 // .println("###############################################################################################################\n");
 //
 // int experienceForVictory = 10000;
-// int health = 999999999;
+// int initialHealth = 999999999;
 // int attackDamage = 999999999;
 //
 // GAME: while (running) {
@@ -38,21 +38,21 @@ public class Superman extends AbstractCharacter {
 // System.out.println("\t#You see a(n)" + enemy + "!");
 //
 // while (enemyHealth > 0) {
-// System.out.println("\tYour HP: " + health);
+// System.out.println("\tYour HP: " + initialHealth);
 // System.out.println("\t" + enemy + "'s HP: " + enemyHealth);
 // System.out.println("\n\tWhat would you like to do?");
 // System.out.println("\t1. Attack");
-// System.out.println("\t2. Drink health potion");
+// System.out.println("\t2. Drink initialHealth potion");
 // System.out.println("\t3. Run");
 // System.out.println("\t4. Exit\n\n");
 // System.out
 // .println("\tYou have:\n\t"
 // + numSmallHealthPotions
-// + " small health potions\n\t"
+// + " small initialHealth potions\n\t"
 // + numMediumHealthPotions
-// + " medium health potions\n\t"
+// + " medium initialHealth potions\n\t"
 // + numLargeHealthPotions
-// + " large health potions\n\t"
+// + " large initialHealth potions\n\t"
 // + numPotionOfStrength
 // +
 // " potions of
@@ -64,14 +64,14 @@ public class Superman extends AbstractCharacter {
 // int damageTaken = rand.nextInt(enemyAttackDamage);
 //
 // enemyHealth -= damageDealt;
-// health -= damageTaken;
+// initialHealth -= damageTaken;
 //
 // System.out.println("\t> You strike the " + enemy
 // + " for " + damageDealt + " damage.");
 // System.out.println("\t> You recieve " + damageTaken
 // + " damage.");
 //
-// if (health < 1) {
+// if (initialHealth < 1) {
 // System.out
 // .println("\t> You have taken too much damage, you are dying with pain in
 // shits of your enemy while they are celebrating...zombies will have tasty
@@ -79,7 +79,7 @@ public class Superman extends AbstractCharacter {
 // break;
 // }
 //
-// else if (health < 30 && health > 1) {
+// else if (initialHealth < 30 && initialHealth > 1) {
 // System.out
 // .println("You look like red tomato raced out by truck! You should go to a
 // hospital imidietly!\n\n\n\n\n");
@@ -92,12 +92,12 @@ public class Superman extends AbstractCharacter {
 // // int runEnemyAttackDamage = 25;
 // // int runDamageTaken =
 // // rand.nextInt(runEnemyAttackDamage);
-// // health -= runDamageTaken;
+// // initialHealth -= runDamageTaken;
 // // System.out.println("\tThe " + enemy + " hit you for "
 // // + runDamageTaken + "!");
 // // System.out.println("\tYou run away from the " + enemy
 // // + "!");
-// // System.out.println("\tYou now have " + health +
+// // System.out.println("\tYou now have " + initialHealth +
 // // " HP.\n\n\n\n\n");
 // continue GAME;
 //
@@ -112,7 +112,7 @@ public class Superman extends AbstractCharacter {
 //
 // }
 //
-// if (health < 1) {
+// if (initialHealth < 1) {
 // System.out
 // .println("You limp out of the dungeon, weak from battle.\n\n\n\n\n");
 // break;

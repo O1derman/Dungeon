@@ -1,17 +1,22 @@
 package com.example.olderman.dungeon;
 
-import java.io.IOException;
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Random;
-
 import com.example.olderman.dungeon.inventory.HealthPotion;
 import com.example.olderman.dungeon.inventory.Inventory;
 import com.example.olderman.dungeon.inventory.InventoryItem;
 import com.example.olderman.dungeon.inventory.InventoryItem.Type;
 import com.example.olderman.dungeon.shop.Shop;
 
-import static com.example.olderman.dungeon.Style.*;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Random;
+
+import static com.example.olderman.dungeon.Style.AttributeStyle;
+import static com.example.olderman.dungeon.Style.ColorStyle;
+import static com.example.olderman.dungeon.Style.DEFAULT_COLOR;
+import static com.example.olderman.dungeon.Style.GREEN;
+import static com.example.olderman.dungeon.Style.RED;
+import static com.example.olderman.dungeon.Style.Reset;
+import static com.example.olderman.dungeon.Style.YELLOW;
 
 public class Dungeon {
 	public final Random rand = new Random();
@@ -35,6 +40,26 @@ public class Dungeon {
 
 	public Inventory getInventory() {
 		return inventory;
+	}
+
+	public void increaseMaximumHealth(int maximumHealthIncrease) {
+		forAll.maximumHealth += maximumHealthIncrease;
+	}
+
+	public int getHealth() {
+		return forAll.health;
+	}
+
+	public void setHealth(int health) {
+		forAll.health = Math.min(health, forAll.maximumHealth);
+	}
+
+	public void decreaseHealth(int healthDecrease) {
+		setHealth(getHealth() - healthDecrease);
+	}
+
+	public void increaseHealth(int healthIncrease) {
+		setHealth(getHealth() + healthIncrease);
 	}
 
 	private final OS os;
@@ -181,6 +206,9 @@ public class Dungeon {
 
 			}
 
+			forAll.health = character.getInitialHealth();
+			forAll.maximumHealth = character.getInitialMaximumHealth();
+
 			println("###############################################################################################################\n");
 			println(character.getBeginning());
 			RUN: while (true) {
@@ -230,8 +258,8 @@ public class Dungeon {
 						continue MENU;
 					}
 				}
-				while (forAll.enemyHealth > 0 && character.getHealth() > 0) {
-					println("\tYour HP: " + character.getHealth());
+				while (forAll.enemyHealth > 0 && getHealth() > 0) {
+					println("\tYour HP: " + getHealth());
 					println("\t" + forAll.enemy.name + "'s HP: " + forAll.enemyHealth);
 					println("\n\tWhat would you like to do?");
 					println();
@@ -267,7 +295,7 @@ public class Dungeon {
 
 				}
 
-				if (character.getHealth() < 1) {
+				if (getHealth() < 1) {
 					println("\t> You limp out of the dungeon, wounded from the battle.\n\n\n\n\n");
 					continue MENU;
 				}
@@ -282,10 +310,10 @@ public class Dungeon {
 					println(GREEN.BRIGHT, "\t************************************************");
 					println(GREEN.BRIGHT, "\t*Congratulations! Level Up! Level " + forAll.level + "!");
 					println(GREEN.BRIGHT, "\t************************************************");
-					character.increaseMaximumHealth(ForAll.LEVEL_UP_HEALTH);
-					character.increaseHealth(ForAll.LEVEL_UP_HEALTH);
+					increaseMaximumHealth(ForAll.LEVEL_UP_HEALTH);
+					increaseHealth(ForAll.LEVEL_UP_HEALTH);
 
-					println("\tYour maximum health is " + character.getMaximumHealth() + "HP.");
+					println("\tYour maximum health is " + forAll.maximumHealth + "HP.");
 					println("\tYour minimum damage is " + character.getDamage().minValue(this) + ".");
 					println("\tYour maximum damage is " + character.getDamage().maxValue(this) + ".");
 				}
@@ -299,7 +327,7 @@ public class Dungeon {
 				forAll.gold += goldFound;
 				println("\n#############################################################################\n");
 				println("# " + forAll.enemy.name + " was defeated!                                                ");
-				println("# You have ", RED.BRIGHT, character.getHealth() + "HP", DEFAULT_COLOR, " left ");
+				println("# You have ", RED.BRIGHT, getHealth() + "HP", DEFAULT_COLOR, " left ");
 				println("# You have earned ", GREEN.BRIGHT, forAll.experienceGain + " exp", DEFAULT_COLOR, "!");
 				println("# You have ", GREEN.BRIGHT, forAll.experience + " experience", DEFAULT_COLOR,
 						"! You need " + forAll.levelUp + " experience for level up.");
@@ -383,7 +411,7 @@ public class Dungeon {
 					println("You continue on your adventure!");
 					forAll.resetEnemy();
 				} else {
-					println("Yout exit the dungeon, successful from your adventures!");
+					println("You exit the dungeon, successful from your adventures!");
 					println("Thanks for playing!");
 					continue MENU;
 				}
@@ -407,7 +435,7 @@ public class Dungeon {
 		if (!youMiss) {
 			int damageDealt = character.getDamage().nextValue(this);
 			if (damageDealt == character.getDamage().maxValue(this)) {
-				println("WOOOW, excelent hit!!!");
+				println("WOOOW, excellent hit!!!");
 			}
 			println("\t> You strike the " + forAll.enemy.name + " for " + damageDealt + " damage.");
 			forAll.enemyHealth -= damageDealt;
@@ -417,15 +445,15 @@ public class Dungeon {
 			int damageTaken = ((rand.nextInt(forAll.enemyAttackDamage) + rand.nextInt(forAll.enemyAttackDamage))
 					+ forAll.floor * 5 + 10) * forAll.resistence / 100;
 
-			println("\t> You recieve " + damageTaken + " damage.");
-			character.decreaseHealth(damageTaken);
+			println("\t> You receive " + damageTaken + " damage.");
+			decreaseHealth(damageTaken);
 		}
 
-		if (character.getHealth() < 1) {
+		if (getHealth() < 1) {
 			println("\t> You have taken too much damage, you are dying in pain covered in the shit of your enemy while they are celebrating...zombies will a have tasty dinner! ");
-		} else if (character.getHealth() < 30) {
+		} else if (getHealth() < 30) {
 			println(RED.BRIGHT, "\n\t!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@\n");
-			println(RED.BRIGHT, "\t> <ALERT>Your HP is very low " + "(" + character.getHealth() + " HP left)");
+			println(RED.BRIGHT, "\t> <ALERT>Your HP is very low " + "(" + getHealth() + " HP left)");
 			println(RED.BRIGHT, "\n\t!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@\n");
 		}
 		forAll.resetDrinkHealthPotionCount();

@@ -10,8 +10,7 @@ public class InventoryAndInfo {
 	private final Dungeon dungeon;
 
 	public InventoryItem inventoryAndInfo(boolean fighting) {
-		dungeon.println(
-				dungeon.getCharacter().getHealth() + "/" + dungeon.getCharacter().getMaximumHealth() + " health");
+		dungeon.println(dungeon.getHealth() + "/" + dungeon.getForAll().maximumHealth + " health");
 		if (dungeon.getForAll().experience > 0) {
 			dungeon.println(dungeon.getForAll().experience + " experience");
 		}
