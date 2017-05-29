@@ -2,11 +2,11 @@ package com.example.olderman.dungeon;
 
 public interface Style {
 
-	public static enum Color {
-		BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE;
+	enum Color {
+		BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE
 	}
 
-	public static class ColorStyle implements Style {
+	class ColorStyle implements Style {
 		private final Color color;
 		private final boolean bright;
 		private final boolean bg;
@@ -37,7 +37,7 @@ public interface Style {
 		}
 	}
 
-	public static class NonBrightColorStyle extends ColorStyle {
+	class NonBrightColorStyle extends ColorStyle {
 		public final ColorStyle BRIGHT;
 
 		private NonBrightColorStyle(Color color, boolean bg) {
@@ -51,39 +51,40 @@ public interface Style {
 
 	}
 
-	public static final NonBrightColorStyle BLACK = new NonBrightColorStyle(Color.BLACK);
-	public static final NonBrightColorStyle RED = new NonBrightColorStyle(Color.RED);
-	public static final NonBrightColorStyle GREEN = new NonBrightColorStyle(Color.GREEN);
-	public static final NonBrightColorStyle YELLOW = new NonBrightColorStyle(Color.YELLOW);
-	public static final NonBrightColorStyle BLUE = new NonBrightColorStyle(Color.BLUE);
-	public static final NonBrightColorStyle MAGENTA = new NonBrightColorStyle(Color.MAGENTA);
-	public static final NonBrightColorStyle CYAN = new NonBrightColorStyle(Color.CYAN);
-	public static final NonBrightColorStyle WHITE = new NonBrightColorStyle(Color.WHITE);
-	public static final ColorStyle DEFAULT_COLOR = new ColorStyle(null, false, false);
+	NonBrightColorStyle BLACK = new NonBrightColorStyle(Color.BLACK);
+	NonBrightColorStyle RED = new NonBrightColorStyle(Color.RED);
+	NonBrightColorStyle GREEN = new NonBrightColorStyle(Color.GREEN);
+	NonBrightColorStyle YELLOW = new NonBrightColorStyle(Color.YELLOW);
+	NonBrightColorStyle BLUE = new NonBrightColorStyle(Color.BLUE);
+	NonBrightColorStyle MAGENTA = new NonBrightColorStyle(Color.MAGENTA);
+	NonBrightColorStyle CYAN = new NonBrightColorStyle(Color.CYAN);
+	NonBrightColorStyle WHITE = new NonBrightColorStyle(Color.WHITE);
+	ColorStyle DEFAULT_COLOR = new ColorStyle(null, false, false);
 
-	public static final NonBrightColorStyle BG_BLACK = new NonBrightColorStyle(Color.BLACK, true);
-	public static final NonBrightColorStyle BG_RED = new NonBrightColorStyle(Color.RED, true);
-	public static final NonBrightColorStyle BG_GREEN = new NonBrightColorStyle(Color.GREEN, true);
-	public static final NonBrightColorStyle BG_YELLOW = new NonBrightColorStyle(Color.YELLOW, true);
-	public static final NonBrightColorStyle BG_BLUE = new NonBrightColorStyle(Color.BLUE, true);
-	public static final NonBrightColorStyle BG_MAGENTA = new NonBrightColorStyle(Color.MAGENTA, true);
-	public static final NonBrightColorStyle BG_CYAN = new NonBrightColorStyle(Color.CYAN, true);
-	public static final NonBrightColorStyle BG_WHITE = new NonBrightColorStyle(Color.WHITE, true);
-	public static final ColorStyle BG_DEFAULT_COLOR = new ColorStyle(null, false, true);
+	NonBrightColorStyle BG_BLACK = new NonBrightColorStyle(Color.BLACK, true);
+	NonBrightColorStyle BG_RED = new NonBrightColorStyle(Color.RED, true);
+	NonBrightColorStyle BG_GREEN = new NonBrightColorStyle(Color.GREEN, true);
+	NonBrightColorStyle BG_YELLOW = new NonBrightColorStyle(Color.YELLOW, true);
+	NonBrightColorStyle BG_BLUE = new NonBrightColorStyle(Color.BLUE, true);
+	NonBrightColorStyle BG_MAGENTA = new NonBrightColorStyle(Color.MAGENTA, true);
+	NonBrightColorStyle BG_CYAN = new NonBrightColorStyle(Color.CYAN, true);
+	NonBrightColorStyle BG_WHITE = new NonBrightColorStyle(Color.WHITE, true);
+	ColorStyle BG_DEFAULT_COLOR = new ColorStyle(null, false, true);
 
-	public static interface AttributeStyle extends Style {
-		public Attribute getAttribute();
+	interface AttributeStyle extends Style {
+		Attribute getAttribute();
 
-		public boolean isOn();
+		boolean isOn();
 	}
 
-	public static class AttributeOff implements AttributeStyle {
+	class AttributeOff implements AttributeStyle {
 		private final Attribute attribute;
 
 		private AttributeOff(Attribute attribute) {
 			this.attribute = attribute;
 		}
 
+		@Override
 		public Attribute getAttribute() {
 			return attribute;
 		}
@@ -100,7 +101,7 @@ public interface Style {
 
 	}
 
-	public static enum Attribute implements AttributeStyle {
+	enum Attribute implements AttributeStyle {
 		BOLD, ITALIC, UNDERLINE;
 
 		public final AttributeOff OFF = new AttributeOff(this);
@@ -116,11 +117,11 @@ public interface Style {
 		}
 	}
 
-	public static final Attribute BOLD = Attribute.BOLD;
-	public static final Attribute ITALIC = Attribute.ITALIC;
-	public static final Attribute UNDERLINE = Attribute.UNDERLINE;
+	Attribute BOLD = Attribute.BOLD;
+	Attribute ITALIC = Attribute.ITALIC;
+	Attribute UNDERLINE = Attribute.UNDERLINE;
 
-	public static class Reset implements Style {
+	class Reset implements Style {
 		private Reset() {
 		}
 
@@ -130,5 +131,5 @@ public interface Style {
 		}
 	}
 
-	public static final Reset RESET = new Reset();
+	Reset RESET = new Reset();
 }

@@ -20,7 +20,7 @@ public class Inventory {
 		add(HealthPotion.SMALL, 3);
 	}
 
-	private Map<InventoryItem, Integer> items = new HashMap<>();
+	private final Map<InventoryItem, Integer> items = new HashMap<>();
 
 	public void add(InventoryItem item) {
 		add(item, 1);
@@ -80,7 +80,7 @@ public class Inventory {
 		items.add(null);
 
 		if (hasItemWichCantBeUsed) {
-			dungeon.print("Some of your items cannot be used while fighting.");
+			dungeon.println("Some of your items cannot be used while fighting.");
 		}
 
 		InventoryItem item = items.get(dungeon.uzivatVolba(names.toArray(new String[names.size()])) - 1);

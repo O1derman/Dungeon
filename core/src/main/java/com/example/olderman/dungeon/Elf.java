@@ -10,9 +10,9 @@ public class Elf extends AbstractCharacter {
 		this.luck = 10;
 		this.damage = new RandomValue(10 /* minimum damage */,
 				10 /* damage range */, 0, 5 /* increase per level */);
-	};
+	}
 
-	@Override
+    @Override
 	public String getBeginning() {
 
 		return "\t> You are a tall elf, very clever and handy, not very strong.\n";

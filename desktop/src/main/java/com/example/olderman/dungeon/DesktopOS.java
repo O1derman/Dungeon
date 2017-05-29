@@ -14,7 +14,7 @@ public class DesktopOS implements OS {
 
 	public static boolean enableClear = true;
 	// System objects
-	public static Scanner in = new Scanner(System.in);
+	private static final Scanner in = new Scanner(System.in);
 
 	@Override
 	public void clear() {

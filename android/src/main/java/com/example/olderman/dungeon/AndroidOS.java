@@ -22,14 +22,10 @@ public class AndroidOS implements OS {
 
 	private Activity activity;
 	private TextView textView;
-	private SpannableStringBuilder sb = new SpannableStringBuilder();
+	private final SpannableStringBuilder sb = new SpannableStringBuilder();
 	private LinearLayout buttons;
 
 	public AndroidOS() {
-	}
-
-	public AndroidOS(Activity activity, TextView textView, LinearLayout buttons) {
-		set(activity, textView, buttons);
 	}
 
 	public void set(Activity activity, TextView textView, LinearLayout buttons) {

@@ -10,8 +10,9 @@ public class Superman extends AbstractCharacter {
 		this.luck = 100;
 		this.damage = new RandomValue(999999999 /* minimum damage */,
 				0 /* damage range */, 0, 0 /* increase per level */);
-	};
+	}
 
+    @Override
 	public String getBeginning() {
 
 		return "\t> You are SUPER SUPERMAN, you have unlimited power until you meet criptonit.\n";

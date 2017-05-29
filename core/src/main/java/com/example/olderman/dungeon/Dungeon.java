@@ -94,10 +94,9 @@ public class Dungeon {
 		os.flush();
 	}
 
-	public void run() throws IOException {
+	public void run() {
 		clear();
 
-		boolean running = true;
 		String orc = Resources.getString("/orc");
 		String dwarf = Resources.getString("/dwarf");
 		String elf = Resources.getString("/elf");
@@ -184,7 +183,7 @@ public class Dungeon {
 
 			println("###############################################################################################################\n");
 			println(character.getBeginning());
-			RUN: while (running) {
+			RUN: while (true) {
 
 				println("###############################################################################################################\n");
 				println("\n\t>You are on floor " + forAll.floor + "!");

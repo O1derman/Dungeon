@@ -5,22 +5,22 @@ import com.example.olderman.dungeon.Style.ColorStyle;
 
 public interface OS {
 
-	public void clear();
+	void clear();
 
-	public int uzivatVolba(String... options);
+	int uzivatVolba(String... options);
 
-	public void print(String string);
+	void print(String string);
 
-	public void println();
+	void println();
 
-	public void reset();
+	void reset();
 
-	public void color(ColorStyle style);
+	void color(ColorStyle style);
 
-	public void attribute(AttributeStyle style);
+	void attribute(AttributeStyle style);
 
-	public void flush();
+	void flush();
 
-	public void printAsciiArt(String asciiArt);
+	void printAsciiArt(String asciiArt);
 
 }

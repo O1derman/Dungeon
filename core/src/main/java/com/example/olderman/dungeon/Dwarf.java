@@ -10,7 +10,7 @@ public class Dwarf extends AbstractCharacter {
 		this.luck = 20;
 		this.damage = new RandomValue(20 /* minimum damage */,
 				20 /* damage range */, 0, 5 /* increase per level */);
-	};
+	}
 
 	@Override
 	public String getBeginning() {

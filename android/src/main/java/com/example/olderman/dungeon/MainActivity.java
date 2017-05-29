@@ -10,8 +10,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG_RETAINED_FRAGMENT = "RetainedFragment";
 
-    private RetainedFragment fragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout buttons = (LinearLayout) findViewById(R.id.buttons);
 
         FragmentManager fm = getFragmentManager();
-        fragment = (RetainedFragment) fm.findFragmentByTag(TAG_RETAINED_FRAGMENT);
+        RetainedFragment fragment = (RetainedFragment) fm.findFragmentByTag(TAG_RETAINED_FRAGMENT);
         if (fragment == null) {
             fragment = new RetainedFragment();
             fm.beginTransaction().add(fragment, TAG_RETAINED_FRAGMENT).commit();
