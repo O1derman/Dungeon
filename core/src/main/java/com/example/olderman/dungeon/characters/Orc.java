@@ -1,4 +1,7 @@
-package com.example.olderman.dungeon;
+package com.example.olderman.dungeon.characters;
+
+import com.example.olderman.dungeon.AbstractCharacter;
+import com.example.olderman.dungeon.RandomValue;
 
 public class Orc extends AbstractCharacter {
 

@@ -47,6 +47,11 @@ public class ForAll {
 	public int experience = 0;
 	public int numPotionOfStrength = 0;
 	public int numPotionOfInvisibility = 0;
+	public int numPotionOfTeleportation = 0;
+	public int numPotionOfConcentration = 0;
+	public int bed = 0;
+	public int pot = 0;
+	public int knife = 0;
 
 	// Potion ingredients
 	public int wood = 0;
@@ -56,11 +61,20 @@ public class ForAll {
 	public int frogHeart = 0;
 	public int frogLeftEye = 0;
 	public int frogRightEye = 0;
-	public int warm = 0;
+	public int worm = 0;
 	public int sneakBrain = 0;
 	public int squirelTails = 0;
 	public int frogHead = 0;
-	public int snake = 0;
+	public int sneak = 0;
+	public int flashk = 0;
+	public int frog = 0;
+	public int squirel = 0;
+
+	// costs
+	public int bedCostWood = 5;
+	public int bedCostFeather = 100;
+	public int woodForBed = bedCostWood - wood;
+	public int featherForBed = bedCostFeather - feather;
 
 	public ForAll() {
 		resetEnemy();

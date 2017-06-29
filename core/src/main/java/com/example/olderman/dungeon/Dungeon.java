@@ -1,10 +1,15 @@
 package com.example.olderman.dungeon;
 
+import com.example.olderman.dungeon.characters.Dwarf;
+import com.example.olderman.dungeon.characters.Elf;
+import com.example.olderman.dungeon.characters.Orc;
+import com.example.olderman.dungeon.characters.Superman;
 import com.example.olderman.dungeon.inventory.HealthPotion;
 import com.example.olderman.dungeon.inventory.Inventory;
 import com.example.olderman.dungeon.inventory.InventoryItem;
 import com.example.olderman.dungeon.inventory.InventoryItem.Type;
 import com.example.olderman.dungeon.shop.Shop;
+import com.example.olderman.dungeon.town.WorkHouse;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -211,7 +216,7 @@ public class Dungeon {
 
 			println("###############################################################################################################\n");
 			println(character.getBeginning());
-			RUN: while (true) {
+			FIGHT: while (true) {
 
 				println("###############################################################################################################\n");
 				println("\n\t>You are on floor " + forAll.floor + "!");
@@ -221,7 +226,7 @@ public class Dungeon {
 				println();
 				forAll.resetDrinkHealthPotionCount();
 				while (true) {
-					volba = uzivatVolba("Attack", "Go on", "Open inventory and info", "Go in shop", "Go in workhouse",
+					volba = uzivatVolba("Attack", "Go on", "Open inventory and info", "Go in shop", "Go in town",
 							"Exit");
 					if (volba == 1) { // Attack
 						attack();
@@ -229,7 +234,7 @@ public class Dungeon {
 					} else if (volba == 2) { // Run
 						println("\t>You run!");
 						forAll.resetEnemy();
-						continue RUN;
+						continue FIGHT;
 
 						// int runEnemyAttackDamage = 25;
 						// int runDamageTaken =
@@ -250,8 +255,10 @@ public class Dungeon {
 						}
 					} else if (volba == 4) { // Go in shop
 						shop.shop();
+						continue FIGHT;
 					} else if (volba == 5) {
 						workHouse.workHouse();
+						continue FIGHT;
 					} else if (volba == 6) { // Exit
 						println("Yout exit the dungeon.");
 						println("Thanks for playing!");
@@ -274,7 +281,7 @@ public class Dungeon {
 							forAll.resetEnemy();
 							forAll.numPotionOfInvisibility--;
 							forAll.resetDrinkHealthPotionCount();
-							continue RUN;
+							continue FIGHT;
 
 						}
 						// int runEnemyAttackDamage = 25;
