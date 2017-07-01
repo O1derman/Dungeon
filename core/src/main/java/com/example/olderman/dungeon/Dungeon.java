@@ -178,14 +178,6 @@ public class Dungeon {
 			println("\tGame has 3 differend endings, so try them all for yourself :D!\n\n\n");
 			println("\t\tWhich character would you like to play?\n");
 			int volba = uzivatVolba("Dwarf", "Orc", "Elf", "Superman");
-			// println("\t1. Dwarf");
-			// println("\t2. Orc");
-			// println("\t3. Elf");
-			// println("\t4. Superman\n");
-			// println("###############################################################################################################");
-			// println();
-
-			// String nabidka = in.nextLine();
 
 			switch (volba) {
 			case 1:
@@ -440,10 +432,7 @@ public class Dungeon {
 		}
 
 		if (!youMiss) {
-			int damageDealt = character.getDamage().nextValue(this);
-			if (damageDealt == character.getDamage().maxValue(this)) {
-				println("WOOOW, excellent hit!!!");
-			}
+			int damageDealt = forAll.selectedWeapon.calculateDamage(this);
 			println("\t> You strike the " + forAll.enemy.name + " for " + damageDealt + " damage.");
 			forAll.enemyHealth -= damageDealt;
 		}

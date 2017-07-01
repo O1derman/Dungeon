@@ -2,6 +2,8 @@ package com.example.olderman.dungeon;
 
 import java.util.Random;
 
+import com.example.olderman.dungeon.inventory.Weapon;
+
 public class ForAll {
 
 	private final Random rand = new Random();
@@ -37,6 +39,7 @@ public class ForAll {
 	public static final int LARGE_HEALTH_POTION_DROP_CHANCE = 20; // %
 
 	// Player variables
+	public Weapon selectedWeapon = Weapon.HAND;
 	public int maximumHealth;
 	public int health;
 	public int gold = 0;

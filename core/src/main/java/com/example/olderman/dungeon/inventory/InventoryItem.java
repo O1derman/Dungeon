@@ -46,7 +46,7 @@ public abstract class InventoryItem {
 	/**
 	 * 
 	 * @param dungeon
-	 * @return if the item was consumed
+	 * @return weather the item was consumed
 	 */
 	public abstract boolean use(Dungeon dungeon);
 }

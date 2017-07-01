@@ -6,15 +6,17 @@ import java.util.List;
 import com.example.olderman.dungeon.Dungeon;
 import com.example.olderman.dungeon.inventory.Bomb;
 import com.example.olderman.dungeon.inventory.Pot;
+import com.example.olderman.dungeon.inventory.Weapon;
 
 public class Shop {
 
 	public Shop(Dungeon dungeon) {
 		this.dungeon = dungeon;
 
-		items = new ShopItem[] { new WeaponShopItem(dungeon, "Malet", 500, 15),
-				new WeaponShopItem(dungeon, "Onehand axe", 600, 20),
-				new WeaponShopItem(dungeon, "Twohand axe", 800, 40),
+		items = new ShopItem[] {
+				new InventoryShopItem(dungeon, new Weapon("Malet", 15), 500, "gives you 15 more damage!"),
+				new InventoryShopItem(dungeon, new Weapon("Onehand axe", 20), 600, "gives you 20 more damage!"),
+				new InventoryShopItem(dungeon, new Weapon("Twohand axe", 40), 800, "gives you 40 more damage!"),
 				new InventoryShopItem(dungeon, Bomb.BOMB, 400, "deals 100-300 damage! (only for 1 use)"),
 				new InventoryShopItem(dungeon, Pot.POT, 450, "allows you to create potions"), new Hamburger(dungeon) };
 	}
@@ -32,7 +34,7 @@ public class Shop {
 		dungeon.println("\tI know you will choose visely!");
 
 		while (dungeon.uzivatVolba("Look around!", "Leave!") == 1) {
-			
+
 			dungeon.println("You have " + dungeon.getForAll().gold + " gold.");
 			dungeon.println("\n\tWhat will you get?");
 
