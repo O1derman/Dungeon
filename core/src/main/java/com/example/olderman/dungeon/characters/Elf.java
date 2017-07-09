@@ -8,14 +8,13 @@ public class Elf extends AbstractCharacter {
 	public Elf() {
 		this.initialHealth = 100;
 		this.initialMaximumHealth = 120;
-		this.experienceForVictory = 300;
 		this.missChance = 5;
 		this.luck = 10;
-		this.damage = new RandomValue(10 /* minimum damage */,
-				10 /* damage range */, 0, 5 /* increase per level */);
+		this.loadCapacity = 30;
+		this.damage = new RandomValue(10 /* minimum damage */, 10 /* damage range */, 0, 5 /* increase per level */);
 	}
 
-    @Override
+	@Override
 	public String getBeginning() {
 
 		return "\t> You are a tall elf, very clever and handy, not very strong.\n";
@@ -98,7 +97,8 @@ public class Elf extends AbstractCharacter {
 //
 // } else {
 // System.out
-// .println("\t> You have no small initialHealth potions left! Defeat enemies for a
+// .println("\t> You have no small initialHealth potions left! Defeat enemies
+// for a
 // chance to get one!\n\n\n\n\n");
 // }
 //
@@ -119,7 +119,8 @@ public class Elf extends AbstractCharacter {
 //
 // } else {
 // System.out
-// .println("\t> You have no medium initialHealth potions left! Defeat enemies for a
+// .println("\t> You have no medium initialHealth potions left! Defeat enemies
+// for a
 // chance to get one!\n\n\n\n\n");
 // }
 //
@@ -140,7 +141,8 @@ public class Elf extends AbstractCharacter {
 //
 // } else {
 // System.out
-// .println("\t> You have no large initialHealth potions left! Defeat enemies for a
+// .println("\t> You have no large initialHealth potions left! Defeat enemies
+// for a
 // chance to get one!\n\n\n\\n\n");
 // }
 //

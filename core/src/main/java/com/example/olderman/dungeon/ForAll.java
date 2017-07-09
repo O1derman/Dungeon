@@ -43,8 +43,9 @@ public class ForAll {
 	public int maximumHealth;
 	public int health;
 	public int gold = 0;
+	public int chestChance = 5; // %
 	public boolean hasDrunkHealthPotion = false;
-	public int resistence = 100;// %
+	public int resistence = 100; // %
 	public int level = 1;
 	public int levelUp = 50;
 	public int experience = 0;
@@ -59,19 +60,24 @@ public class ForAll {
 	// Potion ingredients
 	public int wood = 0;
 	public int bird = 0;
+	public int birdChance = 10; // %
 	public int feather = 0;
 	public int frogLeg = 0;
 	public int frogHeart = 0;
 	public int frogLeftEye = 0;
 	public int frogRightEye = 0;
 	public int worm = 0;
+	public int wormChance = 10; // %
 	public int sneakBrain = 0;
 	public int squirelTails = 0;
 	public int frogHead = 0;
 	public int sneak = 0;
+	public int sneakChance = 10; // %
 	public int flashk = 0;
 	public int frog = 0;
+	public int frogChance = 10; // %
 	public int squirel = 0;
+	public int squirelChance = 10; // %
 
 	// costs
 	public int bedCostWood = 5;

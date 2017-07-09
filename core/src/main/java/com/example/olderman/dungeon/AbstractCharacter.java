@@ -7,6 +7,7 @@ public abstract class AbstractCharacter {
 	protected int experienceForVictory;
 	protected int missChance;
 	protected int luck;
+	protected int loadCapacity;
 	protected RandomValue damage;
 
 	public int getInitialHealth() {
@@ -19,6 +20,10 @@ public abstract class AbstractCharacter {
 
 	public int getLuck() {
 		return luck;
+	}
+
+	public int getLoadCapacity() {
+		return loadCapacity;
 	}
 
 	public int getInitialMaximumHealth() {

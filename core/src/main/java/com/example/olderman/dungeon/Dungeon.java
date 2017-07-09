@@ -3,13 +3,13 @@ package com.example.olderman.dungeon;
 import com.example.olderman.dungeon.characters.Dwarf;
 import com.example.olderman.dungeon.characters.Elf;
 import com.example.olderman.dungeon.characters.Orc;
-import com.example.olderman.dungeon.characters.Superman;
+import com.example.olderman.dungeon.characters.Goblin;
 import com.example.olderman.dungeon.inventory.HealthPotion;
 import com.example.olderman.dungeon.inventory.Inventory;
 import com.example.olderman.dungeon.inventory.InventoryItem;
 import com.example.olderman.dungeon.inventory.InventoryItem.Type;
-import com.example.olderman.dungeon.shop.Shop;
-import com.example.olderman.dungeon.town.WorkHouse;
+import com.example.olderman.dungeon.map.Way;
+import com.example.olderman.dungeon.town.Town;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -25,10 +25,8 @@ import static com.example.olderman.dungeon.Style.YELLOW;
 
 public class Dungeon {
 	public final Random rand = new Random();
-
 	private ForAll forAll;
 	private AbstractCharacter character;
-	private Shop shop;
 	private Inventory inventory;
 
 	public ForAll getForAll() {
@@ -37,10 +35,6 @@ public class Dungeon {
 
 	public AbstractCharacter getCharacter() {
 		return character;
-	}
-
-	public Shop getShop() {
-		return shop;
 	}
 
 	public Inventory getInventory() {
@@ -130,12 +124,14 @@ public class Dungeon {
 		String orc = Resources.getString("/orc");
 		String dwarf = Resources.getString("/dwarf");
 		String elf = Resources.getString("/elf");
-		String superman = Resources.getString("/superman");
+		// String superman = Resources.getString("/superman");
 		String headLine = Resources.getString("/headline");
+		String goblin = Resources.getString("/goblin");
+		boolean running = true;
 
-		MENU: while (true) {
+		MENU: while (running) {
 
-			HLAVNI_NABIDKA: while (true) {
+			HLAVNI_NABIDKA: while (running) {
 				printAsciiArt(headLine);
 				println();
 				int volba0 = uzivatVolba("Start", "Help", "Exit");
@@ -144,20 +140,27 @@ public class Dungeon {
 					break HLAVNI_NABIDKA;
 				case 2:
 					// Ramecek.ramecek(Ramecek.data[1][0], "Dwarf");
-					println(">Dwarf");
-					println("\thas 20% miss chance");
 					println(">Orc");
 					println("\thas 30% miss chance");
+					println("\tcan carry 500kg");
+					println(">Dwarf");
+					println("\thas 20% miss chance");
+					println("\tcan carry 80kg");
+					println("\thas cheaper axes in store");
+					println(">Goblin");
+					println("\thas 10% miss chance");
+					println("\tcan carry 50kg");
 					println(">Elf");
 					println("\thas 5% miss chance");
-					println(">Superman");
-					println("\thas 0% miss chance");
+					println("\tcan carry 30kg");
+					// println(">Superman");
+					// println("\thas 0% miss chance");
 					println();
 					println(">Small health potion heals for 20 HP.");
 					println(">Medium health potion heals for 50 HP.");
 					println(">Large health potion heals for 100 HP.");
 					println("\n\n\n");
-					uzivatVolba("Return");
+					uzivatVolba("Back");
 
 					continue MENU;
 
@@ -166,8 +169,8 @@ public class Dungeon {
 
 				}
 			}
-			shop = new Shop(this);
-			WorkHouse workHouse = new WorkHouse(this);
+			Town town = new Town(this);
+			Way way = new Way(this);
 			InventoryAndInfo inventoryAndInfo = new InventoryAndInfo(this);
 			forAll = new ForAll();
 			inventory = new Inventory(this);
@@ -177,7 +180,9 @@ public class Dungeon {
 			println("\tYou gain experience and have a small chance of getting some health potions for killing enemies.");
 			println("\tGame has 3 differend endings, so try them all for yourself :D!\n\n\n");
 			println("\t\tWhich character would you like to play?\n");
-			int volba = uzivatVolba("Dwarf", "Orc", "Elf", "Superman");
+			int volba = uzivatVolba("Dwarf", "Orc", "Elf",
+					// "Superman",
+					"Goblin", "Back");
 
 			switch (volba) {
 			case 1:
@@ -195,11 +200,18 @@ public class Dungeon {
 				printAsciiArt(elf);
 				println();
 				break;
+			// case 4:
+			// character = new Superman();
+			// printAsciiArt(superman);
+			// println();
+			// break;
 			case 4:
-				character = new Superman();
-				printAsciiArt(superman);
+				character = new Goblin();
+				printAsciiArt(goblin);
 				println();
 				break;
+			case 5:
+				continue MENU;
 
 			}
 
@@ -208,7 +220,7 @@ public class Dungeon {
 
 			println("###############################################################################################################\n");
 			println(character.getBeginning());
-			FIGHT: while (true) {
+			FIGHT: while (running) {
 
 				println("###############################################################################################################\n");
 				println("\n\t>You are on floor " + forAll.floor + "!");
@@ -217,41 +229,25 @@ public class Dungeon {
 				println("\n\tWhat would you like to do?");
 				println();
 				forAll.resetDrinkHealthPotionCount();
-				while (true) {
-					volba = uzivatVolba("Attack", "Go on", "Open inventory and info", "Go in shop", "Go in town",
-							"Exit");
+				while (running) {
+					volba = uzivatVolba("Attack", "Go on", "Open inventory and info", "Go in town", "Exit");
 					if (volba == 1) { // Attack
 						attack();
 						break;
-					} else if (volba == 2) { // Run
-						println("\t>You run!");
+					} else if (volba == 2) { // Go on
+						way.way();
 						forAll.resetEnemy();
-						continue FIGHT;
 
-						// int runEnemyAttackDamage = 25;
-						// int runDamageTaken =
-						// rand.nextInt(runEnemyAttackDamage);
-						// health -= runDamageTaken;
-						// println("\tThe " + enemy + " hit you for "
-						// + runDamageTaken + "!");
-						// println("\tYou run away from the " + enemy
-						// + "!");
-						// println("\tYou now have " + health +
-						// " HP.\n\n\n\n\n");
-						// continue GAME;
-
-					} else if (volba == 3) {// Open inventory and info
+					} else if (volba == 3) { // Open inventory and info
 						InventoryItem usedItem = inventoryAndInfo.inventoryAndInfo(false);
 						if (usedItem != null && usedItem.getType() == Type.WEAPON) {
 							break;
 						}
-					} else if (volba == 4) { // Go in shop
-						shop.shop();
+
+					} else if (volba == 4) { // Go in town
+						town.town();
 						continue FIGHT;
-					} else if (volba == 5) {
-						workHouse.workHouse();
-						continue FIGHT;
-					} else if (volba == 6) { // Exit
+					} else if (volba == 5) { // Exit
 						println("Yout exit the dungeon.");
 						println("Thanks for playing!");
 						continue MENU;
@@ -269,25 +265,21 @@ public class Dungeon {
 						if (forAll.numPotionOfInvisibility == 0) {
 							println("\t> No time to run!\n");
 						} else {
-							println("\t>You run!");
-							forAll.resetEnemy();
-							forAll.numPotionOfInvisibility--;
-							forAll.resetDrinkHealthPotionCount();
-							continue FIGHT;
+							println("\t Do you reall want to run? It will cost you potion of invisibility!");
+							int volbaRun = uzivatVolba("Yes", "No");
+							switch (volbaRun) {
+							case 1:
+								println("\t>You run!");
+								forAll.resetEnemy();
+								forAll.numPotionOfInvisibility--;
+								forAll.resetDrinkHealthPotionCount();
+								continue FIGHT;
+							case 2:
+								break;
+
+							}
 
 						}
-						// int runEnemyAttackDamage = 25;
-						// int runDamageTaken =
-						// rand.nextInt(runEnemyAttackDamage);
-						// health -= runDamageTaken;
-						// println("\tThe " + enemy + " hit you for "
-						// + runDamageTaken + "!");
-						// println("\tYou run away from the " + enemy
-						// + "!");
-						// println("\tYou now have " + health +
-						// " HP.\n\n\n\n\n");
-						// continue GAME;
-
 					} else if (volba == 3) {// Open inventory and info
 						inventoryAndInfo.inventoryAndInfo(true);
 					}
@@ -366,41 +358,6 @@ public class Dungeon {
 					println("RIP keyboard " + DateFormat.getDateInstance().format(new Date()));
 					continue MENU;
 				}
-				// println("#############################################################################");
-				// println("#" + forAll.enemy +
-				// " was defeated! ");
-				// println("# You have " + character.getHealth() + "HP left ");
-				// println("#You have earned " + forAll.experienceGain +
-				// " exp!");
-				// println("#You now have " + forAll.experience +
-				// " experience!");
-				// if (rand.nextInt(100) < forAll.smallHealthPotionDropChance) {
-				// forAll.numSmallHealthPotions++;
-				// println("# The " + forAll.enemy +
-				// " dropped a small health potion! ");
-				// println("# You now have " + forAll.numSmallHealthPotions +
-				// " small health potion(s). ");
-				//
-				// }
-				//
-				// if (rand.nextInt(100) < forAll.mediumHealthPotionDropChance)
-				// {
-				// forAll.numMediumHealthPotions++;
-				// println("# The " + forAll.enemy +
-				// " dropped a medium health potion! ");
-				// println("# You now have " + forAll.numMediumHealthPotions +
-				// " medium health potion(s). ");
-				//
-				// }
-				//
-				// if (rand.nextInt(100) < forAll.largeHealthPotionDropChance) {
-				// forAll.numLargeHealthPotions++;
-				// println("# The " + forAll.enemy +
-				// " dropped a large health potion! ");
-				// println("# You now have " + forAll.numLargeHealthPotions +
-				// " large health potion(s). ");
-				//
-				// }
 				println("\n#############################################################################\n");
 				println("What would you like to do?");
 

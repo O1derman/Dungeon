@@ -11,7 +11,7 @@ public abstract class InventoryItem {
 	private final String name;
 	private final String useText;
 	private final boolean canUseWhileFighting;
-	private final boolean canHaveMoreThenOne;
+	private final boolean canHaveMoreThanOne;
 	private final Type type;
 
 	public InventoryItem(String name, String useText, boolean canUseWhileFighting, boolean canHaveMoreThenOne,
@@ -19,7 +19,7 @@ public abstract class InventoryItem {
 		this.name = name;
 		this.useText = useText;
 		this.canUseWhileFighting = canUseWhileFighting;
-		this.canHaveMoreThenOne = canHaveMoreThenOne;
+		this.canHaveMoreThanOne = canHaveMoreThenOne;
 		this.type = type;
 	}
 
@@ -36,7 +36,7 @@ public abstract class InventoryItem {
 	}
 
 	public boolean canHaveMoreThenOne() {
-		return canHaveMoreThenOne;
+		return canHaveMoreThanOne;
 	}
 
 	public Type getType() {
