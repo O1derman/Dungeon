@@ -5,8 +5,9 @@ public class Map {
 	int length = 5;
 	public int leftEdge = 1;
 	public int rightEdge = width;
-	public int w = (width + 1) / 2; // if width is odd
-	// public int w = (width/2); //if width is even
+	public int w1 = (width + 1) / 2; // starting w
+	public int w = (width + 1) / 2; // find middle if width is odd
+	// public int w = (width/2); // find middle if width is even
 	public int l = 1;
 
 	public void goLeft() {

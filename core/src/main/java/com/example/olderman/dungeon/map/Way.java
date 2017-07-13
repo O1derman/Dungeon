@@ -9,7 +9,7 @@ public class Way {
 	}
 
 	private final Dungeon dungeon;
-	Map map = new Map();
+	public Map map = new Map();
 
 	public void way() {
 		dungeon.println("\t Which way?");
@@ -22,8 +22,10 @@ public class Way {
 				switch (wayChoice) {
 				case 1:
 					map.goStraight();
+					break;
 				case 2:
 					map.goRight();
+					break;
 
 				}
 				break;
@@ -32,8 +34,10 @@ public class Way {
 				switch (wayChoice) {
 				case 1:
 					map.goRight();
+					break;
 				case 2:
 					map.goBackwards();
+					break;
 				}
 				break;
 
@@ -42,8 +46,10 @@ public class Way {
 				switch (wayChoice) {
 				case 1:
 					map.goStraight();
+					break;
 				case 2:
 					map.goRight();
+					break;
 
 				}
 				break;
@@ -52,8 +58,10 @@ public class Way {
 				switch (wayChoice) {
 				case 1:
 					map.goLeft();
+					break;
 				case 2:
 					map.goBackwards();
+					break;
 
 				}
 				break;
@@ -62,10 +70,13 @@ public class Way {
 				switch (wayChoice) {
 				case 1:
 					map.goStraight();
+					break;
 				case 2:
 					map.goLeft();
+					break;
 				case 3:
 					map.goRight();
+					break;
 
 				}
 				break;
@@ -74,10 +85,13 @@ public class Way {
 				switch (wayChoice) {
 				case 1:
 					map.goLeft();
+					break;
 				case 2:
 					map.goRight();
+					break;
 				case 3:
 					map.goBackwards();
+					break;
 
 				}
 				break;
@@ -86,10 +100,13 @@ public class Way {
 				switch (wayChoice) {
 				case 1:
 					map.goStraight();
+					break;
 				case 2:
 					map.goRight();
+					break;
 				case 3:
 					map.goBackwards();
+					break;
 
 				}
 				break;
@@ -98,10 +115,13 @@ public class Way {
 				switch (wayChoice) {
 				case 1:
 					map.goStraight();
+					break;
 				case 2:
 					map.goLeft();
+					break;
 				case 3:
 					map.goBackwards();
+					break;
 
 				}
 				break;
@@ -110,12 +130,16 @@ public class Way {
 				switch (wayChoice) {
 				case 1:
 					map.goStraight();
+					break;
 				case 2:
 					map.goLeft();
+					break;
 				case 3:
 					map.goRight();
+					break;
 				case 4:
 					map.goBackwards();
+					break;
 
 				}
 				break;

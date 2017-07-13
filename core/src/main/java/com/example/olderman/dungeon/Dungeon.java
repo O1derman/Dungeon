@@ -3,16 +3,18 @@ package com.example.olderman.dungeon;
 import com.example.olderman.dungeon.characters.Dwarf;
 import com.example.olderman.dungeon.characters.Elf;
 import com.example.olderman.dungeon.characters.Orc;
+import com.example.olderman.dungeon.enemies.Boss1;
+import com.example.olderman.dungeon.enemies.Boss2;
+import com.example.olderman.dungeon.enemies.Plebs;
 import com.example.olderman.dungeon.characters.Goblin;
 import com.example.olderman.dungeon.inventory.HealthPotion;
 import com.example.olderman.dungeon.inventory.Inventory;
 import com.example.olderman.dungeon.inventory.InventoryItem;
 import com.example.olderman.dungeon.inventory.InventoryItem.Type;
+import com.example.olderman.dungeon.map.Room;
 import com.example.olderman.dungeon.map.Way;
 import com.example.olderman.dungeon.town.Town;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.Random;
 
 import static com.example.olderman.dungeon.Style.AttributeStyle;
@@ -24,10 +26,37 @@ import static com.example.olderman.dungeon.Style.Reset;
 import static com.example.olderman.dungeon.Style.YELLOW;
 
 public class Dungeon {
-	public final Random rand = new Random();
+	private final Random rand = new Random();
 	private ForAll forAll;
+	private Plebs plebs;
+	private Room room;
+
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+
 	private AbstractCharacter character;
 	private Inventory inventory;
+
+	public Random getRand() {
+		return rand;
+	}
+
+	public void setPlebs(Plebs plebs) {
+		this.plebs = plebs;
+	}
+
+	public void setCharacter(AbstractCharacter character) {
+		this.character = character;
+	}
+
+	public Plebs getPlebs() {
+		return plebs;
+	}
 
 	public ForAll getForAll() {
 		return forAll;
@@ -170,15 +199,17 @@ public class Dungeon {
 				}
 			}
 			Town town = new Town(this);
+			Boss1 boss1 = new Boss1(this);
+			Boss2 boss2 = new Boss2(this);
+			plebs = new Plebs();
 			Way way = new Way(this);
 			InventoryAndInfo inventoryAndInfo = new InventoryAndInfo(this);
 			forAll = new ForAll();
 			inventory = new Inventory(this);
+			Room room = new Room(way, this);
 
 			println("\n\n\t\tWelcome to the dungeon!\n");
-			println("\tYou can play this game however you want to.");
 			println("\tYou gain experience and have a small chance of getting some health potions for killing enemies.");
-			println("\tGame has 3 differend endings, so try them all for yourself :D!\n\n\n");
 			println("\t\tWhich character would you like to play?\n");
 			int volba = uzivatVolba("Dwarf", "Orc", "Elf",
 					// "Superman",
@@ -215,29 +246,152 @@ public class Dungeon {
 
 			}
 
-			forAll.health = character.getInitialHealth();
-			forAll.maximumHealth = character.getInitialMaximumHealth();
-
 			println("###############################################################################################################\n");
 			println(character.getBeginning());
 			FIGHT: while (running) {
-
-				println("###############################################################################################################\n");
-				println("\n\t>You are on floor " + forAll.floor + "!");
-
-				println("\t#You see " + forAll.enemy.nameWithArticle() + "!");
-				println("\n\tWhat would you like to do?");
-				println();
+				boolean attack = true;
+				boolean freeRoom = true;
 				forAll.resetDrinkHealthPotionCount();
-				while (running) {
-					volba = uzivatVolba("Attack", "Go on", "Open inventory and info", "Go in town", "Exit");
+				if (way.map.w == 1 && way.map.l == 1 && room.room11 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 1 && way.map.l == 2 && room.room12 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 1 && way.map.l == 3 && room.room13 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 1 && way.map.l == 4 && room.room14 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 1 && way.map.l == 5 && room.room15 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 2 && way.map.l == 1 && room.room21 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 2 && way.map.l == 2 && room.room22 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 2 && way.map.l == 3 && room.room23 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 2 && way.map.l == 4 && room.room24 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 2 && way.map.l == 5 && room.room25 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 3 && way.map.l == 1 && room.room31 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 3 && way.map.l == 2 && room.room32 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 3 && way.map.l == 3 && room.room33 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 3 && way.map.l == 4 && room.room34 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 3 && way.map.l == 5 && room.room35 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 4 && way.map.l == 1 && room.room41 < 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 4 && way.map.l == 2 && room.room42 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 4 && way.map.l == 3 && room.room43 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 4 && way.map.l == 4 && room.room44 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 4 && way.map.l == 5 && room.room45 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 5 && way.map.l == 1 && room.room51 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 5 && way.map.l == 2 && room.room52 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 5 && way.map.l == 3 && room.room53 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 5 && way.map.l == 4 && room.room54 > 0) {
+					attack = false;
+
+				}
+				if (way.map.w == 5 && way.map.l == 5 && room.room55 > 0) {
+					attack = false;
+
+				} else
+					freeRoom = false;
+				room.room();
+
+				while (freeRoom) {
+					volba = uzivatVolba("Go on", "Open inventory and info", "Go in town", "Exit");
+					if (volba == 1) { // Go on
+						way.way();
+						plebs.resetEnemy();
+						continue FIGHT;
+					} else if (volba == 2) { // Open inventory and info
+						InventoryItem usedItem = inventoryAndInfo.inventoryAndInfo(false);
+						if (usedItem != null && usedItem.getType() == Type.WEAPON) {
+							break;
+						}
+
+					} else if (volba == 3) { // Go in town
+						town.town();
+						continue FIGHT;
+					} else if (volba == 4) { // Exit
+						println("Yout exit the dungeon.");
+						println("Thanks for playing!");
+						continue MENU;
+					}
+
+				}
+				while (attack) {
+					volba = uzivatVolba("Attack", "Go back", "Open inventory and info", "Go in town", "Exit");
 					if (volba == 1) { // Attack
-						attack();
+						if (way.map.l == way.map.rightEdge && way.map.w == way.map.w1 && forAll.floor == 1) {
+							boss1.boss1Fight();
+						} else if (way.map.l == way.map.rightEdge && way.map.w == way.map.w1 && forAll.floor == 2) {
+							boss2.boss2Fight();
+						} else {
+							plebFight();
+						}
 						break;
 					} else if (volba == 2) { // Go on
 						way.way();
-						forAll.resetEnemy();
-
+						plebs.resetEnemy();
+						continue FIGHT;
 					} else if (volba == 3) { // Open inventory and info
 						InventoryItem usedItem = inventoryAndInfo.inventoryAndInfo(false);
 						if (usedItem != null && usedItem.getType() == Type.WEAPON) {
@@ -253,14 +407,14 @@ public class Dungeon {
 						continue MENU;
 					}
 				}
-				while (forAll.enemyHealth > 0 && getHealth() > 0) {
+				while (plebs.enemyHealth > 0 && getHealth() > 0) {
 					println("\tYour HP: " + getHealth());
-					println("\t" + forAll.enemy.name + "'s HP: " + forAll.enemyHealth);
+					println("\t" + plebs.enemy.name + "'s HP: " + plebs.enemyHealth);
 					println("\n\tWhat would you like to do?");
 					println();
 					volba = uzivatVolba("Attack", "Run", "Open inventory and info");
 					if (volba == 1) { // Attack
-						attack();
+						plebFight();
 					} else if (volba == 2) { // Run
 						if (forAll.numPotionOfInvisibility == 0) {
 							println("\t> No time to run!\n");
@@ -270,7 +424,7 @@ public class Dungeon {
 							switch (volbaRun) {
 							case 1:
 								println("\t>You run!");
-								forAll.resetEnemy();
+								plebs.resetEnemy();
 								forAll.numPotionOfInvisibility--;
 								forAll.resetDrinkHealthPotionCount();
 								continue FIGHT;
@@ -290,10 +444,84 @@ public class Dungeon {
 					println("\t> You limp out of the dungeon, wounded from the battle.\n\n\n\n\n");
 					continue MENU;
 				}
-
-				forAll.experience += forAll.experienceGain;
-				forAll.floor++;
-				forAll.enemyMissChance = forAll.enemyMissChance * 2 / 3;
+				if (way.map.w == 1 && way.map.l == 1) {
+					room.room11++;
+				}
+				if (way.map.w == 1 && way.map.l == 2) {
+					room.room12++;
+				}
+				if (way.map.w == 1 && way.map.l == 3) {
+					room.room13++;
+				}
+				if (way.map.w == 1 && way.map.l == 4) {
+					room.room14++;
+				}
+				if (way.map.w == 1 && way.map.l == 5) {
+					room.room15++;
+				}
+				if (way.map.w == 2 && way.map.l == 1) {
+					room.room21++;
+				}
+				if (way.map.w == 2 && way.map.l == 2) {
+					room.room22++;
+				}
+				if (way.map.w == 2 && way.map.l == 3) {
+					room.room23++;
+				}
+				if (way.map.w == 2 && way.map.l == 4) {
+					room.room24++;
+				}
+				if (way.map.w == 2 && way.map.l == 5) {
+					room.room25++;
+				}
+				if (way.map.w == 3 && way.map.l == 1) {
+					room.room31++;
+				}
+				if (way.map.w == 3 && way.map.l == 2) {
+					room.room32++;
+				}
+				if (way.map.w == 3 && way.map.l == 3) {
+					room.room33++;
+				}
+				if (way.map.w == 3 && way.map.l == 4) {
+					room.room34++;
+				}
+				if (way.map.w == 3 && way.map.l == 5) {
+					room.room35++;
+				}
+				if (way.map.w == 4 && way.map.l == 1) {
+					room.room41++;
+				}
+				if (way.map.w == 4 && way.map.l == 2) {
+					room.room42++;
+				}
+				if (way.map.w == 4 && way.map.l == 3) {
+					room.room43++;
+				}
+				if (way.map.w == 4 && way.map.l == 4) {
+					room.room44++;
+				}
+				if (way.map.w == 4 && way.map.l == 5) {
+					room.room45++;
+				}
+				if (way.map.w == 5 && way.map.l == 1) {
+					room.room51++;
+				}
+				if (way.map.w == 5 && way.map.l == 2) {
+					room.room52++;
+				}
+				if (way.map.w == 5 && way.map.l == 3) {
+					room.room53++;
+				}
+				if (way.map.w == 5 && way.map.l == 4) {
+					room.room54++;
+				}
+				if (way.map.w == 5 && way.map.l == 5) {
+					room.room55++;
+				}
+				forAll.experience += plebs.experienceGain;
+				plebs.enemiesKilled++;
+				plebs.enemyMissChance = plebs.enemyMissChance * 2 / 3;
 
 				if (forAll.experience >= forAll.levelUp) {
 					forAll.levelUp += 50;
@@ -309,17 +537,12 @@ public class Dungeon {
 					println("\tYour maximum damage is " + character.getDamage().maxValue(this) + ".");
 				}
 
-				if (forAll.level >= 10) {
-					println("\tYOU WON!!!");
-					continue MENU;
-				}
-
-				int goldFound = (rand.nextInt(100) + rand.nextInt(100)) + forAll.floor * 20;
+				int goldFound = (rand.nextInt(100) + rand.nextInt(100)) + plebs.enemiesKilled * 20;
 				forAll.gold += goldFound;
 				println("\n#############################################################################\n");
-				println("# " + forAll.enemy.name + " was defeated!                                                ");
+				println("# " + plebs.enemy.name + " was defeated!                                                ");
 				println("# You have ", RED.BRIGHT, getHealth() + "HP", DEFAULT_COLOR, " left ");
-				println("# You have earned ", GREEN.BRIGHT, forAll.experienceGain + " exp", DEFAULT_COLOR, "!");
+				println("# You have earned ", GREEN.BRIGHT, plebs.experienceGain + " exp", DEFAULT_COLOR, "!");
 				println("# You have ", GREEN.BRIGHT, forAll.experience + " experience", DEFAULT_COLOR,
 						"! You need " + forAll.levelUp + " experience for level up.");
 				println("# You have level " + forAll.level + "!");
@@ -328,7 +551,7 @@ public class Dungeon {
 				if (rand.nextInt(100) < ForAll.SMALL_HEALTH_POTION_DROP_CHANCE
 						|| rand.nextInt(100) <= character.getLuck()) {
 					inventory.add(HealthPotion.SMALL);
-					println("# The " + forAll.enemy.name + " dropped a small health potion! ("
+					println("# The " + plebs.enemy.name + " dropped a small health potion! ("
 							+ inventory.getCount(HealthPotion.SMALL) + " total)");
 
 				}
@@ -336,7 +559,7 @@ public class Dungeon {
 				if (rand.nextInt(100) < ForAll.MEDIUM_HEALTH_POTION_DROP_CHANCE
 						|| rand.nextInt(100) <= character.getLuck()) {
 					inventory.add(HealthPotion.MEDIUM);
-					println("# The " + forAll.enemy.name + " dropped a medium health potion! ("
+					println("# The " + plebs.enemy.name + " dropped a medium health potion! ("
 							+ inventory.getCount(HealthPotion.MEDIUM) + " total)");
 
 				}
@@ -344,32 +567,20 @@ public class Dungeon {
 				if (rand.nextInt(100) < ForAll.LARGE_HEALTH_POTION_DROP_CHANCE
 						|| rand.nextInt(100) <= character.getLuck()) {
 					inventory.add(HealthPotion.LARGE);
-					println("# The " + forAll.enemy.name + " dropped a large health potion! ("
+					println("# The " + plebs.enemy.name + " dropped a large health potion! ("
 							+ inventory.getCount(HealthPotion.LARGE) + " total)");
 
 				}
 
-				forAll.experience += forAll.experienceGain;
+				forAll.experience += plebs.experienceGain;
 
-				if (character.getExperienceForVictory() <= forAll.experience) {
-					println("\tYour keyboard still isn't broken from smashing those two buttons?");
-					println("\tYOU WON!!!");
-					println("\tBut your keyboard died in the last fight.");
-					println("RIP keyboard " + DateFormat.getDateInstance().format(new Date()));
-					continue MENU;
-				}
 				println("\n#############################################################################\n");
-				println("What would you like to do?");
 
-				volba = uzivatVolba("Go to next floor", "Exit dungeon");
+				volba = uzivatVolba("Continue");
 
 				if (volba == 1) {
-					println("You continue on your adventure!");
-					forAll.resetEnemy();
-				} else {
-					println("You exit the dungeon, successful from your adventures!");
-					println("Thanks for playing!");
-					continue MENU;
+					plebs.resetEnemy();
+
 				}
 
 			}
@@ -377,9 +588,9 @@ public class Dungeon {
 		}
 	}
 
-	private void attack() {
+	private void plebFight() {
 		boolean youMiss = rand.nextInt(100) <= character.getMissChance();
-		boolean enemyMiss = rand.nextInt(100) <= forAll.enemyMissChance;
+		boolean enemyMiss = rand.nextInt(100) <= plebs.enemyMissChance;
 
 		if (youMiss) {
 			println("\tYou MISS!");
@@ -390,13 +601,13 @@ public class Dungeon {
 
 		if (!youMiss) {
 			int damageDealt = forAll.selectedWeapon.calculateDamage(this);
-			println("\t> You strike the " + forAll.enemy.name + " for " + damageDealt + " damage.");
-			forAll.enemyHealth -= damageDealt;
+			println("\t> You strike the " + plebs.enemy.name + " for " + damageDealt + " damage.");
+			plebs.enemyHealth -= damageDealt;
 		}
 
 		if (!enemyMiss) {
-			int damageTaken = ((rand.nextInt(forAll.enemyAttackDamage) + rand.nextInt(forAll.enemyAttackDamage))
-					+ forAll.floor * 5 + 10) * forAll.resistence / 100;
+			int damageTaken = ((rand.nextInt(plebs.enemyAttackDamage) + rand.nextInt(plebs.enemyAttackDamage))
+					+ plebs.enemiesKilled * 5 + 10) * forAll.resistence / 100;
 
 			println("\t> You receive " + damageTaken + " damage.");
 			decreaseHealth(damageTaken);

@@ -40,17 +40,19 @@ public class RandomValue {
 	public int nextValue(Dungeon dungeon) {
 		return constantFactor
 				+ (randomFactor == 0 ? 0
-						: dungeon.rand.nextInt(randomFactor / 2) + dungeon.rand.nextInt((randomFactor + 1) / 2))
-				+ floorFactor * dungeon.getForAll().floor + levelFactor * dungeon.getForAll().level;
+						: dungeon.getRand().nextInt(randomFactor / 2)
+								+ dungeon.getRand().nextInt((randomFactor + 1) / 2))
+				+ floorFactor * dungeon.getPlebs().enemiesKilled + levelFactor * dungeon.getForAll().level;
 	}
 
 	public int maxValue(Dungeon dungeon) {
-		return constantFactor + randomFactor + floorFactor * dungeon.getForAll().floor
+		return constantFactor + randomFactor + floorFactor * dungeon.getPlebs().enemiesKilled
 				+ levelFactor * dungeon.getForAll().level;
 	}
 
 	public int minValue(Dungeon dungeon) {
-		return constantFactor + floorFactor * dungeon.getForAll().floor + levelFactor * dungeon.getForAll().level;
+		return constantFactor + floorFactor * dungeon.getPlebs().enemiesKilled
+				+ levelFactor * dungeon.getForAll().level;
 	}
 
 }

@@ -1,31 +1,11 @@
 package com.example.olderman.dungeon;
 
-import java.util.Random;
-
 import com.example.olderman.dungeon.inventory.Weapon;
 
 public class ForAll {
 
-	private final Random rand = new Random();
-
 	// Game variables
 	public int floor = 1;
-
-	// Enemy constants
-	public static final int MAX_ENEMY_HEALTH = 10;
-
-	// Enemy variables
-	public Enemy enemy;
-	public int enemyHealth;
-
-	public int enemyAttackDamage = 5;
-	public int experienceGain = 20;
-	public int enemyMissChance = 20;
-
-	public void resetEnemy() {
-		enemyHealth = (rand.nextInt(MAX_ENEMY_HEALTH) + rand.nextInt(MAX_ENEMY_HEALTH)) + floor * 5 + 50;
-		this.enemy = Enemy.values()[rand.nextInt(Enemy.values().length)];
-	}
 
 	public void resetDrinkHealthPotionCount() {
 		hasDrunkHealthPotion = false;
@@ -84,9 +64,5 @@ public class ForAll {
 	public int bedCostFeather = 100;
 	public int woodForBed = bedCostWood - wood;
 	public int featherForBed = bedCostFeather - feather;
-
-	public ForAll() {
-		resetEnemy();
-	}
 
 }

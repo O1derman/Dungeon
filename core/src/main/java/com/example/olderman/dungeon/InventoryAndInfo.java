@@ -17,8 +17,8 @@ public class InventoryAndInfo {
 		if (dungeon.getForAll().level > 0) {
 			dungeon.println("level " + dungeon.getForAll().level);
 		}
-		if (dungeon.getForAll().floor > 0) {
-			dungeon.println("floor " + dungeon.getForAll().floor);
+		if (dungeon.getPlebs().enemiesKilled > 0) {
+			dungeon.println("floor " + dungeon.getPlebs().enemiesKilled);
 		}
 		if (dungeon.getForAll().resistence > 0) {
 			dungeon.println(100 - dungeon.getForAll().resistence + "% resistance");

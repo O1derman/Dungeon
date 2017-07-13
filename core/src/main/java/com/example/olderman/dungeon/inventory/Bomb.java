@@ -16,8 +16,8 @@ public class Bomb extends InventoryItem {
 
 	@Override
 	public boolean use(Dungeon dungeon) {
-		int actualBombDamage = dungeon.rand.nextInt(DAMAGE_RANGE) + MIN_DAMAGE;
-		dungeon.getForAll().enemyHealth -= actualBombDamage;
+		int actualBombDamage = dungeon.getRand().nextInt(DAMAGE_RANGE) + MIN_DAMAGE;
+		dungeon.getPlebs().enemyHealth -= actualBombDamage;
 		dungeon.println("You hit enemy for " + actualBombDamage + " damage!");
 		return true;
 	}
