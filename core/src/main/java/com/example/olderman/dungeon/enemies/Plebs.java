@@ -2,8 +2,6 @@ package com.example.olderman.dungeon.enemies;
 
 import java.util.Random;
 
-import com.example.olderman.dungeon.Enemy;
-
 public class Plebs {
 
 	public Plebs() {

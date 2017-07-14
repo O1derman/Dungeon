@@ -1,4 +1,4 @@
-package com.example.olderman.dungeon;
+package com.example.olderman.dungeon.enemies;
 
 public enum Enemy {
 	SKELETON("a", "Skeleton"), ZOMBIE("a", "Zombie"), WARRIOR("a", "Warrior"), ASSASIN("an", "Assasin");
