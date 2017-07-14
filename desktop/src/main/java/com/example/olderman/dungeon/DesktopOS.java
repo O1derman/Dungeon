@@ -169,4 +169,9 @@ public class DesktopOS implements OS {
 		ansi().reset();
 	}
 
+	@Override
+	public void beep() {
+		AnsiConsole.out.print("\u0007");
+	}
+
 }

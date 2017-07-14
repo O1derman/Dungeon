@@ -8,16 +8,27 @@ public class Town {
 	public Town(Dungeon dungeon) {
 
 		this.dungeon = dungeon;
+		shop = new Shop(dungeon);
+		workHouse = new WorkHouse(dungeon);
 
 	}
 
 	private final Dungeon dungeon;
+	private final Shop shop;
+	private final WorkHouse workHouse;
 
 	public void town() {
-		Shop shop = new Shop(dungeon);
-		WorkHouse workHouse = new WorkHouse(dungeon);
-
 		dungeon.println("Welcome in Stander!");
+
+		switch (dungeon.uzivatVolba("Go in shop", "Go in workhouse", "Back")) {
+		case 1:
+			shop.shop();
+			break;
+
+		case 2:
+			workHouse.workHouse();
+			break;
+		}
 
 	}
 }

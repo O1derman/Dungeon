@@ -23,4 +23,6 @@ public interface OS {
 
 	void printAsciiArt(String asciiArt);
 
+	void beep();
+
 }

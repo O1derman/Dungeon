@@ -1,6 +1,9 @@
 package com.example.olderman.dungeon.map;
 
 public class Map {
+
+	public boolean[][] rooms = new boolean[6][6];
+
 	int width = 5;
 	int length = 5;
 	public int leftEdge = 1;
