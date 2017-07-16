@@ -10,6 +10,7 @@ public class Way {
 
 	private final Dungeon dungeon;
 	public Map map = new Map();
+	public int wayChoice;
 
 	public void way() {
 		dungeon.println("\t Which way?");
@@ -18,7 +19,7 @@ public class Way {
 																	// down
 																	// corner
 
-				int wayChoice = dungeon.uzivatVolba("Straight", "Right");
+				wayChoice = dungeon.uzivatVolba("Straight", "Right");
 				switch (wayChoice) {
 				case 1:
 					map.goStraight();
@@ -30,7 +31,7 @@ public class Way {
 				}
 				break;
 			} else if (map.l == map.rightEdge && map.w == map.leftEdge) { // left up corner
-				int wayChoice = dungeon.uzivatVolba("Right", "Backwards");
+				wayChoice = dungeon.uzivatVolba("Right", "Backwards");
 				switch (wayChoice) {
 				case 1:
 					map.goRight();
@@ -42,7 +43,7 @@ public class Way {
 				break;
 
 			} else if (map.l == map.leftEdge && map.w == map.rightEdge) { // right down corner
-				int wayChoice = dungeon.uzivatVolba("Straight", "Right");
+				wayChoice = dungeon.uzivatVolba("Straight", "Right");
 				switch (wayChoice) {
 				case 1:
 					map.goStraight();
@@ -54,7 +55,7 @@ public class Way {
 				}
 				break;
 			} else if (map.l == map.rightEdge && map.w == map.rightEdge) { // right up corner
-				int wayChoice = dungeon.uzivatVolba("Left", "Backwards");
+				wayChoice = dungeon.uzivatVolba("Left", "Backwards");
 				switch (wayChoice) {
 				case 1:
 					map.goLeft();
@@ -66,7 +67,7 @@ public class Way {
 				}
 				break;
 			} else if (map.l == map.leftEdge) { // down side
-				int wayChoice = dungeon.uzivatVolba("Straight", "Left", "Right");
+				wayChoice = dungeon.uzivatVolba("Straight", "Left", "Right");
 				switch (wayChoice) {
 				case 1:
 					map.goStraight();
@@ -81,7 +82,7 @@ public class Way {
 				}
 				break;
 			} else if (map.l == map.rightEdge) { // up side
-				int wayChoice = dungeon.uzivatVolba("Left", "Right", "Backwards");
+				wayChoice = dungeon.uzivatVolba("Left", "Right", "Backwards");
 				switch (wayChoice) {
 				case 1:
 					map.goLeft();
@@ -96,7 +97,7 @@ public class Way {
 				}
 				break;
 			} else if (map.w == map.leftEdge) { // left side
-				int wayChoice = dungeon.uzivatVolba("Straight", "Right", "Bacwards");
+				wayChoice = dungeon.uzivatVolba("Straight", "Right", "Bacwards");
 				switch (wayChoice) {
 				case 1:
 					map.goStraight();
@@ -111,7 +112,7 @@ public class Way {
 				}
 				break;
 			} else if (map.w == map.rightEdge) { // right side
-				int wayChoice = dungeon.uzivatVolba("Straight", "Left", "Bacwards");
+				wayChoice = dungeon.uzivatVolba("Straight", "Left", "Bacwards");
 				switch (wayChoice) {
 				case 1:
 					map.goStraight();
@@ -126,7 +127,7 @@ public class Way {
 				}
 				break;
 			} else {
-				int wayChoice = dungeon.uzivatVolba("Straight", "Left", "Right", "Backwards");
+				wayChoice = dungeon.uzivatVolba("Straight", "Left", "Right", "Backwards");
 				switch (wayChoice) {
 				case 1:
 					map.goStraight();
@@ -146,5 +147,85 @@ public class Way {
 			}
 
 		}
+	}
+
+	public void back() {
+		while (true) {
+			if (map.l == map.leftEdge && map.w == map.leftEdge && wayChoice == 1) {
+				map.goBackwards();
+				break;
+			} else if (map.l == map.leftEdge && map.w == map.leftEdge && wayChoice == 2) {
+				map.goLeft();
+				break;
+			} else if (map.l == map.rightEdge && map.w == map.leftEdge && wayChoice == 1) {
+				map.goLeft();
+				break;
+			} else if (map.l == map.rightEdge && map.w == map.leftEdge && wayChoice == 2) {
+				map.goStraight();
+				break;
+			} else if (map.l == map.leftEdge && map.w == map.rightEdge && wayChoice == 1) {
+				map.goBackwards();
+				break;
+			} else if (map.l == map.leftEdge && map.w == map.rightEdge && wayChoice == 2) {
+				map.goLeft();
+				break;
+			} else if (map.l == map.rightEdge && map.w == map.rightEdge && wayChoice == 1) {
+				map.goRight();
+				break;
+			} else if (map.l == map.rightEdge && map.w == map.rightEdge && wayChoice == 2) {
+				map.goStraight();
+				break;
+			} else if (map.l == map.leftEdge && wayChoice == 1) {
+				map.goBackwards();
+				break;
+			} else if (map.l == map.leftEdge && wayChoice == 2) {
+				map.goRight();
+				break;
+			} else if (map.l == map.leftEdge && wayChoice == 3) {
+				map.goLeft();
+				break;
+			} else if (map.l == map.rightEdge && wayChoice == 1) {
+				map.goRight();
+				break;
+			} else if (map.l == map.rightEdge && wayChoice == 2) {
+				map.goLeft();
+				break;
+			} else if (map.l == map.rightEdge && wayChoice == 3) {
+				map.goStraight();
+				break;
+			} else if (map.w == map.leftEdge && wayChoice == 1) {
+				map.goBackwards();
+				break;
+			} else if (map.w == map.leftEdge && wayChoice == 2) {
+				map.goLeft();
+				break;
+			} else if (map.w == map.leftEdge && wayChoice == 3) {
+				map.goStraight();
+				break;
+			} else if (map.w == map.rightEdge && wayChoice == 1) {
+				map.goBackwards();
+				break;
+			} else if (map.w == map.rightEdge && wayChoice == 2) {
+				map.goRight();
+				break;
+			} else if (map.w == map.rightEdge && wayChoice == 3) {
+				map.goStraight();
+				break;
+			} else if (wayChoice == 1) {
+				map.goBackwards();
+				break;
+			} else if (wayChoice == 2) {
+				map.goRight();
+				break;
+			} else if (wayChoice == 3) {
+				map.goLeft();
+				break;
+			} else if (wayChoice == 1) {
+				map.goStraight();
+				break;
+			}
+			break;
+		}
+
 	}
 }

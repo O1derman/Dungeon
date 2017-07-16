@@ -280,7 +280,7 @@ public class Dungeon {
 						}
 						break;
 					} else if (volba == 2) { // Go back
-						way.way();
+						way.back();
 						plebs.resetEnemy();
 						continue FIGHT;
 					} else if (volba == 3) { // Open inventory and info
