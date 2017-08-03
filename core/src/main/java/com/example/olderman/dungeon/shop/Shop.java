@@ -18,13 +18,11 @@ public class Shop {
 				new InventoryShopItem(dungeon, new Weapon("Onehand axe", 20), 600, "gives you 20 more damage!"),
 				new InventoryShopItem(dungeon, new Weapon("Twohand axe", 40), 800, "gives you 40 more damage!"),
 				new InventoryShopItem(dungeon, Bomb.BOMB, 400, "deals 100-300 damage! (only for 1 use)"),
-				new InventoryShopItem(dungeon, Pot.POT, 450, "allows you to create potions"), new Hamburger(dungeon) };
+				new InventoryShopItem(dungeon, Pot.POT, 450, "allows you to create potions"), new Hamburger(dungeon),
+				new InventoryShopItem(dungeon, new Weapon("Knife", 0), 200, "allows you to separate animals!") };
 	}
 
 	private final Dungeon dungeon;
-
-	// int knifeCost = 200;
-
 	private final ShopItem[] items;
 
 	public void shop() {

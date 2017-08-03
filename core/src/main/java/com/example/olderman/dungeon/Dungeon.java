@@ -7,6 +7,7 @@ import com.example.olderman.dungeon.inventory.HealthPotion;
 import com.example.olderman.dungeon.inventory.Inventory;
 import com.example.olderman.dungeon.inventory.InventoryItem;
 import com.example.olderman.dungeon.inventory.InventoryItem.Type;
+import com.example.olderman.dungeon.map.Room;
 import com.example.olderman.dungeon.map.Way;
 import com.example.olderman.dungeon.town.Town;
 
@@ -33,6 +34,7 @@ public class Dungeon {
 	private Inventory inventory;
 	private Town town;
 	private Way way;
+	private Room room;
 
 	// getters
 	public Random getRand() {
@@ -149,12 +151,12 @@ public class Dungeon {
 
 	// main
 
-	public void run() {
+	public void run() throws InterruptedException {
 		clear();
 		menu();
 	}
 
-	private void menu() {
+	private void menu() throws InterruptedException {
 		while (true) {
 			printAsciiArt(HEADLINE);
 			println();
@@ -172,6 +174,7 @@ public class Dungeon {
 							GameCharacter.GOBLIN }[volba - 1];
 
 					forAll = new ForAll();
+					room = new Room(this);
 					plebs = new Plebs();
 					town = new Town(this);
 					way = new Way(this);
@@ -218,7 +221,7 @@ public class Dungeon {
 
 	}
 
-	private void game() {
+	private void game() throws InterruptedException {
 		Boss1 boss1 = new Boss1(this);
 		Boss2 boss2 = new Boss2(this);
 
@@ -240,7 +243,7 @@ public class Dungeon {
 				while (true) {
 					volba = uzivatVolba("Go on", "Open inventory and info", "Go in town", "Exit");
 					if (volba == 1) { // Go on
-						way.way();
+						way.go();
 						plebs.resetEnemy();
 						continue FIGHT;
 					} else if (volba == 2) { // Open inventory and info
@@ -259,12 +262,12 @@ public class Dungeon {
 					}
 
 				}
-			} else { // attack
+			} else {
 				if (way.map.l == way.map.rightEdge && way.map.w == way.map.w1) {
 					println("\tWelcome in boss room for floor " + forAll.floor);
 					beep();
-				} else if (rand.nextInt(100) < plebs.enemyChance) {
-					println("\t#You see " + plebs.enemy.nameWithArticle() + "!");
+				} else {
+					room.normalRoom();
 
 				}
 
@@ -415,8 +418,9 @@ public class Dungeon {
 			println("level " + this.getForAll().level);
 		}
 		if (getPlebs().enemiesKilled > 0) {
-			println("floor " + this.getPlebs().enemiesKilled);
+			println("floor " + this.getForAll().floor);
 		}
+		println(this.getPlebs().enemiesKilled + " killed monsters");
 		if (getForAll().resistence > 0) {
 			println(100 - this.getForAll().resistence + "% resistance");
 		}

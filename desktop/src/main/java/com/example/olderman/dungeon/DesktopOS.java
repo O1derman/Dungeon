@@ -66,7 +66,7 @@ public class DesktopOS implements OS {
 		ansi().newline();
 	}
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, InterruptedException {
 		if (args.length >= 1 && "--noClear".equals(args[0])) {
 			enableClear = false;
 		}

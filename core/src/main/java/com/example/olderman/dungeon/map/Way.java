@@ -12,7 +12,7 @@ public class Way {
 	public Map map = new Map();
 	public int wayChoice;
 
-	public void way() {
+	public void go() {
 		dungeon.println("\t Which way?");
 		while (true) {
 			if (map.l == map.leftEdge && map.w == map.leftEdge) { // left

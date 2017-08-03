@@ -12,6 +12,7 @@ public class ForAll {
 	}
 
 	// Player constants
+	public int energy = 100;
 	public static final int LEVEL_UP_HEALTH = 20;
 	public static final int POTION_OF_STRENGTH_POWER = 500;
 	public static final int SMALL_HEALTH_POTION_DROP_CHANCE = 80; // %
@@ -23,6 +24,11 @@ public class ForAll {
 	public int maximumHealth;
 	public int health;
 	public int gold = 0;
+	public int woodenAxe = 0;
+	public int ironAxe = 0;
+	public int silverAxe = 0;
+	public int goldenAxe = 0;
+	public int house = 0;
 	public int chestChance = 5; // %
 	public boolean hasDrunkHealthPotion = false;
 	public int resistence = 100; // %
