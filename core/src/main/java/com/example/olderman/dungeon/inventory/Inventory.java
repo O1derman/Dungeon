@@ -13,6 +13,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 public class Inventory {
+
 	private final Dungeon dungeon;
 
 	public Inventory(Dungeon dungeon) {
@@ -75,7 +76,7 @@ public class Inventory {
 				hasItemWichCantBeUsed = true;
 			}
 		}
-
+		dungeon.getWay().map.asciiArtMap();
 		names.add("Exit inventory");
 		items.add(null);
 

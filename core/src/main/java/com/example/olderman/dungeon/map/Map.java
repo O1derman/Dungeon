@@ -1,5 +1,7 @@
 package com.example.olderman.dungeon.map;
 
+import com.example.olderman.dungeon.Resources;
+
 public class Map {
 
 	public boolean[][] rooms = new boolean[6][6];
@@ -14,6 +16,7 @@ public class Map {
 	public int w = (width + 1) / 2; // find middle if width is odd
 	// public int w = (width/2); // find middle if width is even
 	public int l = 1;
+	int mapPosition = w * 14 + l * 2;
 
 	public void initializeRooms() {
 		for (int i = 0; i < mapRooms.length; i++) {
@@ -38,6 +41,18 @@ public class Map {
 
 	public void goBackwards() {
 		l--;
+	}
+
+	public String changeCharInPosition(int position, char ch, String str) {
+		char[] charArray = str.toCharArray();
+		charArray[position] = ch;
+		return new String(charArray);
+	}
+
+	public void asciiArtMap() {
+		String map = Resources.getString("/map");
+		map = changeCharInPosition(mapPosition, 'B', map);
+		System.out.println(map);
 	}
 
 }
