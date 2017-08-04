@@ -224,8 +224,10 @@ public class Dungeon {
 	private void game() throws InterruptedException {
 		Boss1 boss1 = new Boss1(this);
 		Boss2 boss2 = new Boss2(this);
+		way.map.asciiArtMap();
 
 		int volba;
+		boolean reset = true;
 
 		printAsciiArt(character.getAsciiArt());
 		println();
@@ -244,7 +246,9 @@ public class Dungeon {
 					volba = uzivatVolba("Go on", "Open inventory and info", "Go in town", "Exit");
 					if (volba == 1) { // Go on
 						way.go();
-						plebs.resetEnemy();
+						if (reset) {
+							plebs.resetEnemy();
+						}
 						continue FIGHT;
 					} else if (volba == 2) { // Open inventory and info
 						InventoryItem usedItem = inventoryAndInfo(false);
@@ -267,7 +271,7 @@ public class Dungeon {
 					println("\tWelcome in boss room for floor " + forAll.floor);
 					beep();
 				} else {
-					room.normalRoom();
+					println("\t#You see " + getPlebs().enemy.nameWithArticle() + "!");
 
 				}
 
@@ -284,7 +288,7 @@ public class Dungeon {
 						break;
 					} else if (volba == 2) { // Go back
 						way.back();
-						plebs.resetEnemy();
+						reset = false;
 						continue FIGHT;
 					} else if (volba == 3) { // Open inventory and info
 						InventoryItem usedItem = inventoryAndInfo(false);
@@ -362,6 +366,7 @@ public class Dungeon {
 
 			int goldFound = (rand.nextInt(100) + rand.nextInt(100)) + plebs.enemiesKilled * 20;
 			forAll.gold += goldFound;
+			reset = true;
 			println("\n#############################################################################\n");
 			println("# " + plebs.enemy.name + " was defeated!                                                ");
 			println("# You have ", RED.BRIGHT, getHealth() + "HP", DEFAULT_COLOR, " left ");
@@ -399,9 +404,16 @@ public class Dungeon {
 
 			println("\n#############################################################################\n");
 
-			volba = uzivatVolba("Continue");
-
+			volba = uzivatVolba("Search room", "Continue");
 			if (volba == 1) {
+				room.normalRoom();
+				volba = uzivatVolba("\nContinue");
+				if (volba == 1) {
+					plebs.resetEnemy();
+
+				}
+			}
+			if (volba == 2) {
 				plebs.resetEnemy();
 
 			}
@@ -412,7 +424,7 @@ public class Dungeon {
 	public InventoryItem inventoryAndInfo(boolean fighting) {
 		println(this.getHealth() + "/" + this.getForAll().maximumHealth + " health");
 		if (getForAll().experience > 0) {
-			println(this.getForAll().experience + " experience");
+			println(this.getForAll().experience + "/" + this.getForAll().levelUp + " experience");
 		}
 		if (getForAll().level > 0) {
 			println("level " + this.getForAll().level);

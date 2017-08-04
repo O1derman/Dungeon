@@ -33,7 +33,7 @@ public class ForAll {
 	public boolean hasDrunkHealthPotion = false;
 	public int resistence = 100; // %
 	public int level = 1;
-	public int levelUp = 50;
+	public int levelUp = 50 * level;
 	public int experience = 0;
 	public int numPotionOfStrength = 0;
 	public int numPotionOfInvisibility = 0;

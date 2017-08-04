@@ -9,7 +9,7 @@ public class Way {
 	}
 
 	private final Dungeon dungeon;
-	public Map map = new Map();
+	public Map1 map = new Map1();
 	public int wayChoice;
 
 	public void go() {

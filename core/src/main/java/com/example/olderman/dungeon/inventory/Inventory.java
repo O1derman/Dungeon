@@ -76,7 +76,7 @@ public class Inventory {
 				hasItemWichCantBeUsed = true;
 			}
 		}
-		dungeon.getWay().map.asciiArtMap();
+		dungeon.getWay().map.asciiArtMapPrint();
 		names.add("Exit inventory");
 		items.add(null);
 
