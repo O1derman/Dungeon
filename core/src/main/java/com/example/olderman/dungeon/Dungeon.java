@@ -294,11 +294,20 @@ public class Dungeon implements Serializable {
 		boolean reset = true;
 
 		printAsciiArt(character.getAsciiArt());
+		long start = System.nanoTime();
 		println();
 
 		println("\n\n");
 		println(character.getBeginning());
 		FIGHT: while (true) {
+			long elapsedTime = System.nanoTime() - start;
+			if (elapsedTime == 5) {
+				if (forAll.energy < 100) {
+					forAll.energy += 10;
+				} else {
+
+				}
+			}
 			boolean freeRoom = way.map1.rooms[way.map1.w][way.map1.l];
 			forAll.resetDrinkHealthPotionCount();
 
@@ -553,6 +562,7 @@ public class Dungeon implements Serializable {
 		if (getPlebs().enemiesKilled > 0) {
 			println("floor " + this.getForAll().floor);
 		}
+		getWay().map1.asciiArtMapPrint();
 		if (getForAll().resistence > 0) {
 			println(100 - this.getForAll().resistence + "% resistance");
 		}
@@ -563,7 +573,19 @@ public class Dungeon implements Serializable {
 			println(this.getForAll().gold + " gold");
 
 		}
+		println(forAll.energy + " /100");
 		println(this.getCharacter().getMissChance() + "% miss chance");
+		if (getPlebs().enemiesKilled == 1) {
+			println(getPlebs().enemiesKilled + " killed enemy");
+		} else {
+			println(getPlebs().enemiesKilled + " killed enemies");
+		}
+		if (getForAll().bossesKilled == 1) {
+			println(getForAll().bossesKilled + " killed boss");
+		} else {
+			println(getForAll().bossesKilled + " killed bosses");
+		}
+		println(score + " score");
 
 		println();
 
