@@ -296,14 +296,14 @@ public class Dungeon implements Serializable {
 		printAsciiArt(character.getAsciiArt());
 		println();
 
-		println("###############################################################################################################\n");
+		println("\n\n");
 		println(character.getBeginning());
 		FIGHT: while (true) {
 			boolean freeRoom = way.map1.rooms[way.map1.w][way.map1.l];
 			forAll.resetDrinkHealthPotionCount();
 
-			println("###############################################################################################################\n");
-			println("\n\t>You are on floor " + forAll.floor + "!");
+			println("\n\n");
+			println("\n\tYou are on floor " + forAll.floor + "!");
 			boolean plebFight = true;
 			if (freeRoom) {
 				while (true) {
@@ -317,8 +317,9 @@ public class Dungeon implements Serializable {
 					} else if (volba == 2) { // Open inventory and info
 						InventoryItem usedItem = inventoryAndInfo(false);
 						if (usedItem != null && usedItem.getType() == Type.WEAPON) {
-							break;
+
 						}
+						continue FIGHT;
 
 					} else if (volba == 3) { // Go in town
 						town.town();
@@ -335,7 +336,7 @@ public class Dungeon implements Serializable {
 					println("\tWelcome in boss room for floor " + forAll.floor);
 					beep();
 				} else {
-					println("\t#You see " + getPlebs().enemy.nameWithArticle() + "!");
+					println("\tYou see " + getPlebs().enemy.nameWithArticle() + "!");
 
 				}
 
@@ -360,9 +361,9 @@ public class Dungeon implements Serializable {
 					} else if (volba == 3) { // Open inventory and info
 						InventoryItem usedItem = inventoryAndInfo(false);
 						if (usedItem != null && usedItem.getType() == Type.WEAPON) {
-							break;
-						}
 
+						}
+						continue FIGHT;
 					} else if (volba == 4) { // Go in town
 						town.town();
 						continue FIGHT;
@@ -513,7 +514,12 @@ public class Dungeon implements Serializable {
 
 			volba = uzivatVolba("Search room", "Continue");
 			if (volba == 1) {
-				room.normalRoom();
+				if (forAll.energy < 30) {
+					println("You don't have enough energy!");
+				} else {
+					room.normalRoom();
+					forAll.energy -= 30;
+				}
 				volba = uzivatVolba("Continue");
 				if (volba == 1) {
 					plebs.resetEnemy();
@@ -528,6 +534,14 @@ public class Dungeon implements Serializable {
 		}
 	}
 
+	public Town getTown() {
+		return town;
+	}
+
+	public void setTown(Town town) {
+		this.town = town;
+	}
+
 	public InventoryItem inventoryAndInfo(boolean fighting) {
 		println(this.getHealth() + "/" + this.getForAll().maximumHealth + " health");
 		if (getForAll().experience > 0) {
@@ -539,7 +553,6 @@ public class Dungeon implements Serializable {
 		if (getPlebs().enemiesKilled > 0) {
 			println("floor " + this.getForAll().floor);
 		}
-		println(this.getPlebs().enemiesKilled + " killed monsters");
 		if (getForAll().resistence > 0) {
 			println(100 - this.getForAll().resistence + "% resistance");
 		}

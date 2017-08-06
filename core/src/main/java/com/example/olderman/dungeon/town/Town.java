@@ -29,71 +29,73 @@ public class Town {
 
 	public void town() throws InterruptedException {
 		dungeon.println("Welcome in Stander!");
-		// if (firstTime) {
-		// firstTime = false;
-		// dungeon.println("\n\tan old poorly looking wanderer: HEY STRANGER!");
-		// dungeon.println("\tan old poorly looking wanderer: Yea, YOU!");
-		// dungeon.println("\tan old poorly looking wanderer: Come closer.\n");
-		// switch (dungeon.uzivatVolba("Come closer to him", "Don't mind him at all",
-		// "Yell at him",
-		// "Try to kill him")) {
-		// case 1:
-		// dungeon.println("I will give you a conundrum.");
-		// dungeon.println("What can be right but never wrong?...(write it with
-		// article!)");
-		// playersAnswer = scanner.nextLine();
-		// if (rightAnswer.equals(playersAnswer)) {
-		// dungeon.println("Congratulation, you answered correctly!");
-		// dungeon.println("I give you 4 potions of invisibility and a knife!");
-		// dungeon.getForAll().numPotionOfInvisibility += 4;
-		// dungeon.getForAll().knife++;
-		// } else {
-		// dungeon.println("Your answer was not right!");
-		// }
-		// break;
-		// case 2:
-		// break;
-		// case 3:
-		// dungeon.println("He drank some potion and disappeared.");
-		// break;
-		// case 4:
-		// dungeon.println("He said some words you didn't understand and teleported
-		// away!");
-		// break;
-		// }
-		// }
+		if (firstTime) {
+			firstTime = false;
+			dungeon.println("\n\tan old poorly looking wanderer: HEY STRANGER!");
+			dungeon.println("\tan old poorly looking wanderer: Yea, YOU!");
+			dungeon.println("\tan old poorly looking wanderer: Come closer.\n");
+			switch (dungeon.uzivatVolba("Come closer to him", "Don't mind him at all", "Yell at him",
+					"Try to kill him")) {
+			case 1:
+				dungeon.println("I will give you a conundrum.");
+				dungeon.println("What can be right but never wrong?...(write it witharticle!)");
+				playersAnswer = scanner.nextLine();
+				if (rightAnswer.equals(playersAnswer)) {
+					dungeon.println("Congratulation, you answered correctly!");
+					dungeon.println("I give you 4 potions of invisibility and a knife!");
+					dungeon.getForAll().numPotionOfInvisibility += 4;
+					dungeon.getForAll().knife++;
+				} else {
+					dungeon.println("Your answer was not right!");
+				}
+				break;
+			case 2:
+				break;
+			case 3:
+				dungeon.println("He drank some potion and disappeared.");
+				break;
+			case 4:
+				dungeon.println("He said some words you didn't understand and teleported away!");
+				break;
+			}
+		}
 
-		if (dungeon.getForAll().house == 0)
+		BACK1: while (dungeon.getForAll().house == 0)
 
 		{
 			switch (dungeon.uzivatVolba("Go in shop", "Buy house", "Go in workhouse", "Go in the forest", "Back")) {
 			case 1:
 				shop.shop();
-				break;
+				continue BACK1;
 			case 2:
 				dungeon.getForAll().house++;
-				break;
+				continue BACK1;
 
 			case 3:
 				workHouse.workHouse();
-				break;
+				continue BACK1;
 			case 4:
 				forest.cutTrees();
+				continue BACK1;
 
 			}
+			break;
 
-		} else {
+		}
+		BACK2: while (dungeon.getForAll().house > 0) {
 			switch (dungeon.uzivatVolba("Go in shop", "Go in house", "Go in workhouse", "Back")) {
 			case 1:
-				shop.shop();
-				break;
+				continue BACK2;
 			case 2:
 				house.inside();
-
+				continue BACK2;
 			case 3:
 				workHouse.workHouse();
-				break;
+				continue BACK2;
 			}
+			break;
+
 		}
+
 	}
 }
