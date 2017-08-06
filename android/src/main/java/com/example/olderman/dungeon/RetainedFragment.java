@@ -31,6 +31,8 @@ public class RetainedFragment extends Fragment {
                     try {
                         dungeon.run();
                     } catch (ExitException e) {
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
                 }
             }).start();

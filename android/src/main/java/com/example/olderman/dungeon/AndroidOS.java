@@ -254,4 +254,9 @@ public class AndroidOS implements OS {
 		sb.setSpan(new AbsoluteSizeSpan(textSize), start, sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 	}
 
+    @Override
+    public void beep() {
+
+    }
+
 }

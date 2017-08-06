@@ -572,7 +572,7 @@ public class Dungeon implements Serializable {
 			println(this.getForAll().gold + " gold");
 
 		}
-		println(forAll.energy + " /100");
+		println(forAll.energy + "/100 energy");
 		println(this.getCharacter().getMissChance() + "% miss chance");
 		if (getPlebs().enemiesKilled == 1) {
 			println(getPlebs().enemiesKilled + " killed enemy");
