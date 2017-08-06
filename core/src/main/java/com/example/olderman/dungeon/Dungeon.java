@@ -562,7 +562,6 @@ public class Dungeon implements Serializable {
 		if (getPlebs().enemiesKilled > 0) {
 			println("floor " + this.getForAll().floor);
 		}
-		getWay().map1.asciiArtMapPrint();
 		if (getForAll().resistence > 0) {
 			println(100 - this.getForAll().resistence + "% resistance");
 		}
@@ -588,7 +587,8 @@ public class Dungeon implements Serializable {
 		println(score + " score");
 
 		println();
-
+		println(way.map1.map1);
+		println();
 		return this.getInventory().showInventory(fighting);
 	}
 

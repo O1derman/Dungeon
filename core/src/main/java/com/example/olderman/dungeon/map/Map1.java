@@ -60,10 +60,6 @@ public class Map1 implements Serializable {
 		map1 = changeCharInPosition(mapPosition, 'B', map1);
 	}
 
-	public void asciiArtMapPrint() {
-		System.out.println(map1);
-	}
-
 	public void goLeft() {
 		w--;
 		asciiArtMap();
