@@ -11,6 +11,13 @@ import com.example.olderman.dungeon.map.Room;
 import com.example.olderman.dungeon.map.Way;
 import com.example.olderman.dungeon.town.Town;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Random;
 
 import static com.example.olderman.dungeon.Style.AttributeStyle;
@@ -21,7 +28,7 @@ import static com.example.olderman.dungeon.Style.RED;
 import static com.example.olderman.dungeon.Style.Reset;
 import static com.example.olderman.dungeon.Style.YELLOW;
 
-public class Dungeon {
+public class Dungeon implements Serializable {
 
 	// ascii art
 	private static final String HEADLINE = Resources.getString("/headline");
@@ -149,9 +156,53 @@ public class Dungeon {
 		os.flush();
 	}
 
+	// Serialize data
+	public void saveData() {
+		// Massive object to store all our objects
+		ArrayList<Object> data = new ArrayList<Object>();
+		data.add(getForAll());
+		data.add(way.map);
+		data.add(this);
+		data.add(getCharacter());
+		data.add(plebs);
+
+		try {
+			FileOutputStream fileOut = new FileOutputStream("data.ser");
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(data);
+			out.close();
+			fileOut.close();
+			System.out.println("Serialized data is saved in data.ser");
+
+		} catch (IOException i) {
+			i.printStackTrace();
+		}
+	}
+
+	public void loadData() {
+		// create arraylist to store deserialized objects
+		ArrayList<Object> deserialized = new ArrayList<Object>();
+
+		try {
+			FileInputStream fileIn = new FileInputStream("data.ser");
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			deserialized = (ArrayList<Object>) in.readObject();
+			in.close();
+			fileIn.close();
+		} catch (IOException i) {
+			i.printStackTrace();
+			return;
+		} catch (ClassNotFoundException c) {
+			c.printStackTrace();
+			return;
+		}
+
+	}
+
 	// main
 
 	public void run() throws InterruptedException {
+		loadData();
 		clear();
 		menu();
 	}

@@ -1,8 +1,9 @@
 package com.example.olderman.dungeon.enemies;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Plebs {
+public class Plebs implements Serializable {
 
 	public Plebs() {
 		resetEnemy();
@@ -28,6 +29,5 @@ public class Plebs {
 		this.enemy = Enemy.values()[rand.nextInt(Enemy.values().length)];
 
 	}
-	
 
 }

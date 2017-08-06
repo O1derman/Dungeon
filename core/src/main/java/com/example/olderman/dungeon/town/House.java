@@ -13,10 +13,11 @@ public class House {
 	private final Dungeon dungeon;
 
 	public void inside() {
+		new Pot();
 		if (dungeon.getForAll().bed > 0) /* && dungeon.pot...> 1 */ {// dodelat...
 			switch (dungeon.uzivatVolba("Use bed", "Use Pot", "Back")) {
 			case 1:
-				// save...
+				dungeon.saveData();
 				break;
 			case 2:
 				// pot....
@@ -24,7 +25,7 @@ public class House {
 		} else if (dungeon.getForAll().bed > 0) {
 			switch (dungeon.uzivatVolba("Use bed", "Back")) {
 			case 1:
-				// save...
+				dungeon.saveData();
 				break;
 			}
 

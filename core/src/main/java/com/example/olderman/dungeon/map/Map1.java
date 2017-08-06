@@ -1,8 +1,10 @@
 package com.example.olderman.dungeon.map;
 
+import java.io.Serializable;
+
 import com.example.olderman.dungeon.Resources;
 
-public class Map1 {
+public class Map1 implements Serializable {
 
 	public boolean[][] rooms = new boolean[6][6];
 

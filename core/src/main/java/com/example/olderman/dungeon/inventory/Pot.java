@@ -6,7 +6,7 @@ public class Pot extends InventoryItem {
 
 	public static final Pot POT = new Pot();
 
-	private Pot() {
+	public Pot() {
 		super("Pot", "use", false, false, Type.OTHER);
 	}
 
@@ -93,4 +93,5 @@ public class Pot extends InventoryItem {
 		}
 		return false;
 	}
+
 }

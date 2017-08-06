@@ -1,8 +1,10 @@
 package com.example.olderman.dungeon;
 
+import java.io.Serializable;
+
 import com.example.olderman.dungeon.inventory.Weapon;
 
-public class ForAll {
+public class ForAll implements Serializable {
 
 	// Game variables
 	public int floor = 1;

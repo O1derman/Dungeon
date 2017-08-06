@@ -1,6 +1,8 @@
 package com.example.olderman.dungeon;
 
-public enum GameCharacter {
+import java.io.Serializable;
+
+public enum GameCharacter implements Serializable {
 
 	DWARF {
 		{
