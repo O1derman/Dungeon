@@ -5,6 +5,7 @@ import java.io.Serializable;
 import com.example.olderman.dungeon.Resources;
 
 public class Map1 implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	public boolean[][] rooms = new boolean[6][6];
 
@@ -27,6 +28,11 @@ public class Map1 implements Serializable {
 				rooms[j] = new Room(null);
 			}
 		}
+	}
+
+	public void setStartingPosition() {
+		l = 1;
+		w = (width + 1) / 2;
 	}
 
 	public String changeCharInPosition(int position, char ch, String str) {

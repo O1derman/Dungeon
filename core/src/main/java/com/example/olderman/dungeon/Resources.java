@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Resources {
+	private static final long serialVersionUID = 1L;
+
 	public static String getString(String name) {
 		try (InputStreamReader reader = new InputStreamReader(Resources.class.getResourceAsStream(name))) {
 			java.util.Scanner s = new java.util.Scanner(reader).useDelimiter("\\A");

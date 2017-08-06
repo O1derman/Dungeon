@@ -1,52 +1,72 @@
 package com.example.olderman.dungeon.enemies;
 
-import static com.example.olderman.dungeon.Style.RED;
+import java.io.Serializable;
 
 import com.example.olderman.dungeon.Dungeon;
 
-public class Boss1 {
+public class Boss1 implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	public Boss1(Dungeon dungeon) {
 		this.dungeon = dungeon;
 
 	}
 
+	public String boss1Name = "Syndyl presented the smasher";
 	private final Dungeon dungeon;
+	private int boss1MissChance = 5;
+	public int boss1Health = 1200;
+
+	public void boss1Quote() {
+		dungeon.println("Any last will STRANGER?!");
+		dungeon.println("Have you bought tomb already?");
+		dungeon.println(
+				"Oh wait, you won't even need that, because when I end with you, nothing will be left from you!");
+		dungeon.println("HAHAAHA!!!");
+	}
 
 	public void boss1Fight() {
 		boolean youMiss = dungeon.getRand().nextInt(100) <= dungeon.getCharacter().getMissChance();
-		boolean enemyMiss = dungeon.getRand().nextInt(100) <= dungeon.getPlebs().enemyMissChance;
+		boolean boss1Miss = dungeon.getRand().nextInt(100) <= boss1MissChance;
 
 		if (youMiss) {
 			dungeon.println("\tYou MISS!");
 		}
-		if (enemyMiss) {
+		if (boss1Miss) {
 			dungeon.println("\tEnemy MISS!");
+			dungeon.println("AAH!");
+			dungeon.println("I will smash you!");
 		}
 
-		if (!youMiss) {
-			int damageDealt = dungeon.getForAll().selectedWeapon.calculateDamage(dungeon);
-			dungeon.println("\t> You strike the " + dungeon.getPlebs().enemy.name + " for " + damageDealt + " damage.");
-			dungeon.getPlebs().enemyHealth -= damageDealt;
-		}
-
-		if (!enemyMiss) {
-			int damageTaken = ((dungeon.getRand().nextInt(dungeon.getPlebs().enemyAttackDamage)
-					+ dungeon.getRand().nextInt(dungeon.getPlebs().enemyAttackDamage))
-					+ dungeon.getPlebs().enemiesKilled * 5 + 10) * dungeon.getForAll().resistence / 100;
-
-			dungeon.println("\t> You receive " + damageTaken + " damage.");
-			dungeon.decreaseHealth(damageTaken);
-		}
-
-		if (dungeon.getHealth() < 1) {
-			dungeon.println(
-					"\t> You have taken too much damage, you are dying in pain covered in the shit of your enemy while they are celebrating...zombies will a have tasty dinner! ");
-		} else if (dungeon.getHealth() < 30) {
-			dungeon.println(RED.BRIGHT, "\n\t!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@\n");
-			dungeon.println(RED.BRIGHT, "\t> <ALERT>Your HP is very low " + "(" + dungeon.getHealth() + " HP left)");
-			dungeon.println(RED.BRIGHT, "\n\t!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@\n");
+		if (!boss1Miss) {
+			dungeon.println("He just smashed you with his huge mace!");
+			dungeon.getForAll().health -= dungeon.getForAll().health;
 		}
 		dungeon.getForAll().resetDrinkHealthPotionCount();
 
+	}
+
+	public String getBoss1Name() {
+		return boss1Name;
+	}
+
+	public void setBoss1Name(String boss1Name) {
+		this.boss1Name = boss1Name;
+	}
+
+	public int getBoss1MissChance() {
+		return boss1MissChance;
+	}
+
+	public void setBoss1MissChance(int boss1MissChance) {
+		this.boss1MissChance = boss1MissChance;
+	}
+
+	public int getBoss1Health() {
+		return boss1Health;
+	}
+
+	public void setBoss1Health(int boss1Health) {
+		this.boss1Health = boss1Health;
 	}
 }

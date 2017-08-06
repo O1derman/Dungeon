@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Random;
 
 public class Plebs implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	public Plebs() {
 		resetEnemy();
@@ -15,7 +16,7 @@ public class Plebs implements Serializable {
 	public static final int MAX_ENEMY_HEALTH = 10;
 
 	// Enemy variables
-	public int enemiesKilled = 1; // -1
+	public int enemiesKilled = 0; // -1
 	public Enemy enemy;
 	public int enemyHealth;
 	public int enemyChance = 90; // %

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import com.example.olderman.dungeon.inventory.Weapon;
 
 public class ForAll implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	// Game variables
 	public int floor = 1;
@@ -26,6 +27,7 @@ public class ForAll implements Serializable {
 	public int maximumHealth;
 	public int health;
 	public int gold = 0;
+	public int bossesKilled = 0;
 	public int woodenAxe = 0;
 	public int ironAxe = 0;
 	public int silverAxe = 0;

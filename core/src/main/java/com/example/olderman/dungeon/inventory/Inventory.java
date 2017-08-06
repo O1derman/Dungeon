@@ -76,7 +76,18 @@ public class Inventory {
 				hasItemWichCantBeUsed = true;
 			}
 		}
-		dungeon.getWay().map.asciiArtMapPrint();
+		if (dungeon.getPlebs().enemiesKilled == 1) {
+			dungeon.println(dungeon.getPlebs().enemiesKilled + " killed enemy");
+		} else {
+			dungeon.println(dungeon.getPlebs().enemiesKilled + " killed enemies");
+		}
+		if (dungeon.getForAll().bossesKilled == 1) {
+			dungeon.println(dungeon.getForAll().bossesKilled + " killed boss");
+		} else {
+			dungeon.println(dungeon.getForAll().bossesKilled + " killed bosses");
+		}
+		dungeon.println(dungeon.score + " score");
+		dungeon.getWay().map1.asciiArtMapPrint();
 		names.add("Exit inventory");
 		items.add(null);
 

@@ -1,8 +1,10 @@
 package com.example.olderman.dungeon.inventory;
 
+import java.io.Serializable;
+
 import com.example.olderman.dungeon.Dungeon;
 
-public abstract class InventoryItem {
+public abstract class InventoryItem implements Serializable {
 
 	public enum Type {
 		WEAPON, HEALTH_POTION, OTHER

@@ -10,11 +10,12 @@ public class House {
 
 	}
 
+	private Pot pot = new Pot();
 	private final Dungeon dungeon;
 
 	public void inside() {
 		new Pot();
-		if (dungeon.getForAll().bed > 0) /* && dungeon.pot...> 1 */ {// dodelat...
+		if (dungeon.getForAll().bed > 0 && dungeon.getForAll().pot > 0) {
 			switch (dungeon.uzivatVolba("Use bed", "Use Pot", "Back")) {
 			case 1:
 				dungeon.saveData();
@@ -29,12 +30,12 @@ public class House {
 				break;
 			}
 
-		} // else if (Pot.class. > 0) {
-		switch (dungeon.uzivatVolba("Use pot", "Back")) {
-		case 1:
-			// pot....
-			break;
+		} else if (dungeon.getForAll().pot > 0) {
+			switch (dungeon.uzivatVolba("Use pot", "Back")) {
+			case 1:
+				pot.canUseWhileFighting();
+				break;
+			}
 		}
-		// }
 	}
 }
