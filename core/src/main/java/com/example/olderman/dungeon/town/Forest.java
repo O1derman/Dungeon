@@ -12,7 +12,16 @@ public class Forest {
 
 	public void cutTrees() throws InterruptedException {
 		NABIDKA: while (true) {
-			int waitTime = 2000;
+			int waitTime;
+			waitTime = 2000;
+			if (dungeon.getForAll().bronzeAxe > 0) {
+				waitTime = 1000;
+			} else if (dungeon.getForAll().silverAxe > 0) {
+				waitTime = 200;
+			} else if (dungeon.getForAll().ironAxe > 0) {
+				waitTime = 500;
+			}
+
 			switch (dungeon.uzivatVolba("Cut trees", "Hunt birds", "Back")) {
 			case 1:
 				if (dungeon.getForAll().energy < 10) {

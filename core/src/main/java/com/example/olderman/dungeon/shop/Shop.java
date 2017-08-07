@@ -14,12 +14,16 @@ public class Shop {
 		this.dungeon = dungeon;
 
 		items = new ShopItem[] {
-				new InventoryShopItem(dungeon, new Weapon("Malet", 15), 500, "gives you 15 more damage!"),
-				new InventoryShopItem(dungeon, new Weapon("Onehand axe", 20), 600, "gives you 20 more damage!"),
-				new InventoryShopItem(dungeon, new Weapon("Twohand axe", 40), 800, "gives you 40 more damage!"),
+				new InventoryShopItem(dungeon, new Weapon("Dagger", 15), 200, "gives you 15 more damage!"),
+				new InventoryShopItem(dungeon, new Weapon("Malet", 20), 400, "gives you 20 more damage!"),
+				new InventoryShopItem(dungeon, new Weapon("Long sword", 40), 600, "gives you 40 more damage!"),
 				new InventoryShopItem(dungeon, Bomb.BOMB, 400, "deals 100-300 damage! (only for 1 use)"),
 				new InventoryShopItem(dungeon, Pot.POT, 450, "allows you to create potions"), new Hamburger(dungeon),
-				new InventoryShopItem(dungeon, new Weapon("Knife", 0), 200, "allows you to separate animals!") };
+				new InventoryShopItem(dungeon, new Weapon("Knife", 0), 200, "allows you to separate animals!"),
+				new InventoryShopItem(dungeon, new Weapon("Bronze axe", 0), 100, "allows you to cut trees faster!"),
+				new InventoryShopItem(dungeon, new Weapon("Iron axe", 0), 300, "allows you to cut trees faster!"),
+				new InventoryShopItem(dungeon, new Weapon("Silver axe", 0), 500, "allows you to cut trees faster!") };
+
 	}
 
 	private final Dungeon dungeon;

@@ -32,7 +32,8 @@ public class ForAll implements Serializable {
 	public int woodenAxe = 0;
 	public int ironAxe = 0;
 	public int silverAxe = 0;
-	public int goldenAxe = 0;
+	public int bronzeAxe = 0;
+	public int houseCost = 650;
 	public int house = 0;
 	public int chestChance = 5; // %
 	public boolean hasDrunkHealthPotion = false;

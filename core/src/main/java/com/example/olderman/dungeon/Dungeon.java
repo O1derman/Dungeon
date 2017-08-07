@@ -304,6 +304,7 @@ public class Dungeon implements Serializable {
 
 		println("\n\n");
 		println(character.getBeginning());
+		println("\n\tYou are on floor " + forAll.floor + "!");
 		FIGHT: while (true) {
 			way.map1.asciiArtMap();
 			long elapsedTime = System.nanoTime() - start;
@@ -316,7 +317,7 @@ public class Dungeon implements Serializable {
 			}
 			boolean freeRoom = way.map1.rooms[way.map1.w][way.map1.l];
 			forAll.resetDrinkHealthPotionCount();
-			println("\n\tYou are on floor " + forAll.floor + "!");
+			println("\tWhat now?");
 			boolean plebFight = true;
 			if (freeRoom) {
 				while (true) {
@@ -505,8 +506,6 @@ public class Dungeon implements Serializable {
 			println("# " + plebs.enemy.name + " was defeated!                                                ");
 			println("# You have ", RED.BRIGHT, getHealth() + "HP", DEFAULT_COLOR, " left ");
 			println("# You have earned ", GREEN.BRIGHT, plebs.experienceGain + " exp", DEFAULT_COLOR, "!");
-			println("# You have ", GREEN.BRIGHT, forAll.experience + " experience", DEFAULT_COLOR,
-					"! You need " + forAll.levelUp + " experience for level up.");
 			println("# You have level " + forAll.level + "!");
 			println("# You found ", YELLOW.BRIGHT, goldFound + " gold", DEFAULT_COLOR, " (", YELLOW.BRIGHT,
 					forAll.gold + " gold", DEFAULT_COLOR, " total)");
