@@ -225,7 +225,7 @@ public class Dungeon implements Serializable {
 
 	private void menu() throws InterruptedException {
 		while (true) {
-			TimeUnit.SECONDS.sleep(3);
+			TimeUnit.MILLISECONDS.sleep(500);
 			printAsciiArt(HEADLINE);
 			int volba = uzivatVolba("Start", "Help", "Exit");
 			switch (volba) {
@@ -409,7 +409,7 @@ public class Dungeon implements Serializable {
 					} else if (volba == 2) { // Run
 						if (forAll.numPotionOfInvisibility == 0) {
 							println("\t> No time to run!\n");
-							TimeUnit.SECONDS.sleep(3);
+							TimeUnit.SECONDS.sleep(2);
 						} else {
 							println("\t Do you really want to run? It will cost you potion of invisibility!");
 							int volbaRun = uzivatVolba("Yes", "No");
@@ -441,6 +441,7 @@ public class Dungeon implements Serializable {
 					} else if (volba == 2) { // Run
 						if (forAll.numPotionOfInvisibility == 0) {
 							println("\t> No time to run!\n");
+							TimeUnit.SECONDS.sleep(2);
 						} else {
 							println("\t Do you really want to run? It will cost you potion of invisibility!");
 							int volbaRun = uzivatVolba("Yes", "No");
