@@ -12,6 +12,7 @@ public class Forest {
 
 	public void cutTrees() throws InterruptedException {
 		NABIDKA: while (true) {
+			dungeon.println("What now?");
 			int waitTime;
 			waitTime = 2000;
 			if (dungeon.getForAll().bronzeAxe > 0) {

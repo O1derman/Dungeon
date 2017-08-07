@@ -17,7 +17,7 @@ public class Way implements Serializable {
 	public int wayChoice;
 
 	public void go() {
-		dungeon.println("\t Which way?");
+		dungeon.println("\tWhich way?");
 		while (true) {
 			if (map1.l == map1.leftEdge && map1.w == map1.leftEdge) { // left
 																		// down

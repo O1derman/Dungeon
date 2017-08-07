@@ -27,6 +27,7 @@ import static com.example.olderman.dungeon.Style.ColorStyle;
 import static com.example.olderman.dungeon.Style.DEFAULT_COLOR;
 import static com.example.olderman.dungeon.Style.GREEN;
 import static com.example.olderman.dungeon.Style.RED;
+import static com.example.olderman.dungeon.Style.BLUE;
 import static com.example.olderman.dungeon.Style.Reset;
 import static com.example.olderman.dungeon.Style.YELLOW;
 
@@ -506,7 +507,7 @@ public class Dungeon implements Serializable {
 			println("# " + plebs.enemy.name + " was defeated!                                                ");
 			println("# You have ", RED.BRIGHT, getHealth() + "HP", DEFAULT_COLOR, " left ");
 			println("# You have earned ", GREEN.BRIGHT, plebs.experienceGain + " exp", DEFAULT_COLOR, "!");
-			println("# You have level " + forAll.level + "!");
+			println("# You have ", BLUE.BRIGHT, "level " + forAll.level, DEFAULT_COLOR, "!");
 			println("# You found ", YELLOW.BRIGHT, goldFound + " gold", DEFAULT_COLOR, " (", YELLOW.BRIGHT,
 					forAll.gold + " gold", DEFAULT_COLOR, " total)");
 			if (rand.nextInt(100) < ForAll.SMALL_HEALTH_POTION_DROP_CHANCE
@@ -568,12 +569,12 @@ public class Dungeon implements Serializable {
 	}
 
 	public InventoryItem inventoryAndInfo(boolean fighting) {
-		println(this.getHealth() + "/" + this.getForAll().maximumHealth + " health");
+		println(RED.BRIGHT, this.getHealth() + "/" + this.getForAll().maximumHealth + " health");
 		if (getForAll().experience > 0) {
-			println(this.getForAll().experience + "/" + this.getForAll().levelUp + " experience");
+			println(GREEN.BRIGHT, this.getForAll().experience + "/" + this.getForAll().levelUp + " experience");
 		}
 		if (getForAll().level > 0) {
-			println("level " + this.getForAll().level);
+			println(BLUE.BRIGHT, "level " + this.getForAll().level);
 		}
 		if (getPlebs().enemiesKilled > 0) {
 			println("floor " + this.getForAll().floor);
@@ -586,7 +587,7 @@ public class Dungeon implements Serializable {
 			println(this.getForAll().numPotionOfStrength + " potion(s) of strength");
 		}
 		if (getForAll().gold > 0) {
-			println(this.getForAll().gold + " gold");
+			println(YELLOW.BRIGHT, this.getForAll().gold + " gold");
 
 		}
 		println(forAll.energy + "/100 energy");
