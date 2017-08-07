@@ -11,13 +11,13 @@ public class Forest {
 	private final Dungeon dungeon;
 
 	public void cutTrees() throws InterruptedException {
-		while (true) {
+		NABIDKA: while (true) {
 			int waitTime = 2000;
 			switch (dungeon.uzivatVolba("Cut trees", "Hunt birds", "Back")) {
 			case 1:
 				if (dungeon.getForAll().energy < 10) {
 					dungeon.println("You don't have enough energy.");
-					break;
+					continue NABIDKA;
 				} else {
 					dungeon.println("You are cutting a tree!");
 					Thread.sleep(waitTime);
@@ -45,12 +45,12 @@ public class Forest {
 					dungeon.getForAll().energy -= 10;
 					dungeon.getForAll().wood += foundWood;
 					dungeon.println("You got " + foundWood + " wood.");
-					break;
+					continue NABIDKA;
 				}
 			case 2:
 				if (dungeon.getForAll().energy < 20) {
 					dungeon.println("You don't have enough energy.");
-					break;
+					continue NABIDKA;
 				} else {
 					dungeon.getForAll().energy -= 20;
 					if (dungeon.getRand().nextInt(100) < dungeon.getForAll().squirelChance) {
@@ -62,6 +62,7 @@ public class Forest {
 							dungeon.getForAll().lCapacity += dungeon.getForAll().squirelHeft;
 							dungeon.println("You catched " + 1 + " squirel.");
 						}
+						continue NABIDKA;
 					}
 					if (dungeon.getRand().nextInt(100) < dungeon.getForAll().birdChance) {
 						int foundBirds = dungeon.getRand().nextInt(5) + 1;
@@ -73,11 +74,16 @@ public class Forest {
 							dungeon.getForAll().lCapacity += dungeon.getForAll().birdHeft * foundBirds;
 							dungeon.println("You catched " + foundBirds + " birds.");
 						}
-						break;
+						continue NABIDKA;
+					} else {
+						dungeon.println("You didn't catch any bird!");
+						continue NABIDKA;
 					}
+
 				}
 
 			}
+			break;
 
 		}
 	}
