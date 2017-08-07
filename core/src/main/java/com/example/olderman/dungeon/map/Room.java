@@ -17,6 +17,7 @@ public class Room {
 		if (dungeon.getRand().nextInt(100) < dungeon.getForAll().chestChance) {
 			dungeon.println("\t>>>You found a Chest!<<<");
 			dungeon.println("\tYou earned " + chestGoldFound + " Gold!");
+			dungeon.getForAll().gold += chestGoldFound;
 			emptyRoom = false;
 		}
 		if (dungeon.getRand().nextInt(100) < dungeon.getForAll().sneakChance) {
