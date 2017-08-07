@@ -22,7 +22,7 @@ public class Town {
 	private final WorkHouse workHouse;
 	private final House house;
 	private final Forest forest;
-	boolean firstTime = true;
+	boolean firstTime = false;
 	Scanner scanner = new Scanner(System.in);
 	String playersAnswer;
 	String rightAnswer = "a right angle";

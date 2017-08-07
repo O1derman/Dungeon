@@ -228,9 +228,8 @@ public class Dungeon implements Serializable {
 			int volba = uzivatVolba("Start", "Help", "Exit");
 			switch (volba) {
 			case 1:
-				println("\n\n\t\tWelcome to the dungeon!\n");
-				println("\tYou gain experience and have a small chance of getting some health potions for killing enemies.");
-				println("\t\tWhich character would you like to play?\n");
+				println("\n\tWelcome to the dungeon!\n");
+				println("\tWhich character would you like to play?\n");
 
 				volba = uzivatVolba("Dwarf", "Orc", "Elf", "Goblin", /* "Superman", */ "Back");
 
@@ -275,6 +274,9 @@ public class Dungeon implements Serializable {
 				println(">Small health potion heals for 20 HP.");
 				println(">Medium health potion heals for 50 HP.");
 				println(">Large health potion heals for 100 HP.");
+				println();
+				println("\tYou gain experience and have a small chance of getting some health potions for killing enemies.");
+				println("\tYou can collect ingrediences to be able to craft lektvars.");
 				println("\n\n\n");
 				uzivatVolba("Back");
 				break;
