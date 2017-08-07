@@ -282,7 +282,7 @@ public class Dungeon implements Serializable {
 				break;
 
 			case 3:
-				return;
+				System.exit(1);
 
 			}
 		}
@@ -338,9 +338,14 @@ public class Dungeon implements Serializable {
 						town.town();
 						continue FIGHT;
 					} else if (volba == 4) { // Exit
-						println("Yout exit the dungeon.");
-						println("Thanks for playing!");
-						return;
+						println("\tReally?...unsaved progres will be lost permanently!");
+						volba = uzivatVolba("Yes", "No");
+						switch (volba) {
+						case 1:
+							println("\tYout exit the dungeon.");
+							println("\tThanks for playing!");
+							return;
+						}
 					}
 
 				}
@@ -382,9 +387,14 @@ public class Dungeon implements Serializable {
 						town.town();
 						continue FIGHT;
 					} else if (volba == 5) { // Exit
-						println("Yout exit the dungeon.");
-						println("Thanks for playing!");
-						return;
+						println("\tReally?...unsaved progres will be lost permanently!");
+						volba = uzivatVolba("Yes", "No");
+						switch (volba) {
+						case 1:
+							println("\tYout exit the dungeon.");
+							println("\tThanks for playing!");
+							return;
+						}
 					}
 
 				}

@@ -22,43 +22,46 @@ public class Town {
 	private final WorkHouse workHouse;
 	private final House house;
 	private final Forest forest;
-	boolean firstTime = true;
+	// boolean firstTime = true;
 	Scanner scanner = new Scanner(System.in);
 	String playersAnswer;
 	String rightAnswer = "a right angle";
 
 	public void town() throws InterruptedException {
 		dungeon.println("Welcome in Stander!");
-		if (firstTime) {
-			firstTime = false;
-			dungeon.println("\n\tan old poorly looking wanderer: HEY STRANGER!");
-			dungeon.println("\tan old poorly looking wanderer: Yea, YOU!");
-			dungeon.println("\tan old poorly looking wanderer: Come closer.\n");
-			switch (dungeon.uzivatVolba("Come closer to him", "Don't mind him at all", "Yell at him",
-					"Try to kill him")) {
-			case 1:
-				dungeon.println("I will give you a conundrum.");
-				dungeon.println("What can be right but never wrong?...(write it witharticle!)");
-				playersAnswer = scanner.nextLine();
-				if (rightAnswer.equals(playersAnswer)) {
-					dungeon.println("Congratulation, you answered correctly!");
-					dungeon.println("I give you 4 potions of invisibility and a knife!");
-					dungeon.getForAll().numPotionOfInvisibility += 4;
-					dungeon.getForAll().knife++;
-				} else {
-					dungeon.println("Your answer was not right!");
-				}
-				break;
-			case 2:
-				break;
-			case 3:
-				dungeon.println("He drank some potion and disappeared.");
-				break;
-			case 4:
-				dungeon.println("He said some words you didn't understand and teleported away!");
-				break;
-			}
-		}
+		// if (firstTime) {
+		// firstTime = false;
+		// dungeon.println("\n\tan old poorly looking wanderer: HEY STRANGER!");
+		// dungeon.println("\n\tan old poorly looking wanderer: Yea, YOU!");
+		// dungeon.println("\n\tan old poorly looking wanderer: Come closer.\n");
+		// switch (dungeon.uzivatVolba("Come closer to him", "Don't mind him at all",
+		// "Yell at him",
+		// "Try to kill him")) {
+		// case 1:
+		// dungeon.println("\n\tI will give you a conundrum.");
+		// dungeon.println("\n\tWhat can be right but never wrong?...(write it
+		// witharticle!)");
+		// playersAnswer = scanner.nextLine();
+		// if (rightAnswer.equals(playersAnswer)) {
+		// dungeon.println("\tCongratulation, you answered correctly!");
+		// dungeon.println("\n\tI give you 4 potions of invisibility and a knife!");
+		// dungeon.getForAll().numPotionOfInvisibility += 4;
+		// dungeon.getForAll().knife++;
+		// } else {
+		// dungeon.println("\tYour answer was not right!");
+		// }
+		// break;
+		// case 2:
+		// break;
+		// case 3:
+		// dungeon.println("\tHe drank some potion and disappeared.");
+		// break;
+		// case 4:
+		// dungeon.println("\tHe said some words you didn't understand and teleported
+		// away!");
+		// break;
+		// }
+		// }
 
 		BACK1: while (dungeon.getForAll().house == 0)
 
