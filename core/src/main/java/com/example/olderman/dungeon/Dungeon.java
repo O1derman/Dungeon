@@ -225,7 +225,6 @@ public class Dungeon implements Serializable {
 	private void menu() throws InterruptedException {
 		while (true) {
 			printAsciiArt(HEADLINE);
-			println();
 			int volba = uzivatVolba("Start", "Help", "Exit");
 			switch (volba) {
 			case 1:
@@ -569,7 +568,7 @@ public class Dungeon implements Serializable {
 		if (getForAll().resistence > 0) {
 			println(100 - this.getForAll().resistence + "% resistance");
 		}
-		println("load capacity " + forAll.lCapacity + "/" + this.getCharacter().loadCapacity);
+		println(forAll.lCapacity + "/" + this.getCharacter().loadCapacity + " load capacity");
 		if (getForAll().numPotionOfStrength > 0) {
 			println(this.getForAll().numPotionOfStrength + " potion(s) of strength");
 		}
