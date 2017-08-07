@@ -20,6 +20,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import static com.example.olderman.dungeon.Style.AttributeStyle;
 import static com.example.olderman.dungeon.Style.ColorStyle;
@@ -224,6 +225,7 @@ public class Dungeon implements Serializable {
 
 	private void menu() throws InterruptedException {
 		while (true) {
+			TimeUnit.SECONDS.sleep(3);
 			printAsciiArt(HEADLINE);
 			int volba = uzivatVolba("Start", "Help", "Exit");
 			switch (volba) {
@@ -314,8 +316,6 @@ public class Dungeon implements Serializable {
 			}
 			boolean freeRoom = way.map1.rooms[way.map1.w][way.map1.l];
 			forAll.resetDrinkHealthPotionCount();
-
-			println("\n\n");
 			println("\n\tYou are on floor " + forAll.floor + "!");
 			boolean plebFight = true;
 			if (freeRoom) {
@@ -399,8 +399,8 @@ public class Dungeon implements Serializable {
 
 				}
 				while (plebs.enemyHealth > 0 && getHealth() > 0 && plebFight) {
-					println("\tYour HP: " + getHealth());
-					println("\t" + plebs.enemy.name + "'s HP: " + plebs.enemyHealth);
+					println("\t>Your HP: " + getHealth());
+					println("\t>" + plebs.enemy.name + "'s HP: " + plebs.enemyHealth);
 					println("\n\tWhat would you like to do?");
 					println();
 					volba = uzivatVolba("Attack", "Run", "Open inventory and info");
@@ -409,6 +409,7 @@ public class Dungeon implements Serializable {
 					} else if (volba == 2) { // Run
 						if (forAll.numPotionOfInvisibility == 0) {
 							println("\t> No time to run!\n");
+							TimeUnit.SECONDS.sleep(3);
 						} else {
 							println("\t Do you really want to run? It will cost you potion of invisibility!");
 							int volbaRun = uzivatVolba("Yes", "No");
@@ -431,8 +432,8 @@ public class Dungeon implements Serializable {
 
 				}
 				while (boss1.boss1Health > 0 && getHealth() > 0 && !plebFight) {
-					println("\tYour HP: " + getHealth());
-					println("\t" + boss1.boss1Name + "'s HP: " + boss1.boss1Health);
+					println("\t>Your HP: " + getHealth());
+					println("\t>" + boss1.boss1Name + "'s HP: " + boss1.boss1Health);
 					println();
 					volba = uzivatVolba("Attack", "Run", "Open inventory and info");
 					if (volba == 1) { // Attack
@@ -601,9 +602,12 @@ public class Dungeon implements Serializable {
 			println(getForAll().bossesKilled + " killed bosses");
 		}
 		println(score + " score");
-
+		println();
+		println();
 		println();
 		println(way.map1.map1);
+		println();
+		println();
 		println();
 		mapLegend.legend();
 		println();

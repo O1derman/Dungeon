@@ -15,9 +15,6 @@ public class MapLegend {
 		dungeon.println("x - wall");
 		dungeon.println("o - room with enemy");
 		dungeon.println("c - cleared room");
-		int volba = dungeon.uzivatVolba("Exit");
-		switch (volba) {
 
-		}
 	}
 }
