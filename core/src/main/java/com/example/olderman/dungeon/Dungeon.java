@@ -7,6 +7,7 @@ import com.example.olderman.dungeon.inventory.HealthPotion;
 import com.example.olderman.dungeon.inventory.Inventory;
 import com.example.olderman.dungeon.inventory.InventoryItem;
 import com.example.olderman.dungeon.inventory.InventoryItem.Type;
+import com.example.olderman.dungeon.map.MapLegend;
 import com.example.olderman.dungeon.map.Room;
 import com.example.olderman.dungeon.map.Way;
 import com.example.olderman.dungeon.town.Town;
@@ -43,6 +44,7 @@ public class Dungeon implements Serializable {
 	private Town town;
 	private Boss1 boss1;
 	private Boss2 boss2;
+	private MapLegend mapLegend;
 
 	public Boss1 getBoss1() {
 		return boss1;
@@ -242,6 +244,7 @@ public class Dungeon implements Serializable {
 					plebs = new Plebs();
 					town = new Town(this);
 					way = new Way(this);
+					mapLegend = new MapLegend(this);
 					inventory = new Inventory(this);
 
 					forAll.health = character.getInitialHealth();
@@ -288,7 +291,6 @@ public class Dungeon implements Serializable {
 	private void game() throws InterruptedException {
 		Boss1 boss1 = new Boss1(this);
 		Boss2 boss2 = new Boss2(this);
-		way.map1.asciiArtMap();
 
 		int volba;
 		boolean reset = true;
@@ -300,6 +302,7 @@ public class Dungeon implements Serializable {
 		println("\n\n");
 		println(character.getBeginning());
 		FIGHT: while (true) {
+			way.map1.asciiArtMap();
 			long elapsedTime = System.nanoTime() - start;
 			if (elapsedTime == 5) {
 				if (forAll.energy < 100) {
@@ -364,6 +367,7 @@ public class Dungeon implements Serializable {
 						}
 						break;
 					} else if (volba == 2) { // Go back
+						way.map1.mapBack();
 						way.back();
 						reset = false;
 						continue FIGHT;
@@ -484,7 +488,7 @@ public class Dungeon implements Serializable {
 			}
 			forAll.gold += goldFound;
 			reset = true;
-			println("\n#############################################################################\n");
+			println("\n\n\n");
 			println("# " + plebs.enemy.name + " was defeated!                                                ");
 			println("# You have ", RED.BRIGHT, getHealth() + "HP", DEFAULT_COLOR, " left ");
 			println("# You have earned ", GREEN.BRIGHT, plebs.experienceGain + " exp", DEFAULT_COLOR, "!");
@@ -519,7 +523,7 @@ public class Dungeon implements Serializable {
 
 			forAll.experience += plebs.experienceGain;
 
-			println("\n#############################################################################\n");
+			println("\n\n\n");
 
 			volba = uzivatVolba("Search room", "Continue");
 			if (volba == 1) {
@@ -565,6 +569,7 @@ public class Dungeon implements Serializable {
 		if (getForAll().resistence > 0) {
 			println(100 - this.getForAll().resistence + "% resistance");
 		}
+		println("load capacity " + forAll.lCapacity + "/" + this.getCharacter().loadCapacity);
 		if (getForAll().numPotionOfStrength > 0) {
 			println(this.getForAll().numPotionOfStrength + " potion(s) of strength");
 		}
@@ -588,6 +593,8 @@ public class Dungeon implements Serializable {
 
 		println();
 		println(way.map1.map1);
+		println();
+		mapLegend.legend();
 		println();
 		return this.getInventory().showInventory(fighting);
 	}

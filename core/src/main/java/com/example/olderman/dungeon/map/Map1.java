@@ -5,7 +5,6 @@ import java.io.Serializable;
 import com.example.olderman.dungeon.Resources;
 
 public class Map1 implements Serializable {
-	private static final long serialVersionUID = 1L;
 
 	public boolean[][] rooms = new boolean[6][6];
 
@@ -41,8 +40,10 @@ public class Map1 implements Serializable {
 		return new String(charArray);
 	}
 
+	int mapPosition;
+
 	public void asciiArtMap() {
-		int mapPosition = w * 14 + l * 2 + 1;
+		mapPosition = w * 14 + l * 2 + 1;
 		if (w == 1 && l == 1) {
 			map1 = changeCharInPosition(l * 2, 'x', map1);
 			map1 = changeCharInPosition(w * 14 + 1, 'x', map1);
@@ -56,8 +57,17 @@ public class Map1 implements Serializable {
 		} else if (l == 5) {
 			map1 = changeCharInPosition(w * 14 + 14, 'x', map1);
 		}
-		map1 = map1.replace('B', 'o');
-		map1 = changeCharInPosition(mapPosition, 'B', map1);
+		map1 = map1.replace('D', 'c');
+		map1 = changeCharInPosition(mapPosition, 'D', map1);
+	}
+
+	public void mapBack() {
+		mapPosition = w * 14 + l * 2 + 1;
+		map1 = changeCharInPosition(mapPosition, 'o', map1);
+	}
+
+	public void asciiArtMapPrint() {
+		System.out.println(map1);
 	}
 
 	public void goLeft() {

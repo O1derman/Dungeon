@@ -20,18 +20,38 @@ public class Room {
 			emptyRoom = false;
 		}
 		if (dungeon.getRand().nextInt(100) < dungeon.getForAll().sneakChance) {
-			dungeon.getForAll().sneak++;
-			dungeon.println("\tYou found a Sneak.");
+			if (dungeon.getForAll().sneakHeft + dungeon.getForAll().lCapacity > dungeon.getCharacter()
+					.getLoadCapacity()) {
+				dungeon.println("You dont have enough load capacity!");
+			} else {
+				dungeon.getForAll().sneak++;
+				dungeon.getForAll().lCapacity += dungeon.getForAll().sneakHeft;
+				dungeon.println("\tYou found a Sneak.");
+			}
 			emptyRoom = false;
+
 		}
 		if (dungeon.getRand().nextInt(100) < dungeon.getForAll().frogChance) {
-			dungeon.getForAll().frog++;
-			dungeon.println("\tYou found a Frog.");
+			if (dungeon.getForAll().frogHeft + dungeon.getForAll().lCapacity > dungeon.getCharacter()
+					.getLoadCapacity()) {
+				dungeon.println("You dont have enough load capacity!");
+			} else {
+				dungeon.getForAll().frog++;
+				dungeon.getForAll().lCapacity += dungeon.getForAll().frogHeft;
+				dungeon.println("\tYou found a Frog.");
+			}
 			emptyRoom = false;
+
 		}
 		if (dungeon.getRand().nextInt(100) < dungeon.getForAll().wormChance) {
-			dungeon.getForAll().worm++;
-			dungeon.println("\tYou found a Worm.");
+			if (dungeon.getForAll().wormHeft + dungeon.getForAll().lCapacity > dungeon.getCharacter()
+					.getLoadCapacity()) {
+				dungeon.println("You dont have enough load capacity!");
+			} else {
+				dungeon.getForAll().worm++;
+				dungeon.getForAll().lCapacity += dungeon.getForAll().wormHeft;
+				dungeon.println("\tYou found a Worm.");
+			}
 			emptyRoom = false;
 		}
 		if (emptyRoom) {
