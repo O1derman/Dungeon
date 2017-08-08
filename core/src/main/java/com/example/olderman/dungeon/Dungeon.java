@@ -219,7 +219,6 @@ public class Dungeon implements Serializable {
 	// main
 
 	public void run() throws InterruptedException {
-		loadData();
 		clear();
 		menu();
 	}
@@ -228,7 +227,7 @@ public class Dungeon implements Serializable {
 		while (true) {
 			TimeUnit.MILLISECONDS.sleep(500);
 			printAsciiArt(HEADLINE);
-			int volba = uzivatVolba("Start", "Help", "Exit");
+			int volba = uzivatVolba("Start", "Load saved game", "Help", "Exit");
 			switch (volba) {
 			case 1:
 				println("\n\tWelcome to the dungeon!\n");
@@ -257,6 +256,9 @@ public class Dungeon implements Serializable {
 				break;
 
 			case 2:
+				game();
+
+			case 3:
 				// Ramecek.ramecek(Ramecek.data[1][0], "Dwarf");
 				println(">Orc");
 				println("\thas 30% miss chance");
@@ -284,7 +286,7 @@ public class Dungeon implements Serializable {
 				uzivatVolba("Back");
 				break;
 
-			case 3:
+			case 4:
 				System.exit(1);
 
 			}
@@ -604,12 +606,15 @@ public class Dungeon implements Serializable {
 		}
 		println(score + " score");
 		println();
+		println("Map:");
+		println();
 		println();
 		println();
 		println(way.map1.map1);
 		println();
 		println();
 		println();
+		println("Map legend:");
 		mapLegend.legend();
 		println();
 		return this.getInventory().showInventory(fighting);
