@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.example.olderman.dungeon.Dungeon;
 import com.example.olderman.dungeon.shop.Shop;
+import com.example.olderman.dungeon.shop.ToolShop;
 
 public class Town {
 
@@ -14,10 +15,12 @@ public class Town {
 		workHouse = new WorkHouse(dungeon);
 		house = new House(dungeon);
 		forest = new Forest(dungeon);
+		toolShop = new ToolShop(dungeon);
 
 	}
 
 	private final Dungeon dungeon;
+	private final ToolShop toolShop;
 	private final Shop shop;
 	private final WorkHouse workHouse;
 	private final House house;
@@ -71,11 +74,14 @@ public class Town {
 
 		{
 			dungeon.println("You can buy house for " + dungeon.getForAll().houseCost + "g");
-			switch (dungeon.uzivatVolba("Go in shop", "Buy house", "Go in workhouse", "Go in the forest", "Back")) {
+			switch (dungeon.uzivatVolba("Go in weapon shop", "Go in tool shop", "Buy house", "Go in workhouse",
+					"Go in the forest", "Go in pub", "Back")) {
 			case 1:
 				shop.shop();
 				continue BACK1;
 			case 2:
+				toolShop.shop();
+			case 3:
 				if (dungeon.getForAll().gold < dungeon.getForAll().houseCost) {
 					dungeon.println("You don't have enough gold!");
 
@@ -85,27 +91,33 @@ public class Town {
 				}
 				continue BACK1;
 
-			case 3:
+			case 4:
 				workHouse.workHouse();
 				continue BACK1;
-			case 4:
+			case 5:
 				forest.cutTrees();
 				continue BACK1;
+			case 6:
 
 			}
 			break;
 
 		}
 		BACK2: while (dungeon.getForAll().house > 0) {
-			switch (dungeon.uzivatVolba("Go in shop", "Go in house", "Go in workhouse", "Back")) {
+			switch (dungeon.uzivatVolba("Go in shop", "Go in tool shop", "Go in house", "Go in workhouse", "Go in pub",
+					"Back")) {
 			case 1:
 				continue BACK2;
 			case 2:
+				toolShop.shop();
+			case 3:
 				house.inside();
 				continue BACK2;
-			case 3:
+			case 4:
 				workHouse.workHouse();
 				continue BACK2;
+			case 5:
+
 			}
 			break;
 

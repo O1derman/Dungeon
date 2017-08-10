@@ -28,11 +28,15 @@ public class ForAll implements Serializable {
 	public int health;
 	public int gold = 0;
 	public int bossesKilled = 0;
+	public int beerCost = 50;
 	public int lCapacity = 0;
 	public int woodenAxe = 0;
 	public int ironAxe = 0;
+	public int ironAxeCost = 300;
 	public int silverAxe = 0;
+	public int silverAxeCost = 500;
 	public int bronzeAxe = 0;
+	public int bronzeAxeCost = 100;
 	public int houseCost = 650;
 	public int house = 0;
 	public int chestChance = 5; // %
@@ -48,6 +52,7 @@ public class ForAll implements Serializable {
 	public int bed = 0;
 	public int pot = 0;
 	public int knife = 0;
+	public int knifeCost = 200;
 
 	// Potion ingredients
 	public int wood = 0;
