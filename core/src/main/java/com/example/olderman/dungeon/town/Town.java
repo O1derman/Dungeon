@@ -16,10 +16,12 @@ public class Town {
 		house = new House(dungeon);
 		forest = new Forest(dungeon);
 		toolShop = new ToolShop(dungeon);
+		pub = new Pub(dungeon);
 
 	}
 
 	private final Dungeon dungeon;
+	private final Pub pub;
 	private final ToolShop toolShop;
 	private final Shop shop;
 	private final WorkHouse workHouse;
@@ -31,6 +33,7 @@ public class Town {
 	String rightAnswer = "a right angle";
 
 	public void town() throws InterruptedException {
+		dungeon.clear();
 
 		if (firstTime) {
 			dungeon.println("***********************");
@@ -40,8 +43,10 @@ public class Town {
 		}
 		// dungeon.println("\n\tan old poorly looking wanderer: HEY STRANGER!");
 		// dungeon.println("\n\tan old poorly looking wanderer: Yea, YOU!");
-		// dungeon.println("\n\tan old poorly looking wanderer: Come closer.\n");
-		// switch (dungeon.uzivatVolba("Come closer to him", "Don't mind him at all",
+		// dungeon.println("\n\tan old poorly looking wanderer: Come
+		// closer.\n");
+		// switch (dungeon.uzivatVolba("Come closer to him", "Don't mind him at
+		// all",
 		// "Yell at him",
 		// "Try to kill him")) {
 		// case 1:
@@ -51,7 +56,8 @@ public class Town {
 		// playersAnswer = scanner.nextLine();
 		// if (rightAnswer.equals(playersAnswer)) {
 		// dungeon.println("\tCongratulation, you answered correctly!");
-		// dungeon.println("\n\tI give you 4 potions of invisibility and a knife!");
+		// dungeon.println("\n\tI give you 4 potions of invisibility and a
+		// knife!");
 		// dungeon.getForAll().numPotionOfInvisibility += 4;
 		// dungeon.getForAll().knife++;
 		// } else {
@@ -64,7 +70,8 @@ public class Town {
 		// dungeon.println("\tHe drank some potion and disappeared.");
 		// break;
 		// case 4:
-		// dungeon.println("\tHe said some words you didn't understand and teleported
+		// dungeon.println("\tHe said some words you didn't understand and
+		// teleported
 		// away!");
 		// break;
 		// }
@@ -98,7 +105,7 @@ public class Town {
 				forest.cutTrees();
 				continue BACK1;
 			case 6:
-
+				pub.inside();
 			}
 			break;
 
@@ -117,7 +124,7 @@ public class Town {
 				workHouse.workHouse();
 				continue BACK2;
 			case 5:
-
+				pub.inside();
 			}
 			break;
 
