@@ -12,6 +12,7 @@ import com.example.olderman.dungeon.map.Room;
 import com.example.olderman.dungeon.map.Way;
 import com.example.olderman.dungeon.town.Town;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -216,10 +217,11 @@ public class Dungeon implements Serializable {
 
 	}
 
+	File savedData = new File("data.ser");
+
 	// main
 
 	public void run() throws InterruptedException {
-		loadData();
 		clear();
 		menu();
 	}
@@ -228,7 +230,7 @@ public class Dungeon implements Serializable {
 		while (true) {
 			TimeUnit.MILLISECONDS.sleep(500);
 			printAsciiArt(HEADLINE);
-			int volba = uzivatVolba("Start", "Help", "Exit");
+			int volba = uzivatVolba("Start", "Load saved game", "Help", "Exit");
 			switch (volba) {
 			case 1:
 				println("\n\tWelcome to the dungeon!\n");
@@ -250,13 +252,36 @@ public class Dungeon implements Serializable {
 
 					forAll.health = character.getInitialHealth();
 					forAll.maximumHealth = character.getInitialMaximumHealth();
-
+					println("\n\n");
+					println(character.getBeginning());
 					game();
 				}
 
 				break;
 
 			case 2:
+				if (savedData.exists()) {
+					character = new GameCharacter[] { GameCharacter.DWARF, GameCharacter.ORC, GameCharacter.ELF,
+							GameCharacter.GOBLIN }[volba - 1];
+
+					forAll = new ForAll();
+					room = new Room(this);
+					plebs = new Plebs();
+					town = new Town(this);
+					way = new Way(this);
+					mapLegend = new MapLegend(this);
+					inventory = new Inventory(this);
+
+					forAll.health = character.getInitialHealth();
+					forAll.maximumHealth = character.getInitialMaximumHealth();
+					game();
+				} else {
+					println("You don't have any saved progress.");
+					uzivatVolba("Back");
+					break;
+				}
+
+			case 3:
 				// Ramecek.ramecek(Ramecek.data[1][0], "Dwarf");
 				println(">Orc");
 				println("\thas 30% miss chance");
@@ -287,7 +312,7 @@ public class Dungeon implements Serializable {
 				uzivatVolba("Back");
 				break;
 
-			case 3:
+			case 4:
 				System.exit(1);
 
 			}
@@ -306,8 +331,6 @@ public class Dungeon implements Serializable {
 		long start = System.nanoTime();
 		println();
 
-		println("\n\n");
-		println(character.getBeginning());
 		println("\n\tYou are on floor " + forAll.floor + "!");
 		FIGHT: while (true) {
 			way.map1.asciiArtMap();
@@ -347,8 +370,6 @@ public class Dungeon implements Serializable {
 						volba = uzivatVolba("Yes", "No");
 						switch (volba) {
 						case 1:
-							println("\tYout exit the dungeon.");
-							println("\tThanks for playing!");
 							return;
 						}
 					}
@@ -607,12 +628,15 @@ public class Dungeon implements Serializable {
 		}
 		println(score + " score");
 		println();
+		println("Map:");
+		println();
 		println();
 		println();
 		println(way.map1.map1);
 		println();
 		println();
 		println();
+		println("Map legend:");
 		mapLegend.legend();
 		println();
 		return this.getInventory().showInventory(fighting);
