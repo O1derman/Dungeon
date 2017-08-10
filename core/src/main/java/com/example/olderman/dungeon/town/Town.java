@@ -52,7 +52,7 @@ public class Town {
 		// case 1:
 		// dungeon.println("\n\tI will give you a conundrum.");
 		// dungeon.println("\n\tWhat can be right but never wrong?...(write it
-		// witharticle!)");
+		// with article!)");
 		// playersAnswer = scanner.nextLine();
 		// if (rightAnswer.equals(playersAnswer)) {
 		// dungeon.println("\tCongratulation, you answered correctly!");

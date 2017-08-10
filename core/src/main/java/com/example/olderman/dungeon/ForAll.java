@@ -50,7 +50,6 @@ public class ForAll implements Serializable {
 	public int numPotionOfTeleportation = 0;
 	public int numPotionOfConcentration = 0;
 	public int bed = 0;
-	public int pot = 0;
 	public int knife = 0;
 	public int knifeCost = 200;
 

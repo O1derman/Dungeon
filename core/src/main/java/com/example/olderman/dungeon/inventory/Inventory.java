@@ -54,6 +54,10 @@ public class Inventory {
 		return count == null ? 0 : count;
 	}
 
+	public boolean has(InventoryItem item) {
+		return getCount(item) > 0;
+	}
+
 	/**
 	 * 
 	 * @param fighting
@@ -64,25 +68,20 @@ public class Inventory {
 		List<String> names = new ArrayList<>();
 		List<InventoryItem> items = new ArrayList<>();
 
-		boolean hasItemWichCantBeUsed = false;
-
 		for (Entry<InventoryItem, Integer> entry : entries) {
 			InventoryItem item = entry.getKey();
 			int count = entry.getValue();
-			if (!fighting || item.canUseWhileFighting()) {
-				names.add(item.getName() + (count > 1 ? " x" + count : "") + " - " + item.getUseText());
+			String name = item.getName() + (count > 1 ? " x" + count : "");
+			if (fighting ? item.canUseWhileFighting() : item.getType() != Type.WEAPON) {
+				names.add(name + " - " + item.getUseText());
 				items.add(item);
 			} else {
-				hasItemWichCantBeUsed = true;
+				dungeon.println(name);
 			}
 		}
 
 		names.add("Exit inventory");
 		items.add(null);
-
-		if (hasItemWichCantBeUsed) {
-			dungeon.println("Some of your items cannot be used while fighting.");
-		}
 
 		InventoryItem item = items.get(dungeon.uzivatVolba(names.toArray(new String[names.size()])) - 1);
 		if (item == null) {

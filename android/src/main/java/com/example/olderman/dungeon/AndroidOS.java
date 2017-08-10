@@ -50,7 +50,7 @@ public class AndroidOS implements OS {
 		buttons = null;
 	}
 
-	private volatile int result;
+	private volatile int result = -1;
 	private String[] buttonLabels;
 
 	private void createButtons() {
@@ -92,25 +92,26 @@ public class AndroidOS implements OS {
 
 	@Override
 	public int uzivatVolba(final String... options) {
+		try {
+			buttonLabels = options;
+			createButtons();
 
-		result = -1;
-
-		buttonLabels = options;
-		createButtons();
-
-		synchronized (this) {
-			while (result == -1) {
-				try {
-					wait();
-				} catch (InterruptedException e) {
+			synchronized (this) {
+				while (result == -1) {
+					try {
+						wait();
+					} catch (InterruptedException e) {
+					}
 				}
 			}
+			if (result == -2) {
+				throw new ExitException();
+			}
+			clear();
+			return result;
+		} finally {
+			result = -1;
 		}
-		if (result == -2) {
-			throw new ExitException();
-		}
-		clear();
-		return result;
 	}
 
 	@Override
@@ -254,9 +255,9 @@ public class AndroidOS implements OS {
 		sb.setSpan(new AbsoluteSizeSpan(textSize), start, sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 	}
 
-    @Override
-    public void beep() {
+	@Override
+	public void beep() {
 
-    }
+	}
 
 }

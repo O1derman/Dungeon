@@ -14,7 +14,7 @@ public class ToolShop {
 	public void shop() {
 		dungeon.println("Welcome in \"Digged monster\"!");
 		dungeon.println();
-		while (firstTime) {
+		if (firstTime) {
 			dungeon.println("When you buy any axe, you lose the previous one!");
 			dungeon.println();
 			firstTime = false;
