@@ -88,6 +88,7 @@ public class Town {
 				continue BACK1;
 			case 2:
 				toolShop.shop();
+				continue BACK1;
 			case 3:
 				if (dungeon.getForAll().gold < dungeon.getForAll().houseCost) {
 					dungeon.println("You don't have enough gold!");
@@ -108,6 +109,7 @@ public class Town {
 				continue BACK1;
 			case 6:
 				pub.inside();
+				continue BACK1;
 			}
 			break;
 
@@ -119,6 +121,7 @@ public class Town {
 				continue BACK2;
 			case 2:
 				toolShop.shop();
+				continue BACK2;
 			case 3:
 				house.inside();
 				continue BACK2;
@@ -127,6 +130,7 @@ public class Town {
 				continue BACK2;
 			case 5:
 				pub.inside();
+				continue BACK2;
 			}
 			break;
 
