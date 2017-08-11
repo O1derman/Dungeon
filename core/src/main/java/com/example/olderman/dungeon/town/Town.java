@@ -1,6 +1,7 @@
 package com.example.olderman.dungeon.town;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import com.example.olderman.dungeon.Dungeon;
 import com.example.olderman.dungeon.shop.Shop;
@@ -33,12 +34,11 @@ public class Town {
 	String rightAnswer = "a right angle";
 
 	public void town() throws InterruptedException {
-		dungeon.clear();
 
 		if (firstTime) {
-			dungeon.println("***********************");
-			dungeon.println("* WELCOME in Stander! *");
-			dungeon.println("***********************");
+			dungeon.println("\t\t\t\t***********************");
+			dungeon.println("\t\t\t\t* WELCOME in Stander! *");
+			dungeon.println("\t\t\t\t***********************");
 			firstTime = false;
 		}
 		// dungeon.println("\n\tan old poorly looking wanderer: HEY STRANGER!");
@@ -91,6 +91,8 @@ public class Town {
 			case 3:
 				if (dungeon.getForAll().gold < dungeon.getForAll().houseCost) {
 					dungeon.println("You don't have enough gold!");
+					TimeUnit.SECONDS.sleep(2);
+					dungeon.clear();
 
 				} else {
 					dungeon.getForAll().house++;
