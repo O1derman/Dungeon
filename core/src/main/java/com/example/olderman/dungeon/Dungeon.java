@@ -308,7 +308,6 @@ public class Dungeon implements Serializable {
 	}
 
 	private void game() throws InterruptedException {
-		Boss1 boss1 = new Boss1(this); // FIXME
 		Boss2 boss2 = new Boss2(this);
 
 		int volba;
@@ -323,9 +322,9 @@ public class Dungeon implements Serializable {
 		FIGHT: while (true) {
 			way.map1.asciiArtMap();
 			long elapsedTime = System.nanoTime() - start;
-			if (elapsedTime == 5) { // FIXME toto je SPATNE! - znameno to 'pokud uplynulo presne 5 milisekund'
+			if (elapsedTime >= 60000) {
 				if (forAll.energy < 100) {
-					forAll.energy += 10;
+					forAll.energy += 5;
 				} else {
 
 				}
