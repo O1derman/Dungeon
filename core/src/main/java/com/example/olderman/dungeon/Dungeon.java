@@ -322,7 +322,8 @@ public class Dungeon implements Serializable {
 		FIGHT: while (true) {
 			way.map1.asciiArtMap();
 			long elapsedTime = System.nanoTime() - start;
-			if (elapsedTime >= 60000) {
+			if (elapsedTime >= 120000) {
+				start = +elapsedTime;
 				if (forAll.energy < 100) {
 					forAll.energy += 5;
 				} else {
