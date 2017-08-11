@@ -118,6 +118,7 @@ public class Town {
 			switch (dungeon.uzivatVolba("Go in shop", "Go in tool shop", "Go in house", "Go in workhouse", "Go in pub",
 					"Back")) {
 			case 1:
+				shop.shop();
 				continue BACK2;
 			case 2:
 				toolShop.shop();
