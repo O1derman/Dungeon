@@ -16,9 +16,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -290,13 +288,13 @@ public class Dungeon implements Serializable {
 				println(">Medium health potion heals for 50 HP.");
 				println(">Large health potion heals for 100 HP.");
 				println();
-				println("\tYou gain experience and have a small chance of getting some health potions for killing enemies.");
-				println("\tYou can collect ingrediences to be able to craft lektvars in a pot.");
+				println("You gain experience and have a small chance of getting some health potions for killing enemies.");
+				println("You can collect ingrediences to be able to craft lektvars in a pot.");
 				println("You can save game in bed...if you die without save...you lose everything!");
 				println("In every floor is a boss room, if you beat the boss, you go in next floor.");
 				println("Main goal of this game is to collect the highest score!");
+				println("Some actions cost you energy.");
 				println("You get energy by drinking a beer in pub.");
-				println("\n\n\n");
 				uzivatVolba("Back");
 				break;
 

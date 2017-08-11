@@ -13,9 +13,10 @@ public class Boss1 implements Serializable {
 	}
 
 	public String boss1Name = "Syndyl presented the smasher";
-	private final Dungeon dungeon;
-	private int boss1MissChance = 5;
+	public int boss1MissChance = 5;
 	public int boss1Health = 1200;
+
+	private final Dungeon dungeon;
 
 	public void boss1Quote() {
 		dungeon.println("Any last will STRANGER?!");
