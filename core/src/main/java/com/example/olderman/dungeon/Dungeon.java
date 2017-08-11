@@ -16,7 +16,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -212,6 +214,8 @@ public class Dungeon implements Serializable {
 		menu();
 	}
 
+	long startTime = System.nanoTime();
+
 	private void menu() throws InterruptedException {
 		while (true) {
 			clear();
@@ -316,18 +320,16 @@ public class Dungeon implements Serializable {
 		printAsciiArt(character.getAsciiArt());
 		println();
 
-		long start = System.nanoTime();
-
 		println("\n\tYou are on floor " + forAll.floor + "!");
 		FIGHT: while (true) {
 			way.map1.asciiArtMap();
-			long elapsedTime = System.nanoTime() - start;
-			if (elapsedTime >= 120000) {
-				start = +elapsedTime;
-				if (forAll.energy < 100) {
-					forAll.energy += 5;
+			long timeElapsed = System.nanoTime() - startTime;
+			if (timeElapsed >= 120000) {
+				startTime = +timeElapsed;
+				if (forAll.energy > 95) {
+					forAll.energy = 100;
 				} else {
-
+					forAll.energy += 5;
 				}
 			}
 			boolean freeRoom = way.map1.rooms[way.map1.w][way.map1.l];
