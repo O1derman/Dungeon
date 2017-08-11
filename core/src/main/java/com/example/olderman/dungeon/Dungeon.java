@@ -308,6 +308,7 @@ public class Dungeon implements Serializable {
 	}
 
 	private void game() throws InterruptedException {
+		Boss1 boss1 = new Boss1(this); // FIXME
 		Boss2 boss2 = new Boss2(this);
 
 		int volba;
@@ -543,11 +544,11 @@ public class Dungeon implements Serializable {
 
 			volba = uzivatVolba("Search room", "Continue");
 			if (volba == 1) {
-				if (forAll.energy < 30) {
+				if (forAll.energy < 20) {
 					println("You don't have enough energy!");
 				} else {
 					room.normalRoom();
-					forAll.energy -= 30;
+					forAll.energy -= 20;
 				}
 				volba = uzivatVolba("Continue");
 				if (volba == 1) {
