@@ -241,9 +241,6 @@ public class Dungeon implements Serializable {
 
 					forAll.health = character.getInitialHealth();
 					forAll.maximumHealth = character.getInitialMaximumHealth();
-					println();
-					println();
-					println();
 					println(character.getBeginning());
 					game();
 				}
