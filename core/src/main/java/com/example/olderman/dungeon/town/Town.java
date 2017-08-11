@@ -92,7 +92,7 @@ public class Town {
 			case 3:
 				if (dungeon.getForAll().gold < dungeon.getForAll().houseCost) {
 					dungeon.println("You don't have enough gold!");
-					TimeUnit.SECONDS.sleep(2);
+					TimeUnit.SECONDS.sleep(1);
 					dungeon.clear();
 
 				} else {

@@ -13,14 +13,14 @@ public class Forest {
 	public void cutTrees() throws InterruptedException {
 		NABIDKA: while (true) {
 			dungeon.println("What now?");
-			int waitTime;
-			waitTime = 2000;
+			double waitTime;
+			waitTime = 2 * 1e+9;
 			if (dungeon.getForAll().bronzeAxe > 0) {
-				waitTime = 1000;
+				waitTime = 1e+9;
 			} else if (dungeon.getForAll().silverAxe > 0) {
-				waitTime = 200;
+				waitTime = 1e+9 / 5;
 			} else if (dungeon.getForAll().ironAxe > 0) {
-				waitTime = 500;
+				waitTime = 1e+9 / 2;
 			}
 
 			switch (dungeon.uzivatVolba("Cut trees", "Hunt birds", "Back")) {
@@ -29,34 +29,34 @@ public class Forest {
 					dungeon.println("You don't have enough energy.");
 					continue NABIDKA;
 				} else {
-					dungeon.println("You are cutting a tree!");
-					Thread.sleep(waitTime);
-					dungeon.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t10");
-					Thread.sleep(waitTime);
-					dungeon.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t9");
-					Thread.sleep(waitTime);
-					dungeon.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t8");
-					Thread.sleep(waitTime);
-					dungeon.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t7");
-					Thread.sleep(waitTime);
-					dungeon.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t6");
-					Thread.sleep(waitTime);
-					dungeon.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t5");
-					Thread.sleep(waitTime);
-					dungeon.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t4");
-					Thread.sleep(waitTime);
-					dungeon.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t3");
-					Thread.sleep(waitTime);
-					dungeon.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t2");
-					Thread.sleep(waitTime);
-					dungeon.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t1");
-					Thread.sleep(waitTime);
+					boolean cutting = true;
+					long startTime;
+					long timeElapsed;
+					int wTime = 10;
+					String strCutting = "You are cutting a tree!";
+					startTime = System.nanoTime();
+					dungeon.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + wTime);
+					while (cutting) {
+						timeElapsed = System.nanoTime() - startTime;
+						if (timeElapsed >= waitTime) {
+							wTime--;
+							if (wTime == 0) {
+								cutting = false;
+								break;
+							}
+							dungeon.clear();
+							dungeon.println(strCutting);
+							dungeon.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + wTime);
+							startTime = System.nanoTime();
+						}
+					}
 					int foundWood = dungeon.getRand().nextInt(10);
 					dungeon.getForAll().energy -= 10;
 					dungeon.getForAll().wood += foundWood;
 					dungeon.println("You got " + foundWood + " wood.");
 					continue NABIDKA;
 				}
+
 			case 2:
 				if (dungeon.getForAll().energy < 20) {
 					dungeon.println("You don't have enough energy.");

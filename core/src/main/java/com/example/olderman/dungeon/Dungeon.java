@@ -221,7 +221,7 @@ public class Dungeon implements Serializable {
 			int volba = uzivatVolba("Start", "Load saved game", "Help", "Exit");
 			switch (volba) {
 			case 1:
-				println("\n\tWelcome to the dungeon!\n");
+				println("\tWelcome to the dungeon!\n");
 				println("\tWhich character would you like to play?\n");
 
 				volba = uzivatVolba("Dwarf", "Orc", "Elf", "Goblin", /* "Superman", */ "Back");
@@ -412,7 +412,7 @@ public class Dungeon implements Serializable {
 					} else if (volba == 2) { // Run
 						if (forAll.numPotionOfInvisibility == 0) {
 							println("\t> No time to run!\n");
-							TimeUnit.SECONDS.sleep(2);
+							TimeUnit.SECONDS.sleep(1);
 						} else {
 							println("\t Do you really want to run? It will cost you potion of invisibility!");
 							int volbaRun = uzivatVolba("Yes", "No");
@@ -444,7 +444,7 @@ public class Dungeon implements Serializable {
 					} else if (volba == 2) { // Run
 						if (forAll.numPotionOfInvisibility == 0) {
 							println("\t> No time to run!\n");
-							TimeUnit.SECONDS.sleep(2);
+							TimeUnit.SECONDS.sleep(1);
 						} else {
 							println("\t Do you really want to run? It will cost you potion of invisibility!");
 							int volbaRun = uzivatVolba("Yes", "No");
