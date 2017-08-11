@@ -302,7 +302,6 @@ public class Dungeon implements Serializable {
 			case 4:
 				return;
 			}
-			TimeUnit.MILLISECONDS.sleep(500);
 		}
 
 	}
