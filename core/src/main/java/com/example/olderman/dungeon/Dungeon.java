@@ -229,6 +229,7 @@ public class Dungeon implements Serializable {
 	private void menu() throws InterruptedException {
 		while (true) {
 			TimeUnit.MILLISECONDS.sleep(500);
+			clear();
 			printAsciiArt(HEADLINE);
 			int volba = uzivatVolba("Start", "Load saved game", "Help", "Exit");
 			switch (volba) {
@@ -308,6 +309,7 @@ public class Dungeon implements Serializable {
 				println("You can save game in bed...if you die without save...you lose everything!");
 				println("In every floor is a boss room, if you beat the boss, you go in next floor.");
 				println("Main goal of this game is to collect the highest score!");
+				println("You get energy by drinking a beer in pub.");
 				println("\n\n\n");
 				uzivatVolba("Back");
 				break;
