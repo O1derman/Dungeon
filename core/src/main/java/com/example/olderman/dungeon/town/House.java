@@ -10,39 +10,40 @@ public class House {
 
 	}
 
-	private Pot pot = new Pot();
 	private final Dungeon dungeon;
 
 	public void inside() {
-		new Pot();
 		BACK: while (true) {
-			if (dungeon.getForAll().bed > 0 && dungeon.getForAll().pot > 0) {
+			boolean hasPot = dungeon.getInventory().has(Pot.POT);
+			if (dungeon.getForAll().bed > 0 && hasPot) {
 				switch (dungeon.uzivatVolba("Use bed", "Use Pot", "Back")) {
 				case 1:
 					dungeon.saveData();
-					continue BACK;
+					break;
 				case 2:
-					pot.canUseWhileFighting();
-					continue BACK;
+					Pot.POT.use(dungeon);
+					break;
+				case 3:
+					break BACK;
 				}
 			} else if (dungeon.getForAll().bed > 0) {
-				switch (dungeon.uzivatVolba("Use bed", "Back")) {
-				case 1:
+				if (dungeon.uzivatVolba("Use bed", "Back") == 1) {
 					dungeon.saveData();
-					continue BACK;
+				} else {
+					break;
 				}
 
-			} else if (dungeon.getForAll().pot > 0) {
-				switch (dungeon.uzivatVolba("Use pot", "Back")) {
-				case 1:
-					pot.canUseWhileFighting();
-					continue BACK;
+			} else if (hasPot) {
+				if (dungeon.uzivatVolba("Use pot", "Back") == 1) {
+					Pot.POT.use(dungeon);
+				} else {
+					break;
 				}
 
 			} else {
 				dungeon.println("\nYou dont have nothing to do at home. You have to buy pot or build bed!\n");
+				break;
 			}
-			break;
 		}
 	}
 }

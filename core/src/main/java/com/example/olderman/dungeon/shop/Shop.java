@@ -15,7 +15,7 @@ public class Shop {
 
 		items = new ShopItem[] {
 				new InventoryShopItem(dungeon, new Weapon("Dagger", 15), 200, "gives you 15 more damage!"),
-				new InventoryShopItem(dungeon, new Weapon("Malet", 20), 400, "gives you 20 more damage!"),
+				new InventoryShopItem(dungeon, new Weapon("Mallet", 20), 400, "gives you 20 more damage!"),
 				new InventoryShopItem(dungeon, new Weapon("Long sword", 40), 600, "gives you 40 more damage!"),
 				new InventoryShopItem(dungeon, Bomb.BOMB, 400, "deals 100-300 damage! (only for 1 use)"),
 				new InventoryShopItem(dungeon, Pot.POT, 450, "allows you to create potions"), new Hamburger(dungeon), };
@@ -66,7 +66,7 @@ public class Shop {
 		}
 	}
 
-	public boolean buyWithGold(int cost) {
+	private boolean buyWithGold(int cost) {
 		if (cost > dungeon.getForAll().gold)
 			return false;
 		dungeon.getForAll().gold -= cost;

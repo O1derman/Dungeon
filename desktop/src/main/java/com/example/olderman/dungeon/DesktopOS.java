@@ -12,6 +12,8 @@ import com.example.olderman.dungeon.Style.ColorStyle;
 
 public class DesktopOS implements OS {
 
+	private Cheats cheats = null;
+
 	public static boolean enableClear = true;
 	// System objects
 	private static final Scanner in = new Scanner(System.in);
@@ -38,6 +40,11 @@ public class DesktopOS implements OS {
 		while (true) {
 
 			String nabidka = DesktopOS.in.nextLine();
+			if (cheats != null) {
+				while (cheats.executeCommand(nabidka)) {
+					nabidka = DesktopOS.in.nextLine();
+				}
+			}
 			try {
 				int vysledek = Integer.parseInt(nabidka);
 				if (vysledek > 0 && vysledek <= options.length) {
@@ -70,7 +77,10 @@ public class DesktopOS implements OS {
 		if (args.length >= 1 && "--noClear".equals(args[0])) {
 			enableClear = false;
 		}
-		new Dungeon(new DesktopOS()).run();
+		DesktopOS os = new DesktopOS();
+		Dungeon dungeon = new Dungeon(os);
+		os.cheats = new Cheats(dungeon); // comment this line to disable cheats
+		dungeon.run();
 	}
 
 	@Override

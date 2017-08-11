@@ -5,9 +5,6 @@ import com.example.olderman.dungeon.enemies.Boss2;
 import com.example.olderman.dungeon.enemies.Plebs;
 import com.example.olderman.dungeon.inventory.HealthPotion;
 import com.example.olderman.dungeon.inventory.Inventory;
-import com.example.olderman.dungeon.inventory.InventoryItem;
-import com.example.olderman.dungeon.inventory.InventoryItem.Type;
-import com.example.olderman.dungeon.map.MapLegend;
 import com.example.olderman.dungeon.map.Room;
 import com.example.olderman.dungeon.map.Way;
 import com.example.olderman.dungeon.town.Town;
@@ -37,9 +34,9 @@ public class Dungeon implements Serializable {
 
 	// ascii art
 	private static final String HEADLINE = Resources.getString("/headline");
-	public int score;
 	// fields
 	private final Random rand = new Random();
+	public int score;
 	private ForAll forAll;
 	private Plebs plebs;
 	private GameCharacter character;
@@ -47,24 +44,6 @@ public class Dungeon implements Serializable {
 	private Town town;
 	private Boss1 boss1;
 	private Boss2 boss2;
-	private MapLegend mapLegend;
-
-	public Boss1 getBoss1() {
-		return boss1;
-	}
-
-	public void setBoss1(Boss1 boss1) {
-		this.boss1 = boss1;
-	}
-
-	public Boss2 getBoss2() {
-		return boss2;
-	}
-
-	public void setBoss2(Boss2 boss2) {
-		this.boss2 = boss2;
-	}
-
 	private Way way;
 	private Room room;
 
@@ -93,9 +72,16 @@ public class Dungeon implements Serializable {
 		return way;
 	}
 
-	// health
-	public void increaseMaximumHealth(int maximumHealthIncrease) {
-		forAll.maximumHealth += maximumHealthIncrease;
+	public Town getTown() {
+		return town;
+	}
+
+	public Boss1 getBoss1() {
+		return boss1;
+	}
+
+	public Boss2 getBoss2() {
+		return boss2;
 	}
 
 	public int getHealth() {
@@ -228,7 +214,6 @@ public class Dungeon implements Serializable {
 
 	private void menu() throws InterruptedException {
 		while (true) {
-			TimeUnit.MILLISECONDS.sleep(500);
 			clear();
 			printAsciiArt(HEADLINE);
 			int volba = uzivatVolba("Start", "Load saved game", "Help", "Exit");
@@ -248,12 +233,13 @@ public class Dungeon implements Serializable {
 					plebs = new Plebs();
 					town = new Town(this);
 					way = new Way(this);
-					mapLegend = new MapLegend(this);
 					inventory = new Inventory(this);
 
 					forAll.health = character.getInitialHealth();
 					forAll.maximumHealth = character.getInitialMaximumHealth();
-					println("\n\n");
+					println();
+					println();
+					println();
 					println(character.getBeginning());
 					game();
 				}
@@ -270,7 +256,6 @@ public class Dungeon implements Serializable {
 					plebs = new Plebs();
 					town = new Town(this);
 					way = new Way(this);
-					mapLegend = new MapLegend(this);
 					inventory = new Inventory(this);
 
 					forAll.health = character.getInitialHealth();
@@ -315,29 +300,30 @@ public class Dungeon implements Serializable {
 				break;
 
 			case 4:
-				System.exit(1);
-
+				return;
 			}
+			TimeUnit.MILLISECONDS.sleep(500);
 		}
 
 	}
 
 	private void game() throws InterruptedException {
-		Boss1 boss1 = new Boss1(this);
+		Boss1 boss1 = new Boss1(this); // FIXME
 		Boss2 boss2 = new Boss2(this);
 
 		int volba;
 		boolean reset = true;
 
 		printAsciiArt(character.getAsciiArt());
-		long start = System.nanoTime();
 		println();
+
+		long start = System.nanoTime();
 
 		println("\n\tYou are on floor " + forAll.floor + "!");
 		FIGHT: while (true) {
 			way.map1.asciiArtMap();
 			long elapsedTime = System.nanoTime() - start;
-			if (elapsedTime == 5) {
+			if (elapsedTime == 5) { // FIXME toto je SPATNE! - znameno to 'pokud uplynulo presne 5 milisekund'
 				if (forAll.energy < 100) {
 					forAll.energy += 10;
 				} else {
@@ -358,10 +344,7 @@ public class Dungeon implements Serializable {
 						}
 						continue FIGHT;
 					} else if (volba == 2) { // Open inventory and info
-						InventoryItem usedItem = inventoryAndInfo(false);
-						if (usedItem != null && usedItem.getType() == Type.WEAPON) {
-
-						}
+						inventoryAndInfo(false);
 						continue FIGHT;
 
 					} else if (volba == 3) { // Go in town
@@ -369,9 +352,7 @@ public class Dungeon implements Serializable {
 						continue FIGHT;
 					} else if (volba == 4) { // Exit
 						println("\tReally?...unsaved progres will be lost permanently!");
-						volba = uzivatVolba("Yes", "No");
-						switch (volba) {
-						case 1:
+						if (uzivatVolba("Yes", "No") == 1) {
 							return;
 						}
 					}
@@ -388,16 +369,16 @@ public class Dungeon implements Serializable {
 
 				while (true) {
 
-					volba = uzivatVolba("Attack", "Go back", "Open inventory and info", "Go in town", "Exit");
+					volba = uzivatVolba("Fight", "Go back", "Open inventory and info", "Go in town", "Exit");
 					if (volba == 1) { // Attack
 						if (way.map1.l == way.map1.rightEdge && way.map1.w == way.map1.w1 && forAll.floor == 1) {
 							boss1.boss1Quote();
-							boss1.boss1Fight();
+
 							plebFight = false;
 						} else if (way.map1.l == way.map1.rightEdge && way.map1.w == way.map1.w1 && forAll.floor == 2) {
-							boss2.boss2Fight();
+
 						} else {
-							plebFight();
+
 						}
 						break;
 					} else if (volba == 2) { // Go back
@@ -406,10 +387,7 @@ public class Dungeon implements Serializable {
 						reset = false;
 						continue FIGHT;
 					} else if (volba == 3) { // Open inventory and info
-						InventoryItem usedItem = inventoryAndInfo(false);
-						if (usedItem != null && usedItem.getType() == Type.WEAPON) {
-
-						}
+						inventoryAndInfo(false);
 						continue FIGHT;
 					} else if (volba == 4) { // Go in town
 						town.town();
@@ -419,7 +397,7 @@ public class Dungeon implements Serializable {
 						volba = uzivatVolba("Yes", "No");
 						switch (volba) {
 						case 1:
-							println("\tYout exit the dungeon.");
+							println("\tYou exit the dungeon.");
 							println("\tThanks for playing!");
 							return;
 						}
@@ -520,7 +498,7 @@ public class Dungeon implements Serializable {
 				println(GREEN.BRIGHT, "\t************************************************");
 				println(GREEN.BRIGHT, "\t*Congratulations! Level Up! Level " + forAll.level + "!");
 				println(GREEN.BRIGHT, "\t************************************************");
-				increaseMaximumHealth(ForAll.LEVEL_UP_HEALTH);
+				forAll.maximumHealth += ForAll.LEVEL_UP_HEALTH;
 				increaseHealth(ForAll.LEVEL_UP_HEALTH);
 
 				println("\tYour maximum health is " + forAll.maximumHealth + "HP.");
@@ -586,62 +564,58 @@ public class Dungeon implements Serializable {
 		}
 	}
 
-	public Town getTown() {
-		return town;
-	}
+	public void inventoryAndInfo(boolean fighting) {
+		do {
+			println(RED.BRIGHT, this.getHealth() + "/" + this.getForAll().maximumHealth + " health");
+			if (getForAll().experience > 0) {
+				println(GREEN.BRIGHT, this.getForAll().experience + "/" + this.getForAll().levelUp + " experience");
+			}
+			if (getForAll().level > 0) {
+				println(BLUE.BRIGHT, "level " + this.getForAll().level);
+			}
+			if (getPlebs().enemiesKilled > 0) {
+				println("floor " + this.getForAll().floor);
+			}
+			if (getForAll().resistence > 0) {
+				println(100 - this.getForAll().resistence + "% resistance");
+			}
+			println(forAll.lCapacity + "/" + this.getCharacter().loadCapacity + " load capacity");
+			if (getForAll().numPotionOfStrength > 0) {
+				println(this.getForAll().numPotionOfStrength + " potion(s) of strength");
+			}
+			if (getForAll().gold > 0) {
+				println(YELLOW.BRIGHT, this.getForAll().gold + " gold");
 
-	public void setTown(Town town) {
-		this.town = town;
-	}
-
-	public InventoryItem inventoryAndInfo(boolean fighting) {
-		println(RED.BRIGHT, this.getHealth() + "/" + this.getForAll().maximumHealth + " health");
-		if (getForAll().experience > 0) {
-			println(GREEN.BRIGHT, this.getForAll().experience + "/" + this.getForAll().levelUp + " experience");
-		}
-		if (getForAll().level > 0) {
-			println(BLUE.BRIGHT, "level " + this.getForAll().level);
-		}
-		if (getPlebs().enemiesKilled > 0) {
-			println("floor " + this.getForAll().floor);
-		}
-		if (getForAll().resistence > 0) {
-			println(100 - this.getForAll().resistence + "% resistance");
-		}
-		println(forAll.lCapacity + "/" + this.getCharacter().loadCapacity + " load capacity");
-		if (getForAll().numPotionOfStrength > 0) {
-			println(this.getForAll().numPotionOfStrength + " potion(s) of strength");
-		}
-		if (getForAll().gold > 0) {
-			println(YELLOW.BRIGHT, this.getForAll().gold + " gold");
-
-		}
-		println(forAll.energy + "/100 energy");
-		println(this.getCharacter().getMissChance() + "% miss chance");
-		if (getPlebs().enemiesKilled == 1) {
-			println(getPlebs().enemiesKilled + " killed enemy");
-		} else {
-			println(getPlebs().enemiesKilled + " killed enemies");
-		}
-		if (getForAll().bossesKilled == 1) {
-			println(getForAll().bossesKilled + " killed boss");
-		} else {
-			println(getForAll().bossesKilled + " killed bosses");
-		}
-		println(score + " score");
-		println();
-		println("Map:");
-		println();
-		println();
-		println();
-		println(way.map1.map1);
-		println();
-		println();
-		println();
-		println("Map legend:");
-		mapLegend.legend();
-		println();
-		return this.getInventory().showInventory(fighting);
+			}
+			println(forAll.energy + "/100 energy");
+			println(this.getCharacter().getMissChance() + "% miss chance");
+			if (getPlebs().enemiesKilled == 1) {
+				println(getPlebs().enemiesKilled + " killed enemy");
+			} else {
+				println(getPlebs().enemiesKilled + " killed enemies");
+			}
+			if (getForAll().bossesKilled == 1) {
+				println(getForAll().bossesKilled + " killed boss");
+			} else {
+				println(getForAll().bossesKilled + " killed bosses");
+			}
+			println(score + " score");
+			println();
+			println("Map:");
+			println();
+			println();
+			println();
+			println(way.map1.map1);
+			println();
+			println();
+			println();
+			println("Map legend:");
+			println("D - your position");
+			println("x - wall");
+			println("o - room with enemy");
+			println("c - cleared room");
+			println();
+		} while (this.getInventory().showInventory(fighting) != null);
 	}
 
 	private void plebFight() {
