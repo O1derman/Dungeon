@@ -88,6 +88,7 @@ public class Town {
 				continue BACK1;
 			case 2:
 				toolShop.shop();
+				continue BACK1;
 			case 3:
 				if (dungeon.getForAll().gold < dungeon.getForAll().houseCost) {
 					dungeon.println("You don't have enough gold!");
@@ -116,9 +117,11 @@ public class Town {
 			switch (dungeon.uzivatVolba("Go in shop", "Go in tool shop", "Go in house", "Go in workhouse", "Go in pub",
 					"Back")) {
 			case 1:
+				shop.shop();
 				continue BACK2;
 			case 2:
 				toolShop.shop();
+				continue BACK2;
 			case 3:
 				house.inside();
 				continue BACK2;
