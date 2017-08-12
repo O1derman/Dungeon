@@ -35,6 +35,7 @@ public class Forest {
 					int wTime = 10;
 					String strCutting = "You are cutting a tree!";
 					startTime = System.nanoTime();
+					dungeon.println(strCutting);
 					dungeon.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + wTime);
 					while (cutting) {
 						timeElapsed = System.nanoTime() - startTime;
@@ -50,6 +51,7 @@ public class Forest {
 							startTime = System.nanoTime();
 						}
 					}
+					dungeon.clear();
 					int foundWood = dungeon.getRand().nextInt(10);
 					dungeon.getForAll().energy -= 10;
 					dungeon.getForAll().wood += foundWood;

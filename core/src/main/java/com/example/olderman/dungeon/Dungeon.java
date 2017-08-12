@@ -9,6 +9,12 @@ import com.example.olderman.dungeon.map.Room;
 import com.example.olderman.dungeon.map.Way;
 import com.example.olderman.dungeon.town.Town;
 
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Toolkit;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -46,6 +52,9 @@ public class Dungeon implements Serializable {
 	private Boss2 boss2;
 	private Way way;
 	private Room room;
+
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	double width = screenSize.getWidth();
 
 	// getters
 	public Random getRand() {
@@ -152,6 +161,20 @@ public class Dungeon implements Serializable {
 		os.flush();
 	}
 
+	public void printlnMiddle(String text) {
+		AffineTransform affinetransform = new AffineTransform();
+		FontRenderContext frc = new FontRenderContext(affinetransform, true, true);
+		Font font = new Font("Default", Font.PLAIN, 14);
+		int textWidth = (int) (font.getStringBounds(text, frc).getWidth());
+		int spaceWidth = (int) (font.getStringBounds("\t", frc).getWidth());
+		for (int i = 0; i < width / 2 - textWidth / 2; i = +spaceWidth) {
+			print("\t");
+		}
+		print0(text);
+		os.println();
+		os.flush();
+	}
+
 	public void println() {
 		os.println();
 		os.flush();
@@ -221,7 +244,7 @@ public class Dungeon implements Serializable {
 			int volba = uzivatVolba("Start", "Load saved game", "Help", "Exit");
 			switch (volba) {
 			case 1:
-				println("\tWelcome to the dungeon!\n");
+				println("Welcome to the dungeon!");
 				println("\tWhich character would you like to play?\n");
 
 				volba = uzivatVolba("Dwarf", "Orc", "Elf", "Goblin", /* "Superman", */ "Back");
