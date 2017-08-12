@@ -48,13 +48,10 @@ public class Dungeon implements Serializable {
 	private GameCharacter character;
 	private Inventory inventory;
 	private Town town;
-	private Boss1 boss1;
+	private Boss1 boss1 = new Boss1(this);
 	private Boss2 boss2;
 	private Way way;
 	private Room room;
-
-	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	double width = screenSize.getWidth();
 
 	// getters
 	public Random getRand() {
@@ -162,17 +159,7 @@ public class Dungeon implements Serializable {
 	}
 
 	public void printlnMiddle(String text) {
-		AffineTransform affinetransform = new AffineTransform();
-		FontRenderContext frc = new FontRenderContext(affinetransform, true, true);
-		Font font = new Font("Default", Font.PLAIN, 14);
-		int textWidth = (int) (font.getStringBounds(text, frc).getWidth());
-		int spaceWidth = (int) (font.getStringBounds("\t", frc).getWidth());
-		for (int i = 0; i < width / 2 - textWidth / 2; i = +spaceWidth) {
-			print("\t");
-		}
-		print0(text);
-		os.println();
-		os.flush();
+		os.printMidle(text);
 	}
 
 	public void println() {
@@ -244,7 +231,7 @@ public class Dungeon implements Serializable {
 			int volba = uzivatVolba("Start", "Load saved game", "Help", "Exit");
 			switch (volba) {
 			case 1:
-				println("Welcome to the dungeon!");
+				printlnMiddle("Welcome to the dungeon!");
 				println("\tWhich character would you like to play?\n");
 
 				volba = uzivatVolba("Dwarf", "Orc", "Elf", "Goblin", /* "Superman", */ "Back");
@@ -329,9 +316,6 @@ public class Dungeon implements Serializable {
 	}
 
 	private void game() throws InterruptedException {
-		Boss1 boss1 = new Boss1(this); // FIXME
-		Boss2 boss2 = new Boss2(this);
-
 		int volba;
 		boolean reset = true;
 

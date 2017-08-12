@@ -1,5 +1,10 @@
 package com.example.olderman.dungeon;
 
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -17,6 +22,9 @@ public class DesktopOS implements OS {
 	public static boolean enableClear = true;
 	// System objects
 	private static final Scanner in = new Scanner(System.in);
+
+	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	double width = screenSize.getWidth();
 
 	@Override
 	public void clear() {
@@ -182,6 +190,22 @@ public class DesktopOS implements OS {
 	@Override
 	public void beep() {
 		AnsiConsole.out.print("\u0007");
+	}
+
+	@Override
+	public void printMidle(String text) {
+		AffineTransform affinetransform = new AffineTransform();
+		FontRenderContext frc = new FontRenderContext(affinetransform, true, true);
+		Font font = new Font("Consolas", Font.PLAIN, 16);
+		int textWidth = (int) (font.getStringBounds(text, frc).getWidth());
+		int spaceWidth = (int) (font.getStringBounds(" ", frc).getWidth());
+		for (int i = 0; i < width / 2 - textWidth / 2; i += spaceWidth) {
+			print(" ");
+		}
+		print(text);
+		println();
+		flush();
+
 	}
 
 }

@@ -15,6 +15,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.awt.Font;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.AffineTransform;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -135,6 +138,22 @@ public class AndroidOS implements OS {
 		for (int i = 0; i < spans.length; i++) {
 			reset(i);
 		}
+	}
+
+	@Override
+	public void printMidle(String text) {
+		AffineTransform affinetransform = new AffineTransform();
+		FontRenderContext frc = new FontRenderContext(affinetransform, true, true);
+		Font font = new Font("Default", Font.PLAIN, 9);
+		int textWidth = (int) (font.getStringBounds(text, frc).getWidth());
+		int spaceWidth = (int) (font.getStringBounds(" ", frc).getWidth());
+		for (int i = 0; i < width / 2 - textWidth / 2; i += spaceWidth) {
+			print(" ");
+		}
+		print(text);
+		println();
+		flush();
+
 	}
 
 	private void reset(int i) {

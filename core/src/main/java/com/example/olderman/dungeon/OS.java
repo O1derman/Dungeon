@@ -25,4 +25,6 @@ public interface OS {
 
 	void beep();
 
+	void printMidle(String text);
+
 }
