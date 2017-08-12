@@ -27,4 +27,6 @@ public interface OS {
 
 	void printMidle(String text);
 
+	void timeInput();
+
 }

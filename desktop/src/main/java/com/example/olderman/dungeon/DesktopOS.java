@@ -5,8 +5,12 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
@@ -25,6 +29,16 @@ public class DesktopOS implements OS {
 
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	double width = screenSize.getWidth();
+	private String str = "";
+	TimerTask task = new TimerTask() {
+
+		@Override
+		public void run() {
+			if (str.equals("")) {
+				System.exit(0);
+			}
+		}
+	};
 
 	@Override
 	public void clear() {
@@ -206,6 +220,14 @@ public class DesktopOS implements OS {
 		println();
 		flush();
 
+	}
+
+	@Override
+	public void timeInput() {
+		Timer timer = new Timer();
+		timer.schedule(task, 1);
+		uzivatVolba();
+		timer.cancel();
 	}
 
 }
