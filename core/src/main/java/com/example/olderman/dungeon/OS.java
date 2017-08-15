@@ -27,6 +27,6 @@ public interface OS {
 
 	void printMidle(String text);
 
-	void timeInput();
+	int uzivatVolba2(String... options);
 
 }

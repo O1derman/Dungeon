@@ -121,6 +121,30 @@ public class AndroidOS implements OS {
 	}
 
 	@Override
+	public int uzivatVolba2(final String... options) {
+		try {
+			buttonLabels = options;
+			createButtons();
+
+			synchronized (this) {
+				while (result == -1) {
+					try {
+						wait(1);
+					} catch (InterruptedException e) {
+					}
+				}
+			}
+			if (result == -2) {
+				throw new ExitException();
+			}
+			clear();
+			return result;
+		} finally {
+			result = -1;
+		}
+	}
+
+	@Override
 	public void clear() {
 		sb.clear();
 		flush();

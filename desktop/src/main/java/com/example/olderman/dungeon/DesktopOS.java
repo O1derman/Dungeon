@@ -7,7 +7,6 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.Timer;
 import java.util.TimerTask;
 
 import org.fusesource.jansi.Ansi;
@@ -48,6 +47,38 @@ public class DesktopOS implements OS {
 
 	@Override
 	public int uzivatVolba(String... options) {
+		for (int i = 0; i < options.length; i++) {
+			String option = options[i];
+			ansi().format("\t%d. %s%n", i + 1, option);
+		}
+		println();
+		println("###############################################################################################################");
+		println();
+
+		flush();
+		while (true) {
+
+			String nabidka = DesktopOS.in.nextLine();
+			if (cheats != null) {
+				while (cheats.executeCommand(nabidka)) {
+					nabidka = DesktopOS.in.nextLine();
+				}
+			}
+			try {
+				int vysledek = Integer.parseInt(nabidka);
+				if (vysledek > 0 && vysledek <= options.length) {
+					clear();
+					return vysledek;
+				}
+			} catch (NumberFormatException e) {
+			}
+			println("\tInvalid command!");
+			flush();
+		}
+	}
+
+	@Override
+	public int uzivatVolba2(String... options) {
 		for (int i = 0; i < options.length; i++) {
 			String option = options[i];
 			ansi().format("\t%d. %s%n", i + 1, option);
@@ -219,13 +250,4 @@ public class DesktopOS implements OS {
 		flush();
 
 	}
-
-	@Override
-	public void timeInput() {
-		Timer timer = new Timer();
-		timer.schedule(task, 1);
-		uzivatVolba();
-		timer.cancel();
-	}
-
 }

@@ -31,12 +31,14 @@ public class Forest {
 				} else {
 					boolean cutting = true;
 					long startTime;
+					long sTime;
+					long limit;
 					long timeElapsed;
 					int wTime = 10;
 					String strCutting = "You are cutting a tree!";
 					startTime = System.nanoTime();
 					dungeon.println(strCutting);
-					dungeon.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + wTime);
+					dungeon.printlnMiddle(wTime + "s" + " until done");
 					while (cutting) {
 						timeElapsed = System.nanoTime() - startTime;
 						if (timeElapsed >= waitTime) {
@@ -47,7 +49,7 @@ public class Forest {
 							}
 							dungeon.clear();
 							dungeon.println(strCutting);
-							dungeon.println("\t\t\t\t\t\t\t\t\t\t\t\t\t\t" + wTime);
+							dungeon.printlnMiddle(wTime + "s" + " until done");
 							startTime = System.nanoTime();
 						}
 					}

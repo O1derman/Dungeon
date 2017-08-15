@@ -231,7 +231,7 @@ public class Dungeon implements Serializable {
 			int volba = uzivatVolba("Start", "Load saved game", "Help", "Exit");
 			switch (volba) {
 			case 1:
-				printlnMiddle("Welcome to the dungeon!");
+				println("Welcome to the dungeon!");
 				println("\tWhich character would you like to play?\n");
 
 				volba = uzivatVolba("Dwarf", "Orc", "Elf", "Goblin", /* "Superman", */ "Back");
