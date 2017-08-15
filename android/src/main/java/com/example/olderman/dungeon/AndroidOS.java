@@ -16,13 +16,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.awt.Font;
-import java.awt.font.FontRenderContext;
-import java.awt.geom.AffineTransform;
+//import java.awt.Font;
+//import java.awt.font.FontRenderContext;
+//import java.awt.geom.AffineTransform;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.awt.geom.AffineTransform;
-import java.awt.font.FontRenderContext;
+//import java.awt.geom.AffineTransform;
+//import java.awt.font.FontRenderContext;
 
 public class AndroidOS implements OS {
 
