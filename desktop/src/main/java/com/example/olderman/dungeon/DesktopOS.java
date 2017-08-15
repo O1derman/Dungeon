@@ -235,19 +235,20 @@ public class DesktopOS implements OS {
 		AnsiConsole.out.print("\u0007");
 	}
 
-	@Override
-	public void printMidle(String text) {
-		AffineTransform affinetransform = new AffineTransform();
-		FontRenderContext frc = new FontRenderContext(affinetransform, true, true);
-		Font font = new Font("Consolas", Font.PLAIN, 16);
-		int textWidth = (int) (font.getStringBounds(text, frc).getWidth());
-		int spaceWidth = (int) (font.getStringBounds(" ", frc).getWidth());
-		for (int i = 0; i < width / 2 - textWidth / 2; i += spaceWidth) {
-			print(" ");
-		}
-		print(text);
-		println();
-		flush();
-
-	}
+	// @Override
+	// public void printMiddle(String text) {
+	// AffineTransform affinetransform = new AffineTransform();
+	// FontRenderContext frc = new FontRenderContext(affinetransform, true,
+	// true);
+	// Font font = new Font("Consolas", Font.PLAIN, 16);
+	// int textWidth = (int) (font.getStringBounds(text, frc).getWidth());
+	// int spaceWidth = (int) (font.getStringBounds(" ", frc).getWidth());
+	// for (int i = 0; i < width / 2 - textWidth / 2; i += spaceWidth) {
+	// print(" ");
+	// }
+	// print(text);
+	// println();
+	// flush();
+	//
+	// }
 }

@@ -158,9 +158,9 @@ public class Dungeon implements Serializable {
 		os.flush();
 	}
 
-	public void printlnMiddle(String text) {
-		os.printMidle(text);
-	}
+	// public void printlnMiddle(String text) {
+	// os.printMidle(text);
+	// }
 
 	public void println() {
 		os.println();

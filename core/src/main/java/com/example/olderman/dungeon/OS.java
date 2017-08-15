@@ -25,7 +25,7 @@ public interface OS {
 
 	void beep();
 
-	void printMidle(String text);
+//	void printMidle(String text);
 
 	int uzivatVolba2(String... options);
 

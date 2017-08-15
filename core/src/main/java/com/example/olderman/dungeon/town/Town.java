@@ -36,9 +36,9 @@ public class Town {
 	public void town() throws InterruptedException {
 
 		if (firstTime) {
-			dungeon.printlnMiddle("***********************");
-			dungeon.printlnMiddle("* WELCOME in Stander! *");
-			dungeon.printlnMiddle("***********************");
+			dungeon.println("***********************");
+			dungeon.println("* WELCOME in Stander! *");
+			dungeon.println("***********************");
 			firstTime = false;
 		}
 		// dungeon.println("\n\tan old poorly looking wanderer: HEY STRANGER!");
