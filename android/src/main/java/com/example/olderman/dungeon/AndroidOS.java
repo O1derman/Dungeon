@@ -120,29 +120,29 @@ public class AndroidOS implements OS {
 		}
 	}
 
-	@Override
-	public int uzivatVolba2(final String... options) {
-		try {
-			buttonLabels = options;
-			createButtons();
-
-			synchronized (this) {
-				while (result == -1) {
-					try {
-						wait(1);
-					} catch (InterruptedException e) {
-					}
-				}
-			}
-			if (result == -2) {
-				throw new ExitException();
-			}
-			clear();
-			return result;
-		} finally {
-			result = -1;
-		}
-	}
+//	@Override
+//	public int uzivatVolba2(final String... options) {
+//		try {
+//			buttonLabels = options;
+//			createButtons();
+//
+//			synchronized (this) {
+//				while (result == -1) {
+//					try {
+//						wait(1);
+//					} catch (InterruptedException e) {
+//					}
+//				}
+//			}
+//			if (result == -2) {
+//				throw new ExitException();
+//			}
+//			clear();
+//			return result;
+//		} finally {
+//			result = -1;
+//		}
+//	}
 
 	@Override
 	public void clear() {
@@ -167,21 +167,22 @@ public class AndroidOS implements OS {
 		}
 	}
 
-	@Override
-	public void printMidle(String text) {
-		AffineTransform affinetransform = new AffineTransform();
-		FontRenderContext frc = new FontRenderContext(affinetransform, true, true);
-		Font font = new Font("Consolas", Font.PLAIN, 16);
-		int textWidth = (int) (font.getStringBounds(text, frc).getWidth());
-		int spaceWidth = (int) (font.getStringBounds(" ", frc).getWidth());
-		for (int i = 0; i < width / 2 - textWidth / 2; i += spaceWidth) {
-			print(" ");
-		}
-		print(text);
-		println();
-		flush();
-
-	}
+	// @Override
+	// public void printMiddle(String text) {
+	// AffineTransform affinetransform = new AffineTransform();
+	// FontRenderContext frc = new FontRenderContext(affinetransform, true,
+	// true);
+	// Font font = new Font("Consolas", Font.PLAIN, 16);
+	// int textWidth = (int) (font.getStringBounds(text, frc).getWidth());
+	// int spaceWidth = (int) (font.getStringBounds(" ", frc).getWidth());
+	// for (int i = 0; i < width / 2 - textWidth / 2; i += spaceWidth) {
+	// print(" ");
+	// }
+	// print(text);
+	// println();
+	// flush();
+	//
+	// }
 
 	private void reset(int i) {
 		if (spans[i] != null) {
