@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import olderman.dungeon.Dungeon;
+import olderman.dungeon.Resources;
 import olderman.dungeon.shop.Shop;
 import olderman.dungeon.shop.ToolShop;
 
@@ -32,6 +33,7 @@ public class Town {
 	Scanner scanner = new Scanner(System.in);
 	String playersAnswer;
 	String rightAnswer = "a right angle";
+	private static final String CITY = Resources.getString("/City");
 
 	public void town() throws InterruptedException {
 
@@ -78,9 +80,9 @@ public class Town {
 		// }
 		// }
 
-		BACK1: while (dungeon.getForAll().house == 0)
+		BACK1: while (dungeon.getForAll().house == 0) {
+			dungeon.printAsciiArt(CITY);
 
-		{
 			switch (dungeon.uzivatVolba("Go in weapon shop", "Go in tool shop", "Buy house", "Go in workhouse",
 					"Go in the forest", "Go in pub", "Back")) {
 			case 1:

@@ -1,6 +1,7 @@
 package olderman.dungeon.town;
 
 import olderman.dungeon.Dungeon;
+import olderman.dungeon.Resources;
 import olderman.dungeon.inventory.Pot;
 
 public class House {
@@ -11,9 +12,11 @@ public class House {
 	}
 
 	private final Dungeon dungeon;
+	private static final String HOUSE = Resources.getString("/House");
 
 	public void inside() {
 		BACK: while (true) {
+			dungeon.printAsciiArt(HOUSE);
 			boolean hasPot = dungeon.getInventory().has(Pot.POT);
 			if (dungeon.getForAll().bed > 0 && hasPot) {
 				switch (dungeon.uzivatVolba("Use bed", "Use Pot", "Back")) {

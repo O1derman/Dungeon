@@ -1,6 +1,7 @@
 package olderman.dungeon.town;
 
 import olderman.dungeon.Dungeon;
+import olderman.dungeon.Resources;
 
 public class Pub {
 	public Pub(Dungeon dungeon) {
@@ -8,11 +9,14 @@ public class Pub {
 	}
 
 	private final Dungeon dungeon;
+	private static final String BEER = Resources.getString("/Beer");
 
 	public void inside() {
 		dungeon.printlnMiddle("Welcome in \"Thirsty turtle\"!");
 		dungeon.println();
 		choices: while (true) {
+			dungeon.printAsciiArt(BEER);
+
 			dungeon.clear();
 			int volba = dungeon.uzivatVolba("Drink beer (" + dungeon.getForAll().beerCost + "G)", "Exit");
 			switch (volba) {
