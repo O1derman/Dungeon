@@ -17,7 +17,7 @@ public class Way implements Serializable {
 	public int wayChoice;
 
 	public void go() {
-		dungeon.println("\tWhich way?");
+		dungeon.printlnMiddle("Which way?");
 		while (true) {
 			if (map1.l == map1.leftEdge && map1.w == map1.leftEdge) { // left
 																		// down
@@ -34,7 +34,9 @@ public class Way implements Serializable {
 
 				}
 				break;
-			} else if (map1.l == map1.rightEdge && map1.w == map1.leftEdge) { // left up corner
+			} else if (map1.l == map1.rightEdge && map1.w == map1.leftEdge) { // left
+																				// up
+																				// corner
 				wayChoice = dungeon.uzivatVolba("Right", "Backwards");
 				switch (wayChoice) {
 				case 1:
@@ -46,7 +48,9 @@ public class Way implements Serializable {
 				}
 				break;
 
-			} else if (map1.l == map1.leftEdge && map1.w == map1.rightEdge) { // right down corner
+			} else if (map1.l == map1.leftEdge && map1.w == map1.rightEdge) { // right
+																				// down
+																				// corner
 				wayChoice = dungeon.uzivatVolba("Straight", "Right");
 				switch (wayChoice) {
 				case 1:
@@ -58,7 +62,9 @@ public class Way implements Serializable {
 
 				}
 				break;
-			} else if (map1.l == map1.rightEdge && map1.w == map1.rightEdge) { // right up corner
+			} else if (map1.l == map1.rightEdge && map1.w == map1.rightEdge) { // right
+																				// up
+																				// corner
 				wayChoice = dungeon.uzivatVolba("Left", "Backwards");
 				switch (wayChoice) {
 				case 1:

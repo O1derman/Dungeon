@@ -233,7 +233,8 @@ public class Dungeon implements Serializable {
 			switch (volba) {
 			case 1:
 				printlnMiddle("Welcome to the dungeon!");
-				println("\tWhich character would you like to play?\n");
+				println();
+				printlnMiddle("Which character would you like to play?\n");
 
 				volba = uzivatVolba("Dwarf", "Orc", "Elf", "Goblin", /* "Superman", */ "Back");
 
@@ -368,7 +369,7 @@ public class Dungeon implements Serializable {
 					println("\tWelcome in boss room for floor " + forAll.floor);
 					beep();
 				} else {
-					println("\tYou see " + getPlebs().enemy.nameWithArticle() + "!");
+					printlnMiddle("You see " + getPlebs().enemy.nameWithArticle() + "!");
 
 				}
 
@@ -410,26 +411,30 @@ public class Dungeon implements Serializable {
 
 				}
 				while (plebs.enemyHealth > 0 && getHealth() > 0 && plebFight) {
-					println("\t>Your HP: " + getHealth());
-					println("\t>" + plebs.enemy.name + "'s HP: " + plebs.enemyHealth);
-					println("\n\tWhat would you like to do?");
+					clear();
+					println("\t> Your HP: " + getHealth());
+					println("\t >" + plebs.enemy.name + "'s HP: " + plebs.enemyHealth);
+					printlnMiddle("\n\tWhat would you like to do?");
 					println();
 					volba = uzivatVolba("Attack", "Run", "Open inventory and info");
 					if (volba == 1) { // Attack
 						plebFight();
 					} else if (volba == 2) { // Run
 						if (forAll.numPotionOfInvisibility == 0) {
-							println("\t> No time to run!\n");
-							TimeUnit.SECONDS.sleep(1);
+							printlnMiddle("No time to run!");
+							switch (uzivatVolba("Continue")) {
+							}
 						} else {
-							println("\t Do you really want to run? It will cost you potion of invisibility!");
+							printlnMiddle("Do you really want to run? It will cost you potion of invisibility!");
 							int volbaRun = uzivatVolba("Yes", "No");
 							switch (volbaRun) {
 							case 1:
-								println("\t>You run!");
+								printlnMiddle("You run!");
 								plebs.resetEnemy();
 								forAll.numPotionOfInvisibility--;
 								forAll.resetDrinkHealthPotionCount();
+								switch (uzivatVolba("Continue")) {
+								}
 								continue FIGHT;
 							case 2:
 								break;
@@ -451,17 +456,21 @@ public class Dungeon implements Serializable {
 						boss1.boss1Fight();
 					} else if (volba == 2) { // Run
 						if (forAll.numPotionOfInvisibility == 0) {
-							println("\t> No time to run!\n");
-							TimeUnit.SECONDS.sleep(1);
+							printlnMiddle("No time to run!");
+							switch (uzivatVolba("Continue")) {
+							}
 						} else {
-							println("\t Do you really want to run? It will cost you potion of invisibility!");
+							printlnMiddle("Do you really want to run?");
+							printlnMiddle("It will cost you potion of invisibility!");
 							int volbaRun = uzivatVolba("Yes", "No");
 							switch (volbaRun) {
 							case 1:
-								println("\t>You run!");
+								printlnMiddle("You run!");
 								plebs.resetEnemy();
 								forAll.numPotionOfInvisibility--;
 								forAll.resetDrinkHealthPotionCount();
+								switch (uzivatVolba("Continue")) {
+								}
 								continue FIGHT;
 							case 2:
 								break;
@@ -637,15 +646,15 @@ public class Dungeon implements Serializable {
 		boolean enemyMiss = rand.nextInt(100) <= plebs.enemyMissChance;
 
 		if (youMiss) {
-			println("\tYou MISS!");
+			printlnMiddle("You MISS!");
 		}
 		if (enemyMiss) {
-			println("\tEnemy MISS!");
+			printlnMiddle("Enemy MISS!");
 		}
 
 		if (!youMiss) {
 			int damageDealt = forAll.selectedWeapon.calculateDamage(this);
-			println("\t> You strike the " + plebs.enemy.name + " for " + damageDealt + " damage.");
+			printlnMiddle("You strike the " + plebs.enemy.name + " for " + damageDealt + " damage.");
 			plebs.enemyHealth -= damageDealt;
 		}
 
@@ -653,12 +662,13 @@ public class Dungeon implements Serializable {
 			int damageTaken = ((rand.nextInt(plebs.enemyAttackDamage) + rand.nextInt(plebs.enemyAttackDamage))
 					+ plebs.enemiesKilled * 5 + 10) * forAll.resistence / 100;
 
-			println("\t> You receive " + damageTaken + " damage.");
+			printlnMiddle("You receive " + damageTaken + " damage.");
 			decreaseHealth(damageTaken);
 		}
 
 		if (getHealth() < 1) {
-			println("\t> You have taken too much damage, you are dying in pain covered in the shit of your enemy while they are celebrating...zombies will a have tasty dinner! ");
+			printlnMiddle(
+					"You have taken too much damage, you are dying in pain covered in the shit of your enemy while they are celebrating...zombies will a have tasty dinner! ");
 		}
 		forAll.resetDrinkHealthPotionCount();
 

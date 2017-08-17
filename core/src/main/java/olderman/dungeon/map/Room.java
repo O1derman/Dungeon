@@ -15,19 +15,19 @@ public class Room {
 		int chestGoldFound = dungeon.getRand().nextInt(600) + 550;
 		boolean emptyRoom = true;
 		if (dungeon.getRand().nextInt(100) < dungeon.getForAll().chestChance) {
-			dungeon.println("\t>>>You found a Chest!<<<");
-			dungeon.println("\tYou earned " + chestGoldFound + " Gold!");
+			dungeon.printlnMiddle(">>>You found a Chest!<<<");
+			dungeon.printlnMiddle("You earned " + chestGoldFound + " Gold!");
 			dungeon.getForAll().gold += chestGoldFound;
 			emptyRoom = false;
 		}
 		if (dungeon.getRand().nextInt(100) < dungeon.getForAll().sneakChance) {
 			if (dungeon.getForAll().sneakHeft + dungeon.getForAll().lCapacity > dungeon.getCharacter()
 					.getLoadCapacity()) {
-				dungeon.println("You dont have enough load capacity!");
+				dungeon.printlnMiddle("You dont have enough load capacity!");
 			} else {
 				dungeon.getForAll().sneak++;
 				dungeon.getForAll().lCapacity += dungeon.getForAll().sneakHeft;
-				dungeon.println("\tYou found a Sneak.");
+				dungeon.printlnMiddle("You found a Sneak.");
 			}
 			emptyRoom = false;
 
@@ -35,11 +35,11 @@ public class Room {
 		if (dungeon.getRand().nextInt(100) < dungeon.getForAll().frogChance) {
 			if (dungeon.getForAll().frogHeft + dungeon.getForAll().lCapacity > dungeon.getCharacter()
 					.getLoadCapacity()) {
-				dungeon.println("You dont have enough load capacity!");
+				dungeon.printlnMiddle("You dont have enough load capacity!");
 			} else {
 				dungeon.getForAll().frog++;
 				dungeon.getForAll().lCapacity += dungeon.getForAll().frogHeft;
-				dungeon.println("\tYou found a Frog.");
+				dungeon.printlnMiddle("You found a Frog.");
 			}
 			emptyRoom = false;
 
@@ -47,16 +47,16 @@ public class Room {
 		if (dungeon.getRand().nextInt(100) < dungeon.getForAll().wormChance) {
 			if (dungeon.getForAll().wormHeft + dungeon.getForAll().lCapacity > dungeon.getCharacter()
 					.getLoadCapacity()) {
-				dungeon.println("You dont have enough load capacity!");
+				dungeon.printlnMiddle("You dont have enough load capacity!");
 			} else {
 				dungeon.getForAll().worm++;
 				dungeon.getForAll().lCapacity += dungeon.getForAll().wormHeft;
-				dungeon.println("\tYou found a Worm.");
+				dungeon.printlnMiddle("You found a Worm.");
 			}
 			emptyRoom = false;
 		}
 		if (emptyRoom) {
-			dungeon.println("This is just an empty room.");
+			dungeon.printlnMiddle("This is just an empty room.");
 		}
 	}
 

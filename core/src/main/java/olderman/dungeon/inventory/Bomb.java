@@ -20,7 +20,7 @@ public class Bomb extends InventoryItem {
 		dungeon.getPlebs().enemyHealth -= actualBombDamage;
 		dungeon.getBoss1().boss1Health -= actualBombDamage;
 		dungeon.getBoss2();
-		dungeon.println("You hit enemy for " + actualBombDamage + " damage!");
+		dungeon.printlnMiddle("You hit enemy for " + actualBombDamage + " damage!");
 		return true;
 	}
 

@@ -41,7 +41,8 @@ public class House {
 				}
 
 			} else {
-				dungeon.println("\nYou dont have nothing to do at home. You have to buy pot or build bed!\n");
+				dungeon.printlnMiddle("\nYou dont have nothing to do at home.");
+				dungeon.printlnMiddle("You have to buy pot or build bed!");
 				break;
 			}
 		}

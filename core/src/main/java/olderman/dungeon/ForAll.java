@@ -30,7 +30,7 @@ public class ForAll implements Serializable {
 	public int bossesKilled = 0;
 	public int beerCost = 50;
 	public int lCapacity = 0;
-	public int woodenAxe = 0;
+	public int woodenAxe = 1;
 	public int ironAxe = 0;
 	public int ironAxeCost = 300;
 	public int silverAxe = 0;

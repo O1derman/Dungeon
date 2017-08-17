@@ -44,6 +44,7 @@ public class ToolShop {
 					dungeon.getForAll().bronzeAxe++;
 					dungeon.getForAll().ironAxe = 0;
 					dungeon.getForAll().silverAxe = 0;
+					dungeon.getForAll().woodenAxe = 0;
 					dungeon.println("You bought a bronze axe.");
 					continue choices;
 				}
@@ -55,6 +56,7 @@ public class ToolShop {
 					dungeon.getForAll().ironAxe++;
 					dungeon.getForAll().silverAxe = 0;
 					dungeon.getForAll().bronzeAxe = 0;
+					dungeon.getForAll().woodenAxe = 0;
 					dungeon.println("You bought a iron axe.");
 					continue choices;
 				}
@@ -67,6 +69,7 @@ public class ToolShop {
 					dungeon.println("You bought a silver axe.");
 					dungeon.getForAll().bronzeAxe = 0;
 					dungeon.getForAll().ironAxe = 0;
+					dungeon.getForAll().woodenAxe = 0;
 					continue choices;
 				}
 			}

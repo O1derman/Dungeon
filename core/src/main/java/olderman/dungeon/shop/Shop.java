@@ -28,9 +28,6 @@ public class Shop {
 	public void shop() {
 
 		dungeon.printlnMiddle("Welcome to a weapon shop \"Broken axe\"!");
-		dungeon.printlnMiddle("We have some great offers for you!");
-		dungeon.printlnMiddle("I know you will choose visely!");
-
 		while (dungeon.uzivatVolba("Look around!", "Leave!") == 1) {
 
 			dungeon.println("You have " + dungeon.getForAll().gold + " gold.");

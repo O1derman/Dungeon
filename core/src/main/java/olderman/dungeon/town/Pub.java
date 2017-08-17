@@ -10,17 +10,18 @@ public class Pub {
 	private final Dungeon dungeon;
 
 	public void inside() {
-		dungeon.println("Welcome in \"Thirsty turtle\"!");
+		dungeon.printlnMiddle("Welcome in \"Thirsty turtle\"!");
 		dungeon.println();
 		choices: while (true) {
+			dungeon.clear();
 			int volba = dungeon.uzivatVolba("Drink beer (" + dungeon.getForAll().beerCost + "G)", "Exit");
 			switch (volba) {
 			case 1:
 				if (dungeon.getForAll().beerCost > dungeon.getForAll().gold) {
-					dungeon.println("You don't have enough gold!");
+					dungeon.printlnMiddle("You don't have enough gold!");
 					continue choices;
 				} else {
-					dungeon.println("You drunk beer.");
+					dungeon.printlnMiddle("You drunk beer.");
 					if (dungeon.getForAll().energy >= 60)
 						dungeon.getForAll().energy = 100;
 					else {
