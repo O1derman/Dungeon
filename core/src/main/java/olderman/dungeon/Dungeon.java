@@ -324,7 +324,7 @@ public class Dungeon implements Serializable {
 		printAsciiArt(character.getAsciiArt());
 		println();
 
-		println("\n\tYou are on floor " + forAll.floor + "!");
+		printlnMiddle("You are on floor " + forAll.floor + "!");
 		FIGHT: while (true) {
 			way.map1.asciiArtMap();
 			long timeElapsed = System.nanoTime() - startTime;
@@ -338,10 +338,10 @@ public class Dungeon implements Serializable {
 			}
 			boolean freeRoom = way.map1.rooms[way.map1.w][way.map1.l];
 			forAll.resetDrinkHealthPotionCount();
-			println("\tWhat now?");
 			boolean plebFight = true;
 			if (freeRoom) {
 				while (true) {
+					printlnMiddle("What now?");
 					volba = uzivatVolba("Go on", "Open inventory and info", "Go in town", "Exit");
 					if (volba == 1) { // Go on
 						way.go();
@@ -374,7 +374,7 @@ public class Dungeon implements Serializable {
 				}
 
 				while (true) {
-
+					printlnMiddle("What now?");
 					volba = uzivatVolba("Fight", "Go back", "Open inventory and info", "Go in town", "Exit");
 					if (volba == 1) { // Attack
 						if (way.map1.l == way.map1.rightEdge && way.map1.w == way.map1.w1 && forAll.floor == 1) {
@@ -399,12 +399,15 @@ public class Dungeon implements Serializable {
 						town.town();
 						continue FIGHT;
 					} else if (volba == 5) { // Exit
-						println("\tReally?...unsaved progres will be lost permanently!");
+						printlnMiddle("Really?");
+						printlnMiddle("Unsaved progres will be lost permanently!");
 						volba = uzivatVolba("Yes", "No");
 						switch (volba) {
 						case 1:
-							println("\tYou exit the dungeon.");
-							println("\tThanks for playing!");
+							printlnMiddle("You exit the dungeon.");
+							printlnMiddle("Thanks for playing!");
+							switch (uzivatVolba("Continue")) {
+							}
 							return;
 						}
 					}
@@ -414,7 +417,8 @@ public class Dungeon implements Serializable {
 					clear();
 					println("\t> Your HP: " + getHealth());
 					println("\t >" + plebs.enemy.name + "'s HP: " + plebs.enemyHealth);
-					printlnMiddle("\n\tWhat would you like to do?");
+					println();
+					printlnMiddle("What would you like to do?");
 					println();
 					volba = uzivatVolba("Attack", "Run", "Open inventory and info");
 					if (volba == 1) { // Attack
@@ -425,7 +429,8 @@ public class Dungeon implements Serializable {
 							switch (uzivatVolba("Continue")) {
 							}
 						} else {
-							printlnMiddle("Do you really want to run? It will cost you potion of invisibility!");
+							printlnMiddle("Do you really want to run?");
+							printlnMiddle("It will cost you potion of invisibility!");
 							int volbaRun = uzivatVolba("Yes", "No");
 							switch (volbaRun) {
 							case 1:
@@ -448,8 +453,8 @@ public class Dungeon implements Serializable {
 
 				}
 				while (boss1.boss1Health > 0 && getHealth() > 0 && !plebFight) {
-					println("\t>Your HP: " + getHealth());
-					println("\t>" + boss1.boss1Name + "'s HP: " + boss1.boss1Health);
+					println("\t> Your HP: " + getHealth());
+					println("\t> " + boss1.boss1Name + "'s HP: " + boss1.boss1Health);
 					println();
 					volba = uzivatVolba("Attack", "Run", "Open inventory and info");
 					if (volba == 1) { // Attack
