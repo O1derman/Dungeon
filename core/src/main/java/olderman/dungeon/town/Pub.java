@@ -9,12 +9,13 @@ public class Pub {
 	}
 
 	private final Dungeon dungeon;
-	private static final String BEER = Resources.getString("/Beer");
 
 	public void inside() {
 		dungeon.printlnMiddle("Welcome in \"Thirsty turtle\"!");
 		dungeon.println();
 		choices: while (true) {
+			final String BEER = Resources.getString("/Beer");
+
 			dungeon.printAsciiArt(BEER);
 
 			dungeon.clear();

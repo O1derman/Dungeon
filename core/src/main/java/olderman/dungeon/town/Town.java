@@ -33,10 +33,9 @@ public class Town {
 	Scanner scanner = new Scanner(System.in);
 	String playersAnswer;
 	String rightAnswer = "a right angle";
-	private static final String CITY = Resources.getString("/City");
 
 	public void town() throws InterruptedException {
-
+		final String CITY = Resources.getString("/City");
 		if (firstTime) {
 			dungeon.println();
 			dungeon.printlnMiddle("***********************");
