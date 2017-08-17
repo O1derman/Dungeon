@@ -564,7 +564,7 @@ public class Dungeon implements Serializable {
 			volba = uzivatVolba("Search room", "Continue");
 			if (volba == 1) {
 				if (forAll.energy < 20) {
-					println("You don't have enough energy!");
+					printlnMiddle("You don't have enough energy!");
 				} else {
 					room.normalRoom();
 					forAll.energy -= 20;

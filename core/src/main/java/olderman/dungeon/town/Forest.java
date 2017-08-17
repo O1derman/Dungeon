@@ -93,7 +93,11 @@ public class Forest {
 						} else {
 							dungeon.getForAll().bird += foundBirds;
 							dungeon.getForAll().lCapacity += dungeon.getForAll().birdHeft * foundBirds;
-							dungeon.printlnMiddle("You catched " + foundBirds + " birds.");
+							if (foundBirds == 1) {
+								dungeon.printlnMiddle("You caught a bird.");
+							} else {
+								dungeon.printlnMiddle("You caught " + foundBirds + " birds.");
+							}
 						}
 						switch (dungeon.uzivatVolba("Continue")) {
 						}

@@ -10,7 +10,7 @@ public class WorkHouse {
 	}
 
 	private final Dungeon dungeon;
-	String cut = "You dont have knife to cut it.";
+	String cut = "You don't have knife to cut it.";
 	String separate = "You separated ";
 
 	public void workHouse() {
@@ -28,7 +28,7 @@ public class WorkHouse {
 					dungeon.getForAll().frogRightEye++;
 					dungeon.getForAll().frog--;
 				} else {
-					dungeon.println(cut);
+					dungeon.printlnMiddle(cut);
 				}
 
 			} else if (posibilities == 2) {
@@ -37,7 +37,7 @@ public class WorkHouse {
 					dungeon.getForAll().sneakBrain++;
 					dungeon.getForAll().sneak--;
 				} else {
-					dungeon.println(cut);
+					dungeon.printlnMiddle(cut);
 				}
 
 			} else if (posibilities == 3) {
@@ -46,7 +46,7 @@ public class WorkHouse {
 					dungeon.getForAll().squirelTails++;
 					dungeon.getForAll().squirel--;
 				} else {
-					dungeon.println(cut);
+					dungeon.printlnMiddle(cut);
 				}
 			} else if (posibilities == 4) {
 				if (dungeon.getForAll().knife == 1) {
@@ -55,7 +55,7 @@ public class WorkHouse {
 					dungeon.getForAll().bird--;
 
 				} else {
-					dungeon.println(cut);
+					dungeon.printlnMiddle(cut);
 				}
 
 			} else if (posibilities == 5) {
@@ -65,13 +65,13 @@ public class WorkHouse {
 					dungeon.getForAll().wood -= dungeon.getForAll().woodForBed;
 					dungeon.getForAll().bed++;
 				} else {
-					dungeon.printlnMiddle("You dont have enough ingrediences!");
+					dungeon.printlnMiddle("You don't have enough ingrediences!");
 					if (dungeon.getForAll().wood < 5 && dungeon.getForAll().feather >= 100) {
-						dungeon.println("You need " + dungeon.getForAll().woodForBed + " more wood.");
+						dungeon.printlnMiddle("You need " + dungeon.getForAll().woodForBed + " more wood.");
 					} else if (dungeon.getForAll().wood >= 5 && dungeon.getForAll().feather < 100) {
-						dungeon.println("You need " + dungeon.getForAll().featherForBed + " more feathers.");
+						dungeon.printlnMiddle("You need " + dungeon.getForAll().featherForBed + " more feathers.");
 					} else {
-						dungeon.println("You need " + dungeon.getForAll().woodForBed + " more wood and "
+						dungeon.printlnMiddle("You need " + dungeon.getForAll().woodForBed + " more wood and "
 								+ dungeon.getForAll().featherForBed + " more feathers.\n\n");
 					}
 				}
