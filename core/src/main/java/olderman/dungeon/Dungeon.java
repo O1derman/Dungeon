@@ -127,7 +127,7 @@ public class Dungeon implements Serializable {
 		return os.uzivatVolba(options);
 	}
 
-	private void print0(Object... text) {
+	public void print0(Object... text) {
 		for (Object o : text) {
 			if (o instanceof Style) {
 				if (o instanceof ColorStyle) {
@@ -229,7 +229,6 @@ public class Dungeon implements Serializable {
 		while (true) {
 			clear();
 			printAsciiArt(HEADLINE);
-			fillLane("#");
 			int volba = uzivatVolba("Start", "Load saved game", "Help", "Exit");
 			switch (volba) {
 			case 1:
@@ -558,14 +557,11 @@ public class Dungeon implements Serializable {
 				}
 				volba = uzivatVolba("Continue");
 				if (volba == 1) {
-					plebs.resetEnemy();
-
 				}
 			}
 			if (volba == 2) {
-				plebs.resetEnemy();
-
 			}
+			plebs.resetEnemy();
 
 		}
 	}
@@ -584,6 +580,18 @@ public class Dungeon implements Serializable {
 			}
 			if (getForAll().resistence > 0) {
 				println(100 - this.getForAll().resistence + "% resistance");
+			}
+			if (forAll.woodenAxe < 0) {
+				println("Wooden axe");
+			}
+			if (forAll.bronzeAxe < 0) {
+				println("Bronze axe");
+			}
+			if (forAll.silverAxe < 0) {
+				println("Silver axe");
+			}
+			if (forAll.ironAxe < 0) {
+				println("Iron axe");
 			}
 			println(forAll.lCapacity + "/" + this.getCharacter().loadCapacity + " load capacity");
 			if (getForAll().numPotionOfStrength > 0) {

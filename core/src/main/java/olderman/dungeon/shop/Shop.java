@@ -27,14 +27,15 @@ public class Shop {
 
 	public void shop() {
 
-		dungeon.println("\tWelcome to a weapon shop \"Broken axe\"!");
-		dungeon.println("\tWe have some great offers for you!");
-		dungeon.println("\tI know you will choose visely!");
+		dungeon.printlnMiddle("Welcome to a weapon shop \"Broken axe\"!");
+		dungeon.printlnMiddle("We have some great offers for you!");
+		dungeon.printlnMiddle("I know you will choose visely!");
 
 		while (dungeon.uzivatVolba("Look around!", "Leave!") == 1) {
 
 			dungeon.println("You have " + dungeon.getForAll().gold + " gold.");
-			dungeon.println("\n\tWhat will you get?");
+			dungeon.println();
+			dungeon.printlnMiddle("What will you get?");
 
 			List<ShopItem> avilableItems = new ArrayList<>();
 			List<String> descriptions = new ArrayList<>();
@@ -58,10 +59,10 @@ public class Shop {
 			}
 
 			if (buyWithGold(selectedItem.getCost())) {
-				dungeon.println("\tYou bought a " + selectedItem.getName() + "!");
+				dungeon.printlnMiddle("You bought a " + selectedItem.getName() + "!");
 				selectedItem.buy();
 			} else {
-				dungeon.println("\tYou don't have enough gold to buy a " + selectedItem.getName() + "!");
+				dungeon.printlnMiddle("You don't have enough gold to buy a " + selectedItem.getName() + "!");
 			}
 		}
 	}

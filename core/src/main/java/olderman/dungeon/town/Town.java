@@ -36,9 +36,9 @@ public class Town {
 	public void town() throws InterruptedException {
 
 		if (firstTime) {
-			dungeon.println("***********************");
-			dungeon.println("* WELCOME in Stander! *");
-			dungeon.println("***********************");
+			dungeon.printlnMiddle("***********************");
+			dungeon.printlnMiddle("* WELCOME in Stander! *");
+			dungeon.printlnMiddle("***********************");
 			firstTime = false;
 		}
 		// dungeon.println("\n\tan old poorly looking wanderer: HEY STRANGER!");
@@ -80,7 +80,6 @@ public class Town {
 		BACK1: while (dungeon.getForAll().house == 0)
 
 		{
-			dungeon.println("You can buy house for " + dungeon.getForAll().houseCost + "g");
 			switch (dungeon.uzivatVolba("Go in weapon shop", "Go in tool shop", "Buy house", "Go in workhouse",
 					"Go in the forest", "Go in pub", "Back")) {
 			case 1:
@@ -90,14 +89,21 @@ public class Town {
 				toolShop.shop();
 				continue BACK1;
 			case 3:
+				dungeon.printlnMiddle("You can buy house for " + dungeon.getForAll().houseCost + "g");
 				if (dungeon.getForAll().gold < dungeon.getForAll().houseCost) {
-					dungeon.println("You don't have enough gold!");
-					TimeUnit.SECONDS.sleep(1);
+					switch (dungeon.uzivatVolba("Back")) {
+					}
 					dungeon.clear();
 
 				} else {
-					dungeon.getForAll().house++;
-					dungeon.getForAll().gold -= dungeon.getForAll().houseCost;
+					switch (dungeon.uzivatVolba("Buy", "Back")) {
+					case 1:
+						dungeon.getForAll().house++;
+						dungeon.getForAll().gold -= dungeon.getForAll().houseCost;
+						dungeon.println("You bought a house!");
+						switch (dungeon.uzivatVolba("Continue")) {
+						}
+					}
 				}
 				continue BACK1;
 
