@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
