@@ -16,14 +16,14 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-//import java.awt.Font;
-//import java.awt.font.FontRenderContext;
-//import java.awt.geom.AffineTransform;
+import java.awt.Font;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.AffineTransform;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-//import java.awt.geom.AffineTransform;
-//import java.awt.font.FontRenderContext;
+import java.awt.geom.AffineTransform;
+import java.awt.font.FontRenderContext;
 
 public class AndroidOS implements OS {
 
@@ -121,29 +121,29 @@ public class AndroidOS implements OS {
 		}
 	}
 
-//	@Override
-//	public int uzivatVolba2(final String... options) {
-//		try {
-//			buttonLabels = options;
-//			createButtons();
-//
-//			synchronized (this) {
-//				while (result == -1) {
-//					try {
-//						wait(1);
-//					} catch (InterruptedException e) {
-//					}
-//				}
-//			}
-//			if (result == -2) {
-//				throw new ExitException();
-//			}
-//			clear();
-//			return result;
-//		} finally {
-//			result = -1;
-//		}
-//	}
+	@Override
+	public int uzivatVolba2(final String... options) {
+		try {
+			buttonLabels = options;
+			createButtons();
+
+			synchronized (this) {
+				while (result == -1) {
+					try {
+						wait(1);
+					} catch (InterruptedException e) {
+					}
+				}
+			}
+			if (result == -2) {
+				throw new ExitException();
+			}
+			clear();
+			return result;
+		} finally {
+			result = -1;
+		}
+	}
 
 	@Override
 	public void clear() {
@@ -168,22 +168,32 @@ public class AndroidOS implements OS {
 		}
 	}
 
-	// @Override
-	// public void printMiddle(String text) {
-	// AffineTransform affinetransform = new AffineTransform();
-	// FontRenderContext frc = new FontRenderContext(affinetransform, true,
-	// true);
-	// Font font = new Font("Consolas", Font.PLAIN, 16);
-	// int textWidth = (int) (font.getStringBounds(text, frc).getWidth());
-	// int spaceWidth = (int) (font.getStringBounds(" ", frc).getWidth());
-	// for (int i = 0; i < width / 2 - textWidth / 2; i += spaceWidth) {
-	// print(" ");
-	// }
-	// print(text);
-	// println();
-	// flush();
-	//
-	// }
+	@Override
+	public void printMiddle(String text) {
+		AffineTransform affinetransform = new AffineTransform();
+		FontRenderContext frc = new FontRenderContext(affinetransform, true, true);
+		Font font = new Font("Consolas", Font.PLAIN, 15);
+		int textWidth = (int) (font.getStringBounds(text, frc).getWidth());
+		int spaceWidth = (int) (font.getStringBounds(" ", frc).getWidth());
+		for (int i = 0; i < width / 2 - textWidth / 2; i += spaceWidth) {
+			print(" ");
+		}
+		print(text);
+		println();
+		flush();
+
+	}
+
+	@Override
+	public void fillLane(String text) {
+		AffineTransform affinetransform = new AffineTransform();
+		FontRenderContext frc = new FontRenderContext(affinetransform, true, true);
+		Font font = new Font("Consolas", Font.PLAIN, 15);
+		int charWidth = (int) (font.getStringBounds(text, frc).getWidth());
+		for (int i = 0; i < width; i += charWidth) {
+			print(text);
+		}
+	}
 
 	private void reset(int i) {
 		if (spans[i] != null) {
@@ -307,10 +317,5 @@ public class AndroidOS implements OS {
 	public void beep() {
 
 	}
-
-    @Override
-    public int uzivatVolba2(String... options) {
-        return 0;
-    }
 
 }

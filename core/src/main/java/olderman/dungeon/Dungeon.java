@@ -18,6 +18,9 @@ import static olderman.dungeon.Style.RED;
 import static olderman.dungeon.Style.Reset;
 import static olderman.dungeon.Style.YELLOW;
 
+import java.awt.Font;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -152,9 +155,13 @@ public class Dungeon implements Serializable {
 		os.flush();
 	}
 
-	// public void printlnMiddle(String text) {
-	// os.printMidle(text);
-	// }
+	public void printlnMiddle(String text) {
+		os.printMiddle(text);
+	}
+
+	public void fillLane(String text) {
+		os.fillLane(text);
+	}
 
 	public void println() {
 		os.println();
@@ -222,10 +229,11 @@ public class Dungeon implements Serializable {
 		while (true) {
 			clear();
 			printAsciiArt(HEADLINE);
+			fillLane("#");
 			int volba = uzivatVolba("Start", "Load saved game", "Help", "Exit");
 			switch (volba) {
 			case 1:
-				println("Welcome to the dungeon!");
+				printlnMiddle("Welcome to the dungeon!");
 				println("\tWhich character would you like to play?\n");
 
 				volba = uzivatVolba("Dwarf", "Orc", "Elf", "Goblin", /* "Superman", */ "Back");

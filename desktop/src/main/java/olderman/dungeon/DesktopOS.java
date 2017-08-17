@@ -1,7 +1,10 @@
 package olderman.dungeon;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.TimerTask;
@@ -51,7 +54,7 @@ public class DesktopOS implements OS {
 			ansi().format("\t%d. %s%n", i + 1, option);
 		}
 		println();
-		println("###############################################################################################################");
+		fillLane("#");
 		println();
 
 		flush();
@@ -83,7 +86,7 @@ public class DesktopOS implements OS {
 			ansi().format("\t%d. %s%n", i + 1, option);
 		}
 		println();
-		println("###############################################################################################################");
+		fillLane("#");
 		println();
 
 		flush();
@@ -234,20 +237,30 @@ public class DesktopOS implements OS {
 		AnsiConsole.out.print("\u0007");
 	}
 
-	// @Override
-	// public void printMiddle(String text) {
-	// AffineTransform affinetransform = new AffineTransform();
-	// FontRenderContext frc = new FontRenderContext(affinetransform, true,
-	// true);
-	// Font font = new Font("Consolas", Font.PLAIN, 16);
-	// int textWidth = (int) (font.getStringBounds(text, frc).getWidth());
-	// int spaceWidth = (int) (font.getStringBounds(" ", frc).getWidth());
-	// for (int i = 0; i < width / 2 - textWidth / 2; i += spaceWidth) {
-	// print(" ");
-	// }
-	// print(text);
-	// println();
-	// flush();
-	//
-	// }
+	@Override
+	public void printMiddle(String text) {
+		AffineTransform affinetransform = new AffineTransform();
+		FontRenderContext frc = new FontRenderContext(affinetransform, true, true);
+		Font font = new Font("Consolas", Font.PLAIN, 15);
+		int textWidth = (int) (font.getStringBounds(text, frc).getWidth());
+		int spaceWidth = (int) (font.getStringBounds(" ", frc).getWidth());
+		for (int i = 0; i < width / 2 - textWidth / 2; i += spaceWidth) {
+			print(" ");
+		}
+		print(text);
+		println();
+		flush();
+
+	}
+
+	@Override
+	public void fillLane(String text) {
+		AffineTransform affinetransform = new AffineTransform();
+		FontRenderContext frc = new FontRenderContext(affinetransform, true, true);
+		Font font = new Font("Consolas", Font.PLAIN, 15);
+		int charWidth = (int) (font.getStringBounds(text, frc).getWidth());
+		for (int i = 0; i < width; i += charWidth) {
+			print(text);
+		}
+	}
 }
