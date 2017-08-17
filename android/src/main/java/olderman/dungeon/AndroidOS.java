@@ -28,8 +28,6 @@ public class AndroidOS implements OS {
 	private final SpannableStringBuilder sb = new SpannableStringBuilder();
 	private LinearLayout buttons;
 
-	int width = textView.getWidth();
-
 	public AndroidOS() {
 	}
 
@@ -171,7 +169,7 @@ public class AndroidOS implements OS {
 		Paint p = new Paint();
 		float spaceWidth = textView.getPaint().measureText(" ");
 		float textWidth = textView.getPaint().measureText(text);
-		for (int i = 0; i < width / 2 - textWidth / 2; i += spaceWidth) {
+		for (int i = 0; i < textView.getWidth() / 2 - textWidth / 2; i += spaceWidth) {
 			print(" ");
 		}
 		print(text);
@@ -184,7 +182,7 @@ public class AndroidOS implements OS {
 	public void fillLane(String text) {
 		Paint p = new Paint();
 		float charWidth = textView.getPaint().measureText(text);
-		for (int i = 0; i < width; i += charWidth) {
+		for (int i = 0; i < textView.getWidth(); i += charWidth) {
 			print(text);
 		}
 	}
@@ -289,6 +287,7 @@ public class AndroidOS implements OS {
 	public void printAsciiArt(String asciiArt) {
 		int textSize = (int) textView.getTextSize();
 		Matcher matcher = NEWLINE.matcher(asciiArt);
+		int width = textView.getWidth();
 		float asciiArtWidth = 0;
 		int previousEnd = 0;
 		Paint paint = textView.getPaint();
