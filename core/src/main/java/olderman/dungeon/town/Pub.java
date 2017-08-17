@@ -11,10 +11,10 @@ public class Pub {
 	private final Dungeon dungeon;
 
 	public void inside() {
+		final String BEER = Resources.getString("/Beer");
 		dungeon.printlnMiddle("Welcome in \"Thirsty turtle\"!");
 		dungeon.println();
 		choices: while (true) {
-			final String BEER = Resources.getString("/Beer");
 
 			dungeon.printAsciiArt(BEER);
 

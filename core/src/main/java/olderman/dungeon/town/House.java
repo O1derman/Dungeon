@@ -14,8 +14,8 @@ public class House {
 	private final Dungeon dungeon;
 
 	public void inside() {
+		final String HOUSE = Resources.getString("/House");
 		BACK: while (true) {
-			final String HOUSE = Resources.getString("/House");
 			dungeon.printAsciiArt(HOUSE);
 			boolean hasPot = dungeon.getInventory().has(Pot.POT);
 			if (dungeon.getForAll().bed > 0 && hasPot) {
