@@ -323,7 +323,7 @@ public class Dungeon implements Serializable {
 
 		printAsciiArt(character.getAsciiArt());
 		println();
-
+		println();
 		printlnMiddle("You are on floor " + forAll.floor + "!");
 		FIGHT: while (true) {
 			way.map1.asciiArtMap();
