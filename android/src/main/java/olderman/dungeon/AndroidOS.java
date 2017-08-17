@@ -2,7 +2,9 @@ package olderman.dungeon;
 
 import android.app.Activity;
 
+import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.support.v4.content.ContextCompat;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -16,14 +18,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.awt.Font;
-import java.awt.font.FontRenderContext;
-import java.awt.geom.AffineTransform;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.awt.geom.AffineTransform;
-import java.awt.font.FontRenderContext;
 
 public class AndroidOS implements OS {
 
@@ -31,6 +28,8 @@ public class AndroidOS implements OS {
 	private TextView textView;
 	private final SpannableStringBuilder sb = new SpannableStringBuilder();
 	private LinearLayout buttons;
+
+	int width = textView.getWidth();
 
 	public AndroidOS() {
 	}
@@ -170,11 +169,9 @@ public class AndroidOS implements OS {
 
 	@Override
 	public void printMiddle(String text) {
-		AffineTransform affinetransform = new AffineTransform();
-		FontRenderContext frc = new FontRenderContext(affinetransform, true, true);
-		Font font = new Font("Consolas", Font.PLAIN, 15);
-		int textWidth = (int) (font.getStringBounds(text, frc).getWidth());
-		int spaceWidth = (int) (font.getStringBounds(" ", frc).getWidth());
+		Paint p = new Paint();
+		float spaceWidth = textView.getPaint().measureText(" ");
+		float textWidth = textView.getPaint().measureText(text);
 		for (int i = 0; i < width / 2 - textWidth / 2; i += spaceWidth) {
 			print(" ");
 		}
@@ -186,10 +183,8 @@ public class AndroidOS implements OS {
 
 	@Override
 	public void fillLane(String text) {
-		AffineTransform affinetransform = new AffineTransform();
-		FontRenderContext frc = new FontRenderContext(affinetransform, true, true);
-		Font font = new Font("Consolas", Font.PLAIN, 15);
-		int charWidth = (int) (font.getStringBounds(text, frc).getWidth());
+		Paint p = new Paint();
+		float charWidth = textView.getPaint().measureText(text);
 		for (int i = 0; i < width; i += charWidth) {
 			print(text);
 		}
@@ -294,7 +289,6 @@ public class AndroidOS implements OS {
 	@Override
 	public void printAsciiArt(String asciiArt) {
 		int textSize = (int) textView.getTextSize();
-		int width = textView.getWidth();
 		Matcher matcher = NEWLINE.matcher(asciiArt);
 		float asciiArtWidth = 0;
 		int previousEnd = 0;
