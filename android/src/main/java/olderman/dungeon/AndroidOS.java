@@ -23,8 +23,8 @@ public class AndroidOS implements OS {
 
 	private Activity activity;
 	private TextView textView;
-	private final SpannableStringBuilder sb = new SpannableStringBuilder();
 	private LinearLayout buttons;
+	private final SpannableStringBuilder sb = new SpannableStringBuilder();
 
 	public AndroidOS() {
 	}
@@ -74,8 +74,8 @@ public class AndroidOS implements OS {
 			@Override
 			public void onClick(View v) {
 				buttons.removeAllViews();
-				buttonLabels = null;
 				synchronized (AndroidOS.this) {
+					buttonLabels = null;
 					result = i;
 					AndroidOS.this.notifyAll();
 				}
@@ -137,7 +137,6 @@ public class AndroidOS implements OS {
 
 	@Override
 	public void printMiddle(String text) {
-		Paint p = new Paint();
 		float spaceWidth = textView.getPaint().measureText(" ");
 		float textWidth = textView.getPaint().measureText(text);
 		for (int i = 0; i < textView.getWidth() / 2 - textWidth / 2; i += spaceWidth) {
@@ -151,7 +150,6 @@ public class AndroidOS implements OS {
 
 	@Override
 	public void fillLane(String text) {
-		Paint p = new Paint();
 		float charWidth = textView.getPaint().measureText(text);
 		for (int i = 0; i < textView.getWidth(); i += charWidth) {
 			print(text);
