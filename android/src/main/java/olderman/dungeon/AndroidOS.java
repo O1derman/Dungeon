@@ -51,7 +51,7 @@ public class AndroidOS implements OS {
 		buttons = null;
 	}
 
-	private volatile int result = -1;
+	private int result = -1;
 	private String[] buttonLabels;
 
 	private void createButtons() {
@@ -84,51 +84,24 @@ public class AndroidOS implements OS {
 		buttons.addView(button, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 	}
 
-	public void stop() {
-		synchronized (this) {
-			result = -2;
-			notifyAll();
-		}
+	public synchronized void stop() {
+		result = -2;
+		notifyAll();
 	}
 
 	@Override
-	public int uzivatVolba(final String... options) {
+	public synchronized int uzivatVolba(final String... options) {
 		try {
 			buttonLabels = options;
 			createButtons();
 
-			synchronized (this) {
-				while (result == -1) {
-					try {
-						wait();
-					} catch (InterruptedException e) {
-					}
+			while (result == -1) {
+				try {
+					wait();
+				} catch (InterruptedException e) {
 				}
 			}
-			if (result == -2) {
-				throw new ExitException();
-			}
-			clear();
-			return result;
-		} finally {
-			result = -1;
-		}
-	}
 
-	@Override
-	public int uzivatVolba2(final String... options) {
-		try {
-			buttonLabels = options;
-			createButtons();
-
-			synchronized (this) {
-				while (result == -1) {
-					try {
-						wait(1);
-					} catch (InterruptedException e) {
-					}
-				}
-			}
 			if (result == -2) {
 				throw new ExitException();
 			}

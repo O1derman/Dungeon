@@ -77,38 +77,6 @@ public class DesktopOS implements OS {
 		}
 	}
 
-	@Override
-	public int uzivatVolba2(String... options) {
-		for (int i = 0; i < options.length; i++) {
-			String option = options[i];
-			ansi().format("\t%d. %s%n", i + 1, option);
-		}
-		println();
-		fillLane("#");
-		println();
-
-		flush();
-		while (true) {
-
-			String nabidka = DesktopOS.in.nextLine();
-			if (cheats != null) {
-				while (cheats.executeCommand(nabidka)) {
-					nabidka = DesktopOS.in.nextLine();
-				}
-			}
-			try {
-				int vysledek = Integer.parseInt(nabidka);
-				if (vysledek > 0 && vysledek <= options.length) {
-					clear();
-					return vysledek;
-				}
-			} catch (NumberFormatException e) {
-			}
-			println("\tInvalid command!");
-			flush();
-		}
-	}
-
 	private void println(String string) {
 		print(string);
 		println();

@@ -29,6 +29,4 @@ public interface OS {
 
 	void fillLane(String text);
 
-	int uzivatVolba2(String... options);
-
 }
