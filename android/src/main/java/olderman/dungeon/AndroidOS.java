@@ -2,9 +2,7 @@ package olderman.dungeon;
 
 import android.app.Activity;
 
-import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.support.v4.content.ContextCompat;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -286,8 +284,8 @@ public class AndroidOS implements OS {
 	@Override
 	public void printAsciiArt(String asciiArt) {
 		int textSize = (int) textView.getTextSize();
-		Matcher matcher = NEWLINE.matcher(asciiArt);
 		int width = textView.getWidth();
+		Matcher matcher = NEWLINE.matcher(asciiArt);
 		float asciiArtWidth = 0;
 		int previousEnd = 0;
 		Paint paint = textView.getPaint();

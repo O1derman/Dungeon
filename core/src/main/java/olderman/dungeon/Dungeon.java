@@ -127,7 +127,7 @@ public class Dungeon implements Serializable {
 		return os.uzivatVolba(options);
 	}
 
-	public void print0(Object... text) {
+	private void print0(Object... text) {
 		for (Object o : text) {
 			if (o instanceof Style) {
 				if (o instanceof ColorStyle) {

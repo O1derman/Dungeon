@@ -12,8 +12,6 @@ import java.util.TimerTask;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
-import olderman.dungeon.Dungeon;
-import olderman.dungeon.OS;
 import olderman.dungeon.Style.AttributeStyle;
 import olderman.dungeon.Style.Color;
 import olderman.dungeon.Style.ColorStyle;
