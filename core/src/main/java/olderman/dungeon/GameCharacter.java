@@ -14,7 +14,7 @@ public enum GameCharacter implements Serializable {
 			damage = new RandomValue(20 /* minimum damage */,
 					20 /* damage range */, 5 /* increase per level */);
 			beginning = "You are a small stinky dwarf with the same face as all the other dwarfs.\n";
-			asciiArt = Resources.getString("/dwarf");
+			asciiArt = Resources.getString("/Dwarf");
 		}
 	},
 	ELF {
@@ -27,7 +27,7 @@ public enum GameCharacter implements Serializable {
 			damage = new RandomValue(10 /* minimum damage */,
 					10 /* damage range */, 5 /* increase per level */);
 			beginning = "You are a tall elf, very clever and handy, not very strong.\n";
-			asciiArt = Resources.getString("/elf");
+			asciiArt = Resources.getString("/Elf");
 		}
 	},
 	GOBLIN {
@@ -40,7 +40,7 @@ public enum GameCharacter implements Serializable {
 			damage = new RandomValue(35 /* minimum damage */,
 					5 /* damage range */, 5 /* increase per level */);
 			beginning = "You are small hardworking goblin!.\n";
-			asciiArt = Resources.getString("/goblin");
+			asciiArt = Resources.getString("/Goblin");
 		}
 	},
 	ORC {
@@ -53,7 +53,7 @@ public enum GameCharacter implements Serializable {
 			damage = new RandomValue(40 /* minimum damage */,
 					20 /* damage range */, 5 /* increase per level */);
 			beginning = "You are huge orc staring into nothing...you don't have to outsmart them when you can smash them. \n";
-			asciiArt = Resources.getString("/orc");
+			asciiArt = Resources.getString("/Orc");
 		}
 	},
 	SUPERMAN {
@@ -66,7 +66,7 @@ public enum GameCharacter implements Serializable {
 			damage = new RandomValue(999999999 /* minimum damage */,
 					0 /* damage range */, 0 /* increase per level */);
 			beginning = "You are SUPER SUPERMAN, you have unlimited power until you meet criptonit.\n";
-			asciiArt = Resources.getString("/superman");
+			asciiArt = Resources.getString("/Superman");
 		}
 	};
 
