@@ -2,6 +2,7 @@ package olderman.dungeon.town;
 
 import olderman.dungeon.Dungeon;
 import olderman.dungeon.Resources;
+import olderman.dungeon.Style;
 
 public class Pub {
 	public Pub(Dungeon dungeon) {
@@ -12,8 +13,8 @@ public class Pub {
 
 	public void inside() {
 		final String BEER = Resources.getString("/Beer");
-		dungeon.printlnMiddle("Welcome in \"Thirsty turtle\"!");
-		dungeon.println();
+        dungeon.println(Style.CENTER, "Welcome in \"Thirsty turtle\"!");
+        dungeon.println();
 		choices: while (true) {
 
 			dungeon.printAsciiArt(BEER);
@@ -23,11 +24,11 @@ public class Pub {
 			switch (volba) {
 			case 1:
 				if (dungeon.getForAll().beerCost > dungeon.getForAll().gold) {
-					dungeon.printlnMiddle("You don't have enough gold!");
-					continue choices;
+                    dungeon.println(Style.CENTER, "You don't have enough gold!");
+                    continue choices;
 				} else {
-					dungeon.printlnMiddle("You drunk beer.");
-					if (dungeon.getForAll().energy >= 60)
+                    dungeon.println(Style.CENTER, "You drunk beer.");
+                    if (dungeon.getForAll().energy >= 60)
 						dungeon.getForAll().energy = 100;
 					else {
 						dungeon.getForAll().energy += 40;

@@ -3,6 +3,7 @@ package olderman.dungeon.map;
 import java.io.Serializable;
 
 import olderman.dungeon.Dungeon;
+import olderman.dungeon.Style;
 
 public class Way implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -17,8 +18,8 @@ public class Way implements Serializable {
 	public int wayChoice;
 
 	public void go() {
-		dungeon.printlnMiddle("Which way?");
-		while (true) {
+        dungeon.println(Style.CENTER, "Which way?");
+        while (true) {
 			if (map1.l == map1.leftEdge && map1.w == map1.leftEdge) { // left
 																		// down
 																		// corner

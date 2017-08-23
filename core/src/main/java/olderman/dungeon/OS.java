@@ -25,8 +25,6 @@ public interface OS {
 
 	void beep();
 
-	void printMiddle(String text);
-
-	void fillLane(String text);
+	void fillLine(String text);
 
 }

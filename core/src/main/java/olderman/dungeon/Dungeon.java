@@ -18,9 +18,6 @@ import static olderman.dungeon.Style.RED;
 import static olderman.dungeon.Style.Reset;
 import static olderman.dungeon.Style.YELLOW;
 
-import java.awt.Font;
-import java.awt.font.FontRenderContext;
-import java.awt.geom.AffineTransform;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -30,7 +27,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 public class Dungeon implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -155,12 +151,9 @@ public class Dungeon implements Serializable {
 		os.flush();
 	}
 
-	public void printlnMiddle(String text) {
-		os.printMiddle(text);
-	}
-
-	public void fillLane(String text) {
-		os.fillLane(text);
+	public void fillLine(String text) {
+		os.fillLine(text);
+		os.flush();
 	}
 
 	public void println() {
@@ -232,9 +225,9 @@ public class Dungeon implements Serializable {
 			int volba = uzivatVolba("Start", "Load saved game", "Help", "Exit");
 			switch (volba) {
 			case 1:
-				printlnMiddle("Welcome to the dungeon!");
+				println(Style.CENTER, "Welcome to the dungeon!");
 				println();
-				printlnMiddle("Which character would you like to play?\n");
+				println(Style.CENTER, "Which character would you like to play?\n");
 
 				volba = uzivatVolba("Dwarf", "Orc", "Elf", "Goblin", /* "Superman", */ "Back");
 
@@ -324,7 +317,7 @@ public class Dungeon implements Serializable {
 		printAsciiArt(character.getAsciiArt());
 		println();
 		println();
-		printlnMiddle("You are on floor " + forAll.floor + "!");
+		println(Style.CENTER, "You are on floor " + forAll.floor + "!");
 		FIGHT: while (true) {
 			way.map1.asciiArtMap();
 			long timeElapsed = System.nanoTime() - startTime;
@@ -341,7 +334,7 @@ public class Dungeon implements Serializable {
 			boolean plebFight = true;
 			if (freeRoom) {
 				while (true) {
-					printlnMiddle("What now?");
+					println(Style.CENTER, "What now?");
 					volba = uzivatVolba("Go on", "Open inventory and info", "Go in town", "Exit");
 					if (volba == 1) { // Go on
 						way.go();
@@ -369,12 +362,12 @@ public class Dungeon implements Serializable {
 					println("\tWelcome in boss room for floor " + forAll.floor);
 					beep();
 				} else {
-					printlnMiddle("You see " + getPlebs().enemy.nameWithArticle() + "!");
+					println(Style.CENTER, "You see " + getPlebs().enemy.nameWithArticle() + "!");
 
 				}
 
 				while (true) {
-					printlnMiddle("What now?");
+					println(Style.CENTER, "What now?");
 					volba = uzivatVolba("Fight", "Go back", "Open inventory and info", "Go in town", "Exit");
 					if (volba == 1) { // Attack
 						if (way.map1.l == way.map1.rightEdge && way.map1.w == way.map1.w1 && forAll.floor == 1) {
@@ -399,13 +392,13 @@ public class Dungeon implements Serializable {
 						town.town();
 						continue FIGHT;
 					} else if (volba == 5) { // Exit
-						printlnMiddle("Really?");
-						printlnMiddle("Unsaved progres will be lost permanently!");
+						println(Style.CENTER, "Really?");
+						println(Style.CENTER, "Unsaved progres will be lost permanently!");
 						volba = uzivatVolba("Yes", "No");
 						switch (volba) {
 						case 1:
-							printlnMiddle("You exit the dungeon.");
-							printlnMiddle("Thanks for playing!");
+							println(Style.CENTER, "You exit the dungeon.");
+							println(Style.CENTER, "Thanks for playing!");
 							switch (uzivatVolba("Continue")) {
 							}
 							return;
@@ -418,23 +411,23 @@ public class Dungeon implements Serializable {
 					println("\t> Your HP: " + getHealth());
 					println("\t> " + plebs.enemy.name + "'s HP: " + plebs.enemyHealth);
 					println();
-					printlnMiddle("What would you like to do?");
+					println(Style.CENTER, "What would you like to do?");
 					println();
 					volba = uzivatVolba("Attack", "Run", "Open inventory and info");
 					if (volba == 1) { // Attack
 						plebFight();
 					} else if (volba == 2) { // Run
 						if (forAll.numPotionOfInvisibility == 0) {
-							printlnMiddle("No time to run!");
+							println(Style.CENTER, "No time to run!");
 							switch (uzivatVolba("Continue")) {
 							}
 						} else {
-							printlnMiddle("Do you really want to run?");
-							printlnMiddle("It will cost you potion of invisibility!");
+							println(Style.CENTER, "Do you really want to run?");
+							println(Style.CENTER, "It will cost you potion of invisibility!");
 							int volbaRun = uzivatVolba("Yes", "No");
 							switch (volbaRun) {
 							case 1:
-								printlnMiddle("You run!");
+								println(Style.CENTER, "You run!");
 								plebs.resetEnemy();
 								forAll.numPotionOfInvisibility--;
 								forAll.resetDrinkHealthPotionCount();
@@ -461,16 +454,16 @@ public class Dungeon implements Serializable {
 						boss1.boss1Fight();
 					} else if (volba == 2) { // Run
 						if (forAll.numPotionOfInvisibility == 0) {
-							printlnMiddle("No time to run!");
+							println(Style.CENTER, "No time to run!");
 							switch (uzivatVolba("Continue")) {
 							}
 						} else {
-							printlnMiddle("Do you really want to run?");
-							printlnMiddle("It will cost you potion of invisibility!");
+							println(Style.CENTER, "Do you really want to run?");
+							println(Style.CENTER, "It will cost you potion of invisibility!");
 							int volbaRun = uzivatVolba("Yes", "No");
 							switch (volbaRun) {
 							case 1:
-								printlnMiddle("You run!");
+								println(Style.CENTER, "You run!");
 								plebs.resetEnemy();
 								forAll.numPotionOfInvisibility--;
 								forAll.resetDrinkHealthPotionCount();
@@ -564,7 +557,7 @@ public class Dungeon implements Serializable {
 			volba = uzivatVolba("Search room", "Continue");
 			if (volba == 1) {
 				if (forAll.energy < 20) {
-					printlnMiddle("You don't have enough energy!");
+					println(Style.CENTER, "You don't have enough energy!");
 				} else {
 					room.normalRoom();
 					forAll.energy -= 20;
@@ -651,15 +644,15 @@ public class Dungeon implements Serializable {
 		boolean enemyMiss = rand.nextInt(100) <= plebs.enemyMissChance;
 
 		if (youMiss) {
-			printlnMiddle("You MISS!");
+			println(Style.CENTER, "You MISS!");
 		}
 		if (enemyMiss) {
-			printlnMiddle("Enemy MISS!");
+			println(Style.CENTER, "Enemy MISS!");
 		}
 
 		if (!youMiss) {
 			int damageDealt = forAll.selectedWeapon.calculateDamage(this);
-			printlnMiddle("You strike the " + plebs.enemy.name + " for " + damageDealt + " damage.");
+			println(Style.CENTER, "You strike the " + plebs.enemy.name + " for " + damageDealt + " damage.");
 			plebs.enemyHealth -= damageDealt;
 		}
 
@@ -667,13 +660,12 @@ public class Dungeon implements Serializable {
 			int damageTaken = ((rand.nextInt(plebs.enemyAttackDamage) + rand.nextInt(plebs.enemyAttackDamage))
 					+ plebs.enemiesKilled * 5 + 10) * forAll.resistence / 100;
 
-			printlnMiddle("You receive " + damageTaken + " damage.");
+			println(Style.CENTER, "You receive " + damageTaken + " damage.");
 			decreaseHealth(damageTaken);
 		}
 
 		if (getHealth() < 1) {
-			printlnMiddle(
-					"You have taken too much damage, you are dying in pain covered in the shit of your enemy while they are celebrating...zombies will a have tasty dinner! ");
+			println(Style.CENTER, "You have taken too much damage, you are dying in pain covered in the shit of your enemy while they are celebrating...zombies will a have tasty dinner! ");
 		}
 		forAll.resetDrinkHealthPotionCount();
 

@@ -3,10 +3,18 @@ package olderman.dungeon;
 import android.app.Activity;
 
 import android.graphics.Paint;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.support.annotation.AnyThread;
+import android.support.annotation.UiThread;
+import android.support.annotation.WorkerThread;
 import android.support.v4.content.ContextCompat;
+import android.text.Layout;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
+import android.text.style.AlignmentSpan;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
@@ -16,111 +24,335 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AndroidOS implements OS {
 
-	private Activity activity;
-	private TextView textView;
-	private LinearLayout buttons;
-	private final SpannableStringBuilder sb = new SpannableStringBuilder();
+	private static final int ACTION_APPEND = 0;
+	private static final int ACTION_CLEAR = 1;
+	private static final int ACTION_RESET = 2;
+	private static final int ACTION_COLOR = 3;
+	private static final int ACTION_ATTRIBUTE = 4;
+	private static final int ACTION_PRINT_ASCII_ART = 5;
+	private static final int ACTION_FILL_LINE = 6;
 
-	public AndroidOS() {
-	}
+	private static class Action {
+		public final int type;
+		public final Object data;
 
-	public void set(Activity activity, TextView textView, LinearLayout buttons) {
-		if (this.activity != null) {
-			throw new IllegalStateException();
+		public Action(int type, Object data) {
+			this.type = type;
+			this.data = data;
 		}
-		activity.getClass();// null check
-		buttons.getClass();
-		textView.setText(sb);// also a null check
-		this.activity = activity;
-		this.textView = textView;
-		this.buttons = buttons;
-		createButtons();
 	}
 
-	public void onActivityDestroy() {
-		if (activity == null) {
-			throw new IllegalStateException();
+	private List<Action> actions = new ArrayList<>(); // confined to game thread
+
+	private final SpannableStringBuilder sb = new SpannableStringBuilder(); // FIXME send messages to handler instead
+
+	private static final int RESULT_EXIT = -1;
+
+	// in our case, main thread should be also the ui thread
+	// https://developer.android.com/studio/write/annotations.html#thread-annotations
+	private final MyHandler handler = new MyHandler(Looper.getMainLooper());
+
+	private static class MyHandler extends Handler {
+
+		public static final int MSG_CREATE_BUTTONS = 0;
+		public static final int MSG_DO_ACTIONS = 1;
+
+		// all confined to ui thread
+		private final List<Action> savedActions = new ArrayList<>();
+		private Activity activity;
+		private TextView textView;
+		private LinearLayout buttons;
+		private final SpannableStringBuilder sb = new SpannableStringBuilder();
+		private String[] buttonLabels;
+
+		public final FutureValue<Integer> result = new FutureValue<>(); // final and thread-safe
+
+		public MyHandler(Looper looper) {
+			super(looper);
 		}
-		activity = null;
-		textView = null;
-		buttons = null;
-	}
 
-	private int result = -1;
-	private String[] buttonLabels;
+		@UiThread
+		public void set(Activity activity, TextView textView, LinearLayout buttons) {
+			if (this.activity != null) {
+				throw new IllegalStateException();
+			}
+			Objects.requireNonNull(activity);
+			Objects.requireNonNull(buttons);
+			Objects.requireNonNull(textView);
+			this.activity = activity;
+			this.textView = textView;
+			this.buttons = buttons;
+			createButtonsImpl();
+			doActionsImpl(savedActions); // will also call flushImpl()
+			savedActions.clear();
+		}
 
-	private void createButtons() {
-		if (buttonLabels != null) {
-			activity.runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					for (int i = 0; i < buttonLabels.length; i++) {
-						createButton(i + 1, buttonLabels[i]);
-					}
+		@UiThread
+		public void onActivityDestroy() {
+			if (activity == null) {
+				throw new IllegalStateException();
+			}
+			activity = null;
+			textView = null;
+			buttons = null;
+		}
+
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case MSG_CREATE_BUTTONS:
+				buttonLabels = (String[]) msg.obj;
+				if (activity != null)
+					createButtonsImpl();
+				break;
+			case MSG_DO_ACTIONS:
+				@SuppressWarnings("unchecked")
+				List<Action> actions = (List<Action>) msg.obj;
+				if (activity != null) {
+					doActionsImpl(actions);
+				} else {
+					savedActions.addAll(actions);
 				}
-			});
+				break;
+			}
 		}
-	}
 
-	private void createButton(final int i, String text) {
-		Button button = new Button(activity);
-		button.setText(text);
-		button.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				buttons.removeAllViews();
-				synchronized (AndroidOS.this) {
-					buttonLabels = null;
-					result = i;
-					AndroidOS.this.notifyAll();
+		private void createButtonsImpl() {
+			if (buttonLabels != null) {
+				for (int i = 0; i < buttonLabels.length; i++) {
+					createButton(i + 1, buttonLabels[i]);
 				}
 			}
-		});
-		buttons.addView(button, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+		}
+
+		private void createButton(final int i, String text) {
+			Button button = new Button(activity);
+			button.setText(text);
+			button.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					buttons.removeAllViews();
+					buttonLabels = null;
+					result.set(i);
+				}
+			});
+			buttons.addView(button, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+		}
+
+		private void doActionsImpl(List<Action> actions) {
+			for (Action action : actions) {
+				switch (action.type) {
+				case ACTION_APPEND:
+					appendImpl((CharSequence) action.data);
+					break;
+				case ACTION_CLEAR:
+					clearImpl();
+					break;
+				case ACTION_RESET:
+					resetImpl();
+					break;
+				case ACTION_COLOR:
+					colorImpl((Style.ColorStyle) action.data);
+					break;
+				case ACTION_ATTRIBUTE:
+					attributeImpl((Style.AttributeStyle) action.data);
+					break;
+				case ACTION_PRINT_ASCII_ART:
+					printAsciiArtImpl((String) action.data);
+					break;
+				case ACTION_FILL_LINE:
+					fillLineImpl((String) action.data);
+					break;
+				}
+			}
+			flushImpl();
+		}
+
+		private void flushImpl() {
+			textView.setText(sb);
+			textView.requestLayout();
+		}
+
+		private void appendImpl(CharSequence text) {
+			sb.append(text);
+		}
+
+		private void clearImpl() {
+			sb.clear();
+		}
+
+		private final Object[] spans = new Object[NUM_SPANS];
+		private final int[] spanStarts = new int[NUM_SPANS];
+
+		private static final int BG = 0;
+		private static final int FG = 1;
+		private static final int CENTER = 2;
+		private static final int NUM_SPANS = 3;
+
+		private void reset(int i) {
+			if (spans[i] != null) {
+				sb.setSpan(spans[i], spanStarts[i], sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+				spans[i] = null;
+			}
+			spanStarts[i] = sb.length();
+		}
+
+		public void resetImpl() {
+			for (int i = 0; i < spans.length; i++) {
+				reset(i);
+			}
+		}
+
+		public void colorImpl(Style.ColorStyle style) {
+			int i = style.isBg() ? BG : FG;
+			reset(i);
+			if (style.getColor() != null) {
+				int color = ContextCompat.getColor(activity, mapColor(style));
+				if (style.isBg()) {
+					spans[i] = new BackgroundColorSpan(color);
+				} else {
+					spans[i] = new ForegroundColorSpan(color);
+				}
+			}
+		}
+
+		public void attributeImpl(Style.AttributeStyle style) {
+			int i;
+			switch (style.getAttribute()) {
+			case CENTER:
+				i = CENTER;
+				break;
+			default:
+				return;
+			}
+			reset(i);
+			if (style.isOn()) {
+				switch (style.getAttribute()) {
+				case CENTER:
+					spans[i] = new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER);
+					break;
+				}
+			}
+		}
+
+		private static final Pattern NEWLINE = Pattern.compile("\\v|$");
+
+		public void printAsciiArtImpl(String asciiArt) {
+			Paint paint = textView.getPaint();
+			int textSize = (int) paint.getTextSize();
+			int width = textView.getWidth();
+			Matcher matcher = NEWLINE.matcher(asciiArt);
+			float asciiArtWidth = 0;
+			int previousEnd = 0;
+			while (matcher.find()) {
+				float lineWidth = paint.measureText(asciiArt, previousEnd, matcher.start());
+				previousEnd = matcher.end();
+				if (lineWidth > asciiArtWidth)
+					asciiArtWidth = lineWidth;
+			}
+			if (asciiArtWidth > width)
+				textSize = (int) (textSize * width / asciiArtWidth);
+
+			int start = sb.length();
+			sb.append(asciiArt);
+			sb.setSpan(new AbsoluteSizeSpan(textSize), start, sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		}
+
+		public void fillLineImpl(String text) {
+			float textWidth = textView.getPaint().measureText(text);
+			int textViewWidth = textView.getWidth();
+			int count = (int) (textViewWidth / textWidth);
+			for (int i = 0; i < count; i++) {
+				appendImpl(text);
+			}
+		}
+
 	}
 
-	public synchronized void stop() {
-		result = -2;
-		notifyAll();
+	@UiThread
+	public void set(Activity activity, TextView textView, LinearLayout buttons) {
+		handler.set(activity, textView, buttons);
+	}
+
+	@UiThread
+	public void onActivityDestroy() {
+		handler.onActivityDestroy();
+	}
+
+	@UiThread
+	public void stop() {
+		handler.result.set(RESULT_EXIT);
 	}
 
 	@Override
-	public synchronized int uzivatVolba(final String... options) {
+	@WorkerThread
+	public int uzivatVolba(final String... options) {
 		try {
-			buttonLabels = options;
-			createButtons();
-
-			while (result == -1) {
-				try {
-					wait();
-				} catch (InterruptedException e) {
-				}
+			// non-atomic check-then-act
+			/*
+			 * the worst thing that can happen is that we create buttons when exiting but
+			 * maybe this may change with new features (probably not)
+			 * 
+			 * maybe we can use client-side locking?
+			 * 
+			 * or use getIfSet() - that wouldn't work because someone could set the result
+			 * when calling createButtons()
+			 */
+			if (!handler.result.isSet()) {
+				createButtons(options);
 			}
+			int r = handler.result.get();
+			// END non-atomic check-then-act
 
-			if (result == -2) {
+			if (r == RESULT_EXIT) {
 				throw new ExitException();
 			}
 			clear();
-			return result;
+			return r;
+		} catch (InterruptedException e) {
+			throw new ExitException(e); // TODO maybe some better interrupt handling? or is this fine?
 		} finally {
-			result = -1;
+			handler.result.unset();
 		}
+	}
+
+	@WorkerThread
+	private void createButtons(String[] buttonLabels) {
+		handler.sendMessage(handler.obtainMessage(MyHandler.MSG_CREATE_BUTTONS, buttonLabels));
+	}
+
+	@Override
+	@WorkerThread
+	public void flush() {
+		handler.sendMessage(handler.obtainMessage(MyHandler.MSG_DO_ACTIONS, actions));
+		actions = new ArrayList<>();
+	}
+
+	private void action(int type, Object data) {
+		actions.add(new Action(type, data));
+	}
+
+	private void action(int type) {
+		action(type, null);
 	}
 
 	@Override
 	public void clear() {
-		sb.clear();
+		action(ACTION_CLEAR);
 		flush();
 	}
 
 	@Override
 	public void print(String string) {
-		sb.append(string);
+		action(ACTION_APPEND, string);
 	}
 
 	@Override
@@ -130,65 +362,35 @@ public class AndroidOS implements OS {
 
 	@Override
 	public void reset() {
-		for (int i = 0; i < spans.length; i++) {
-			reset(i);
-		}
+		action(ACTION_RESET);
 	}
-
-	@Override
-	public void printMiddle(String text) {
-		float spaceWidth = textView.getPaint().measureText(" ");
-		float textWidth = textView.getPaint().measureText(text);
-		for (int i = 0; i < textView.getWidth() / 2 - textWidth / 2; i += spaceWidth) {
-			print(" ");
-		}
-		print(text);
-		println();
-		flush();
-
-	}
-
-	@Override
-	public void fillLane(String text) {
-		float charWidth = textView.getPaint().measureText(text);
-		for (int i = 0; i < textView.getWidth(); i += charWidth) {
-			print(text);
-		}
-	}
-
-	private void reset(int i) {
-		if (spans[i] != null) {
-			sb.setSpan(spans[i], spanStarts[i], sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-			spans[i] = null;
-		}
-		spanStarts[i] = sb.length();
-	}
-
-	private final CharacterStyle[] spans = new CharacterStyle[NUM_SPANS];
-	private final int[] spanStarts = new int[NUM_SPANS];
-
-	private static final int BG = 0;
-	private static final int FG = 1;
-	private static final int NUM_SPANS = 2;
 
 	@Override
 	public void color(Style.ColorStyle style) {
-		int i = style.isBg() ? BG : FG;
-		reset(i);
-		if (style.getColor() == null) {
-			spans[i] = null;
-		} else {
-			int color = ContextCompat.getColor(activity, mapColor(style));
-			if (style.isBg()) {
-				spans[i] = new BackgroundColorSpan(color);
-			} else {
-				spans[i] = new ForegroundColorSpan(color);
-			}
-		}
+		action(ACTION_COLOR, style);
+	}
+
+	@Override
+	public void attribute(Style.AttributeStyle style) {
+		action(ACTION_ATTRIBUTE, style);
+	}
+
+	@Override
+	public void printAsciiArt(String asciiArt) {
+		action(ACTION_PRINT_ASCII_ART, asciiArt);
+	}
+
+	@Override
+	public void fillLine(String text) {
+		action(ACTION_FILL_LINE, text);
+	}
+
+	@Override
+	public void beep() {
 
 	}
 
-	private int mapColor(Style.ColorStyle color) {
+	private static int mapColor(Style.ColorStyle color) {
 		if (color.isBright()) {
 			switch (color.getColor()) {
 			case BLACK:
@@ -232,51 +434,6 @@ public class AndroidOS implements OS {
 				throw new IllegalArgumentException();
 			}
 		}
-	}
-
-	@Override
-	public void attribute(Style.AttributeStyle style) {
-
-	}
-
-	@Override
-	public void flush() {
-		activity.runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				textView.setText(sb);
-				textView.requestLayout();
-			}
-		});
-	}
-
-	private static final Pattern NEWLINE = Pattern.compile("\\v|$");
-
-	@Override
-	public void printAsciiArt(String asciiArt) {
-		int textSize = (int) textView.getTextSize();
-		int width = textView.getWidth();
-		Matcher matcher = NEWLINE.matcher(asciiArt);
-		float asciiArtWidth = 0;
-		int previousEnd = 0;
-		Paint paint = textView.getPaint();
-		while (matcher.find()) {
-			float lineWidth = paint.measureText(asciiArt, previousEnd, matcher.start());
-			previousEnd = matcher.end();
-			if (lineWidth > asciiArtWidth)
-				asciiArtWidth = lineWidth;
-		}
-		if (asciiArtWidth > width)
-			textSize = (int) (textSize * width / asciiArtWidth);
-
-		int start = sb.length();
-		print(asciiArt);
-		sb.setSpan(new AbsoluteSizeSpan(textSize), start, sb.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-	}
-
-	@Override
-	public void beep() {
-
 	}
 
 }

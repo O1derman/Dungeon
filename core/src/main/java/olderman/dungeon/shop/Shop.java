@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import olderman.dungeon.Dungeon;
+import olderman.dungeon.Style;
 import olderman.dungeon.inventory.Bomb;
 import olderman.dungeon.inventory.Pot;
 import olderman.dungeon.inventory.Weapon;
@@ -27,14 +28,14 @@ public class Shop {
 
 	public void shop() {
 
-		dungeon.printlnMiddle("Welcome to a weapon shop \"Broken axe\"!");
-		while (dungeon.uzivatVolba("Look around!", "Leave!") == 1) {
+        dungeon.println(Style.CENTER, "Welcome to a weapon shop \"Broken axe\"!");
+        while (dungeon.uzivatVolba("Look around!", "Leave!") == 1) {
 
 			dungeon.println("You have " + dungeon.getForAll().gold + " gold.");
 			dungeon.println();
-			dungeon.printlnMiddle("What will you get?");
+            dungeon.println(Style.CENTER, "What will you get?");
 
-			List<ShopItem> avilableItems = new ArrayList<>();
+            List<ShopItem> avilableItems = new ArrayList<>();
 			List<String> descriptions = new ArrayList<>();
 
 			for (ShopItem item : items) {
@@ -56,11 +57,11 @@ public class Shop {
 			}
 
 			if (buyWithGold(selectedItem.getCost())) {
-				dungeon.printlnMiddle("You bought a " + selectedItem.getName() + "!");
-				selectedItem.buy();
+                dungeon.println(Style.CENTER, "You bought a " + selectedItem.getName() + "!");
+                selectedItem.buy();
 			} else {
-				dungeon.printlnMiddle("You don't have enough gold to buy a " + selectedItem.getName() + "!");
-			}
+                dungeon.println(Style.CENTER, "You don't have enough gold to buy a " + selectedItem.getName() + "!");
+            }
 		}
 	}
 

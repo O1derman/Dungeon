@@ -5,4 +5,10 @@ package olderman.dungeon;
  */
 
 public class ExitException extends RuntimeException {
+	public ExitException() {
+	}
+
+	public ExitException(Throwable cause) {
+		super(cause);
+	}
 }

@@ -1,10 +1,10 @@
 package olderman.dungeon.town;
 
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 import olderman.dungeon.Dungeon;
 import olderman.dungeon.Resources;
+import olderman.dungeon.Style;
 import olderman.dungeon.shop.Shop;
 import olderman.dungeon.shop.ToolShop;
 
@@ -38,10 +38,10 @@ public class Town {
 		final String CITY = Resources.getString("/City");
 		if (firstTime) {
 			dungeon.println();
-			dungeon.printlnMiddle("***********************");
-			dungeon.printlnMiddle("* WELCOME in Stander! *");
-			dungeon.printlnMiddle("***********************");
-			firstTime = false;
+            dungeon.println(Style.CENTER, "***********************");
+            dungeon.println(Style.CENTER, "* WELCOME in Stander! *");
+            dungeon.println(Style.CENTER, "***********************");
+            firstTime = false;
 		}
 		// dungeon.println("\n\tan old poorly looking wanderer: HEY STRANGER!");
 		// dungeon.println("\n\tan old poorly looking wanderer: Yea, YOU!");
@@ -91,8 +91,8 @@ public class Town {
 				toolShop.shop();
 				continue BACK1;
 			case 3:
-				dungeon.printlnMiddle("You can buy house for " + dungeon.getForAll().houseCost + "g");
-				if (dungeon.getForAll().gold < dungeon.getForAll().houseCost) {
+                dungeon.println(Style.CENTER, "You can buy house for " + dungeon.getForAll().houseCost + "g");
+                if (dungeon.getForAll().gold < dungeon.getForAll().houseCost) {
 					switch (dungeon.uzivatVolba("Back")) {
 					}
 					dungeon.clear();

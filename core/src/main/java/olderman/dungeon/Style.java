@@ -102,7 +102,7 @@ public interface Style {
 	}
 
 	enum Attribute implements AttributeStyle {
-		BOLD, ITALIC, UNDERLINE;
+		BOLD, ITALIC, UNDERLINE, CENTER;
 
 		public final AttributeOff OFF = new AttributeOff(this);
 
@@ -120,6 +120,7 @@ public interface Style {
 	Attribute BOLD = Attribute.BOLD;
 	Attribute ITALIC = Attribute.ITALIC;
 	Attribute UNDERLINE = Attribute.UNDERLINE;
+	Attribute CENTER = Attribute.CENTER;
 
 	class Reset implements Style {
 		private Reset() {

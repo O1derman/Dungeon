@@ -21,21 +21,11 @@ public class DesktopOS implements OS {
 	private Cheats cheats = null;
 
 	public static boolean enableClear = true;
-	// System objects
+
 	private static final Scanner in = new Scanner(System.in);
 
-	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	double width = screenSize.getWidth();
-	private String str = "";
-	TimerTask task = new TimerTask() {
-
-		@Override
-		public void run() {
-			if (str.equals("")) {
-				System.exit(0);
-			}
-		}
-	};
+	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private double width = screenSize.getWidth();
 
 	@Override
 	public void clear() {
@@ -52,7 +42,7 @@ public class DesktopOS implements OS {
 			ansi().format("\t%d. %s%n", i + 1, option);
 		}
 		println();
-		fillLane("#");
+		fillLine("#");
 		println();
 
 		flush();
@@ -204,23 +194,7 @@ public class DesktopOS implements OS {
 	}
 
 	@Override
-	public void printMiddle(String text) {
-		AffineTransform affinetransform = new AffineTransform();
-		FontRenderContext frc = new FontRenderContext(affinetransform, true, true);
-		Font font = new Font("Consolas", Font.PLAIN, 15);
-		int textWidth = (int) (font.getStringBounds(text, frc).getWidth());
-		int spaceWidth = (int) (font.getStringBounds(" ", frc).getWidth());
-		for (int i = 0; i < width / 2 - textWidth / 2; i += spaceWidth) {
-			print(" ");
-		}
-		print(text);
-		println();
-		flush();
-
-	}
-
-	@Override
-	public void fillLane(String text) {
+	public void fillLine(String text) {
 		AffineTransform affinetransform = new AffineTransform();
 		FontRenderContext frc = new FontRenderContext(affinetransform, true, true);
 		Font font = new Font("Consolas", Font.PLAIN, 15);

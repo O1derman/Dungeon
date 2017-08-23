@@ -1,6 +1,7 @@
 package olderman.dungeon.shop;
 
 import olderman.dungeon.Dungeon;
+import olderman.dungeon.Style;
 
 public class ToolShop {
 
@@ -12,8 +13,8 @@ public class ToolShop {
 	boolean firstTime = true;
 
 	public void shop() {
-		dungeon.printlnMiddle("Welcome in \"Digged monster\"!");
-		dungeon.println();
+        dungeon.println(Style.CENTER, "Welcome in \"Digged monster\"!");
+        dungeon.println();
 		if (firstTime) {
 			dungeon.println("When you buy any axe, you lose the previous one!");
 			dungeon.println();

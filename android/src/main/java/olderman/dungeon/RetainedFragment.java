@@ -22,17 +22,16 @@ public class RetainedFragment extends Fragment {
 	public void start() {
 		if (!running) {
 			running = true;
-			new Thread(new Runnable() {
+			new Thread("Dungeon thread") {
 				@Override
 				public void run() {
 					try {
 						Thread.sleep(500);
 						dungeon.run();
-					} catch (ExitException e) {
-					} catch (InterruptedException e) {
+					} catch (ExitException | InterruptedException ignored) {
 					}
 				}
-			}).start();
+			}.start();
 		}
 	}
 

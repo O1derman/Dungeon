@@ -2,6 +2,7 @@ package olderman.dungeon.town;
 
 import olderman.dungeon.Dungeon;
 import olderman.dungeon.Resources;
+import olderman.dungeon.Style;
 import olderman.dungeon.inventory.Pot;
 
 public class House {
@@ -44,9 +45,9 @@ public class House {
 				}
 
 			} else {
-				dungeon.printlnMiddle("\nYou dont have nothing to do at home.");
-				dungeon.printlnMiddle("You have to buy pot or build bed!");
-				break;
+                dungeon.println(Style.CENTER, "\nYou dont have nothing to do at home.");
+                dungeon.println(Style.CENTER, "You have to buy pot or build bed!");
+                break;
 			}
 		}
 	}

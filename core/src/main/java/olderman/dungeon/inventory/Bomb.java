@@ -1,6 +1,7 @@
 package olderman.dungeon.inventory;
 
 import olderman.dungeon.Dungeon;
+import olderman.dungeon.Style;
 
 public class Bomb extends InventoryItem {
 
@@ -20,8 +21,8 @@ public class Bomb extends InventoryItem {
 		dungeon.getPlebs().enemyHealth -= actualBombDamage;
 		dungeon.getBoss1().boss1Health -= actualBombDamage;
 		dungeon.getBoss2();
-		dungeon.printlnMiddle("You hit enemy for " + actualBombDamage + " damage!");
-		return true;
+        dungeon.println(Style.CENTER, "You hit enemy for " + actualBombDamage + " damage!");
+        return true;
 	}
 
 }
