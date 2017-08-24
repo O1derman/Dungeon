@@ -1,13 +1,9 @@
 package olderman.dungeon;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Toolkit;
-import java.awt.font.FontRenderContext;
-import java.awt.geom.AffineTransform;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
-import java.util.TimerTask;
 
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
@@ -22,10 +18,7 @@ public class DesktopOS implements OS {
 
 	public static boolean enableClear = true;
 
-	private static final Scanner in = new Scanner(System.in);
-
-	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	private double width = screenSize.getWidth();
+	private static final BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
 	@Override
 	public void clear() {
@@ -47,12 +40,16 @@ public class DesktopOS implements OS {
 
 		flush();
 		while (true) {
-
-			String nabidka = DesktopOS.in.nextLine();
-			if (cheats != null) {
-				while (cheats.executeCommand(nabidka)) {
-					nabidka = DesktopOS.in.nextLine();
+			String nabidka;
+			try {
+				nabidka = DesktopOS.in.readLine();
+				if (cheats != null) {
+					while (cheats.executeCommand(nabidka)) {
+						nabidka = DesktopOS.in.readLine();
+					}
 				}
+			} catch (IOException e) {
+				throw new RuntimeException(e);
 			}
 			try {
 				int vysledek = Integer.parseInt(nabidka);
@@ -195,11 +192,10 @@ public class DesktopOS implements OS {
 
 	@Override
 	public void fillLine(String text) {
-		AffineTransform affinetransform = new AffineTransform();
-		FontRenderContext frc = new FontRenderContext(affinetransform, true, true);
-		Font font = new Font("Consolas", Font.PLAIN, 15);
-		int charWidth = (int) (font.getStringBounds(text, frc).getWidth());
-		for (int i = 0; i < width; i += charWidth) {
+
+		int count = 100 / text.length();
+
+		for (int i = 0; i < count; i++) {
 			print(text);
 		}
 	}

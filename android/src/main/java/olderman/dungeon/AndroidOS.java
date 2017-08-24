@@ -52,8 +52,6 @@ public class AndroidOS implements OS {
 
 	private List<Action> actions = new ArrayList<>(); // confined to game thread
 
-	private final SpannableStringBuilder sb = new SpannableStringBuilder(); // FIXME send messages to handler instead
-
 	private static final int RESULT_EXIT = -1;
 
 	// in our case, main thread should be also the ui thread

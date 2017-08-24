@@ -4,16 +4,12 @@ buildscript {
     }
 }
 
+apply plugin: 'application'
 apply plugin: 'com.github.johnrengelman.shadow'
-apply plugin: 'java'
+
+mainClassName = "olderman.dungeon.DesktopOS"
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-	compile project(':core')
-}
-
-jar {
-    manifest {
-        attributes("Main-Class": "olderman.dungeon.DesktopOS")
-    }
+    compile project(':core')
 }

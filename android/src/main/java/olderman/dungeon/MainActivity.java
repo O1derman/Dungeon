@@ -12,6 +12,8 @@ public class MainActivity extends AppCompatActivity {
 
 	private static final String TAG_RETAINED_FRAGMENT = "RetainedFragment";
 
+	private RetainedFragment fragment;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -21,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 		LinearLayout buttons = (LinearLayout) findViewById(R.id.buttons);
 
 		FragmentManager fm = getFragmentManager();
-		RetainedFragment fragment = (RetainedFragment) fm.findFragmentByTag(TAG_RETAINED_FRAGMENT);
+		fragment = (RetainedFragment) fm.findFragmentByTag(TAG_RETAINED_FRAGMENT);
 		if (fragment == null) {
 			fragment = new RetainedFragment();
 			fm.beginTransaction().add(fragment, TAG_RETAINED_FRAGMENT).commit();
@@ -32,12 +34,16 @@ public class MainActivity extends AppCompatActivity {
 
 	@Override
 	public void onBackPressed() {
-		new AlertDialog.Builder(this).setMessage(R.string.confirm_exit)
-				.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						MainActivity.super.onBackPressed();
-					}
-				}).setNegativeButton(android.R.string.no, null).show();
+		if (fragment.isFinished()) {
+			super.onBackPressed();
+		} else {
+			new AlertDialog.Builder(this).setMessage(R.string.confirm_exit)
+					.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							MainActivity.super.onBackPressed();
+						}
+					}).setNegativeButton(android.R.string.no, null).show();
+		}
 	}
 }

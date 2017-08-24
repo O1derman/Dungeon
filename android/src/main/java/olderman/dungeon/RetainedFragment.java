@@ -13,15 +13,16 @@ public class RetainedFragment extends Fragment {
 
 	private final AndroidOS os = new AndroidOS();
 	private final Dungeon dungeon = new Dungeon(os);
-	private boolean running = false;
+	private boolean started = false;
+	private volatile boolean finished = false;
 
 	public void set(Activity activity, TextView textView, LinearLayout buttons) {
 		os.set(activity, textView, buttons);
 	}
 
 	public void start() {
-		if (!running) {
-			running = true;
+		if (!started) {
+			started = true;
 			new Thread("Dungeon thread") {
 				@Override
 				public void run() {
@@ -30,6 +31,7 @@ public class RetainedFragment extends Fragment {
 						dungeon.run();
 					} catch (ExitException | InterruptedException ignored) {
 					}
+					finished = true;
 				}
 			}.start();
 		}
@@ -53,4 +55,7 @@ public class RetainedFragment extends Fragment {
 		setRetainInstance(true);
 	}
 
+	public boolean isFinished() {
+		return finished;
+	}
 }
