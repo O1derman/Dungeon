@@ -18,7 +18,7 @@ public class Map1 implements Serializable {
 	public int w = (width + 1) / 2; // find middle if width is odd
 	// public int w = (width/2); // find middle if width is even
 	public int l = 1;
-	public String map1 = Resources.getString("/map1");
+	public String map1 = Resources.getString("/Map1");
 
 	public void initializeRooms() {
 		for (int i = 0; i < mapRooms.length; i++) {

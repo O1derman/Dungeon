@@ -19,13 +19,10 @@ import static olderman.dungeon.Style.Reset;
 import static olderman.dungeon.Style.YELLOW;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Dungeon implements Serializable {
@@ -151,6 +148,12 @@ public class Dungeon implements Serializable {
 		os.flush();
 	}
 
+	public void printEmptyLines(int count) {
+		for (int i = 0; i < count; i++)
+			os.println();
+		os.flush();
+	}
+
 	public void fillLine(String text) {
 		os.fillLine(text);
 		os.flush();
@@ -187,27 +190,7 @@ public class Dungeon implements Serializable {
 		}
 	}
 
-	public void loadData() {
-		// create arraylist to store deserialized objects
-		ArrayList<Object> deserialized = new ArrayList<Object>();
-
-		try {
-			FileInputStream fileIn = new FileInputStream("data.ser");
-			ObjectInputStream in = new ObjectInputStream(fileIn);
-			deserialized = (ArrayList<Object>) in.readObject();
-			in.close();
-			fileIn.close();
-		} catch (IOException i) {
-			i.printStackTrace();
-			return;
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
-			return;
-		}
-
-	}
-
-	File savedData = new File("data.ser");
+	private File savedData = new File("data.ser");
 
 	// main
 
@@ -255,21 +238,12 @@ public class Dungeon implements Serializable {
 					character = new GameCharacter[] { GameCharacter.DWARF, GameCharacter.ORC, GameCharacter.ELF,
 							GameCharacter.GOBLIN }[volba - 1];
 
-					forAll = new ForAll();
-					room = new Room(this);
-					plebs = new Plebs();
-					town = new Town(this);
-					way = new Way(this);
-					inventory = new Inventory(this);
-
-					forAll.health = character.getInitialHealth();
-					forAll.maximumHealth = character.getInitialMaximumHealth();
-					game();
+					throw new RuntimeException("loading not implemented");
 				} else {
 					println("You don't have any saved progress.");
 					uzivatVolba("Back");
-					break;
 				}
+				break;
 
 			case 3:
 				// Ramecek.ramecek(Ramecek.data[1][0], "Dwarf");
@@ -315,8 +289,7 @@ public class Dungeon implements Serializable {
 		boolean reset = true;
 
 		printAsciiArt(character.getAsciiArt());
-		println();
-		println();
+		printEmptyLines(2);
 		println(Style.CENTER, "You are on floor " + forAll.floor + "!");
 		FIGHT: while (true) {
 			way.map1.asciiArtMap();
@@ -394,13 +367,10 @@ public class Dungeon implements Serializable {
 					} else if (volba == 5) { // Exit
 						println(Style.CENTER, "Really?");
 						println(Style.CENTER, "Unsaved progres will be lost permanently!");
-						volba = uzivatVolba("Yes", "No");
-						switch (volba) {
-						case 1:
+						if (uzivatVolba("Yes", "No") == 1) {
 							println(Style.CENTER, "You exit the dungeon.");
 							println(Style.CENTER, "Thanks for playing!");
-							switch (uzivatVolba("Continue")) {
-							}
+							uzivatVolba("Continue");
 							return;
 						}
 					}
@@ -455,24 +425,17 @@ public class Dungeon implements Serializable {
 					} else if (volba == 2) { // Run
 						if (forAll.numPotionOfInvisibility == 0) {
 							println(Style.CENTER, "No time to run!");
-							switch (uzivatVolba("Continue")) {
-							}
+							uzivatVolba("Continue");
 						} else {
 							println(Style.CENTER, "Do you really want to run?");
 							println(Style.CENTER, "It will cost you potion of invisibility!");
-							int volbaRun = uzivatVolba("Yes", "No");
-							switch (volbaRun) {
-							case 1:
+							if (uzivatVolba("Yes", "No") == 1) {
 								println(Style.CENTER, "You run!");
 								plebs.resetEnemy();
 								forAll.numPotionOfInvisibility--;
 								forAll.resetDrinkHealthPotionCount();
-								switch (uzivatVolba("Continue")) {
-								}
+								uzivatVolba("Continue");
 								continue FIGHT;
-							case 2:
-								break;
-
 							}
 
 						}
@@ -554,19 +517,14 @@ public class Dungeon implements Serializable {
 
 			println("\n\n\n");
 
-			volba = uzivatVolba("Search room", "Continue");
-			if (volba == 1) {
+			if (uzivatVolba("Search room", "Continue") == 1) {
 				if (forAll.energy < 20) {
 					println(Style.CENTER, "You don't have enough energy!");
 				} else {
 					room.normalRoom();
 					forAll.energy -= 20;
 				}
-				volba = uzivatVolba("Continue");
-				if (volba == 1) {
-				}
-			}
-			if (volba == 2) {
+				uzivatVolba("Continue");
 			}
 			plebs.resetEnemy();
 
@@ -623,13 +581,9 @@ public class Dungeon implements Serializable {
 			println(score + " score");
 			println();
 			println("Map:");
-			println();
-			println();
-			println();
+			printEmptyLines(3);
 			println(way.map1.map1);
-			println();
-			println();
-			println();
+			printEmptyLines(3);
 			println("Map legend:");
 			println("D - your position");
 			println("x - wall");
