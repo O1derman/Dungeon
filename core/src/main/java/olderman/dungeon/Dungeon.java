@@ -32,7 +32,7 @@ public class Dungeon implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// ascii art
-	private static final String HEADLINE = Resources.getString("/headline");
+	private static final String HEADLINE = Resources.getString("/Headline");
 	// fields
 	private final Random rand = new Random();
 	public int score;
@@ -665,7 +665,8 @@ public class Dungeon implements Serializable {
 		}
 
 		if (getHealth() < 1) {
-			println(Style.CENTER, "You have taken too much damage, you are dying in pain covered in the shit of your enemy while they are celebrating...zombies will a have tasty dinner! ");
+			println(Style.CENTER,
+					"You have taken too much damage, you are dying in pain covered in the shit of your enemy while they are celebrating...zombies will a have tasty dinner! ");
 		}
 		forAll.resetDrinkHealthPotionCount();
 
