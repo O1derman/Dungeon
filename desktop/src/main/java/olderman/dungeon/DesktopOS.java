@@ -3,7 +3,6 @@ package olderman.dungeon;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
@@ -42,10 +41,10 @@ public class DesktopOS implements OS {
 		while (true) {
 			String nabidka;
 			try {
-				nabidka = DesktopOS.in.readLine();
+				nabidka = in.readLine();
 				if (cheats != null) {
 					while (cheats.executeCommand(nabidka)) {
-						nabidka = DesktopOS.in.readLine();
+						nabidka = in.readLine();
 					}
 				}
 			} catch (IOException e) {
@@ -57,7 +56,7 @@ public class DesktopOS implements OS {
 					clear();
 					return vysledek;
 				}
-			} catch (NumberFormatException e) {
+			} catch (NumberFormatException ignored) {
 			}
 			println("\tInvalid command!");
 			flush();

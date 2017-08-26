@@ -2,6 +2,6 @@ rootProject.name = 'Dungeon'
 
 include 'core', 'desktop'
 
-if (properties['android.injected.invoked.from.ide'] == 'true'){
-	include 'android'
+if (properties['android.injected.invoked.from.ide'] == 'true') {
+    include 'android'
 }
