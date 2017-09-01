@@ -190,8 +190,6 @@ public class Dungeon implements Serializable {
 		}
 	}
 
-	private File savedData = new File("data.ser");
-
 	// main
 
 	public void run() throws InterruptedException {
@@ -234,16 +232,10 @@ public class Dungeon implements Serializable {
 				break;
 
 			case 2:
-				if (savedData.exists()) {
-					character = new GameCharacter[] { GameCharacter.DWARF, GameCharacter.ORC, GameCharacter.ELF,
-							GameCharacter.GOBLIN }[volba - 1];
+				character = new GameCharacter[] { GameCharacter.DWARF, GameCharacter.ORC, GameCharacter.ELF,
+						GameCharacter.GOBLIN }[volba - 1];
 
-					throw new RuntimeException("loading not implemented");
-				} else {
-					println("You don't have any saved progress.");
-					uzivatVolba("Back");
-				}
-				break;
+				throw new RuntimeException("loading not implemented");
 
 			case 3:
 				// Ramecek.ramecek(Ramecek.data[1][0], "Dwarf");

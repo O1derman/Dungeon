@@ -30,18 +30,18 @@ public class Town {
 	private final House house;
 	private final Forest forest;
 	boolean firstTime = true;
-	Scanner scanner = new Scanner(System.in);
-	String playersAnswer;
-	String rightAnswer = "a right angle";
+	// Scanner scanner = new Scanner(System.in);
+	// String playersAnswer;
+	// String rightAnswer = "a right angle";
 
 	public void town() throws InterruptedException {
 		final String CITY = Resources.getString("/City");
 		if (firstTime) {
 			dungeon.println();
-            dungeon.println(Style.CENTER, "***********************");
-            dungeon.println(Style.CENTER, "* WELCOME in Stander! *");
-            dungeon.println(Style.CENTER, "***********************");
-            firstTime = false;
+			dungeon.println(Style.CENTER, "***********************");
+			dungeon.println(Style.CENTER, "* WELCOME in Stander! *");
+			dungeon.println(Style.CENTER, "***********************");
+			firstTime = false;
 		}
 		// dungeon.println("\n\tan old poorly looking wanderer: HEY STRANGER!");
 		// dungeon.println("\n\tan old poorly looking wanderer: Yea, YOU!");
@@ -91,8 +91,8 @@ public class Town {
 				toolShop.shop();
 				continue BACK1;
 			case 3:
-                dungeon.println(Style.CENTER, "You can buy house for " + dungeon.getForAll().houseCost + "g");
-                if (dungeon.getForAll().gold < dungeon.getForAll().houseCost) {
+				dungeon.println(Style.CENTER, "You can buy house for " + dungeon.getForAll().houseCost + "g");
+				if (dungeon.getForAll().gold < dungeon.getForAll().houseCost) {
 					switch (dungeon.uzivatVolba("Back")) {
 					}
 					dungeon.clear();
