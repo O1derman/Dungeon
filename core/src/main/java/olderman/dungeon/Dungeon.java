@@ -538,17 +538,65 @@ public class Dungeon implements Serializable {
 			if (getForAll().resistence > 0) {
 				println(100 - this.getForAll().resistence + "% resistance");
 			}
-			if (forAll.woodenAxe < 0) {
+			if (forAll.woodenAxe > 0) {
 				println("Wooden axe");
 			}
-			if (forAll.bronzeAxe < 0) {
+			if (forAll.bronzeAxe > 0) {
 				println("Bronze axe");
 			}
-			if (forAll.silverAxe < 0) {
+			if (forAll.silverAxe > 0) {
 				println("Silver axe");
 			}
-			if (forAll.ironAxe < 0) {
+			if (forAll.ironAxe > 0) {
 				println("Iron axe");
+			}
+			if (forAll.sneak > 1) {
+				println(forAll.sneak + " sneaks");
+
+			}
+			if (forAll.sneak == 1) {
+				println(forAll.sneak + " sneak");
+
+			}
+			if (forAll.sneak > 1) {
+				println(forAll.frog + " frogs");
+
+			}
+			if (forAll.sneak == 1) {
+				println(forAll.frog + " frog");
+
+			}
+			if (forAll.sneak > 1) {
+				println(forAll.worm + " worms");
+
+			}
+			if (forAll.sneak == 1) {
+				println(forAll.worm + " worm");
+
+			}
+			if (forAll.sneak > 1) {
+				println(forAll.squirel + " squirels");
+
+			}
+			if (forAll.sneak == 1) {
+				println(forAll.squirel + " squirel");
+
+			}
+			if (forAll.sneak > 1) {
+				println(forAll.wood + " wood");
+
+			}
+			if (forAll.sneak == 1) {
+				println(forAll.wood + " wood");
+
+			}
+			if (forAll.sneak > 1) {
+				println(forAll.bird + " birds");
+
+			}
+			if (forAll.sneak == 1) {
+				println(forAll.bird + " bird");
+
 			}
 			println(forAll.lCapacity + "/" + this.getCharacter().loadCapacity + " load capacity");
 			if (getForAll().numPotionOfStrength > 0) {
