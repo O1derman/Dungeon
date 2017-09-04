@@ -366,7 +366,6 @@ public class Dungeon implements Serializable {
 
 				}
 				while (plebs.enemyHealth > 0 && getHealth() > 0 && plebFight) {
-					clear();
 					println("\t> Your HP: " + getHealth());
 					println("\t> " + plebs.enemy.name + "'s HP: " + plebs.enemyHealth);
 					println();
