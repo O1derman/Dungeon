@@ -163,12 +163,7 @@ public class Dungeon implements Serializable {
 		os.flush();
 	}
 
-	public void printf(String string, Object... args) {
-		os.print(String.format(string, args));
-		os.flush();
-	}
-
-	public void printAsciiArt(String asciiArt) {
+    public void printAsciiArt(String asciiArt) {
 		os.printAsciiArt(asciiArt);
 		os.flush();
 	}

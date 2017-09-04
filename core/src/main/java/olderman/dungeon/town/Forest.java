@@ -11,7 +11,7 @@ public class Forest {
 
 	private final Dungeon dungeon;
 
-	public void cutTrees() throws InterruptedException {
+	public void cutTrees() {
 		NABIDKA: while (true) {
 			dungeon.clear();
             dungeon.println(Style.CENTER, "What now?");

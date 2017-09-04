@@ -1,7 +1,5 @@
 package olderman.dungeon.town;
 
-import java.util.Scanner;
-
 import olderman.dungeon.Dungeon;
 import olderman.dungeon.Resources;
 import olderman.dungeon.Style;
