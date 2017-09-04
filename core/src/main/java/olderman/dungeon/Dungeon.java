@@ -232,9 +232,6 @@ public class Dungeon implements Serializable {
 				break;
 
 			case 2:
-				character = new GameCharacter[] { GameCharacter.DWARF, GameCharacter.ORC, GameCharacter.ELF,
-						GameCharacter.GOBLIN }[volba - 1];
-
 				throw new RuntimeException("loading not implemented");
 
 			case 3:
