@@ -434,7 +434,8 @@ public class Dungeon implements Serializable {
 			}
 
 			if (getHealth() < 1) {
-				println("\t> You limp out of the dungeon, wounded from the battle.\n\n\n\n\n");
+				println(Style.CENTER, "> You limp out of the dungeon, wounded from the battle.");
+				uzivatVolba("Continue");
 				return;
 			}
 			int goldFound;
@@ -503,7 +504,7 @@ public class Dungeon implements Serializable {
 
 			forAll.experience += plebs.experienceGain;
 
-			println("\n\n\n");
+			println();
 
 			if (uzivatVolba("Search room", "Continue") == 1) {
 				if (forAll.energy < 20) {
