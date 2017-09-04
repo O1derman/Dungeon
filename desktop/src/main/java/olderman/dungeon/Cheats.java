@@ -26,7 +26,7 @@ public class Cheats {
 		}
 		String commandName = matcher.group(1);
 		String argumentsString = matcher.group(2);
-		String arguments[] = null;
+		String arguments[] = new String[0];
 		if (argumentsString != null) {
 			arguments = argumentsString.split(" ");
 		}
@@ -43,13 +43,16 @@ public class Cheats {
 				return true;
 			}
 			case "setmaxhp": {
-				int maxHealth = Integer.parseInt(arguments[0]);
-				dungeon.getForAll().maximumHealth = maxHealth;
+				dungeon.getForAll().maximumHealth = Integer.parseInt(arguments[0]);
 				return true;
 			}
 			case "heal": {
 				dungeon.setHealth(dungeon.getForAll().maximumHealth);
 				return true;
+			}
+			case "setseed": {
+				long seed = Long.parseLong(arguments[0]);
+				dungeon.getRand().setSeed(seed);
 			}
 			default:
 				return false;

@@ -6,11 +6,12 @@ import java.util.Random;
 public class Plebs implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public Plebs() {
-		resetEnemy();
-	}
+	private final Random rand;
 
-	private final Random rand = new Random();
+	public Plebs(Random rand) {
+		this.rand = rand;
+		resetEnemy(); // FIXME overridable method call in constructor
+	}
 
 	// public int enemyChance = 90; // %
 

@@ -18,7 +18,6 @@ import static olderman.dungeon.Style.RED;
 import static olderman.dungeon.Style.Reset;
 import static olderman.dungeon.Style.YELLOW;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -218,7 +217,7 @@ public class Dungeon implements Serializable {
 
 					forAll = new ForAll();
 					room = new Room(this);
-					plebs = new Plebs();
+					plebs = new Plebs(rand);
 					town = new Town(this);
 					way = new Way(this);
 					inventory = new Inventory(this);
