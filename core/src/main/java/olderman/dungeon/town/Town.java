@@ -81,7 +81,7 @@ public class Town {
 			dungeon.printAsciiArt(CITY);
 
 			switch (dungeon.uzivatVolba("Go in weapon shop", "Go in tool shop", "Buy house", "Go in workhouse",
-					"Go in the forest", "Go in pub", "Back")) {
+					"Go in the forest", "Go in pub", "Enter dungeon")) {
 			case 1:
 				shop.shop();
 				continue BACK1;
@@ -122,7 +122,7 @@ public class Town {
 		}
 		BACK2: while (dungeon.getForAll().house > 0) {
 			switch (dungeon.uzivatVolba("Go in shop", "Go in tool shop", "Go in house", "Go in workhouse", "Go in pub",
-					"Back")) {
+					"Enter dungeon")) {
 			case 1:
 				shop.shop();
 				continue BACK2;

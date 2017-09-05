@@ -1,5 +1,6 @@
 package olderman.dungeon;
 
+import olderman.dungeon.Style.ColorStyle;
 import olderman.dungeon.enemies.Boss1;
 import olderman.dungeon.enemies.Boss2;
 import olderman.dungeon.enemies.Plebs;
@@ -11,7 +12,6 @@ import olderman.dungeon.town.Town;
 
 import static olderman.dungeon.Style.AttributeStyle;
 import static olderman.dungeon.Style.BLUE;
-import static olderman.dungeon.Style.ColorStyle;
 import static olderman.dungeon.Style.DEFAULT_COLOR;
 import static olderman.dungeon.Style.GREEN;
 import static olderman.dungeon.Style.RED;
@@ -86,9 +86,12 @@ public class Dungeon implements Serializable {
 	public void setHealth(int health) {
 		forAll.health = Math.min(health, forAll.maximumHealth);
 		if (getHealth() < 30) {
-			println(RED.BRIGHT, "\n\t!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@\n");
-			println(RED.BRIGHT, "\t> <ALERT>Your HP is very low " + "(" + getHealth() + " HP left)");
-			println(RED.BRIGHT, "\n\t!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@!@\n");
+			fillLine(RED.BRIGHT, "!@");
+			println();
+			println(Style.CENTER, RED.BRIGHT, "> <ALERT>Your HP is very low " + "(" + getHealth() + " HP left)");
+			println();
+			fillLine(RED.BRIGHT, "!@");
+			println();
 		}
 	}
 
@@ -153,7 +156,7 @@ public class Dungeon implements Serializable {
 		os.flush();
 	}
 
-	public void fillLine(String text) {
+	public void fillLine(ColorStyle bRIGHT, String text) {
 		os.fillLine(text);
 		os.flush();
 	}
@@ -163,7 +166,7 @@ public class Dungeon implements Serializable {
 		os.flush();
 	}
 
-    public void printAsciiArt(String asciiArt) {
+	public void printAsciiArt(String asciiArt) {
 		os.printAsciiArt(asciiArt);
 		os.flush();
 	}
@@ -220,6 +223,7 @@ public class Dungeon implements Serializable {
 					forAll.health = character.getInitialHealth();
 					forAll.maximumHealth = character.getInitialMaximumHealth();
 					println(character.getBeginning());
+					town.town();
 					game();
 				}
 
@@ -278,7 +282,7 @@ public class Dungeon implements Serializable {
 			way.map1.asciiArtMap();
 			long timeElapsed = System.nanoTime() - startTime;
 			if (timeElapsed >= 120 * 1e+9) {
-				startTime = +timeElapsed;
+				startTime += timeElapsed;
 				if (forAll.energy > 95) {
 					forAll.energy = 100;
 				} else {
@@ -453,9 +457,9 @@ public class Dungeon implements Serializable {
 			if (forAll.experience >= forAll.levelUp ^ bossKilled) {
 				forAll.levelUp += 50;
 				forAll.level++;
-				println(GREEN.BRIGHT, "\t************************************************");
-				println(GREEN.BRIGHT, "\t*Congratulations! Level Up! Level " + forAll.level + "!");
-				println(GREEN.BRIGHT, "\t************************************************");
+				fillLine(GREEN.BRIGHT, "*");
+				println(Style.CENTER, GREEN.BRIGHT, "Congratulations! Level Up! Level " + forAll.level + "!");
+				fillLine(GREEN.BRIGHT, "*");
 				forAll.maximumHealth += ForAll.LEVEL_UP_HEALTH;
 				increaseHealth(ForAll.LEVEL_UP_HEALTH);
 
