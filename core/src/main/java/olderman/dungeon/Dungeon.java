@@ -85,14 +85,6 @@ public class Dungeon implements Serializable {
 
 	public void setHealth(int health) {
 		forAll.health = Math.min(health, forAll.maximumHealth);
-		if (getHealth() < 30) {
-			fillLine(RED.BRIGHT, "!@");
-			println();
-			println(Style.CENTER, RED.BRIGHT, "> <ALERT>Your HP is very low " + "(" + getHealth() + " HP left)");
-			println();
-			fillLine(RED.BRIGHT, "!@");
-			println();
-		}
 	}
 
 	public void decreaseHealth(int healthDecrease) {
@@ -435,6 +427,14 @@ public class Dungeon implements Serializable {
 				println(Style.CENTER, "> You limp out of the dungeon, wounded from the battle.");
 				uzivatVolba("Continue");
 				return;
+			} else if (getHealth() < 30 ^ plebs.enemyHealth > 0) {
+				println();
+				fillLine(RED.BRIGHT, "!@");
+				println();
+				println(Style.CENTER, RED.BRIGHT, "> <ALERT>Your HP is very low " + "(" + getHealth() + " HP left)");
+				println();
+				fillLine(RED.BRIGHT, "!@");
+				println();
 			}
 			int goldFound;
 			way.map1.rooms[way.map1.w][way.map1.l] = true;
@@ -452,28 +452,22 @@ public class Dungeon implements Serializable {
 				plebs.enemiesKilled++;
 				plebs.enemyMissChance = plebs.enemyMissChance * 2 / 3;
 				goldFound = (rand.nextInt(100) + rand.nextInt(100)) + plebs.enemiesKilled * 20;
+				println("# " + plebs.enemy.name + " was defeated!");
+				println("# You have earned ", GREEN.BRIGHT, plebs.experienceGain + " exp", DEFAULT_COLOR, "!");
 			}
 			score = plebs.enemiesKilled * 5 + forAll.bossesKilled * 20;
-			if (forAll.experience >= forAll.levelUp ^ bossKilled) {
-				forAll.levelUp += 50;
-				forAll.level++;
-				fillLine(GREEN.BRIGHT, "*");
-				println(Style.CENTER, GREEN.BRIGHT, "Congratulations! Level Up! Level " + forAll.level + "!");
-				fillLine(GREEN.BRIGHT, "*");
-				forAll.maximumHealth += ForAll.LEVEL_UP_HEALTH;
-				increaseHealth(ForAll.LEVEL_UP_HEALTH);
-
-				println("\tYour maximum health is " + forAll.maximumHealth + "HP.");
-				println("\tYour minimum damage is " + character.getDamage().minValue(this) + ".");
-				println("\tYour maximum damage is " + character.getDamage().maxValue(this) + ".");
-			}
 			forAll.gold += goldFound;
 			reset = true;
-			println("\n\n\n");
-			println("# " + plebs.enemy.name + " was defeated!                                                ");
+			println();
+			println();
+			println();
+			int levelUp = forAll.level++;
 			println("# You have ", RED.BRIGHT, getHealth() + "HP", DEFAULT_COLOR, " left ");
-			println("# You have earned ", GREEN.BRIGHT, plebs.experienceGain + " exp", DEFAULT_COLOR, "!");
-			println("# You have ", BLUE.BRIGHT, "level " + forAll.level, DEFAULT_COLOR, "!");
+			if (forAll.experience >= forAll.levelUp ^ bossKilled) {
+				println("# You have ", BLUE.BRIGHT, "level " + forAll.level + " --> " + levelUp, DEFAULT_COLOR, "!");
+			} else {
+				println("# You have ", BLUE.BRIGHT, "level " + forAll.level, DEFAULT_COLOR, "!");
+			}
 			println("# You found ", YELLOW.BRIGHT, goldFound + " gold", DEFAULT_COLOR, " (", YELLOW.BRIGHT,
 					forAll.gold + " gold", DEFAULT_COLOR, " total)");
 			if (rand.nextInt(100) < ForAll.SMALL_HEALTH_POTION_DROP_CHANCE
@@ -499,10 +493,25 @@ public class Dungeon implements Serializable {
 						+ inventory.getCount(HealthPotion.LARGE) + " total)");
 
 			}
+			if (forAll.experience >= forAll.levelUp ^ bossKilled) {
+				uzivatVolba("Continue");
+				clear();
+				forAll.levelUp += forAll.level * 50;
+				forAll.level = levelUp;
+				println();
+				fillLine(GREEN.BRIGHT, "*");
+				println(Style.CENTER, GREEN.BRIGHT, "Congratulations!");
+				println(Style.CENTER, GREEN.BRIGHT, "Level Up!");
+				println(Style.CENTER, GREEN.BRIGHT, "Level " + forAll.level + "!");
+				fillLine(GREEN.BRIGHT, "*");
+				println();
+				forAll.maximumHealth += ForAll.LEVEL_UP_HEALTH;
+				increaseHealth(ForAll.LEVEL_UP_HEALTH);
 
-			forAll.experience += plebs.experienceGain;
-
-			println();
+				println("\tYour maximum health is " + forAll.maximumHealth + "HP.");
+				println("\tYour minimum damage is " + character.getDamage().minValue(this) + ".");
+				println("\tYour maximum damage is " + character.getDamage().maxValue(this) + ".");
+			}
 
 			if (uzivatVolba("Search room", "Continue") == 1) {
 				if (forAll.energy < 20) {

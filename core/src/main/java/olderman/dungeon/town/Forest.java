@@ -14,8 +14,8 @@ public class Forest {
 	public void cutTrees() {
 		NABIDKA: while (true) {
 			dungeon.clear();
-            dungeon.println(Style.CENTER, "What now?");
-            double waitTime;
+			dungeon.println(Style.CENTER, "What now?");
+			double waitTime;
 			waitTime = 2 * 1e+9;
 			if (dungeon.getForAll().bronzeAxe > 0) {
 				waitTime = 1e+9;
@@ -28,8 +28,8 @@ public class Forest {
 			switch (dungeon.uzivatVolba("Cut trees", "Hunt birds", "Back")) {
 			case 1:
 				if (dungeon.getForAll().energy < 10) {
-                    dungeon.println(Style.CENTER, "You don't have enough energy.");
-                    switch (dungeon.uzivatVolba("Continue")) {
+					dungeon.println(Style.CENTER, "You don't have enough energy.");
+					switch (dungeon.uzivatVolba("Continue")) {
 					}
 					continue NABIDKA;
 				} else {
@@ -39,9 +39,9 @@ public class Forest {
 					int wTime = 10;
 					String strCutting = "You are cutting a tree!";
 					startTime = System.nanoTime();
-                    dungeon.println(Style.CENTER, strCutting);
-                    dungeon.println(Style.CENTER, wTime + "s" + " until done");
-                    while (cutting) {
+					dungeon.println(Style.CENTER, strCutting);
+					dungeon.println(Style.CENTER, wTime + " until done");
+					while (cutting) {
 						timeElapsed = System.nanoTime() - startTime;
 						if (timeElapsed >= waitTime) {
 							wTime--;
@@ -50,25 +50,25 @@ public class Forest {
 								break;
 							}
 							dungeon.clear();
-                            dungeon.println(Style.CENTER, strCutting);
-                            dungeon.println(Style.CENTER, wTime + "s" + " until done");
-                            startTime = System.nanoTime();
+							dungeon.println(Style.CENTER, strCutting);
+							dungeon.println(Style.CENTER, wTime + " until done");
+							startTime = System.nanoTime();
 						}
 					}
 					dungeon.clear();
 					int foundWood = dungeon.getRand().nextInt(10);
 					dungeon.getForAll().energy -= 10;
 					dungeon.getForAll().wood += foundWood;
-                    dungeon.println(Style.CENTER, "You got " + foundWood + " wood.");
-                    switch (dungeon.uzivatVolba("Continue")) {
+					dungeon.println(Style.CENTER, "You got " + foundWood + " wood.");
+					switch (dungeon.uzivatVolba("Continue")) {
 					}
 					continue NABIDKA;
 				}
 
 			case 2:
 				if (dungeon.getForAll().energy < 20) {
-                    dungeon.println(Style.CENTER, "You don't have enough energy.");
-                    switch (dungeon.uzivatVolba("Continue")) {
+					dungeon.println(Style.CENTER, "You don't have enough energy.");
+					switch (dungeon.uzivatVolba("Continue")) {
 					}
 					continue NABIDKA;
 				} else {
@@ -76,12 +76,12 @@ public class Forest {
 					if (dungeon.getRand().nextInt(100) < dungeon.getForAll().squirelChance) {
 						if (dungeon.getForAll().squirelHeft + dungeon.getForAll().lCapacity > dungeon.getCharacter()
 								.getLoadCapacity()) {
-                            dungeon.println(Style.CENTER, "You dont have enough load capacity!");
-                        } else {
+							dungeon.println(Style.CENTER, "You dont have enough load capacity!");
+						} else {
 							dungeon.getForAll().squirel++;
 							dungeon.getForAll().lCapacity += dungeon.getForAll().squirelHeft;
-                            dungeon.println(Style.CENTER, "You caught a squirel.");
-                        }
+							dungeon.println(Style.CENTER, "You caught a squirel.");
+						}
 						switch (dungeon.uzivatVolba("Continue")) {
 						}
 						continue NABIDKA;
@@ -90,22 +90,22 @@ public class Forest {
 						int foundBirds = dungeon.getRand().nextInt(5) + 1;
 						if (dungeon.getForAll().birdHeft * foundBirds + dungeon.getForAll().lCapacity > dungeon
 								.getCharacter().getLoadCapacity()) {
-                            dungeon.println(Style.CENTER, "You dont have enough load capacity!");
-                        } else {
+							dungeon.println(Style.CENTER, "You dont have enough load capacity!");
+						} else {
 							dungeon.getForAll().bird += foundBirds;
 							dungeon.getForAll().lCapacity += dungeon.getForAll().birdHeft * foundBirds;
 							if (foundBirds == 1) {
-                                dungeon.println(Style.CENTER, "You caught a bird.");
-                            } else {
-                                dungeon.println(Style.CENTER, "You caught " + foundBirds + " birds.");
-                            }
+								dungeon.println(Style.CENTER, "You caught a bird.");
+							} else {
+								dungeon.println(Style.CENTER, "You caught " + foundBirds + " birds.");
+							}
 						}
 						switch (dungeon.uzivatVolba("Continue")) {
 						}
 						continue NABIDKA;
 					} else {
-                        dungeon.println(Style.CENTER, "You didn't catch any bird!");
-                        switch (dungeon.uzivatVolba("Continue")) {
+						dungeon.println(Style.CENTER, "You didn't catch any bird!");
+						switch (dungeon.uzivatVolba("Continue")) {
 						}
 						continue NABIDKA;
 					}
