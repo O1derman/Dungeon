@@ -302,7 +302,7 @@ public class Dungeon implements Serializable {
 						town.town();
 						continue FIGHT;
 					} else if (volba == 4) { // Exit
-						println("\tReally?...unsaved progres will be lost permanently!");
+						println(Style.CENTER, "Really?...unsaved progres will be lost permanently!");
 						if (uzivatVolba("Yes", "No") == 1) {
 							return;
 						}
@@ -311,7 +311,7 @@ public class Dungeon implements Serializable {
 				}
 			} else {
 				if (way.map1.l == way.map1.rightEdge && way.map1.w == way.map1.w1) {
-					println("\tWelcome in boss room for floor " + forAll.floor);
+					println(Style.CENTER, "Welcome in boss room for floor " + forAll.floor);
 					beep();
 				} else {
 					println(Style.CENTER, "You see " + getPlebs().enemy.nameWithArticle() + "!");
@@ -356,6 +356,7 @@ public class Dungeon implements Serializable {
 
 				}
 				while (plebs.enemyHealth > 0 && getHealth() > 0 && plebFight) {
+					println();
 					println("\t> Your HP: " + getHealth());
 					println("\t> " + plebs.enemy.name + "'s HP: " + plebs.enemyHealth);
 					println();
@@ -427,7 +428,7 @@ public class Dungeon implements Serializable {
 				println(Style.CENTER, "> You limp out of the dungeon, wounded from the battle.");
 				uzivatVolba("Continue");
 				return;
-			} else if (getHealth() < 30 ^ plebs.enemyHealth > 0) {
+			} else if (getHealth() < 30 && plebs.enemyHealth > 0) {
 				println();
 				fillLine(RED.BRIGHT, "!@");
 				println();
@@ -439,6 +440,9 @@ public class Dungeon implements Serializable {
 			int goldFound;
 			way.map1.rooms[way.map1.w][way.map1.l] = true;
 			boolean bossKilled = false;
+			println();
+			println();
+			println();
 			if (way.map1.l == way.map1.rightEdge && way.map1.w == way.map1.w1) {
 				plebFight = true;
 				bossKilled = true;
@@ -458,16 +462,7 @@ public class Dungeon implements Serializable {
 			score = plebs.enemiesKilled * 5 + forAll.bossesKilled * 20;
 			forAll.gold += goldFound;
 			reset = true;
-			println();
-			println();
-			println();
-			int levelUp = forAll.level++;
 			println("# You have ", RED.BRIGHT, getHealth() + "HP", DEFAULT_COLOR, " left ");
-			if (forAll.experience >= forAll.levelUp ^ bossKilled) {
-				println("# You have ", BLUE.BRIGHT, "level " + forAll.level + " --> " + levelUp, DEFAULT_COLOR, "!");
-			} else {
-				println("# You have ", BLUE.BRIGHT, "level " + forAll.level, DEFAULT_COLOR, "!");
-			}
 			println("# You found ", YELLOW.BRIGHT, goldFound + " gold", DEFAULT_COLOR, " (", YELLOW.BRIGHT,
 					forAll.gold + " gold", DEFAULT_COLOR, " total)");
 			if (rand.nextInt(100) < ForAll.SMALL_HEALTH_POTION_DROP_CHANCE
@@ -496,8 +491,9 @@ public class Dungeon implements Serializable {
 			if (forAll.experience >= forAll.levelUp ^ bossKilled) {
 				uzivatVolba("Continue");
 				clear();
-				forAll.levelUp += forAll.level * 50;
-				forAll.level = levelUp;
+				forAll.level++;
+				forAll.experience = forAll.experience - forAll.levelUp;
+				forAll.levelUp = 50 * forAll.level;
 				println();
 				fillLine(GREEN.BRIGHT, "*");
 				println(Style.CENTER, GREEN.BRIGHT, "Congratulations!");
@@ -509,8 +505,8 @@ public class Dungeon implements Serializable {
 				increaseHealth(ForAll.LEVEL_UP_HEALTH);
 
 				println("\tYour maximum health is " + forAll.maximumHealth + "HP.");
-				println("\tYour minimum damage is " + character.getDamage().minValue(this) + ".");
-				println("\tYour maximum damage is " + character.getDamage().maxValue(this) + ".");
+				println("\tYour damage is " + character.getDamage().minValue(this) + " - "
+						+ character.getDamage().maxValue(this) + ".");
 			}
 
 			if (uzivatVolba("Search room", "Continue") == 1) {
@@ -632,6 +628,7 @@ public class Dungeon implements Serializable {
 			println("D - your position");
 			println("x - wall");
 			println("o - room with enemy");
+			println("A - boss room");
 			println("c - cleared room");
 			println();
 		} while (this.getInventory().showInventory(fighting) != null);

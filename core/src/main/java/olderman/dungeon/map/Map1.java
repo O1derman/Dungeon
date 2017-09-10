@@ -43,38 +43,41 @@ public class Map1 implements Serializable {
 	int mapPosition;
 
 	public void asciiArtMap() {
-		mapPosition = w * 14 + l * 2 + 1;
+		mapPosition = w * 14 + l * 2;
 		if (w == 1 && l == 1) {
-			map1 = changeCharInPosition(1, 'x', map1);
+			map1 = changeCharInPosition(0, 'x', map1);
 		}
 		if (w == 1 && l == 5) {
 			map1 = changeCharInPosition(w * 14, 'x', map1);
 		}
 		if (w == 5 && l == 1) {
-			map1 = changeCharInPosition((w + 1) * 14 + 1, 'x', map1);
+			map1 = changeCharInPosition((w + 1) * 14, 'x', map1);
 		}
 		if (w == 5 && l == 5) {
 			map1 = changeCharInPosition(14 * (w + 2), 'x', map1);
 		}
 		if (w == 1) {
-			map1 = changeCharInPosition(l * 2 + 1, 'x', map1);
+			map1 = changeCharInPosition(l * 2, 'x', map1);
 		}
 		if (w == 5) {
-			map1 = changeCharInPosition((w + 1) * 14 + l * 2 + 1, 'x', map1);
+			map1 = changeCharInPosition((w + 1) * 14 + l * 2, 'x', map1);
 		}
 		if (l == 1) {
-			map1 = changeCharInPosition(w * 14 + 1, 'x', map1);
+			map1 = changeCharInPosition(w * 14, 'x', map1);
 		}
 		if (l == 5) {
-			map1 = changeCharInPosition((w + 1) * 14, 'x', map1);
+			map1 = changeCharInPosition((w + 1) * 14 - 2, 'x', map1);
 		}
 		map1 = map1.replace('D', 'c');
 		map1 = changeCharInPosition(mapPosition, 'D', map1);
 	}
 
 	public void mapBack() {
-		mapPosition = w * 14 + l * 2 + 1;
-		map1 = changeCharInPosition(mapPosition, 'o', map1);
+		if (l == rightEdge && w == w1) {
+			map1 = changeCharInPosition(mapPosition, 'A', map1);
+		} else {
+			map1 = changeCharInPosition(mapPosition, 'o', map1);
+		}
 	}
 
 	public void goLeft() {
