@@ -18,8 +18,8 @@ public class Way implements Serializable {
 	public int wayChoice;
 
 	public void go() {
-        dungeon.println(Style.CENTER, "Which way?");
-        while (true) {
+		dungeon.println(Style.CENTER, "Which way?");
+		while (true) {
 			if (map1.l == map1.leftEdge && map1.w == map1.leftEdge) { // left
 																		// down
 																		// corner
@@ -161,7 +161,8 @@ public class Way implements Serializable {
 	}
 
 	public void back() {
-		while (true) {
+		boolean back = true;
+		while (back) {
 			if (map1.l == map1.leftEdge && map1.w == map1.leftEdge && wayChoice == 1) {
 				map1.goBackwards();
 				break;
@@ -196,7 +197,7 @@ public class Way implements Serializable {
 				map1.goLeft();
 				break;
 			} else if (map1.l == map1.rightEdge && wayChoice == 1) {
-				map1.goRight();
+				map1.goBackwards();
 				break;
 			} else if (map1.l == map1.rightEdge && wayChoice == 2) {
 				map1.goLeft();
@@ -235,7 +236,7 @@ public class Way implements Serializable {
 				map1.goStraight();
 				break;
 			}
-			break;
+			back = false;
 		}
 
 	}

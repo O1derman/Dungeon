@@ -43,12 +43,11 @@ public class Map1 implements Serializable {
 	int mapPosition;
 
 	public void asciiArtMap() {
-		mapPosition = w * 14 + l * 2;
 		if (w == 1 && l == 1) {
 			map1 = changeCharInPosition(0, 'x', map1);
 		}
 		if (w == 1 && l == 5) {
-			map1 = changeCharInPosition(w * 14, 'x', map1);
+			map1 = changeCharInPosition(w * 12, 'x', map1);
 		}
 		if (w == 5 && l == 1) {
 			map1 = changeCharInPosition((w + 1) * 14, 'x', map1);

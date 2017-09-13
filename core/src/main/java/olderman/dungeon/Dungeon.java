@@ -486,7 +486,6 @@ public class Dungeon implements Serializable {
 				inventory.add(HealthPotion.LARGE);
 				println("# The " + plebs.enemy.name + " dropped a large health potion! ("
 						+ inventory.getCount(HealthPotion.LARGE) + " total)");
-
 			}
 			if (forAll.experience >= forAll.levelUp ^ bossKilled) {
 				uzivatVolba("Continue");
@@ -496,7 +495,7 @@ public class Dungeon implements Serializable {
 				forAll.levelUp = 50 * forAll.level;
 				println();
 				fillLine(GREEN.BRIGHT, "*");
-				println(Style.CENTER, GREEN.BRIGHT, "Congratulations!");
+				println(Style.CENTER, GREEN.BRIGHT, "Huray!");
 				println(Style.CENTER, GREEN.BRIGHT, "Level Up!");
 				println(Style.CENTER, GREEN.BRIGHT, "Level " + forAll.level + "!");
 				fillLine(GREEN.BRIGHT, "*");
