@@ -13,7 +13,7 @@ public enum GameCharacter implements Serializable {
 			loadCapacity = 80;
 			damage = new RandomValue(20 /* minimum damage */,
 					20 /* damage range */, 5 /* increase per level */);
-			beginning = "You are a small stinky dwarf with the same face as all the other dwarfs.\n";
+			beginning = "You are a small stinky dwarf with the same face as all other dwarfs.\n";
 			asciiArt = Resources.getString("/Dwarf");
 		}
 	},
@@ -65,7 +65,7 @@ public enum GameCharacter implements Serializable {
 			loadCapacity = 999999999;
 			damage = new RandomValue(999999999 /* minimum damage */,
 					0 /* damage range */, 0 /* increase per level */);
-			beginning = "You are SUPER SUPERMAN, you have unlimited power until you meet criptonit.\n";
+			beginning = "You are SUPER SUPERMAN, you have unlimited power until you meet kryptonite.\n";
 			asciiArt = Resources.getString("/Superman");
 		}
 	};

@@ -26,11 +26,11 @@ public class Potions extends InventoryItem {
 		if (health <= maximumHealth) {
 			dungeon.println(
 					"\t> You drink a " + type + " health potion, healing yourself for " + healAmount + ".");
-			dungeon.println("\t> You now have " + health + "HP.");
+			dungeon.println("\t> Now you have " + health + "HP.");
 		} else {
 			health = maximumHealth;
 			dungeon.println(
-					"You drank health potion while you would overheal your maximum health, you have maximum health now!");
+					"You drank a health potion. While you would overheal your maximum health, you have maximum health now!");
 		}
 		dungeon.setHealth(health);
 		return true;

@@ -247,12 +247,12 @@ public class Dungeon implements Serializable {
 				println(">Large health potion heals for 100 HP.");
 				println();
 				println("You gain experience and have a small chance of getting some health potions for killing enemies.");
-				println("You can collect ingrediences to be able to craft lektvars in a pot.");
+				println("You can collect ingredients to be able to brew potions in a pot.");
 				println("You can save game in bed...if you die without save...you lose everything!");
-				println("In every floor is a boss room, if you beat the boss, you go in next floor.");
-				println("Main goal of this game is to collect the highest score!");
+				println("In every floor is a boss room, if you beat the boss, you go to the next floor.");
+				println("Main goal of this game is to get the highest score!");
 				println("Some actions cost you energy.");
-				println("You get energy by drinking a beer in pub.");
+				println("You get energy by drinking beer in a pub.");
 				uzivatVolba("Back");
 				break;
 

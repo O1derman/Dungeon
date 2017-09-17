@@ -24,7 +24,7 @@ public class Room {
 		if (dungeon.getRand().nextInt(100) < dungeon.getForAll().sneakChance) {
 			if (dungeon.getForAll().sneakHeft + dungeon.getForAll().lCapacity > dungeon.getCharacter()
 					.getLoadCapacity()) {
-                dungeon.println(Style.CENTER, "You dont have enough load capacity!");
+                dungeon.println(Style.CENTER, "You don't have enough load capacity!");
             } else {
 				dungeon.getForAll().sneak++;
 				dungeon.getForAll().lCapacity += dungeon.getForAll().sneakHeft;
@@ -36,7 +36,7 @@ public class Room {
 		if (dungeon.getRand().nextInt(100) < dungeon.getForAll().frogChance) {
 			if (dungeon.getForAll().frogHeft + dungeon.getForAll().lCapacity > dungeon.getCharacter()
 					.getLoadCapacity()) {
-                dungeon.println(Style.CENTER, "You dont have enough load capacity!");
+                dungeon.println(Style.CENTER, "You don't have enough load capacity!");
             } else {
 				dungeon.getForAll().frog++;
 				dungeon.getForAll().lCapacity += dungeon.getForAll().frogHeft;
@@ -48,7 +48,7 @@ public class Room {
 		if (dungeon.getRand().nextInt(100) < dungeon.getForAll().wormChance) {
 			if (dungeon.getForAll().wormHeft + dungeon.getForAll().lCapacity > dungeon.getCharacter()
 					.getLoadCapacity()) {
-                dungeon.println(Style.CENTER, "You dont have enough load capacity!");
+                dungeon.println(Style.CENTER, "You don't have enough load capacity!");
             } else {
 				dungeon.getForAll().worm++;
 				dungeon.getForAll().lCapacity += dungeon.getForAll().wormHeft;

@@ -18,7 +18,7 @@ public class WorkHouse {
         dungeon.println(Style.CENTER, "What do you want to work on?");
         dungeon.println();
 		while (true) {
-			int posibilities = dungeon.uzivatVolba("Cut frog", "Cut sneak", "Cut squirel", "Bird", "Build bad", "Exit");
+			int posibilities = dungeon.uzivatVolba("Cut frog", "Cut sneak", "Cut squirel", "Cut bird", "Build bed", "Exit");
 			if (posibilities == 1) {
 				if (dungeon.getForAll().knife == 1 && dungeon.getForAll().frog >= 1) {
                     dungeon.println(Style.CENTER, separate + "frog.");
@@ -61,12 +61,12 @@ public class WorkHouse {
 
 			} else if (posibilities == 5) {
 				if (dungeon.getForAll().wood >= 5 && dungeon.getForAll().feather >= 100) {
-                    dungeon.println(Style.CENTER, "You built a bad.");
+                    dungeon.println(Style.CENTER, "You built a bed.");
                     dungeon.getForAll().feather -= dungeon.getForAll().featherForBed;
 					dungeon.getForAll().wood -= dungeon.getForAll().woodForBed;
 					dungeon.getForAll().bed++;
 				} else {
-                    dungeon.println(Style.CENTER, "You don't have enough ingrediences!");
+                    dungeon.println(Style.CENTER, "You don't have enough ingredients!");
                     if (dungeon.getForAll().wood < 5 && dungeon.getForAll().feather >= 100) {
                         dungeon.println(Style.CENTER, "You need " + dungeon.getForAll().woodForBed + " more wood.");
                     } else if (dungeon.getForAll().wood >= 5 && dungeon.getForAll().feather < 100) {

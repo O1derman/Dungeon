@@ -27,7 +27,7 @@ public class Pub {
                     dungeon.println(Style.CENTER, "You don't have enough gold!");
                     continue choices;
 				} else {
-                    dungeon.println(Style.CENTER, "You drunk beer.");
+                    dungeon.println(Style.CENTER, "You drank beer.");
                     if (dungeon.getForAll().energy >= 60)
 						dungeon.getForAll().energy = 100;
 					else {

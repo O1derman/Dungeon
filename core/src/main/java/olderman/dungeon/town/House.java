@@ -45,8 +45,8 @@ public class House {
 				}
 
 			} else {
-                dungeon.println(Style.CENTER, "\nYou dont have nothing to do at home.");
-                dungeon.println(Style.CENTER, "You have to buy pot or build bed!");
+                dungeon.println(Style.CENTER, "\nYou don't have anything to do at home.");
+                dungeon.println(Style.CENTER, "You have to buy a pot or build a bed!");
                 break;
 			}
 		}
