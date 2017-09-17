@@ -1,5 +1,7 @@
 package olderman.dungeon.town;
 
+import static olderman.dungeon.Style.YELLOW;
+
 import olderman.dungeon.Dungeon;
 import olderman.dungeon.Resources;
 import olderman.dungeon.Style;
@@ -13,22 +15,23 @@ public class Pub {
 
 	public void inside() {
 		final String BEER = Resources.getString("/Beer");
-        dungeon.println(Style.CENTER, "Welcome in \"Thirsty turtle\"!");
-        dungeon.println();
+		dungeon.println(Style.CENTER, "Welcome in \"Thirsty turtle\"!");
+		dungeon.println();
 		choices: while (true) {
-
-			dungeon.printAsciiArt(BEER);
-
 			dungeon.clear();
+			dungeon.printAsciiArt(BEER);
+			dungeon.println();
+			dungeon.println(YELLOW.BRIGHT, dungeon.getForAll().gold + " gold");
+			dungeon.println(dungeon.getForAll().energy + "/100 energy");
 			int volba = dungeon.uzivatVolba("Drink beer (" + dungeon.getForAll().beerCost + "G)", "Exit");
 			switch (volba) {
 			case 1:
 				if (dungeon.getForAll().beerCost > dungeon.getForAll().gold) {
-                    dungeon.println(Style.CENTER, "You don't have enough gold!");
-                    continue choices;
+					dungeon.println(Style.CENTER, "You don't have enough gold!");
+					continue choices;
 				} else {
-                    dungeon.println(Style.CENTER, "You drank beer.");
-                    if (dungeon.getForAll().energy >= 60)
+					dungeon.println(Style.CENTER, "You drank beer.");
+					if (dungeon.getForAll().energy >= 60)
 						dungeon.getForAll().energy = 100;
 					else {
 						dungeon.getForAll().energy += 40;

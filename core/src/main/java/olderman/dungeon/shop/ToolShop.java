@@ -1,5 +1,7 @@
 package olderman.dungeon.shop;
 
+import static olderman.dungeon.Style.YELLOW;
+
 import olderman.dungeon.Dungeon;
 import olderman.dungeon.Style;
 
@@ -13,13 +15,15 @@ public class ToolShop {
 	boolean firstTime = true;
 
 	public void shop() {
-        dungeon.println(Style.CENTER, "Welcome in \"Digged monster\"!");
-        dungeon.println();
+		dungeon.println(Style.CENTER, "Welcome in \"Digged monster\"!");
+		dungeon.println();
 		if (firstTime) {
 			dungeon.println("When you buy any axe, you lose the previous one!");
 			dungeon.println();
 			firstTime = false;
 		}
+		dungeon.println(YELLOW.BRIGHT, dungeon.getForAll().gold + " gold");
+		dungeon.println(dungeon.getForAll().energy + "/100 energy");
 		choices: while (true) {
 			int volba = dungeon.uzivatVolba(
 					"Knife (" + dungeon.getForAll().knifeCost + "Gold)...allows you to separate animals!",

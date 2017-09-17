@@ -1,5 +1,7 @@
 package olderman.dungeon.town;
 
+import static olderman.dungeon.Style.YELLOW;
+
 import olderman.dungeon.Dungeon;
 import olderman.dungeon.Style;
 
@@ -14,6 +16,14 @@ public class Forest {
 	public void cutTrees() {
 		NABIDKA: while (true) {
 			dungeon.clear();
+			dungeon.println(dungeon.getForAll().energy + "/100 energy");
+			dungeon.println(dungeon.getForAll().wood + " wood");
+			if (dungeon.getForAll().bird == 1) {
+				dungeon.println(dungeon.getForAll().bird + " bird");
+			} else {
+				dungeon.println(dungeon.getForAll().bird + " birs");
+			}
+			dungeon.println();
 			dungeon.println(Style.CENTER, "What now?");
 			double waitTime;
 			waitTime = 2 * 1e+9;
@@ -25,7 +35,7 @@ public class Forest {
 				waitTime = 1e+9 / 2;
 			}
 
-			switch (dungeon.uzivatVolba("Cut trees", "Hunt birds", "Back")) {
+			switch (dungeon.uzivatVolba("Cut trees", "Hunt birds", "Open inventory and info", "Back")) {
 			case 1:
 				if (dungeon.getForAll().energy < 10) {
 					dungeon.println(Style.CENTER, "You don't have enough energy.");
@@ -111,6 +121,9 @@ public class Forest {
 					}
 
 				}
+			case 3:
+				dungeon.inventoryAndInfo(false);
+				continue NABIDKA;
 
 			}
 			break;

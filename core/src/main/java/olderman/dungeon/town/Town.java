@@ -1,5 +1,7 @@
 package olderman.dungeon.town;
 
+import static olderman.dungeon.Style.YELLOW;
+
 import olderman.dungeon.Dungeon;
 import olderman.dungeon.Resources;
 import olderman.dungeon.Style;
@@ -76,12 +78,12 @@ public class Town {
 		// break;
 		// }
 		// }
-
+		dungeon.println(YELLOW.BRIGHT, dungeon.getForAll().gold + " gold");
 		BACK1: while (dungeon.getForAll().house == 0) {
 			dungeon.printAsciiArt(CITY);
 
 			switch (dungeon.uzivatVolba("Go in weapon shop", "Go in tool shop", "Buy house", "Go in workhouse",
-					"Go in the forest", "Go in pub", "Enter dungeon")) {
+					"Go in the forest", "Go in pub", "Open inventory and info", "Enter dungeon")) {
 			case 1:
 				shop.shop();
 				continue BACK1;
@@ -116,13 +118,16 @@ public class Town {
 			case 6:
 				pub.inside();
 				continue BACK1;
+			case 7:
+				dungeon.inventoryAndInfo(false);
+				continue BACK1;
 			}
 			break;
 
 		}
 		BACK2: while (dungeon.getForAll().house > 0) {
 			switch (dungeon.uzivatVolba("Go in shop", "Go in tool shop", "Go in house", "Go in workhouse", "Go in pub",
-					"Enter dungeon")) {
+					"Open inventory and info", "Enter dungeon")) {
 			case 1:
 				shop.shop();
 				continue BACK2;
@@ -137,6 +142,9 @@ public class Town {
 				continue BACK2;
 			case 5:
 				pub.inside();
+				continue BACK2;
+			case 6:
+				dungeon.inventoryAndInfo(false);
 				continue BACK2;
 			}
 			break;
