@@ -1,37 +1,45 @@
 package olderman.dungeon.map;
 
 import java.io.Serializable;
+import java.util.Random;
 
 import olderman.dungeon.Resources;
 
 public class Map1 implements Serializable {
 
-	public boolean[][] rooms = new boolean[6][6];
-
-	public Room[][] mapRooms = new Room[6][6];
+	public Room[][] mapRooms;
 
 	int width = 5;
 	int length = 5;
 	public int leftEdge = 1;
 	public int rightEdge = width;
+	public int w;
 	public int w1 = (width + 1) / 2; // starting w
-	public int w = (width + 1) / 2; // find middle if width is odd
-	// public int w = (width/2); // find middle if width is even
-	public int l = 1;
+	public int l;
 	public String map1 = Resources.getString("/Map1");
 
-	public void initializeRooms() {
+	public Map1() {
+		initializeRooms();
+	}
+
+	private void initializeRooms() {
+		Random r = new Random();
+		int rWidth = r.nextInt(10) + 5;
+		int rHight = r.nextInt(10) + 5;
+		boolean isEven = rWidth % 2 == 0;
+		if (isEven) {
+			w = (rWidth) / 2;
+		} else {
+			w = (rWidth + 1) / 2; // find middle if width is odd
+		}
+		l = 1;
+		mapRooms = new Room[rWidth][rHight];
 		for (int i = 0; i < mapRooms.length; i++) {
 			Room[] rooms = mapRooms[i];
 			for (int j = 0; j < rooms.length; j++) {
-				rooms[j] = new Room(null);
+				rooms[j] = new Room(null, i, j);
 			}
 		}
-	}
-
-	public void setStartingPosition() {
-		l = 1;
-		w = (width + 1) / 2;
 	}
 
 	public String changeCharInPosition(int position, char ch, String str) {

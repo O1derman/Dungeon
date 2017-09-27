@@ -35,7 +35,7 @@ public class Forest {
 				waitTime = 1e+9 / 2;
 			}
 
-			switch (dungeon.uzivatVolba("Cut trees", "Hunt birds", "Open inventory and info", "Back")) {
+			switch (dungeon.uzivatVolba("Cut trees", "Hunt birds", "Open inventory and info", "Go in town")) {
 			case 1:
 				if (dungeon.getForAll().energy < 10) {
 					dungeon.println(Style.CENTER, "You don't have enough energy.");

@@ -281,10 +281,10 @@ public class Dungeon implements Serializable {
 					forAll.energy += 5;
 				}
 			}
-			boolean freeRoom = way.map1.rooms[way.map1.w][way.map1.l];
+			Room freeRoom = way.map1.mapRooms[way.map1.w][way.map1.l];
 			forAll.resetDrinkHealthPotionCount();
 			boolean plebFight = true;
-			if (freeRoom) {
+			if (freeRoom.isFreeRoom()) {
 				while (true) {
 					println(Style.CENTER, "What now?");
 					volba = uzivatVolba("Go on", "Open inventory and info", "Go in town", "Exit");
@@ -438,7 +438,7 @@ public class Dungeon implements Serializable {
 				println();
 			}
 			int goldFound;
-			way.map1.rooms[way.map1.w][way.map1.l] = true;
+			way.map1.mapRooms[way.map1.w][way.map1.l].setFreeRoom(true);
 			boolean bossKilled = false;
 			println();
 			println();
@@ -449,7 +449,8 @@ public class Dungeon implements Serializable {
 				forAll.bossesKilled++;
 				goldFound = (rand.nextInt(100) + rand.nextInt(100)) + forAll.bossesKilled * 200;
 				forAll.floor++;
-				way.map1.setStartingPosition();
+				// TODO set starting position for
+				// new floor
 
 			} else {
 				forAll.experience += plebs.experienceGain;

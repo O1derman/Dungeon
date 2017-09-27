@@ -20,7 +20,7 @@ public class House {
 			dungeon.printAsciiArt(HOUSE);
 			boolean hasPot = dungeon.getInventory().has(Pot.POT);
 			if (dungeon.getForAll().bed > 0 && hasPot) {
-				switch (dungeon.uzivatVolba("Use bed", "Use Pot", "Back")) {
+				switch (dungeon.uzivatVolba("Use bed", "Use Pot", "Go out of house")) {
 				case 1:
 					dungeon.saveData();
 					break;
@@ -31,14 +31,14 @@ public class House {
 					break BACK;
 				}
 			} else if (dungeon.getForAll().bed > 0) {
-				if (dungeon.uzivatVolba("Use bed", "Back") == 1) {
+				if (dungeon.uzivatVolba("Use bed", "Go out of house") == 1) {
 					dungeon.saveData();
 				} else {
 					break;
 				}
 
 			} else if (hasPot) {
-				if (dungeon.uzivatVolba("Use pot", "Back") == 1) {
+				if (dungeon.uzivatVolba("Use pot", "Go out of house") == 1) {
 					Pot.POT.use(dungeon);
 				} else {
 					break;

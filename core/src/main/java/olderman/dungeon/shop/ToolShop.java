@@ -23,7 +23,6 @@ public class ToolShop {
 			firstTime = false;
 		}
 		dungeon.println(YELLOW.BRIGHT, dungeon.getForAll().gold + " gold");
-		dungeon.println(dungeon.getForAll().energy + "/100 energy");
 		choices: while (true) {
 			int volba = dungeon.uzivatVolba(
 					"Knife (" + dungeon.getForAll().knifeCost + "Gold)...allows you to separate animals!",

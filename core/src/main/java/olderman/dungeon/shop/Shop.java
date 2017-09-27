@@ -1,5 +1,7 @@
 package olderman.dungeon.shop;
 
+import static olderman.dungeon.Style.YELLOW;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,14 +30,14 @@ public class Shop {
 
 	public void shop() {
 
-        dungeon.println(Style.CENTER, "Welcome to a weapon shop \"Broken axe\"!");
-        while (dungeon.uzivatVolba("Look around!", "Leave!") == 1) {
+		dungeon.println(Style.CENTER, "Welcome to a weapon shop \"Broken axe\"!");
+		while (true) {
 
-			dungeon.println("You have " + dungeon.getForAll().gold + " gold.");
+			dungeon.println(YELLOW.BRIGHT, dungeon.getForAll().gold + " gold");
 			dungeon.println();
-            dungeon.println(Style.CENTER, "What will you get?");
+			dungeon.println(Style.CENTER, "What will you get?");
 
-            List<ShopItem> avilableItems = new ArrayList<>();
+			List<ShopItem> avilableItems = new ArrayList<>();
 			List<String> descriptions = new ArrayList<>();
 
 			for (ShopItem item : items) {
@@ -47,7 +49,7 @@ public class Shop {
 			}
 
 			avilableItems.add(null);
-			descriptions.add("Exit");
+			descriptions.add("Go away");
 
 			ShopItem selectedItem = avilableItems
 					.get(dungeon.uzivatVolba(descriptions.toArray(new String[descriptions.size()])) - 1);
@@ -57,11 +59,11 @@ public class Shop {
 			}
 
 			if (buyWithGold(selectedItem.getCost())) {
-                dungeon.println(Style.CENTER, "You bought a " + selectedItem.getName() + "!");
-                selectedItem.buy();
+				dungeon.println(Style.CENTER, "You bought a " + selectedItem.getName() + "!");
+				selectedItem.buy();
 			} else {
-                dungeon.println(Style.CENTER, "You don't have enough gold to buy a " + selectedItem.getName() + "!");
-            }
+				dungeon.println(Style.CENTER, "You don't have enough gold to buy a " + selectedItem.getName() + "!");
+			}
 		}
 	}
 
