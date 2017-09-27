@@ -40,7 +40,6 @@ public class Dungeon implements Serializable {
 	private Boss1 boss1 = new Boss1(this);
 	private Boss2 boss2;
 	private Way way;
-	private Room room;
 
 	// getters
 	public Random getRand() {
@@ -114,16 +113,20 @@ public class Dungeon implements Serializable {
 		return os.uzivatVolba(options);
 	}
 
+	private void applyStyle(Style o) {
+		if (o instanceof ColorStyle) {
+			os.color((ColorStyle) o);
+		} else if (o instanceof AttributeStyle) {
+			os.attribute((AttributeStyle) o);
+		} else if (o instanceof Reset) {
+			os.reset();
+		}
+	}
+
 	private void print0(Object... text) {
 		for (Object o : text) {
 			if (o instanceof Style) {
-				if (o instanceof ColorStyle) {
-					os.color((ColorStyle) o);
-				} else if (o instanceof AttributeStyle) {
-					os.attribute((AttributeStyle) o);
-				} else if (o instanceof Reset) {
-					os.reset();
-				}
+				applyStyle((Style) o);
 			} else {
 				os.print(o.toString());
 			}
@@ -148,7 +151,14 @@ public class Dungeon implements Serializable {
 		os.flush();
 	}
 
-	public void fillLine(ColorStyle bRIGHT, String text) {
+	public void fillLine(Style style, String text) {
+		applyStyle(style);
+		os.fillLine(text);
+		os.reset();
+		os.flush();
+	}
+
+	public void fillLine(String text) {
 		os.fillLine(text);
 		os.flush();
 	}
@@ -206,7 +216,6 @@ public class Dungeon implements Serializable {
 							GameCharacter.GOBLIN }[volba - 1];
 
 					forAll = new ForAll();
-					room = new Room(this);
 					plebs = new Plebs(rand);
 					town = new Town(this);
 					way = new Way(this);
@@ -281,10 +290,10 @@ public class Dungeon implements Serializable {
 					forAll.energy += 5;
 				}
 			}
-			Room freeRoom = way.map1.mapRooms[way.map1.w][way.map1.l];
+			Room room = way.map1.mapRooms[way.map1.w][way.map1.l];
 			forAll.resetDrinkHealthPotionCount();
 			boolean plebFight = true;
-			if (freeRoom.isFreeRoom()) {
+			if (room.isFreeRoom()) {
 				while (true) {
 					println(Style.CENTER, "What now?");
 					volba = uzivatVolba("Go on", "Open inventory and info", "Go in town", "Exit");
