@@ -1,24 +1,31 @@
 package olderman.dungeon.map;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Random;
 
+import olderman.dungeon.Dungeon;
 import olderman.dungeon.Resources;
 
 public class Map1 implements Serializable {
 
 	public Room[][] mapRooms;
 
-	int width = 5;
-	int length = 5;
-	public int leftEdge = 1;
-	public int rightEdge = width;
+	public int leftEdge;
+	public int downEdge;
+	public int rightEdge;
 	public int w;
-	public int w1 = (width + 1) / 2; // starting w
+	public int w1;
+	// public int w1 = (width + 1) / 2; // starting w
 	public int l;
 	public String map1 = Resources.getString("/Map1");
 
-	public Map1() {
+	private final Dungeon dungeon;
+
+	public Map1(Dungeon dungeon) {
+		this.dungeon = dungeon;
 		initializeRooms();
 	}
 
@@ -29,15 +36,20 @@ public class Map1 implements Serializable {
 		boolean isEven = rWidth % 2 == 0;
 		if (isEven) {
 			w = (rWidth) / 2;
+			w1 = (rWidth) / 2;
 		} else {
 			w = (rWidth + 1) / 2; // find middle if width is odd
+			w1 = (rWidth + 1) / 2;
 		}
 		l = 1;
+		leftEdge = 1;
+		rightEdge = rWidth;
+		downEdge = rHight;
 		mapRooms = new Room[rWidth][rHight];
 		for (int i = 0; i < mapRooms.length; i++) {
 			Room[] rooms = mapRooms[i];
 			for (int j = 0; j < rooms.length; j++) {
-				rooms[j] = new Room(null, i, j);
+				rooms[j] = new Room(dungeon, i, j);
 			}
 		}
 	}
@@ -49,39 +61,56 @@ public class Map1 implements Serializable {
 	}
 
 	int mapPosition;
+	BufferedWriter bw = null;
+	FileWriter fw = null;
+
+	public void createAsciiArtMap() throws IOException {
+		String content1 = " ";
+		String content2 = "/n";
+
+		fw = new FileWriter(map1);
+		bw = new BufferedWriter(fw);
+		for (int i = 0; i < downEdge; i++) {
+			for (int j = 0; j < rightEdge * 2 + 3; j++) {
+				bw.write(content1);
+			}
+			bw.write(content2);
+		}
+
+	}
 
 	public void asciiArtMap() {
-		mapPosition = w * 14 + l * 2;
+		mapPosition = w * (rightEdge * 2 + 4) + l * 2;
 		if (w == 1 && l == 1) {
 			map1 = changeCharInPosition(0, 'x', map1);
 		}
 		if (w == 1 && l == 5) {
-			map1 = changeCharInPosition(w * 12, 'x', map1);
+			map1 = changeCharInPosition(w * (rightEdge * 2 + 2), 'x', map1);
 		}
 		if (w == 5 && l == 1) {
-			map1 = changeCharInPosition((w + 1) * 14, 'x', map1);
+			map1 = changeCharInPosition((w + 1) * (rightEdge * 2 + 4), 'x', map1);
 		}
 		if (w == 5 && l == 5) {
-			map1 = changeCharInPosition(14 * (w + 2), 'x', map1);
+			map1 = changeCharInPosition((rightEdge * 2 + 4) * (w + 2), 'x', map1);
 		}
 		if (w == 1) {
 			map1 = changeCharInPosition(l * 2, 'x', map1);
 		}
 		if (w == 5) {
-			map1 = changeCharInPosition((w + 1) * 14 + l * 2, 'x', map1);
+			map1 = changeCharInPosition((w + 1) * (rightEdge * 2 + 4) + l * 2, 'x', map1);
 		}
 		if (l == 1) {
-			map1 = changeCharInPosition(w * 14, 'x', map1);
+			map1 = changeCharInPosition(w * (rightEdge * 2 + 4), 'x', map1);
 		}
 		if (l == 5) {
-			map1 = changeCharInPosition((w + 1) * 14 - 2, 'x', map1);
+			map1 = changeCharInPosition((w + 1) * (rightEdge * 2 + 4) - 2, 'x', map1);
 		}
 		map1 = map1.replace('D', 'c');
 		map1 = changeCharInPosition(mapPosition, 'D', map1);
 	}
 
 	public void mapBack() {
-		mapPosition = w * 14 + l * 2;
+		mapPosition = w * (rightEdge * 2 + 4) + l * 2;
 		if (l == rightEdge && w == w1) {
 			map1 = changeCharInPosition(mapPosition, 'A', map1);
 		} else {

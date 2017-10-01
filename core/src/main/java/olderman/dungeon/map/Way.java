@@ -10,11 +10,12 @@ public class Way implements Serializable {
 
 	public Way(Dungeon dungeon) {
 		this.dungeon = dungeon;
+		new Map1(dungeon);
 
 	}
 
 	private final Dungeon dungeon;
-	public Map1 map1 = new Map1();
+	public Map1 map1;
 	public int wayChoice;
 
 	public void go() {
