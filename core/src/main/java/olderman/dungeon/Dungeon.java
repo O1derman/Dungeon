@@ -191,21 +191,20 @@ public class Dungeon implements Serializable {
 
 	// main
 
-	public void run() throws InterruptedException, IOException {
+	public void run() throws InterruptedException {
 		clear();
 		menu();
 	}
 
 	long startTime = System.nanoTime();
 
-	private void menu() throws InterruptedException, IOException {
+	private void menu() throws InterruptedException {
 		while (true) {
 			clear();
 			printAsciiArt(HEADLINE);
 			int volba = uzivatVolba("Start", "Load saved game", "Help", "Exit");
 			switch (volba) {
 			case 1:
-				way.map1.createAsciiArtMap();
 				println(Style.CENTER, "Welcome to the dungeon!");
 				println();
 				println(Style.CENTER, "Which character would you like to play?\n");
@@ -222,6 +221,7 @@ public class Dungeon implements Serializable {
 					way = new Way(this);
 					inventory = new Inventory(this);
 
+					way.map1.createAsciiArtMap();
 					forAll.health = character.getInitialHealth();
 					forAll.maximumHealth = character.getInitialMaximumHealth();
 					println(character.getBeginning());

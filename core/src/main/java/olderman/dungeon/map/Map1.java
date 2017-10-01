@@ -64,19 +64,21 @@ public class Map1 implements Serializable {
 	BufferedWriter bw = null;
 	FileWriter fw = null;
 
-	public void createAsciiArtMap() throws IOException {
+	public void createAsciiArtMap() {
 		String content1 = " ";
 		String content2 = "/n";
-
-		fw = new FileWriter(map1);
-		bw = new BufferedWriter(fw);
-		for (int i = 0; i < downEdge; i++) {
-			for (int j = 0; j < rightEdge * 2 + 3; j++) {
-				bw.write(content1);
+		try {
+			fw = new FileWriter(map1);
+			bw = new BufferedWriter(fw);
+			for (int i = 0; i < downEdge; i++) {
+				for (int j = 0; j < rightEdge * 2 + 3; j++) {
+					bw.write(content1);
+				}
+				bw.write(content2);
 			}
-			bw.write(content2);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-
 	}
 
 	public void asciiArtMap() {
