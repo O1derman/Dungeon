@@ -20,7 +20,7 @@ public class Map1 implements Serializable {
 	public int w1;
 	// public int w1 = (width + 1) / 2; // starting w
 	public int l;
-	public String map1 = Resources.getString("/Map1");
+	public String map1 = "";
 
 	private final Dungeon dungeon;
 
@@ -66,18 +66,12 @@ public class Map1 implements Serializable {
 
 	public void createAsciiArtMap() {
 		String content1 = " ";
-		String content2 = "/n";
-		try {
-			fw = new FileWriter(map1);
-			bw = new BufferedWriter(fw);
-			for (int i = 0; i < downEdge; i++) {
-				for (int j = 0; j < rightEdge * 2 + 3; j++) {
-					bw.write(content1);
-				}
-				bw.write(content2);
+		String content2 = "\n";
+		for (int i = 0; i < downEdge; i++) {
+			for (int j = 0; j < rightEdge * 2 + 3; j++) {
+				map1 += content1;
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+			map1 += content2;
 		}
 	}
 

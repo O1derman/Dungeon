@@ -10,7 +10,7 @@ public class Way implements Serializable {
 
 	public Way(Dungeon dungeon) {
 		this.dungeon = dungeon;
-		new Map1(dungeon);
+		this.map1 = new Map1(dungeon);
 
 	}
 
