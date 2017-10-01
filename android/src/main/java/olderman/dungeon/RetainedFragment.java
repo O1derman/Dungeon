@@ -29,7 +29,7 @@ public class RetainedFragment extends Fragment {
 					try {
 						Thread.sleep(500);
 						dungeon.run();
-					} catch (ExitException | InterruptedException | IOException ignored) {
+					} catch (ExitException | InterruptedException ignored) {
 					}
 					finished = true;
 				}
