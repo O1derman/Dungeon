@@ -80,25 +80,25 @@ public class Map1 implements Serializable {
 		if (w == 1 && l == 1) {
 			map1 = changeCharInPosition(0, 'x', map1);
 		}
-		if (w == 1 && l == 5) {
+		if (w == 1 && l == downEdge) {
 			map1 = changeCharInPosition(w * (rightEdge * 2 + 2), 'x', map1);
 		}
-		if (w == 5 && l == 1) {
+		if (w == rightEdge && l == 1) {
 			map1 = changeCharInPosition((w + 1) * (rightEdge * 2 + 4), 'x', map1);
 		}
-		if (w == 5 && l == 5) {
+		if (w == rightEdge && l == downEdge) {
 			map1 = changeCharInPosition((rightEdge * 2 + 4) * (w + 2), 'x', map1);
 		}
 		if (w == 1) {
 			map1 = changeCharInPosition(l * 2, 'x', map1);
 		}
-		if (w == 5) {
+		if (w == rightEdge) {
 			map1 = changeCharInPosition((w + 1) * (rightEdge * 2 + 4) + l * 2, 'x', map1);
 		}
 		if (l == 1) {
 			map1 = changeCharInPosition(w * (rightEdge * 2 + 4), 'x', map1);
 		}
-		if (l == 5) {
+		if (l == downEdge) {
 			map1 = changeCharInPosition((w + 1) * (rightEdge * 2 + 4) - 2, 'x', map1);
 		}
 		map1 = map1.replace('D', 'c');
