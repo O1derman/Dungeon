@@ -9,7 +9,7 @@ import java.util.Random;
 import olderman.dungeon.Dungeon;
 import olderman.dungeon.Resources;
 
-public class Map1 implements Serializable {
+public class RandMap implements Serializable {
 
 	public Room[][] mapRooms;
 
@@ -24,7 +24,7 @@ public class Map1 implements Serializable {
 
 	private final Dungeon dungeon;
 
-	public Map1(Dungeon dungeon) {
+	public RandMap(Dungeon dungeon) {
 		this.dungeon = dungeon;
 		initializeRooms();
 	}
