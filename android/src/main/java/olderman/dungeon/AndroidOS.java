@@ -239,7 +239,7 @@ public class AndroidOS implements OS {
 			}
 		}
 
-		private static final Pattern NEWLINE = Pattern.compile("\\v|$");
+		private static final Pattern NEWLINE = Pattern.compile("[\\r\\n]+");
 
 		public void printAsciiArtImpl(String asciiArt) {
 			Paint paint = textView.getPaint();
