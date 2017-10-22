@@ -173,6 +173,59 @@ public class Dungeon implements Serializable {
 		os.flush();
 	}
 
+	public void printResources() {
+		if (forAll.feather > 1) {
+			println(forAll.bird + " feathers");
+
+		}
+		if (forAll.feather == 1) {
+			println(forAll.bird + " feather");
+		}
+		if (forAll.squirelTails > 1) {
+			println(forAll.bird + " squirel tails");
+
+		}
+		if (forAll.squirelTails == 1) {
+			println(forAll.bird + " squirel tail");
+		}
+		if (forAll.snakeBrain > 1) {
+			println(forAll.bird + " snake brains");
+
+		}
+		if (forAll.snakeBrain == 1) {
+			println(forAll.bird + " snake brain");
+		}
+		if (forAll.frogRightEye > 1) {
+			println(forAll.bird + " frog right eyes");
+
+		}
+		if (forAll.frogRightEye == 1) {
+			println(forAll.bird + " frog right eye");
+		}
+		if (forAll.frogLeftEye > 1) {
+			println(forAll.bird + " frog left eyes");
+
+		}
+		if (forAll.frogLeftEye == 1) {
+			println(forAll.bird + " frog left eye");
+		}
+		if (forAll.frogHead > 1) {
+			println(forAll.bird + " frog heads");
+
+		}
+		if (forAll.frogHead == 1) {
+			println(forAll.bird + " frog head");
+		}
+		if (forAll.frogHeart > 1) {
+			println(forAll.bird + " frog hearts");
+
+		}
+		if (forAll.frogHeart == 1) {
+			println(forAll.bird + " frog heart");
+		}
+
+	}
+
 	// Serialize data
 	public void saveData() {
 
@@ -297,7 +350,7 @@ public class Dungeon implements Serializable {
 			if (room.isFreeRoom()) {
 				while (true) {
 					println(Style.CENTER, "What now?");
-					volba = uzivatVolba("Go on", "Open inventory and info", "Go in town", "Exit");
+					volba = uzivatVolba("Go on", "Open inventory and info", "Go to town", "Exit");
 					if (volba == 1) { // Go on
 						way.go();
 						if (reset) {
@@ -308,7 +361,7 @@ public class Dungeon implements Serializable {
 						inventoryAndInfo(false);
 						continue FIGHT;
 
-					} else if (volba == 3) { // Go in town
+					} else if (volba == 3) { // Go to town
 						town.town();
 						continue FIGHT;
 					} else if (volba == 4) { // Exit
@@ -330,7 +383,7 @@ public class Dungeon implements Serializable {
 
 				while (true) {
 					println(Style.CENTER, "What now?");
-					volba = uzivatVolba("Fight", "Go back", "Open inventory and info", "Go in town", "Exit");
+					volba = uzivatVolba("Fight", "Go back", "Open inventory and info", "Go to town", "Exit");
 					if (volba == 1) { // Attack
 						if (way.map1.l == way.map1.rightEdge && way.map1.w == way.map1.w1 && forAll.floor == 1) {
 							boss1.boss1Quote();
@@ -350,7 +403,7 @@ public class Dungeon implements Serializable {
 					} else if (volba == 3) { // Open inventory and info
 						inventoryAndInfo(false);
 						continue FIGHT;
-					} else if (volba == 4) { // Go in town
+					} else if (volba == 4) { // Go to town
 						town.town();
 						continue FIGHT;
 					} else if (volba == 5) { // Exit
@@ -547,65 +600,66 @@ public class Dungeon implements Serializable {
 			}
 			if (getForAll().resistence > 0) {
 				println(100 - this.getForAll().resistence + "% resistance");
-			}
-			if (forAll.woodenAxe > 0) {
-				println("Wooden axe");
-			}
-			if (forAll.bronzeAxe > 0) {
-				println("Bronze axe");
-			}
-			if (forAll.silverAxe > 0) {
-				println("Silver axe");
-			}
-			if (forAll.ironAxe > 0) {
-				println("Iron axe");
-			}
-			if (forAll.sneak > 1) {
-				println(forAll.sneak + " sneaks");
+				if (forAll.woodenAxe > 0) {
+					println("Wooden axe");
+				}
+				if (forAll.bronzeAxe > 0) {
+					println("Bronze axe");
+				}
+				if (forAll.silverAxe > 0) {
+					println("Silver axe");
+				}
+				if (forAll.ironAxe > 0) {
+					println("Iron axe");
+				}
+				if (forAll.snake > 1) {
+					println(forAll.snake + " snakes");
 
-			}
-			if (forAll.sneak == 1) {
-				println(forAll.sneak + " sneak");
+				}
+				if (forAll.snake == 1) {
+					println(forAll.snake + " snake");
 
-			}
-			if (forAll.sneak > 1) {
-				println(forAll.frog + " frogs");
+				}
+				if (forAll.frog > 1) {
+					println(forAll.frog + " frogs");
 
-			}
-			if (forAll.sneak == 1) {
-				println(forAll.frog + " frog");
+				}
+				if (forAll.frog == 1) {
+					println(forAll.frog + " frog");
 
-			}
-			if (forAll.sneak > 1) {
-				println(forAll.worm + " worms");
+				}
+				if (forAll.worm > 1) {
+					println(forAll.worm + " worms");
 
-			}
-			if (forAll.sneak == 1) {
-				println(forAll.worm + " worm");
+				}
+				if (forAll.worm == 1) {
+					println(forAll.worm + " worm");
 
-			}
-			if (forAll.sneak > 1) {
-				println(forAll.squirel + " squirels");
+				}
+				if (forAll.squirel > 1) {
+					println(forAll.squirel + " squirels");
 
-			}
-			if (forAll.sneak == 1) {
-				println(forAll.squirel + " squirel");
+				}
+				if (forAll.squirel == 1) {
+					println(forAll.squirel + " squirel");
 
-			}
-			if (forAll.sneak > 1) {
-				println(forAll.wood + " wood");
+				}
+				if (forAll.wood > 1) {
+					println(forAll.wood + " wood");
 
-			}
-			if (forAll.sneak == 1) {
-				println(forAll.wood + " wood");
+				}
+				if (forAll.wood == 1) {
+					println(forAll.wood + " wood");
 
-			}
-			if (forAll.sneak > 1) {
-				println(forAll.bird + " birds");
+				}
+				if (forAll.bird > 1) {
+					println(forAll.bird + " birds");
 
-			}
-			if (forAll.sneak == 1) {
-				println(forAll.bird + " bird");
+				}
+				if (forAll.bird == 1) {
+					println(forAll.bird + " bird");
+				}
+				printResources();
 
 			}
 			println(forAll.lCapacity + "/" + this.getCharacter().loadCapacity + " load capacity");

@@ -94,6 +94,7 @@ public class Inventory {
 				return null;
 			}
 			dungeon.getForAll().hasDrunkHealthPotion = true;
+			dungeon.getForAll().flashk++;
 		}
 		if (type == Type.WEAPON) {
 			dungeon.getForAll().resetDrinkHealthPotionCount();

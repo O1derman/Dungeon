@@ -21,7 +21,12 @@ public class Forest {
 			if (dungeon.getForAll().bird == 1) {
 				dungeon.println(dungeon.getForAll().bird + " bird");
 			} else {
-				dungeon.println(dungeon.getForAll().bird + " birs");
+				dungeon.println(dungeon.getForAll().bird + " birds");
+			}
+			if (dungeon.getForAll().squirel == 1) {
+				dungeon.println(dungeon.getForAll().squirel + " squirel");
+			} else {
+				dungeon.println(dungeon.getForAll().squirel + " squirels");
 			}
 			dungeon.println();
 			dungeon.println(Style.CENTER, "What now?");

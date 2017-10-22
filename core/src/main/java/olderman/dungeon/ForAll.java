@@ -67,13 +67,14 @@ public class ForAll implements Serializable {
 	public int worm = 0;
 	public int wormHeft = 5;
 	public int wormChance = 10; // %
-	public int sneakBrain = 0;
+	public int snakeBrain = 0;
 	public int squirelTails = 0;
 	public int frogHead = 0;
-	public int sneak = 0;
+	public int snake = 0;
 	public int sneakHeft = 5;
 	public int sneakChance = 10; // %
 	public int flashk = 0;
+	public int flashkCost = 100;
 	public int frog = 0;
 	public int frogHeft = 10;
 	public int frogChance = 10; // %

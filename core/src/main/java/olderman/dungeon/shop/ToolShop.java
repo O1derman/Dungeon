@@ -26,6 +26,7 @@ public class ToolShop {
 		choices: while (true) {
 			int volba = dungeon.uzivatVolba(
 					"Knife (" + dungeon.getForAll().knifeCost + "Gold)...allows you to separate animals!",
+					"Flashk (" + dungeon.getForAll().flashkCost + "Gold)...needed to be able to create potions!",
 					"Bronze axe (" + dungeon.getForAll().bronzeAxeCost + "Gold)...allows you to cut trees faster!",
 					"Iron axe (" + dungeon.getForAll().ironAxeCost + "Gold)...allows you to cut trees faster!",
 					"Silver axe (" + dungeon.getForAll().silverAxeCost + "Gold)...allows you to cut trees faster!",
@@ -41,6 +42,15 @@ public class ToolShop {
 					continue choices;
 				}
 			case 2:
+				if (dungeon.getForAll().gold < dungeon.getForAll().flashkCost) {
+					dungeon.println("You don't have enough gold!");
+					continue choices;
+				} else {
+					dungeon.getForAll().flashk++;
+					dungeon.println("You bought a flashk.");
+					continue choices;
+				}
+			case 3:
 				if (dungeon.getForAll().gold < dungeon.getForAll().bronzeAxeCost) {
 					dungeon.println("You don't have enough gold!");
 					continue choices;
@@ -52,7 +62,7 @@ public class ToolShop {
 					dungeon.println("You bought a bronze axe.");
 					continue choices;
 				}
-			case 3:
+			case 4:
 				if (dungeon.getForAll().gold < dungeon.getForAll().ironAxeCost) {
 					dungeon.println("You don't have enough gold!");
 					continue choices;
@@ -64,7 +74,7 @@ public class ToolShop {
 					dungeon.println("You bought a iron axe.");
 					continue choices;
 				}
-			case 4:
+			case 5:
 				if (dungeon.getForAll().gold < dungeon.getForAll().silverAxeCost) {
 					dungeon.println("You don't have enough gold!");
 					continue choices;

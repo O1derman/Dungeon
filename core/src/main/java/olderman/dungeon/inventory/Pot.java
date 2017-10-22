@@ -14,6 +14,9 @@ public class Pot extends InventoryItem {
 	@Override
 	public boolean use(Dungeon dungeon) {
 		POTIONS: while (true) {
+			dungeon.clear();
+			dungeon.printResources();
+			dungeon.println(Style.CENTER, "What do you want to do?");
 			int potCrafting = dungeon.uzivatVolba("Read dormitory", "Create small health potion",
 					"Create medium health potion", "Create large health potion", "Create teleport potion",
 					"Create potion of concentration", "Create potion of invisibility", "Stop using pot");
@@ -27,11 +30,12 @@ public class Pot extends InventoryItem {
 				dungeon.println(
 						"To create potion of concentration you need 1 sneak brain, 2 squirel tails and 1 frog head.");
 				dungeon.println("To create potion of invisibility you need eye of snake and both eyes of frog.");
-			} else if (potCrafting == 2 ^ potCrafting == 3 ^ potCrafting == 4 ^ potCrafting == 5 ^ potCrafting == 6
-					^ potCrafting == 7 && dungeon.getForAll().flashk == 0) {
+			}
+			if (potCrafting != 1 && dungeon.getForAll().flashk == 0) {
 				dungeon.println(Style.CENTER, "You don't have flask to fill with potion.");
 				continue POTIONS;
-			} else if (potCrafting == 2) {// Create small health potion
+			}
+			if (potCrafting == 2) {// Create small health potion
 				if (dungeon.getForAll().frogHeart >= 1 && dungeon.getForAll().worm >= 2) {
 					dungeon.println(Style.CENTER, "You created a small health potion.");
 					dungeon.getForAll().frogHeart--;
@@ -40,7 +44,8 @@ public class Pot extends InventoryItem {
 				} else {
 					dungeon.println(Style.CENTER, "You don't have enough ingredience to create small health potion.");
 				}
-			} else if (potCrafting == 3) {// Create medium health potion
+			}
+			if (potCrafting == 3) {// Create medium health potion
 				if (dungeon.getForAll().frogHeart >= 2 && dungeon.getForAll().worm >= 2) {
 					dungeon.println(Style.CENTER, "You created a medium health potion.");
 					dungeon.getForAll().frogHeart -= 2;
@@ -49,7 +54,8 @@ public class Pot extends InventoryItem {
 				} else {
 					dungeon.println(Style.CENTER, "You dont have enough ingredients to create medium health potion.");
 				}
-			} else if (potCrafting == 4) {// Create large health potion
+			}
+			if (potCrafting == 4) {// Create large health potion
 				if (dungeon.getForAll().frogHeart >= 3 && dungeon.getForAll().worm >= 4) {
 					dungeon.println(Style.CENTER, "You created a large health potion.");
 					dungeon.getForAll().frogHeart -= 3;
@@ -58,7 +64,8 @@ public class Pot extends InventoryItem {
 				} else {
 					dungeon.println(Style.CENTER, "You dont have enough ingredients to create large health potion.");
 				}
-			} else if (potCrafting == 5) {// Create teleport potion
+			}
+			if (potCrafting == 5) {// Create teleport potion
 				if (dungeon.getForAll().frogLeftEye >= 1 && dungeon.getForAll().frogLeg >= 4) {
 					dungeon.println(Style.CENTER, "You created a teleportation potion.");
 					dungeon.getForAll().frogLeftEye--;
@@ -67,21 +74,23 @@ public class Pot extends InventoryItem {
 				} else {
 					dungeon.println(Style.CENTER, "You dont have enough ingredients to create teleport potion.");
 				}
-			} else if (potCrafting == 6) {// Create potion of concentration
-				if (dungeon.getForAll().sneakBrain >= 1 && dungeon.getForAll().squirelTails >= 2
+			}
+			if (potCrafting == 6) {// Create potion of concentration
+				if (dungeon.getForAll().snakeBrain >= 1 && dungeon.getForAll().squirelTails >= 2
 						&& dungeon.getForAll().frogHead >= 1) {
 					dungeon.println(Style.CENTER, "You created a potion of concentration.");
-					dungeon.getForAll().sneakBrain--;
+					dungeon.getForAll().snakeBrain--;
 					dungeon.getForAll().squirelTails -= 2;
 					dungeon.getForAll().frogHead--;
 					dungeon.getForAll().numPotionOfConcentration++;
 				} else {
 					dungeon.println(Style.CENTER, "You dont have enough ingredients to potion of concentration.");
 				}
-			} else if (potCrafting == 7) {// Create potion of invisibility
+			}
+			if (potCrafting == 7) {// Create potion of invisibility
 				if (dungeon.getForAll().frogLeftEye >= 2 && dungeon.getForAll().frogLeg >= 4) {
 					dungeon.println(Style.CENTER, "You created a potion of concentration.");
-					dungeon.getForAll().sneakBrain--;
+					dungeon.getForAll().snakeBrain--;
 					dungeon.getForAll().squirelTails -= 2;
 					dungeon.getForAll().frogHead--;
 					dungeon.getForAll().numPotionOfInvisibility++;
@@ -90,6 +99,8 @@ public class Pot extends InventoryItem {
 				}
 			} else {
 				break;
+			}
+			switch (dungeon.uzivatVolba("Continue")) {
 			}
 		}
 		return false;

@@ -31,9 +31,9 @@ public class Room {
 					.getLoadCapacity()) {
 				dungeon.println(Style.CENTER, "You don't have enough load capacity!");
 			} else {
-				dungeon.getForAll().sneak++;
+				dungeon.getForAll().snake++;
 				dungeon.getForAll().lCapacity += dungeon.getForAll().sneakHeft;
-				dungeon.println(Style.CENTER, "You found a Sneak.");
+				dungeon.println(Style.CENTER, "You found a Snake.");
 			}
 			emptyRoom = false;
 

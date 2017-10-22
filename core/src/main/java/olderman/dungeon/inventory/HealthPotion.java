@@ -4,9 +4,9 @@ import olderman.dungeon.Dungeon;
 
 public class HealthPotion extends InventoryItem {
 
-	public static final HealthPotion SMALL = new HealthPotion("small", 20);
-	public static final HealthPotion MEDIUM = new HealthPotion("medium", 50);
-	public static final HealthPotion LARGE = new HealthPotion("large", 100);
+	public static final HealthPotion SMALL = new HealthPotion("small -> +20hp", 20);
+	public static final HealthPotion MEDIUM = new HealthPotion("medium -> +50hp", 50);
+	public static final HealthPotion LARGE = new HealthPotion("large -> +100hp", 100);
 
 	private final String type;
 	private final int healAmount;
@@ -24,12 +24,12 @@ public class HealthPotion extends InventoryItem {
 		int maximumHealth = dungeon.getForAll().maximumHealth;
 		health += healAmount;
 		if (health <= maximumHealth) {
-			dungeon.println(
-					"\t> You drink a " + type + " health potion, healing yourself for " + healAmount + ".");
+			dungeon.println("\t> You drink a " + type + " health potion, healing yourself for " + healAmount + ".");
 			dungeon.println("\t> You now have " + health + "HP.");
 		} else {
 			health = maximumHealth;
-			dungeon.println("You drank a health potion. While you would overheal your maximum health, you have maximum health now!");
+			dungeon.println(
+					"You drank a health potion. While you would overheal your maximum health, you have maximum health now!");
 		}
 		dungeon.setHealth(health);
 		return true;
