@@ -257,25 +257,25 @@ public class Dungeon implements Serializable {
 	public void loadData() {
 		// create arraylist to store deserialized objects
 		ArrayList<Object> deserialized = new ArrayList<Object>();
-		for (Object o : deserialized) {
-			if (o instanceof ForAll) {
-				this.forAll = (ForAll) o;
-			}
-			if (o instanceof RandMapData) {
-				way.randMap.data = (RandMapData) o;
-			}
-			if (o instanceof GameCharacter) {
-				this.character = (GameCharacter) o;
-			}
-			if (o instanceof Plebs) {
-				this.plebs = (Plebs) o;
-			}
-		}
 
 		try {
 			FileInputStream fileIn = new FileInputStream("data.ser");
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 			deserialized = (ArrayList<Object>) in.readObject();
+			for (Object o : deserialized) {
+				if (o instanceof ForAll) {
+					this.forAll = (ForAll) o;
+				}
+				if (o instanceof RandMapData) {
+					way.randMap.data = (RandMapData) o;
+				}
+				if (o instanceof GameCharacter) {
+					this.character = (GameCharacter) o;
+				}
+				if (o instanceof Plebs) {
+					this.plebs = (Plebs) o;
+				}
+			}
 			in.close();
 			fileIn.close();
 		} catch (IOException i) {
