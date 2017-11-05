@@ -7,6 +7,7 @@ import olderman.dungeon.enemies.Plebs;
 import olderman.dungeon.inventory.HealthPotion;
 import olderman.dungeon.inventory.Inventory;
 import olderman.dungeon.map.RandMap;
+import olderman.dungeon.map.RandMapData;
 import olderman.dungeon.map.Room;
 import olderman.dungeon.map.Way;
 import olderman.dungeon.town.Town;
@@ -19,6 +20,7 @@ import static olderman.dungeon.Style.RED;
 import static olderman.dungeon.Style.Reset;
 import static olderman.dungeon.Style.YELLOW;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -245,7 +247,6 @@ public class Dungeon implements Serializable {
 			out.writeObject(data);
 			out.close();
 			fileOut.close();
-			way.randMap.data.saved = true;
 			println(Style.CENTER, "Saved");
 
 		} catch (IOException i) {
@@ -256,6 +257,20 @@ public class Dungeon implements Serializable {
 	public void loadData() {
 		// create arraylist to store deserialized objects
 		ArrayList<Object> deserialized = new ArrayList<Object>();
+		for (Object o : deserialized) {
+			if (o instanceof ForAll) {
+				this.forAll = (ForAll) o;
+			}
+			if (o instanceof RandMapData) {
+				way.randMap.data = (RandMapData) o;
+			}
+			if (o instanceof GameCharacter) {
+				this.character = (GameCharacter) o;
+			}
+			if (o instanceof Plebs) {
+				this.plebs = (Plebs) o;
+			}
+		}
 
 		try {
 			FileInputStream fileIn = new FileInputStream("data.ser");
@@ -283,6 +298,12 @@ public class Dungeon implements Serializable {
 
 	private void menu() throws InterruptedException {
 		while (true) {
+			forAll = new ForAll();
+			plebs = new Plebs(rand);
+			town = new Town(this);
+			way = new Way(this);
+			inventory = new Inventory(this);
+
 			clear();
 			printAsciiArt(HEADLINE);
 			int volba = uzivatVolba("Start", "Load saved game", "Help", "Exit");
@@ -298,12 +319,6 @@ public class Dungeon implements Serializable {
 					character = new GameCharacter[] { GameCharacter.DWARF, GameCharacter.ORC, GameCharacter.ELF,
 							GameCharacter.GOBLIN }[volba - 1];
 
-					forAll = new ForAll();
-					plebs = new Plebs(rand);
-					town = new Town(this);
-					way = new Way(this);
-					inventory = new Inventory(this);
-
 					way.randMap.createAsciiArtMap();
 					forAll.health = character.getInitialHealth();
 					forAll.maximumHealth = character.getInitialMaximumHealth();
@@ -318,7 +333,8 @@ public class Dungeon implements Serializable {
 				break;
 
 			case 2:
-				if (way.randMap.data.saved) {
+				File f = new File("data.ser");
+				if (f.exists()) {
 					loadData();
 					town.getHouse().inside();
 					game();
@@ -383,7 +399,7 @@ public class Dungeon implements Serializable {
 					forAll.energy += 5;
 				}
 			}
-			Room room = way.randMap.mapRooms[way.randMap.data.w][way.randMap.data.l];
+			Room room = way.randMap.data.mapRooms[way.randMap.data.w][way.randMap.data.l];
 			forAll.resetDrinkHealthPotionCount();
 			boolean plebFight = true;
 			if (room.isFreeRoom()) {
@@ -544,7 +560,7 @@ public class Dungeon implements Serializable {
 				println();
 			}
 			int goldFound;
-			way.randMap.mapRooms[way.randMap.data.w][way.randMap.data.l].setFreeRoom(true);
+			way.randMap.data.mapRooms[way.randMap.data.w][way.randMap.data.l].setFreeRoom(true);
 			boolean bossKilled = false;
 			println();
 			println();

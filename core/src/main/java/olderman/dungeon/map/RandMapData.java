@@ -1,8 +1,11 @@
 package olderman.dungeon.map;
 
-public class RandMapData {
+import java.io.Serializable;
 
-	public boolean saved;
+public class RandMapData implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	public Room[][] mapRooms;
 	public int leftEdge;
 	public int downEdge;
 	public int rightEdge;

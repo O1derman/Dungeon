@@ -13,8 +13,6 @@ public class RandMap implements Serializable {
 	public RandMapData data = new RandMapData();
 	private static final long serialVersionUID = 1L;
 
-	public Room[][] mapRooms;
-
 	private final Dungeon dungeon;
 
 	public RandMap(Dungeon dungeon) {
@@ -38,9 +36,9 @@ public class RandMap implements Serializable {
 		data.leftEdge = 1;
 		data.rightEdge = rWidth;
 		data.downEdge = rHight;
-		mapRooms = new Room[rWidth][rHight];
-		for (int i = 0; i < mapRooms.length; i++) {
-			Room[] rooms = mapRooms[i];
+		data.mapRooms = new Room[rWidth][rHight];
+		for (int i = 0; i < data.mapRooms.length; i++) {
+			Room[] rooms = data.mapRooms[i];
 			for (int j = 0; j < rooms.length; j++) {
 				rooms[j] = new Room(dungeon, i, j);
 			}
