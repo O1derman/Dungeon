@@ -1,9 +1,12 @@
 package olderman.dungeon.map;
 
+import java.io.Serializable;
+
 import olderman.dungeon.Dungeon;
 import olderman.dungeon.Style;
 
-public class Room {
+public class Room implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private boolean freeRoom = false;
 	private int x;
 	private int y;

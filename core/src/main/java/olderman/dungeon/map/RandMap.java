@@ -10,18 +10,10 @@ import olderman.dungeon.Dungeon;
 import olderman.dungeon.Resources;
 
 public class RandMap implements Serializable {
+	public RandMapData data = new RandMapData();
 	private static final long serialVersionUID = 1L;
 
 	public Room[][] mapRooms;
-
-	public int leftEdge;
-	public int downEdge;
-	public int rightEdge;
-	public int w;
-	public int w1;
-	// public int w1 = (width + 1) / 2; // starting w
-	public int l;
-	public String map = "";
 
 	private final Dungeon dungeon;
 
@@ -36,16 +28,16 @@ public class RandMap implements Serializable {
 		int rHight = r.nextInt(10) + 5;
 		boolean isEven = rWidth % 2 == 0;
 		if (isEven) {
-			w = (rWidth) / 2;
-			w1 = (rWidth) / 2;
+			data.w = (rWidth) / 2;
+			data.w1 = (rWidth) / 2;
 		} else {
-			w = (rWidth + 1) / 2; // find middle if width is odd
-			w1 = (rWidth + 1) / 2;
+			data.w = (rWidth + 1) / 2; // find middle if width is odd
+			data.w1 = (rWidth + 1) / 2;
 		}
-		l = 1;
-		leftEdge = 1;
-		rightEdge = rWidth;
-		downEdge = rHight;
+		data.l = 1;
+		data.leftEdge = 1;
+		data.rightEdge = rWidth;
+		data.downEdge = rHight;
 		mapRooms = new Room[rWidth][rHight];
 		for (int i = 0; i < mapRooms.length; i++) {
 			Room[] rooms = mapRooms[i];
@@ -68,70 +60,70 @@ public class RandMap implements Serializable {
 	public void createAsciiArtMap() {
 		String content1 = " ";
 		String content2 = "\n";
-		for (int i = 0; i < downEdge; i++) {
-			for (int j = 0; j < rightEdge * 2 + 3; j++) {
-				map += content1;
+		for (int i = 0; i < data.downEdge; i++) {
+			for (int j = 0; j < data.rightEdge * 2 + 3; j++) {
+				data.map += content1;
 			}
-			map += content2;
+			data.map += content2;
 		}
 	}
 
 	public void asciiArtMap() {
-		mapPosition = w * (rightEdge * 2 + 4) + l * 2;
-		if (w == 1 && l == 1) {
-			map = changeCharInPosition(0, 'x', map);
+		mapPosition = data.w * (data.rightEdge * 2 + 4) + data.l * 2;
+		if (data.w == 1 && data.l == 1) {
+			data.map = changeCharInPosition(0, 'x', data.map);
 		}
-		if (w == 1 && l == downEdge) {
-			map = changeCharInPosition(w * (rightEdge * 2 + 2), 'x', map);
+		if (data.w == 1 && data.l == data.downEdge) {
+			data.map = changeCharInPosition(data.w * (data.rightEdge * 2 + 2), 'x', data.map);
 		}
-		if (w == rightEdge && l == 1) {
-			map = changeCharInPosition((w + 1) * (rightEdge * 2 + 4), 'x', map);
+		if (data.w == data.rightEdge && data.l == 1) {
+			data.map = changeCharInPosition((data.w + 1) * (data.rightEdge * 2 + 4), 'x', data.map);
 		}
-		if (w == rightEdge && l == downEdge) {
-			map = changeCharInPosition((rightEdge * 2 + 4) * (w + 2), 'x', map);
+		if (data.w == data.rightEdge && data.l == data.downEdge) {
+			data.map = changeCharInPosition((data.rightEdge * 2 + 4) * (data.w + 2), 'x', data.map);
 		}
-		if (w == 1) {
-			map = changeCharInPosition(l * 2, 'x', map);
+		if (data.w == 1) {
+			data.map = changeCharInPosition(data.l * 2, 'x', data.map);
 		}
-		if (w == rightEdge) {
-			map = changeCharInPosition((w + 1) * (rightEdge * 2 + 4) + l * 2, 'x', map);
+		if (data.w == data.rightEdge) {
+			data.map = changeCharInPosition((data.w + 1) * (data.rightEdge * 2 + 4) + data.l * 2, 'x', data.map);
 		}
-		if (l == 1) {
-			map = changeCharInPosition(w * (rightEdge * 2 + 4), 'x', map);
+		if (data.l == 1) {
+			data.map = changeCharInPosition(data.w * (data.rightEdge * 2 + 4), 'x', data.map);
 		}
-		if (l == downEdge) {
-			map = changeCharInPosition((w + 1) * (rightEdge * 2 + 4) - 2, 'x', map);
+		if (data.l == data.downEdge) {
+			data.map = changeCharInPosition((data.w + 1) * (data.rightEdge * 2 + 4) - 2, 'x', data.map);
 		}
-		map = map.replace('D', 'c');
-		map = changeCharInPosition(mapPosition, 'D', map);
+		data.map = data.map.replace('D', 'c');
+		data.map = changeCharInPosition(mapPosition, 'D', data.map);
 	}
 
 	public void mapBack() {
-		mapPosition = w * (rightEdge * 2 + 4) + l * 2;
-		if (l == rightEdge && w == w1) {
-			map = changeCharInPosition(mapPosition, 'A', map);
+		mapPosition = data.w * (data.rightEdge * 2 + 4) + data.l * 2;
+		if (data.l == data.rightEdge && data.w == data.w1) {
+			data.map = changeCharInPosition(mapPosition, 'A', data.map);
 		} else {
-			map = changeCharInPosition(mapPosition, 'o', map);
+			data.map = changeCharInPosition(mapPosition, 'o', data.map);
 		}
 	}
 
 	public void goLeft() {
-		w--;
+		data.w--;
 		asciiArtMap();
 	}
 
 	public void goRight() {
-		w++;
+		data.w++;
 		asciiArtMap();
 	}
 
 	public void goStraight() {
-		l++;
+		data.l++;
 		asciiArtMap();
 	}
 
 	public void goBackwards() {
-		l--;
+		data.l--;
 		asciiArtMap();
 	}
 

@@ -5,6 +5,7 @@ import olderman.dungeon.RandomValue;
 
 public class Weapon extends InventoryItem {
 
+	private static final long serialVersionUID = 1L;
 	public static final Weapon HAND = new Weapon("Hand", 0);
 
 	private final int damageIncrease;

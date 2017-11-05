@@ -230,15 +230,12 @@ public class Dungeon implements Serializable {
 
 	}
 
-	boolean saved = false;
-
 	// Serialize data
 	public void saveData() {
 		// Massive object to store all our objects
 		ArrayList<Object> data = new ArrayList<Object>();
 		data.add(getForAll());
-		data.add(way.randMap);
-		data.add(this);
+		data.add(way.randMap.data);
 		data.add(getCharacter());
 		data.add(plebs);
 
@@ -248,7 +245,7 @@ public class Dungeon implements Serializable {
 			out.writeObject(data);
 			out.close();
 			fileOut.close();
-			saved = true;
+			way.randMap.data.saved = true;
 			println(Style.CENTER, "Saved");
 
 		} catch (IOException i) {
@@ -321,7 +318,7 @@ public class Dungeon implements Serializable {
 				break;
 
 			case 2:
-				if (saved) {
+				if (way.randMap.data.saved) {
 					loadData();
 					town.getHouse().inside();
 					game();
@@ -386,7 +383,7 @@ public class Dungeon implements Serializable {
 					forAll.energy += 5;
 				}
 			}
-			Room room = way.randMap.mapRooms[way.randMap.w][way.randMap.l];
+			Room room = way.randMap.mapRooms[way.randMap.data.w][way.randMap.data.l];
 			forAll.resetDrinkHealthPotionCount();
 			boolean plebFight = true;
 			if (room.isFreeRoom()) {
@@ -417,7 +414,7 @@ public class Dungeon implements Serializable {
 
 				}
 			} else {
-				if (way.randMap.l == way.randMap.rightEdge && way.randMap.w == way.randMap.w1) {
+				if (way.randMap.data.l == way.randMap.data.rightEdge && way.randMap.data.w == way.randMap.data.w1) {
 					println(Style.CENTER, "Welcome in boss room for floor " + forAll.floor);
 					beep();
 				} else {
@@ -429,13 +426,13 @@ public class Dungeon implements Serializable {
 					println(Style.CENTER, "What now?");
 					volba = uzivatVolba("Fight", "Go back", "Open inventory and info", "Go to town", "Exit");
 					if (volba == 1) { // Attack
-						if (way.randMap.l == way.randMap.rightEdge && way.randMap.w == way.randMap.w1
-								&& forAll.floor == 1) {
+						if (way.randMap.data.l == way.randMap.data.rightEdge
+								&& way.randMap.data.w == way.randMap.data.w1 && forAll.floor == 1) {
 							boss1.boss1Quote();
 
 							plebFight = false;
-						} else if (way.randMap.l == way.randMap.rightEdge && way.randMap.w == way.randMap.w1
-								&& forAll.floor == 2) {
+						} else if (way.randMap.data.l == way.randMap.data.rightEdge
+								&& way.randMap.data.w == way.randMap.data.w1 && forAll.floor == 2) {
 
 						} else {
 
@@ -547,12 +544,12 @@ public class Dungeon implements Serializable {
 				println();
 			}
 			int goldFound;
-			way.randMap.mapRooms[way.randMap.w][way.randMap.l].setFreeRoom(true);
+			way.randMap.mapRooms[way.randMap.data.w][way.randMap.data.l].setFreeRoom(true);
 			boolean bossKilled = false;
 			println();
 			println();
 			println();
-			if (way.randMap.l == way.randMap.rightEdge && way.randMap.w == way.randMap.w1) {
+			if (way.randMap.data.l == way.randMap.data.rightEdge && way.randMap.data.w == way.randMap.data.w1) {
 				plebFight = true;
 				bossKilled = true;
 				forAll.bossesKilled++;
@@ -732,7 +729,7 @@ public class Dungeon implements Serializable {
 			println();
 			println("Map:");
 			printEmptyLines(3);
-			println(way.randMap.map);
+			println(way.randMap.data.map);
 			printEmptyLines(3);
 			println("Map legend:");
 			println("D - your position");

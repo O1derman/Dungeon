@@ -21,9 +21,9 @@ public class Way implements Serializable {
 	public void go() {
 		dungeon.println(Style.CENTER, "Which way?");
 		while (true) {
-			if (randMap.l == randMap.leftEdge && randMap.w == randMap.leftEdge) { // left
-																		// down
-																		// corner
+			if (randMap.data.l == randMap.data.leftEdge && randMap.data.w == randMap.data.leftEdge) { // left
+				// down
+				// corner
 
 				wayChoice = dungeon.uzivatVolba("East", "South");
 				switch (wayChoice) {
@@ -36,9 +36,9 @@ public class Way implements Serializable {
 
 				}
 				break;
-			} else if (randMap.l == randMap.rightEdge && randMap.w == randMap.leftEdge) { // left
-																				// up
-																				// corner
+			} else if (randMap.data.l == randMap.data.rightEdge && randMap.data.w == randMap.data.leftEdge) { // left
+				// up
+				// corner
 				wayChoice = dungeon.uzivatVolba("Right", "West");
 				switch (wayChoice) {
 				case 1:
@@ -50,9 +50,9 @@ public class Way implements Serializable {
 				}
 				break;
 
-			} else if (randMap.l == randMap.leftEdge && randMap.w == randMap.rightEdge) { // right
-																				// down
-																				// corner
+			} else if (randMap.data.l == randMap.data.leftEdge && randMap.data.w == randMap.data.rightEdge) { // right
+				// down
+				// corner
 				wayChoice = dungeon.uzivatVolba("East", "North");
 				switch (wayChoice) {
 				case 1:
@@ -64,9 +64,9 @@ public class Way implements Serializable {
 
 				}
 				break;
-			} else if (randMap.l == randMap.rightEdge && randMap.w == randMap.rightEdge) { // right
-																				// up
-																				// corner
+			} else if (randMap.data.l == randMap.data.rightEdge && randMap.data.w == randMap.data.rightEdge) { // right
+				// up
+				// corner
 				wayChoice = dungeon.uzivatVolba("North", "West");
 				switch (wayChoice) {
 				case 1:
@@ -78,7 +78,7 @@ public class Way implements Serializable {
 
 				}
 				break;
-			} else if (randMap.l == randMap.leftEdge) { // down side
+			} else if (randMap.data.l == randMap.data.leftEdge) { // down side
 				wayChoice = dungeon.uzivatVolba("East", "North", "South");
 				switch (wayChoice) {
 				case 1:
@@ -93,7 +93,7 @@ public class Way implements Serializable {
 
 				}
 				break;
-			} else if (randMap.l == randMap.rightEdge) { // up side
+			} else if (randMap.data.l == randMap.data.rightEdge) { // up side
 				wayChoice = dungeon.uzivatVolba("North", "South", "West");
 				switch (wayChoice) {
 				case 1:
@@ -108,7 +108,7 @@ public class Way implements Serializable {
 
 				}
 				break;
-			} else if (randMap.w == randMap.leftEdge) { // left side
+			} else if (randMap.data.w == randMap.data.leftEdge) { // left side
 				wayChoice = dungeon.uzivatVolba("East", "South", "West");
 				switch (wayChoice) {
 				case 1:
@@ -123,7 +123,7 @@ public class Way implements Serializable {
 
 				}
 				break;
-			} else if (randMap.w == randMap.rightEdge) { // right side
+			} else if (randMap.data.w == randMap.data.rightEdge) { // right side
 				wayChoice = dungeon.uzivatVolba("East", "North", "West");
 				switch (wayChoice) {
 				case 1:
@@ -164,64 +164,71 @@ public class Way implements Serializable {
 	public void back() {
 		boolean back = true;
 		while (back) {
-			if (randMap.l == randMap.leftEdge && randMap.w == randMap.leftEdge && wayChoice == 1) {
+			if (randMap.data.l == randMap.data.leftEdge && randMap.data.w == randMap.data.leftEdge && wayChoice == 1) {
 				randMap.goBackwards();
 				break;
-			} else if (randMap.l == randMap.leftEdge && randMap.w == randMap.leftEdge && wayChoice == 2) {
+			} else if (randMap.data.l == randMap.data.leftEdge && randMap.data.w == randMap.data.leftEdge
+					&& wayChoice == 2) {
 				randMap.goLeft();
 				break;
-			} else if (randMap.l == randMap.rightEdge && randMap.w == randMap.leftEdge && wayChoice == 1) {
+			} else if (randMap.data.l == randMap.data.rightEdge && randMap.data.w == randMap.data.leftEdge
+					&& wayChoice == 1) {
 				randMap.goLeft();
 				break;
-			} else if (randMap.l == randMap.rightEdge && randMap.w == randMap.leftEdge && wayChoice == 2) {
+			} else if (randMap.data.l == randMap.data.rightEdge && randMap.data.w == randMap.data.leftEdge
+					&& wayChoice == 2) {
 				randMap.goStraight();
 				break;
-			} else if (randMap.l == randMap.leftEdge && randMap.w == randMap.rightEdge && wayChoice == 1) {
+			} else if (randMap.data.l == randMap.data.leftEdge && randMap.data.w == randMap.data.rightEdge
+					&& wayChoice == 1) {
 				randMap.goBackwards();
 				break;
-			} else if (randMap.l == randMap.leftEdge && randMap.w == randMap.rightEdge && wayChoice == 2) {
+			} else if (randMap.data.l == randMap.data.leftEdge && randMap.data.w == randMap.data.rightEdge
+					&& wayChoice == 2) {
 				randMap.goLeft();
 				break;
-			} else if (randMap.l == randMap.rightEdge && randMap.w == randMap.rightEdge && wayChoice == 1) {
+			} else if (randMap.data.l == randMap.data.rightEdge && randMap.data.w == randMap.data.rightEdge
+					&& wayChoice == 1) {
 				randMap.goRight();
 				break;
-			} else if (randMap.l == randMap.rightEdge && randMap.w == randMap.rightEdge && wayChoice == 2) {
+			} else if (randMap.data.l == randMap.data.rightEdge && randMap.data.w == randMap.data.rightEdge
+					&& wayChoice == 2) {
 				randMap.goStraight();
 				break;
-			} else if (randMap.l == randMap.leftEdge && wayChoice == 1) {
+			} else if (randMap.data.l == randMap.data.leftEdge && wayChoice == 1) {
 				randMap.goBackwards();
 				break;
-			} else if (randMap.l == randMap.leftEdge && wayChoice == 2) {
+			} else if (randMap.data.l == randMap.data.leftEdge && wayChoice == 2) {
 				randMap.goRight();
 				break;
-			} else if (randMap.l == randMap.leftEdge && wayChoice == 3) {
+			} else if (randMap.data.l == randMap.data.leftEdge && wayChoice == 3) {
 				randMap.goLeft();
 				break;
-			} else if (randMap.l == randMap.rightEdge && wayChoice == 1) {
+			} else if (randMap.data.l == randMap.data.rightEdge && wayChoice == 1) {
 				randMap.goBackwards();
 				break;
-			} else if (randMap.l == randMap.rightEdge && wayChoice == 2) {
+			} else if (randMap.data.l == randMap.data.rightEdge && wayChoice == 2) {
 				randMap.goLeft();
 				break;
-			} else if (randMap.l == randMap.rightEdge && wayChoice == 3) {
+			} else if (randMap.data.l == randMap.data.rightEdge && wayChoice == 3) {
 				randMap.goStraight();
 				break;
-			} else if (randMap.w == randMap.leftEdge && wayChoice == 1) {
+			} else if (randMap.data.w == randMap.data.leftEdge && wayChoice == 1) {
 				randMap.goBackwards();
 				break;
-			} else if (randMap.w == randMap.leftEdge && wayChoice == 2) {
+			} else if (randMap.data.w == randMap.data.leftEdge && wayChoice == 2) {
 				randMap.goLeft();
 				break;
-			} else if (randMap.w == randMap.leftEdge && wayChoice == 3) {
+			} else if (randMap.data.w == randMap.data.leftEdge && wayChoice == 3) {
 				randMap.goStraight();
 				break;
-			} else if (randMap.w == randMap.rightEdge && wayChoice == 1) {
+			} else if (randMap.data.w == randMap.data.rightEdge && wayChoice == 1) {
 				randMap.goBackwards();
 				break;
-			} else if (randMap.w == randMap.rightEdge && wayChoice == 2) {
+			} else if (randMap.data.w == randMap.data.rightEdge && wayChoice == 2) {
 				randMap.goRight();
 				break;
-			} else if (randMap.w == randMap.rightEdge && wayChoice == 3) {
+			} else if (randMap.data.w == randMap.data.rightEdge && wayChoice == 3) {
 				randMap.goStraight();
 				break;
 			} else if (wayChoice == 1) {
