@@ -18,8 +18,8 @@ public class Bomb extends InventoryItem {
 	@Override
 	public boolean use(Dungeon dungeon) {
 		int actualBombDamage = dungeon.getRand().nextInt(DAMAGE_RANGE) + MIN_DAMAGE;
-		if (dungeon.getWay().map1.l == dungeon.getWay().map1.rightEdge
-				&& dungeon.getWay().map1.w == dungeon.getWay().map1.w1) {
+		if (dungeon.getWay().randMap.l == dungeon.getWay().randMap.rightEdge
+				&& dungeon.getWay().randMap.w == dungeon.getWay().randMap.w1) {
 			dungeon.getBoss1().boss1Health -= actualBombDamage;
 		} else {
 			dungeon.getPlebs().enemyHealth -= actualBombDamage;

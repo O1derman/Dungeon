@@ -10,6 +10,7 @@ import olderman.dungeon.Dungeon;
 import olderman.dungeon.Resources;
 
 public class RandMap implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	public Room[][] mapRooms;
 
@@ -20,7 +21,7 @@ public class RandMap implements Serializable {
 	public int w1;
 	// public int w1 = (width + 1) / 2; // starting w
 	public int l;
-	public String map1 = "";
+	public String map = "";
 
 	private final Dungeon dungeon;
 
@@ -69,48 +70,48 @@ public class RandMap implements Serializable {
 		String content2 = "\n";
 		for (int i = 0; i < downEdge; i++) {
 			for (int j = 0; j < rightEdge * 2 + 3; j++) {
-				map1 += content1;
+				map += content1;
 			}
-			map1 += content2;
+			map += content2;
 		}
 	}
 
 	public void asciiArtMap() {
 		mapPosition = w * (rightEdge * 2 + 4) + l * 2;
 		if (w == 1 && l == 1) {
-			map1 = changeCharInPosition(0, 'x', map1);
+			map = changeCharInPosition(0, 'x', map);
 		}
 		if (w == 1 && l == downEdge) {
-			map1 = changeCharInPosition(w * (rightEdge * 2 + 2), 'x', map1);
+			map = changeCharInPosition(w * (rightEdge * 2 + 2), 'x', map);
 		}
 		if (w == rightEdge && l == 1) {
-			map1 = changeCharInPosition((w + 1) * (rightEdge * 2 + 4), 'x', map1);
+			map = changeCharInPosition((w + 1) * (rightEdge * 2 + 4), 'x', map);
 		}
 		if (w == rightEdge && l == downEdge) {
-			map1 = changeCharInPosition((rightEdge * 2 + 4) * (w + 2), 'x', map1);
+			map = changeCharInPosition((rightEdge * 2 + 4) * (w + 2), 'x', map);
 		}
 		if (w == 1) {
-			map1 = changeCharInPosition(l * 2, 'x', map1);
+			map = changeCharInPosition(l * 2, 'x', map);
 		}
 		if (w == rightEdge) {
-			map1 = changeCharInPosition((w + 1) * (rightEdge * 2 + 4) + l * 2, 'x', map1);
+			map = changeCharInPosition((w + 1) * (rightEdge * 2 + 4) + l * 2, 'x', map);
 		}
 		if (l == 1) {
-			map1 = changeCharInPosition(w * (rightEdge * 2 + 4), 'x', map1);
+			map = changeCharInPosition(w * (rightEdge * 2 + 4), 'x', map);
 		}
 		if (l == downEdge) {
-			map1 = changeCharInPosition((w + 1) * (rightEdge * 2 + 4) - 2, 'x', map1);
+			map = changeCharInPosition((w + 1) * (rightEdge * 2 + 4) - 2, 'x', map);
 		}
-		map1 = map1.replace('D', 'c');
-		map1 = changeCharInPosition(mapPosition, 'D', map1);
+		map = map.replace('D', 'c');
+		map = changeCharInPosition(mapPosition, 'D', map);
 	}
 
 	public void mapBack() {
 		mapPosition = w * (rightEdge * 2 + 4) + l * 2;
 		if (l == rightEdge && w == w1) {
-			map1 = changeCharInPosition(mapPosition, 'A', map1);
+			map = changeCharInPosition(mapPosition, 'A', map);
 		} else {
-			map1 = changeCharInPosition(mapPosition, 'o', map1);
+			map = changeCharInPosition(mapPosition, 'o', map);
 		}
 	}
 

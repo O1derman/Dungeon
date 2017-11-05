@@ -1,5 +1,6 @@
 package olderman.dungeon.inventory;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +13,8 @@ import olderman.dungeon.inventory.InventoryItem.Type;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-public class Inventory {
+public class Inventory implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private final Dungeon dungeon;
 

@@ -28,6 +28,11 @@ public class Town {
 	private final Shop shop;
 	private final WorkHouse workHouse;
 	private final House house;
+
+	public House getHouse() {
+		return house;
+	}
+
 	private final Forest forest;
 	boolean firstTime = true;
 	// Scanner scanner = new Scanner(System.in);
@@ -126,8 +131,8 @@ public class Town {
 
 		}
 		BACK2: while (dungeon.getForAll().house > 0) {
-			switch (dungeon.uzivatVolba("Go in shop", "Go in tool shop", "Go in house", "Go in workhouse", "Go in pub",
-					"Open inventory and info", "Enter dungeon")) {
+			switch (dungeon.uzivatVolba("Go in shop", "Go in tool shop", "Go in house", "Go in workhouse",
+					"Go in the forest", "Go in pub", "Open inventory and info", "Enter dungeon")) {
 			case 1:
 				shop.shop();
 				continue BACK2;
@@ -141,9 +146,12 @@ public class Town {
 				workHouse.workHouse();
 				continue BACK2;
 			case 5:
-				pub.inside();
+				forest.cutTrees();
 				continue BACK2;
 			case 6:
+				pub.inside();
+				continue BACK2;
+			case 7:
 				dungeon.inventoryAndInfo(false);
 				continue BACK2;
 			}

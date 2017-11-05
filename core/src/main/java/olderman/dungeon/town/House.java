@@ -14,7 +14,7 @@ public class House {
 
 	private final Dungeon dungeon;
 
-	public void inside() {
+	public void inside() throws InterruptedException {
 		final String HOUSE = Resources.getString("/House");
 		BACK: while (true) {
 			dungeon.printAsciiArt(HOUSE);
@@ -50,5 +50,6 @@ public class House {
 				break;
 			}
 		}
+		dungeon.getTown().town();
 	}
 }

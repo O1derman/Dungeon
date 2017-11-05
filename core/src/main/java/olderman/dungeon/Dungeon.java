@@ -6,6 +6,7 @@ import olderman.dungeon.enemies.Boss2;
 import olderman.dungeon.enemies.Plebs;
 import olderman.dungeon.inventory.HealthPotion;
 import olderman.dungeon.inventory.Inventory;
+import olderman.dungeon.map.RandMap;
 import olderman.dungeon.map.Room;
 import olderman.dungeon.map.Way;
 import olderman.dungeon.town.Town;
@@ -18,10 +19,13 @@ import static olderman.dungeon.Style.RED;
 import static olderman.dungeon.Style.Reset;
 import static olderman.dungeon.Style.YELLOW;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Dungeon implements Serializable {
@@ -226,22 +230,51 @@ public class Dungeon implements Serializable {
 
 	}
 
+	boolean saved = false;
+
 	// Serialize data
 	public void saveData() {
+		// Massive object to store all our objects
+		ArrayList<Object> data = new ArrayList<Object>();
+		data.add(getForAll());
+		data.add(way.randMap);
+		data.add(this);
+		data.add(getCharacter());
+		data.add(plebs);
 
 		try {
 			FileOutputStream fileOut = new FileOutputStream("data.ser");
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
-			out.writeObject(this);
+			out.writeObject(data);
 			out.close();
 			fileOut.close();
-			System.out.println("Serialized data is saved in data.ser");
+			saved = true;
+			println(Style.CENTER, "Saved");
 
 		} catch (IOException i) {
 			i.printStackTrace();
 		}
 	}
 
+	public void loadData() {
+		// create arraylist to store deserialized objects
+		ArrayList<Object> deserialized = new ArrayList<Object>();
+
+		try {
+			FileInputStream fileIn = new FileInputStream("data.ser");
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			deserialized = (ArrayList<Object>) in.readObject();
+			in.close();
+			fileIn.close();
+		} catch (IOException i) {
+			i.printStackTrace();
+			return;
+		} catch (ClassNotFoundException c) {
+			c.printStackTrace();
+			return;
+		}
+
+	}
 	// main
 
 	public void run() throws InterruptedException {
@@ -274,10 +307,13 @@ public class Dungeon implements Serializable {
 					way = new Way(this);
 					inventory = new Inventory(this);
 
-					way.map1.createAsciiArtMap();
+					way.randMap.createAsciiArtMap();
 					forAll.health = character.getInitialHealth();
 					forAll.maximumHealth = character.getInitialMaximumHealth();
 					println(character.getBeginning());
+					printAsciiArt(character.getAsciiArt());
+					switch (uzivatVolba("coninue")) {
+					}
 					town.town();
 					game();
 				}
@@ -285,8 +321,16 @@ public class Dungeon implements Serializable {
 				break;
 
 			case 2:
-				throw new RuntimeException("loading not implemented");
-
+				if (saved) {
+					loadData();
+					town.getHouse().inside();
+					game();
+				} else {
+					println(Style.CENTER, "You don't have any saved progress yet!");
+					switch (uzivatVolba("coninue")) {
+					}
+					break;
+				}
 			case 3:
 				// Ramecek.ramecek(Ramecek.data[1][0], "Dwarf");
 				println(">Orc");
@@ -330,11 +374,9 @@ public class Dungeon implements Serializable {
 		int volba;
 		boolean reset = true;
 
-		printAsciiArt(character.getAsciiArt());
-		printEmptyLines(2);
-		println(Style.CENTER, "You are on floor " + forAll.floor + "!");
+		println(Style.CENTER, "You are on the floor " + forAll.floor + "!");
 		FIGHT: while (true) {
-			way.map1.asciiArtMap();
+			way.randMap.asciiArtMap();
 			long timeElapsed = System.nanoTime() - startTime;
 			if (timeElapsed >= 120 * 1e+9) {
 				startTime += timeElapsed;
@@ -344,13 +386,13 @@ public class Dungeon implements Serializable {
 					forAll.energy += 5;
 				}
 			}
-			Room room = way.map1.mapRooms[way.map1.w][way.map1.l];
+			Room room = way.randMap.mapRooms[way.randMap.w][way.randMap.l];
 			forAll.resetDrinkHealthPotionCount();
 			boolean plebFight = true;
 			if (room.isFreeRoom()) {
 				while (true) {
 					println(Style.CENTER, "What now?");
-					volba = uzivatVolba("Go on", "Open inventory and info", "Go to town", "Exit");
+					volba = uzivatVolba("Go on", "Open inventory and info", "Go to town", "save", "Exit");
 					if (volba == 1) { // Go on
 						way.go();
 						if (reset) {
@@ -364,7 +406,9 @@ public class Dungeon implements Serializable {
 					} else if (volba == 3) { // Go to town
 						town.town();
 						continue FIGHT;
-					} else if (volba == 4) { // Exit
+					} else if (volba == 4) {
+						saveData();
+					} else if (volba == 5) { // Exit
 						println(Style.CENTER, "Really?...unsaved progres will be lost permanently!");
 						if (uzivatVolba("Yes", "No") == 1) {
 							return;
@@ -373,7 +417,7 @@ public class Dungeon implements Serializable {
 
 				}
 			} else {
-				if (way.map1.l == way.map1.rightEdge && way.map1.w == way.map1.w1) {
+				if (way.randMap.l == way.randMap.rightEdge && way.randMap.w == way.randMap.w1) {
 					println(Style.CENTER, "Welcome in boss room for floor " + forAll.floor);
 					beep();
 				} else {
@@ -385,18 +429,20 @@ public class Dungeon implements Serializable {
 					println(Style.CENTER, "What now?");
 					volba = uzivatVolba("Fight", "Go back", "Open inventory and info", "Go to town", "Exit");
 					if (volba == 1) { // Attack
-						if (way.map1.l == way.map1.rightEdge && way.map1.w == way.map1.w1 && forAll.floor == 1) {
+						if (way.randMap.l == way.randMap.rightEdge && way.randMap.w == way.randMap.w1
+								&& forAll.floor == 1) {
 							boss1.boss1Quote();
 
 							plebFight = false;
-						} else if (way.map1.l == way.map1.rightEdge && way.map1.w == way.map1.w1 && forAll.floor == 2) {
+						} else if (way.randMap.l == way.randMap.rightEdge && way.randMap.w == way.randMap.w1
+								&& forAll.floor == 2) {
 
 						} else {
 
 						}
 						break;
 					} else if (volba == 2) { // Go back
-						way.map1.mapBack();
+						way.randMap.mapBack();
 						way.back();
 						reset = false;
 						continue FIGHT;
@@ -501,12 +547,12 @@ public class Dungeon implements Serializable {
 				println();
 			}
 			int goldFound;
-			way.map1.mapRooms[way.map1.w][way.map1.l].setFreeRoom(true);
+			way.randMap.mapRooms[way.randMap.w][way.randMap.l].setFreeRoom(true);
 			boolean bossKilled = false;
 			println();
 			println();
 			println();
-			if (way.map1.l == way.map1.rightEdge && way.map1.w == way.map1.w1) {
+			if (way.randMap.l == way.randMap.rightEdge && way.randMap.w == way.randMap.w1) {
 				plebFight = true;
 				bossKilled = true;
 				forAll.bossesKilled++;
@@ -559,7 +605,6 @@ public class Dungeon implements Serializable {
 				forAll.levelUp = 50 * forAll.level;
 				println();
 				fillLine(GREEN.BRIGHT, "*");
-				println(Style.CENTER, GREEN.BRIGHT, "Huray!");
 				println(Style.CENTER, GREEN.BRIGHT, "Level Up!");
 				println(Style.CENTER, GREEN.BRIGHT, "Level " + forAll.level + "!");
 				fillLine(GREEN.BRIGHT, "*");
@@ -584,6 +629,7 @@ public class Dungeon implements Serializable {
 			plebs.resetEnemy();
 
 		}
+
 	}
 
 	public void inventoryAndInfo(boolean fighting) {
@@ -686,7 +732,7 @@ public class Dungeon implements Serializable {
 			println();
 			println("Map:");
 			printEmptyLines(3);
-			println(way.map1.map1);
+			println(way.randMap.map);
 			printEmptyLines(3);
 			println("Map legend:");
 			println("D - your position");
@@ -723,10 +769,12 @@ public class Dungeon implements Serializable {
 			decreaseHealth(damageTaken);
 		}
 
-		if (getHealth() < 1) {
-			println(Style.CENTER,
-					"You have taken too much damage, you are dying in pain covered in the shit of your enemy while they are celebrating...zombies will a have tasty dinner! ");
-		}
+		// if (getHealth() < 1) {
+		// println(Style.CENTER,
+		// "You have taken too much damage, you are dying in pain covered in the
+		// shit of your enemy while they are celebrating...zombies will a have
+		// tasty dinner! ");
+		// }
 		forAll.resetDrinkHealthPotionCount();
 
 	}
