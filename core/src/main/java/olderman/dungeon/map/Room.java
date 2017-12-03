@@ -11,16 +11,13 @@ public class Room implements Serializable {
 	private int x;
 	private int y;
 
-	public Room(Dungeon dungeon, int x, int y) {
-		this.dungeon = dungeon;
+	public Room(int x, int y) {
 		this.x = x;
 		this.y = y;
 
 	}
 
-	private final Dungeon dungeon;
-
-	public void normalRoom() {
+	public void normalRoom(Dungeon dungeon) {
 		int chestGoldFound = dungeon.getRand().nextInt(600) + 550;
 		boolean emptyRoom = true;
 		if (dungeon.getRand().nextInt(100) < dungeon.getForAll().chestChance) {

@@ -634,7 +634,7 @@ public class Dungeon implements Serializable {
 				if (forAll.energy < 20) {
 					println(Style.CENTER, "You don't have enough energy!");
 				} else {
-					room.normalRoom();
+					room.normalRoom(this);
 					forAll.energy -= 20;
 				}
 				uzivatVolba("Continue");
