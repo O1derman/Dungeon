@@ -25,6 +25,7 @@ public class ForAll implements Serializable {
 	// Player variables
 	public Weapon selectedWeapon = Weapon.HAND;
 	public int maximumHealth;
+	public int missChance;
 	public int health;
 	public int gold = 0;
 	public int bossesKilled = 0;
@@ -46,7 +47,7 @@ public class ForAll implements Serializable {
 	public int levelUp = 50;
 	public int experience = 0;
 	public int numPotionOfStrength = 0;
-	public int numPotionOfInvisibility = 0;
+	public int numPotionOfInvisibility = 3;
 	public int numPotionOfTeleportation = 0;
 	public int numPotionOfConcentration = 0;
 	public int bed = 0;

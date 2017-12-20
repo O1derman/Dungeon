@@ -88,10 +88,13 @@ public class Dungeon implements Serializable {
 		return forAll.health;
 	}
 
+	public void setMissChance(int missChance) {
+		forAll.missChance = Math.min(missChance, forAll.maximumHealth);
+	}
+
 	public void setHealth(int health) {
 		forAll.health = Math.min(health, forAll.maximumHealth);
 	}
-
 	public void decreaseHealth(int healthDecrease) {
 		setHealth(getHealth() - healthDecrease);
 	}
@@ -229,6 +232,12 @@ public class Dungeon implements Serializable {
 		if (forAll.frogHeart == 1) {
 			println(forAll.bird + " frog heart");
 		}
+		if (forAll.numPotionOfInvisibility == 1) {
+			println(forAll.numPotionOfInvisibility + "potion of invisibility");
+		}
+		if (forAll.numPotionOfInvisibility > 1) {
+			println(forAll.numPotionOfInvisibility + "potions of invisibility");
+		}
 
 	}
 
@@ -322,6 +331,7 @@ public class Dungeon implements Serializable {
 					way.randMap.createAsciiArtMap();
 					forAll.health = character.getInitialHealth();
 					forAll.maximumHealth = character.getInitialMaximumHealth();
+					forAll.missChance = character.getMissChance();
 					println(character.getBeginning());
 					printAsciiArt(character.getAsciiArt());
 					switch (uzivatVolba("coninue")) {
@@ -405,7 +415,7 @@ public class Dungeon implements Serializable {
 			if (room.isFreeRoom()) {
 				while (true) {
 					println(Style.CENTER, "What now?");
-					volba = uzivatVolba("Go on", "Open inventory and info", "Go to town", "save", "Exit");
+					volba = uzivatVolba("Go on", "Open inventory and info", "Go to town", "Exit");
 					if (volba == 1) { // Go on
 						way.go();
 						if (reset) {
@@ -419,9 +429,7 @@ public class Dungeon implements Serializable {
 					} else if (volba == 3) { // Go to town
 						town.town();
 						continue FIGHT;
-					} else if (volba == 4) {
-						saveData();
-					} else if (volba == 5) { // Exit
+					} else if (volba == 4) { // Exit
 						println(Style.CENTER, "Really?...unsaved progres will be lost permanently!");
 						if (uzivatVolba("Yes", "No") == 1) {
 							return;
@@ -488,13 +496,13 @@ public class Dungeon implements Serializable {
 					if (volba == 1) { // Attack
 						plebFight();
 					} else if (volba == 2) { // Run
-						if (forAll.numPotionOfInvisibility == 0) {
+						if (forAll.numPotionOfInvisibility < 1) {
 							println(Style.CENTER, "No time to run!");
 							switch (uzivatVolba("Continue")) {
 							}
 						} else {
 							println(Style.CENTER, "Do you really want to run?");
-							println(Style.CENTER, "It will cost you potion of invisibility!");
+							println(Style.CENTER, "It will cost you one potion of invisibility!");
 							int volbaRun = uzivatVolba("Yes", "No");
 							switch (volbaRun) {
 							case 1:
@@ -730,7 +738,7 @@ public class Dungeon implements Serializable {
 
 			}
 			println(forAll.energy + "/100 energy");
-			println(this.getCharacter().getMissChance() + "% miss chance");
+			println(forAll.missChance + "% miss chance");
 			if (getPlebs().enemiesKilled == 1) {
 				println(getPlebs().enemiesKilled + " killed enemy");
 			} else {

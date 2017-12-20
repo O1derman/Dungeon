@@ -22,7 +22,7 @@ public class Pot extends InventoryItem {
 					"Create potion of concentration", "Create potion of invisibility", "Stop using pot");
 
 			if (potCrafting == 1) {// Read dormitory
-				dungeon.println("You need flask to create any potion!");
+				dungeon.println("You need flask to create a potion!");
 				dungeon.println("To create small health potion you need 1 frog heart and 2 worms.");
 				dungeon.println("To create medium health potion you need 2 frog hearts and 2 worms.");
 				dungeon.println("To create large health potion you need 3 frog hearts and 4 worms.");
@@ -52,7 +52,7 @@ public class Pot extends InventoryItem {
 					dungeon.getForAll().worm -= 2;
 					dungeon.getInventory().add(HealthPotion.MEDIUM);
 				} else {
-					dungeon.println(Style.CENTER, "You dont have enough ingredients to create medium health potion.");
+					dungeon.println(Style.CENTER, "You dont have enough ingredients to create a medium health potion.");
 				}
 			}
 			if (potCrafting == 4) {// Create large health potion
@@ -62,7 +62,7 @@ public class Pot extends InventoryItem {
 					dungeon.getForAll().worm -= 4;
 					dungeon.getInventory().add(HealthPotion.LARGE);
 				} else {
-					dungeon.println(Style.CENTER, "You dont have enough ingredients to create large health potion.");
+					dungeon.println(Style.CENTER, "You dont have enough ingredients to create a large health potion.");
 				}
 			}
 			if (potCrafting == 5) {// Create teleport potion
@@ -72,7 +72,7 @@ public class Pot extends InventoryItem {
 					dungeon.getForAll().frogLeg -= 4;
 					dungeon.getForAll().numPotionOfTeleportation++;
 				} else {
-					dungeon.println(Style.CENTER, "You dont have enough ingredients to create teleport potion.");
+					dungeon.println(Style.CENTER, "You dont have enough ingredients to create a teleport potion.");
 				}
 			}
 			if (potCrafting == 6) {// Create potion of concentration
@@ -84,18 +84,20 @@ public class Pot extends InventoryItem {
 					dungeon.getForAll().frogHead--;
 					dungeon.getForAll().numPotionOfConcentration++;
 				} else {
-					dungeon.println(Style.CENTER, "You dont have enough ingredients to potion of concentration.");
+					dungeon.println(Style.CENTER,
+							"You dont have enough ingredients to create a potion of concentration.");
 				}
 			}
 			if (potCrafting == 7) {// Create potion of invisibility
 				if (dungeon.getForAll().frogLeftEye >= 2 && dungeon.getForAll().frogLeg >= 4) {
-					dungeon.println(Style.CENTER, "You created a potion of concentration.");
+					dungeon.println(Style.CENTER, "You created a potion of invisibility.");
 					dungeon.getForAll().snakeBrain--;
 					dungeon.getForAll().squirelTails -= 2;
 					dungeon.getForAll().frogHead--;
 					dungeon.getForAll().numPotionOfInvisibility++;
 				} else {
-					dungeon.println(Style.CENTER, "You dont have enough ingredients to create teleport potion.");
+					dungeon.println(Style.CENTER,
+							"You dont have enough ingredients to create a potion of invisibility.");
 				}
 			} else {
 				break;

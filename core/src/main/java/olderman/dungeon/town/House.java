@@ -23,6 +23,9 @@ public class House {
 				switch (dungeon.uzivatVolba("Use bed", "Use Pot", "Go out of house")) {
 				case 1:
 					dungeon.saveData();
+					dungeon.println("Game is saved");
+					switch (dungeon.uzivatVolba("Continue")) {
+					}
 					break;
 				case 2:
 					Pot.POT.use(dungeon);
