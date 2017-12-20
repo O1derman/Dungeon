@@ -26,13 +26,13 @@ public class Room implements Serializable {
 			dungeon.getForAll().gold += chestGoldFound;
 			emptyRoom = false;
 		}
-		if (dungeon.getRand().nextInt(100) < dungeon.getForAll().sneakChance) {
-			if (dungeon.getForAll().sneakHeft + dungeon.getForAll().lCapacity > dungeon.getCharacter()
+		if (dungeon.getRand().nextInt(100) < dungeon.getForAll().snakeChance) {
+			if (dungeon.getForAll().snakeHeft + dungeon.getForAll().lCapacity > dungeon.getCharacter()
 					.getLoadCapacity()) {
 				dungeon.println(Style.CENTER, "You don't have enough load capacity!");
 			} else {
 				dungeon.getForAll().snake++;
-				dungeon.getForAll().lCapacity += dungeon.getForAll().sneakHeft;
+				dungeon.getForAll().lCapacity += dungeon.getForAll().snakeHeft;
 				dungeon.println(Style.CENTER, "You found a Snake.");
 			}
 			emptyRoom = false;

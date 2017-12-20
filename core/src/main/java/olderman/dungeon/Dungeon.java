@@ -95,6 +95,7 @@ public class Dungeon implements Serializable {
 	public void setHealth(int health) {
 		forAll.health = Math.min(health, forAll.maximumHealth);
 	}
+
 	public void decreaseHealth(int healthDecrease) {
 		setHealth(getHealth() - healthDecrease);
 	}
@@ -183,62 +184,120 @@ public class Dungeon implements Serializable {
 	}
 
 	public void printResources() {
+		if (forAll.snake > 1) {
+			println(forAll.snake + " snakes");
+		}
+		if (forAll.snake == 1) {
+			println(forAll.snake + " snake");
+
+		}
+		if (forAll.frog > 1) {
+			println(forAll.frog + " frogs");
+
+		}
+		if (forAll.frog == 1) {
+			println(forAll.frog + " frog");
+
+		}
+		if (forAll.worm > 1) {
+			println(forAll.worm + " worms");
+
+		}
+		if (forAll.worm == 1) {
+			println(forAll.worm + " worm");
+
+		}
+		if (forAll.squirrel > 1) {
+			println(forAll.squirrel + " squirels");
+
+		}
+		if (forAll.squirrel == 1) {
+			println(forAll.squirrel + " squirel");
+
+		}
+		if (forAll.wood > 1) {
+			println(forAll.wood + " wood");
+
+		}
+		if (forAll.wood == 1) {
+			println(forAll.wood + " wood");
+
+		}
+		if (forAll.bird > 1) {
+			println(forAll.bird + " birds");
+
+		}
+		if (forAll.bird == 1) {
+			println(forAll.bird + " bird");
+		}
 		if (forAll.feather > 1) {
-			println(forAll.bird + " feathers");
+			println(forAll.feather + " feathers");
 
 		}
 		if (forAll.feather == 1) {
-			println(forAll.bird + " feather");
+			println(forAll.feather + " feather");
 		}
 		if (forAll.squirelTails > 1) {
-			println(forAll.bird + " squirel tails");
+			println(forAll.squirelTails + " squirel tails");
 
 		}
 		if (forAll.squirelTails == 1) {
-			println(forAll.bird + " squirel tail");
+			println(forAll.squirelTails + " squirel tail");
 		}
 		if (forAll.snakeBrain > 1) {
-			println(forAll.bird + " snake brains");
+			println(forAll.snakeBrain + " snake brains");
 
 		}
 		if (forAll.snakeBrain == 1) {
-			println(forAll.bird + " snake brain");
+			println(forAll.snakeBrain + " snake brain");
 		}
 		if (forAll.frogRightEye > 1) {
-			println(forAll.bird + " frog right eyes");
+			println(forAll.frogRightEye + " frog right eyes");
 
 		}
 		if (forAll.frogRightEye == 1) {
-			println(forAll.bird + " frog right eye");
+			println(forAll.frogRightEye + " frog right eye");
+		}
+		if (forAll.frogLeg > 1) {
+			println(forAll.frogRightEye + " frog legs");
+
+		}
+		if (forAll.frogLeg == 1) {
+			println(forAll.frogRightEye + " frog leg");
 		}
 		if (forAll.frogLeftEye > 1) {
-			println(forAll.bird + " frog left eyes");
+			println(forAll.frogLeftEye + " frog left eyes");
 
 		}
 		if (forAll.frogLeftEye == 1) {
-			println(forAll.bird + " frog left eye");
+			println(forAll.frogLeftEye + " frog left eye");
 		}
 		if (forAll.frogHead > 1) {
-			println(forAll.bird + " frog heads");
+			println(forAll.frogHead + " frog heads");
 
 		}
 		if (forAll.frogHead == 1) {
-			println(forAll.bird + " frog head");
+			println(forAll.frogHead + " frog head");
 		}
 		if (forAll.frogHeart > 1) {
-			println(forAll.bird + " frog hearts");
+			println(forAll.frogHeart + " frog hearts");
 
 		}
 		if (forAll.frogHeart == 1) {
-			println(forAll.bird + " frog heart");
+			println(forAll.frogHeart + " frog heart");
 		}
 		if (forAll.numPotionOfInvisibility == 1) {
-			println(forAll.numPotionOfInvisibility + "potion of invisibility");
+			println(forAll.numPotionOfInvisibility + " potion of invisibility");
 		}
 		if (forAll.numPotionOfInvisibility > 1) {
-			println(forAll.numPotionOfInvisibility + "potions of invisibility");
+			println(forAll.numPotionOfInvisibility + " potions of invisibility");
 		}
-
+		if (forAll.flashk == 1) {
+			println(forAll.numPotionOfInvisibility + " flashk");
+		}
+		if (forAll.flashk > 1) {
+			println(forAll.numPotionOfInvisibility + " flashks");
+		}
 	}
 
 	// Serialize data
@@ -486,7 +545,6 @@ public class Dungeon implements Serializable {
 
 				}
 				while (plebs.enemyHealth > 0 && getHealth() > 0 && plebFight) {
-					println();
 					println("\t> Your HP: " + getHealth());
 					println("\t> " + plebs.enemy.name + "'s HP: " + plebs.enemyHealth);
 					println();
@@ -678,53 +736,6 @@ public class Dungeon implements Serializable {
 				}
 				if (forAll.ironAxe > 0) {
 					println("Iron axe");
-				}
-				if (forAll.snake > 1) {
-					println(forAll.snake + " snakes");
-
-				}
-				if (forAll.snake == 1) {
-					println(forAll.snake + " snake");
-
-				}
-				if (forAll.frog > 1) {
-					println(forAll.frog + " frogs");
-
-				}
-				if (forAll.frog == 1) {
-					println(forAll.frog + " frog");
-
-				}
-				if (forAll.worm > 1) {
-					println(forAll.worm + " worms");
-
-				}
-				if (forAll.worm == 1) {
-					println(forAll.worm + " worm");
-
-				}
-				if (forAll.squirel > 1) {
-					println(forAll.squirel + " squirels");
-
-				}
-				if (forAll.squirel == 1) {
-					println(forAll.squirel + " squirel");
-
-				}
-				if (forAll.wood > 1) {
-					println(forAll.wood + " wood");
-
-				}
-				if (forAll.wood == 1) {
-					println(forAll.wood + " wood");
-
-				}
-				if (forAll.bird > 1) {
-					println(forAll.bird + " birds");
-
-				}
-				if (forAll.bird == 1) {
-					println(forAll.bird + " bird");
 				}
 				printResources();
 

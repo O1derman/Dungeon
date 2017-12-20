@@ -19,15 +19,20 @@ public class Pub {
 		dungeon.println();
 		choices: while (true) {
 			dungeon.clear();
-			dungeon.printAsciiArt(BEER);
-			dungeon.println();
 			dungeon.println(YELLOW.BRIGHT, dungeon.getForAll().gold + " gold");
 			dungeon.println(dungeon.getForAll().energy + "/100 energy");
+			dungeon.println();
+			dungeon.printAsciiArt(BEER);
 			int volba = dungeon.uzivatVolba("Drink beer (" + dungeon.getForAll().beerCost + "G)", "Go away");
 			switch (volba) {
 			case 1:
 				if (dungeon.getForAll().beerCost > dungeon.getForAll().gold) {
 					dungeon.println(Style.CENTER, "You don't have enough gold!");
+					switch (dungeon.uzivatVolba("Continue")) {
+					}
+					continue choices;
+				} else if (dungeon.getForAll().energy == 100) {
+					dungeon.print("You have max energy!");
 					switch (dungeon.uzivatVolba("Continue")) {
 					}
 					continue choices;

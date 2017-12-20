@@ -72,15 +72,15 @@ public class ForAll implements Serializable {
 	public int squirelTails = 0;
 	public int frogHead = 0;
 	public int snake = 0;
-	public int sneakHeft = 5;
-	public int sneakChance = 10; // %
+	public int snakeHeft = 5;
+	public int snakeChance = 10; // %
 	public int flashk = 0;
 	public int flashkCost = 100;
 	public int frog = 0;
 	public int frogHeft = 10;
 	public int frogChance = 10; // %
-	public int squirel = 0;
-	public int squirelHeft = 5;
+	public int squirrel = 0;
+	public int squirrelHeft = 5;
 	public int squirelChance = 10; // %
 
 	// costs

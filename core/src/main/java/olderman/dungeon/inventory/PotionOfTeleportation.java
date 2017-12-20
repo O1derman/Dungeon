@@ -16,5 +16,4 @@ public class PotionOfTeleportation extends InventoryItem {
 		// TODO
 		return true;
 	}
-
-}
+} 

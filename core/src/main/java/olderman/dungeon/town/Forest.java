@@ -23,10 +23,10 @@ public class Forest {
 			} else {
 				dungeon.println(dungeon.getForAll().bird + " birds");
 			}
-			if (dungeon.getForAll().squirel == 1) {
-				dungeon.println(dungeon.getForAll().squirel + " squirel");
+			if (dungeon.getForAll().squirrel == 1) {
+				dungeon.println(dungeon.getForAll().squirrel + " squirel");
 			} else {
-				dungeon.println(dungeon.getForAll().squirel + " squirels");
+				dungeon.println(dungeon.getForAll().squirrel + " squirels");
 			}
 			dungeon.println();
 			dungeon.println(Style.CENTER, "What now?");
@@ -88,19 +88,6 @@ public class Forest {
 					continue NABIDKA;
 				} else {
 					dungeon.getForAll().energy -= 20;
-					if (dungeon.getRand().nextInt(100) < dungeon.getForAll().squirelChance) {
-						if (dungeon.getForAll().squirelHeft + dungeon.getForAll().lCapacity > dungeon.getCharacter()
-								.getLoadCapacity()) {
-							dungeon.println(Style.CENTER, "You dont have enough load capacity!");
-						} else {
-							dungeon.getForAll().squirel++;
-							dungeon.getForAll().lCapacity += dungeon.getForAll().squirelHeft;
-							dungeon.println(Style.CENTER, "You caught a squirel.");
-						}
-						switch (dungeon.uzivatVolba("Continue")) {
-						}
-						continue NABIDKA;
-					}
 					if (dungeon.getRand().nextInt(100) < dungeon.getForAll().birdChance) {
 						int foundBirds = dungeon.getRand().nextInt(5) + 1;
 						if (dungeon.getForAll().birdHeft * foundBirds + dungeon.getForAll().lCapacity > dungeon
@@ -118,13 +105,25 @@ public class Forest {
 						switch (dungeon.uzivatVolba("Continue")) {
 						}
 						continue NABIDKA;
+					}
+					if (dungeon.getRand().nextInt(100) < dungeon.getForAll().squirelChance) {
+						if (dungeon.getForAll().squirrelHeft + dungeon.getForAll().lCapacity > dungeon.getCharacter()
+								.getLoadCapacity()) {
+							dungeon.println(Style.CENTER, "You dont have enough load capacity!");
+						} else {
+							dungeon.getForAll().squirrel++;
+							dungeon.getForAll().lCapacity += dungeon.getForAll().squirrelHeft;
+							dungeon.println(Style.CENTER, "You caught a squirel.");
+						}
+						switch (dungeon.uzivatVolba("Continue")) {
+						}
+						continue NABIDKA;
 					} else {
 						dungeon.println(Style.CENTER, "You didn't catch any bird!");
 						switch (dungeon.uzivatVolba("Continue")) {
 						}
 						continue NABIDKA;
 					}
-
 				}
 			case 3:
 				dungeon.inventoryAndInfo(false);
