@@ -477,7 +477,7 @@ public class Dungeon implements Serializable {
 					volba = uzivatVolba("Go on", "Open inventory and info", "Go to town", "Exit");
 					if (volba == 1) { // Go on
 						way.go();
-						if (reset) {
+						if (reset ^ way.randMap.previousPosition != way.randMap.mapPosition) {
 							plebs.resetEnemy();
 						}
 						continue FIGHT;
@@ -522,6 +522,7 @@ public class Dungeon implements Serializable {
 						}
 						break;
 					} else if (volba == 2) { // Go back
+						way.randMap.previousPosition = way.randMap.mapPosition;
 						way.randMap.mapBack();
 						way.back();
 						reset = false;
@@ -565,7 +566,9 @@ public class Dungeon implements Serializable {
 							switch (volbaRun) {
 							case 1:
 								println(Style.CENTER, "You run!");
-								plebs.resetEnemy();
+								way.randMap.mapBack();
+								way.back();
+								reset = false;
 								forAll.numPotionOfInvisibility--;
 								forAll.resetDrinkHealthPotionCount();
 								switch (uzivatVolba("Continue")) {

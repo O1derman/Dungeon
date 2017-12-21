@@ -51,7 +51,8 @@ public class RandMap implements Serializable {
 		return new String(charArray);
 	}
 
-	int mapPosition;
+	public int previousPosition;
+	public int mapPosition;
 	BufferedWriter bw = null;
 	FileWriter fw = null;
 

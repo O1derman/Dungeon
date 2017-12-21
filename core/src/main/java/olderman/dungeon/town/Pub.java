@@ -32,7 +32,7 @@ public class Pub {
 					}
 					continue choices;
 				} else if (dungeon.getForAll().energy == 100) {
-					dungeon.print("You have max energy!");
+					dungeon.print(Style.CENTER, "You have max energy!");
 					switch (dungeon.uzivatVolba("Continue")) {
 					}
 					continue choices;

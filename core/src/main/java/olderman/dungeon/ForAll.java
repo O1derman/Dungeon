@@ -59,7 +59,7 @@ public class ForAll implements Serializable {
 	public int woodHeft = 15;
 	public int bird = 0;
 	public int birdHeft = 5;
-	public int birdChance = 10; // %
+	public int birdChance = 50; // %
 	public int feather = 0;
 	public int frogLeg = 0;
 	public int frogHeart = 0;
