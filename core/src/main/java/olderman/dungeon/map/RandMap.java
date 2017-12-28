@@ -40,7 +40,7 @@ public class RandMap implements Serializable {
 		for (int i = 0; i < data.mapRooms.length; i++) {
 			Room[] rooms = data.mapRooms[i];
 			for (int j = 0; j < rooms.length; j++) {
-				rooms[j] = new Room(i, j);
+				rooms[j] = new Room(i, j, dungeon);
 			}
 		}
 	}
@@ -127,7 +127,5 @@ public class RandMap implements Serializable {
 		data.l--;
 		asciiArtMap();
 	}
-
-	// if() TODO
 
 }

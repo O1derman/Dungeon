@@ -2,11 +2,9 @@ package olderman.dungeon;
 
 import olderman.dungeon.Style.ColorStyle;
 import olderman.dungeon.enemies.Boss1;
-import olderman.dungeon.enemies.Boss2;
 import olderman.dungeon.enemies.Plebs;
 import olderman.dungeon.inventory.HealthPotion;
 import olderman.dungeon.inventory.Inventory;
-import olderman.dungeon.map.RandMap;
 import olderman.dungeon.map.RandMapData;
 import olderman.dungeon.map.Room;
 import olderman.dungeon.map.Way;
@@ -39,21 +37,17 @@ public class Dungeon implements Serializable {
 	private final Random rand = new Random();
 	public int score;
 	private ForAll forAll;
-	private Plebs plebs;
+	private Plebs currentPlebs;
 	private GameCharacter character;
 	private Inventory inventory;
 	private Town town;
 	private Boss1 boss1 = new Boss1(this);
-	private Boss2 boss2;
+	// private Boss2 boss2;
 	private Way way;
 
 	// getters
 	public Random getRand() {
 		return rand;
-	}
-
-	public Plebs getPlebs() {
-		return plebs;
 	}
 
 	public ForAll getForAll() {
@@ -80,9 +74,9 @@ public class Dungeon implements Serializable {
 		return boss1;
 	}
 
-	public Boss2 getBoss2() {
-		return boss2;
-	}
+	// public Boss2 getBoss2() {
+	// return boss2;
+	// }
 
 	public int getHealth() {
 		return forAll.health;
@@ -307,7 +301,6 @@ public class Dungeon implements Serializable {
 		data.add(getForAll());
 		data.add(way.randMap.data);
 		data.add(getCharacter());
-		data.add(plebs);
 
 		try {
 			FileOutputStream fileOut = new FileOutputStream("data.ser");
@@ -340,9 +333,7 @@ public class Dungeon implements Serializable {
 				if (o instanceof GameCharacter) {
 					this.character = (GameCharacter) o;
 				}
-				if (o instanceof Plebs) {
-					this.plebs = (Plebs) o;
-				}
+
 			}
 			in.close();
 			fileIn.close();
@@ -357,6 +348,10 @@ public class Dungeon implements Serializable {
 	}
 	// main
 
+	public Plebs getCurrentPlebs() {
+		return currentPlebs;
+	}
+
 	public void run() throws InterruptedException {
 		clear();
 		menu();
@@ -367,7 +362,6 @@ public class Dungeon implements Serializable {
 	private void menu() throws InterruptedException {
 		while (true) {
 			forAll = new ForAll();
-			plebs = new Plebs(rand);
 			town = new Town(this);
 			way = new Way(this);
 			inventory = new Inventory(this);
@@ -474,6 +468,7 @@ public class Dungeon implements Serializable {
 			way.randMap.asciiArtMap();
 			addEnergy();
 			Room room = way.randMap.data.mapRooms[way.randMap.data.w][way.randMap.data.l];
+			currentPlebs = room.getPlebs();
 			forAll.resetDrinkHealthPotionCount();
 			boolean plebFight = true;
 			if (room.isFreeRoom()) {
@@ -482,9 +477,6 @@ public class Dungeon implements Serializable {
 					volba = uzivatVolba("Go on", "Open inventory and info", "Go to town", "Exit");
 					if (volba == 1) { // Go on
 						way.go();
-						if (way.randMap.previousPosition != way.randMap.mapPosition) {
-							plebs.resetEnemy();
-						}
 						continue FIGHT;
 					} else if (volba == 2) { // Open inventory and info
 						inventoryAndInfo(false);
@@ -506,7 +498,7 @@ public class Dungeon implements Serializable {
 					println(Style.CENTER, "Welcome in boss room for floor " + forAll.floor);
 					beep();
 				} else {
-					println(Style.CENTER, "You see " + getPlebs().enemy.nameWithArticle() + "!");
+					println(Style.CENTER, "You see " + getCurrentPlebs().enemy.nameWithArticle() + "!");
 
 				}
 
@@ -549,15 +541,15 @@ public class Dungeon implements Serializable {
 					}
 
 				}
-				while (plebs.enemyHealth > 0 && getHealth() > 0 && plebFight) {
+				while (getCurrentPlebs().getHealth() > 0 && getHealth() > 0 && plebFight) {
 					println("\t> Your HP: " + getHealth());
-					println("\t> " + plebs.enemy.name + "'s HP: " + plebs.enemyHealth);
+					println("\t> " + getCurrentPlebs().enemy.name + "'s HP: " + getCurrentPlebs().getHealth());
 					println();
 					println(Style.CENTER, "What would you like to do?");
 					println();
 					volba = uzivatVolba("Attack", "Run", "Open inventory and info");
 					if (volba == 1) { // Attack
-						plebFight();
+						plebFight(getCurrentPlebs());
 					} else if (volba == 2) { // Run
 						if (forAll.numPotionOfInvisibility < 1) {
 							println(Style.CENTER, "No time to run!");
@@ -619,7 +611,7 @@ public class Dungeon implements Serializable {
 				println(Style.CENTER, "> You limp out of the dungeon, wounded from the battle.");
 				uzivatVolba("Continue");
 				return;
-			} else if (getHealth() < 30 && plebs.enemyHealth > 0) {
+			} else if (getHealth() < 30 && getCurrentPlebs().getHealth() > 0) {
 				println();
 				fillLine(RED.BRIGHT, "!@");
 				println();
@@ -644,14 +636,14 @@ public class Dungeon implements Serializable {
 				// new floor
 
 			} else {
-				forAll.experience += plebs.experienceGain;
-				plebs.enemiesKilled++;
-				plebs.enemyMissChance = plebs.enemyMissChance * 2 / 3;
-				goldFound = (rand.nextInt(100) + rand.nextInt(100)) + plebs.enemiesKilled * 20;
-				println("# " + plebs.enemy.name + " was defeated!");
-				println("# You have earned ", GREEN.BRIGHT, plebs.experienceGain + " exp", DEFAULT_COLOR, "!");
+				forAll.experience += getCurrentPlebs().experienceGain;
+				forAll.enemiesKilled++;
+				goldFound = (rand.nextInt(100) + rand.nextInt(100)) + forAll.enemiesKilled * 20;
+				println("# " + getCurrentPlebs().enemy.name + " was defeated!");
+				println("# You have earned ", GREEN.BRIGHT, getCurrentPlebs().experienceGain + " exp", DEFAULT_COLOR,
+						"!");
 			}
-			score = plebs.enemiesKilled * 5 + forAll.bossesKilled * 20;
+			score = forAll.enemiesKilled * 5 + forAll.bossesKilled * 20;
 			forAll.gold += goldFound;
 			println("# You have ", RED.BRIGHT, getHealth() + "HP", DEFAULT_COLOR, " left ");
 			println("# You found ", YELLOW.BRIGHT, goldFound + " gold", DEFAULT_COLOR, " (", YELLOW.BRIGHT,
@@ -659,7 +651,7 @@ public class Dungeon implements Serializable {
 			if (rand.nextInt(100) < ForAll.SMALL_HEALTH_POTION_DROP_CHANCE
 					|| rand.nextInt(100) <= character.getLuck()) {
 				inventory.add(HealthPotion.SMALL);
-				println("# The " + plebs.enemy.name + " dropped a small health potion! ("
+				println("# The " + getCurrentPlebs().enemy.name + " dropped a small health potion! ("
 						+ inventory.getCount(HealthPotion.SMALL) + " total)");
 
 			}
@@ -667,7 +659,7 @@ public class Dungeon implements Serializable {
 			if (rand.nextInt(100) < ForAll.MEDIUM_HEALTH_POTION_DROP_CHANCE
 					|| rand.nextInt(100) <= character.getLuck()) {
 				inventory.add(HealthPotion.MEDIUM);
-				println("# The " + plebs.enemy.name + " dropped a medium health potion! ("
+				println("# The " + getCurrentPlebs().enemy.name + " dropped a medium health potion! ("
 						+ inventory.getCount(HealthPotion.MEDIUM) + " total)");
 
 			}
@@ -675,7 +667,7 @@ public class Dungeon implements Serializable {
 			if (rand.nextInt(100) < ForAll.LARGE_HEALTH_POTION_DROP_CHANCE
 					|| rand.nextInt(100) <= character.getLuck()) {
 				inventory.add(HealthPotion.LARGE);
-				println("# The " + plebs.enemy.name + " dropped a large health potion! ("
+				println("# The " + getCurrentPlebs().enemy.name + " dropped a large health potion! ("
 						+ inventory.getCount(HealthPotion.LARGE) + " total)");
 			}
 			if (forAll.experience >= forAll.levelUp ^ bossKilled) {
@@ -707,8 +699,6 @@ public class Dungeon implements Serializable {
 				}
 				uzivatVolba("Continue");
 			}
-			plebs.resetEnemy();
-
 		}
 
 	}
@@ -723,7 +713,7 @@ public class Dungeon implements Serializable {
 			if (getForAll().level > 0) {
 				println(BLUE.BRIGHT, "level " + this.getForAll().level);
 			}
-			if (getPlebs().enemiesKilled > 0) {
+			if (forAll.enemiesKilled > 0) {
 				println("floor " + this.getForAll().floor);
 			}
 			if (getForAll().resistence > 0) {
@@ -753,10 +743,10 @@ public class Dungeon implements Serializable {
 			}
 			println(forAll.energy + "/100 energy");
 			println(forAll.missChance + "% miss chance");
-			if (getPlebs().enemiesKilled == 1) {
-				println(getPlebs().enemiesKilled + " killed enemy");
+			if (forAll.enemiesKilled == 1) {
+				println(forAll.enemiesKilled + " killed enemy");
 			} else {
-				println(getPlebs().enemiesKilled + " killed enemies");
+				println(forAll.enemiesKilled + " killed enemies");
 			}
 			if (getForAll().bossesKilled == 1) {
 				println(getForAll().bossesKilled + " killed boss");
@@ -779,7 +769,7 @@ public class Dungeon implements Serializable {
 		} while (this.getInventory().showInventory(fighting) != null);
 	}
 
-	private void plebFight() {
+	private void plebFight(Plebs plebs) {
 		boolean youMiss = rand.nextInt(100) <= character.getMissChance();
 		boolean enemyMiss = rand.nextInt(100) <= plebs.enemyMissChance;
 
@@ -793,12 +783,12 @@ public class Dungeon implements Serializable {
 		if (!youMiss) {
 			int damageDealt = forAll.selectedWeapon.calculateDamage(this);
 			println(Style.CENTER, "You strike the " + plebs.enemy.name + " for " + damageDealt + " damage.");
-			plebs.enemyHealth -= damageDealt;
+			plebs.damageTaken(damageDealt);
 		}
 
 		if (!enemyMiss) {
 			int damageTaken = ((rand.nextInt(plebs.enemyAttackDamage) + rand.nextInt(plebs.enemyAttackDamage))
-					+ plebs.enemiesKilled * 5 + 10) * forAll.resistence / 100;
+					+ forAll.enemiesKilled * 5 + 10) * forAll.resistence / 100;
 
 			println(Style.CENTER, "You receive " + damageTaken + " damage.");
 			decreaseHealth(damageTaken);

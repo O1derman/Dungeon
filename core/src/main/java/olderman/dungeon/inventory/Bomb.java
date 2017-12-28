@@ -22,7 +22,7 @@ public class Bomb extends InventoryItem {
 				&& dungeon.getWay().randMap.data.w == dungeon.getWay().randMap.data.w1) {
 			dungeon.getBoss1().boss1Health -= actualBombDamage;
 		} else {
-			dungeon.getPlebs().enemyHealth -= actualBombDamage;
+			dungeon.getCurrentPlebs().damageTaken(actualBombDamage);
 		}
 		dungeon.println(Style.CENTER, "You hit enemy for " + actualBombDamage + " damage!");
 		return true;

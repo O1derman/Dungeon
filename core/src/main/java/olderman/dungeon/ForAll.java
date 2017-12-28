@@ -25,6 +25,7 @@ public class ForAll implements Serializable {
 	// Player variables
 	public Weapon selectedWeapon = Weapon.HAND;
 	public int maximumHealth;
+	public int enemiesKilled = 0; // -1
 	public int missChance;
 	public int health;
 	public int gold = 0;
