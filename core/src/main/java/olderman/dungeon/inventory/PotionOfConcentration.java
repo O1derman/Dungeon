@@ -5,7 +5,7 @@ import olderman.dungeon.inventory.InventoryItem.Type;
 
 public class PotionOfConcentration extends InventoryItem {
 
-	public static final PotionOfConcentration CONCENTRATION = new PotionOfConcentration(10);
+	public static final PotionOfConcentration CONCENTRATION = new PotionOfConcentration(5);
 
 	private final int concentrationAmount;
 
@@ -18,9 +18,10 @@ public class PotionOfConcentration extends InventoryItem {
 	@Override
 	public boolean use(Dungeon dungeon) {
 		int missChance = dungeon.getForAll().missChance;
-		missChance += concentrationAmount;
-		dungeon.setMissChance(missChance);
-
+		if (missChance <= 5) {
+			missChance -= concentrationAmount;
+			dungeon.setMissChance(missChance);
+		}
 		return true;
 	}
 

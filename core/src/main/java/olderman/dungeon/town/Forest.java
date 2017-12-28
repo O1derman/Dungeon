@@ -15,6 +15,7 @@ public class Forest {
 
 	public void cutTrees() {
 		NABIDKA: while (true) {
+			dungeon.addEnergy();
 			dungeon.clear();
 			dungeon.println(dungeon.getForAll().energy + "/100 energy");
 			dungeon.println(dungeon.getForAll().wood + " wood");

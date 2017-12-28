@@ -3,7 +3,11 @@ package olderman.dungeon.enemies;
 import java.io.Serializable;
 import java.util.Random;
 
+import olderman.dungeon.map.RandMapData;
+import olderman.dungeon.map.Room;
+
 public class Plebs implements Serializable {
+	public RandMapData data = new RandMapData();
 	private static final long serialVersionUID = 1L;
 
 	private final Random rand;
@@ -28,6 +32,15 @@ public class Plebs implements Serializable {
 		enemyHealth = (rand.nextInt(10) + rand.nextInt(10)) + enemiesKilled * 5 + 50;
 		this.enemy = Enemy.values()[rand.nextInt(Enemy.values().length)];
 
+	}
+
+	public void inicializeMonsters() {
+		for (int i = 0; i < data.downEdge; i++) {
+
+			for (int j = 0; j < data.rightEdge; j++) {
+
+			}
+		}
 	}
 
 }

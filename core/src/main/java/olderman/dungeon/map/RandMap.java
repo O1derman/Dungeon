@@ -36,7 +36,7 @@ public class RandMap implements Serializable {
 		data.leftEdge = 1;
 		data.rightEdge = rWidth;
 		data.downEdge = rHight;
-		data.mapRooms = new Room[rWidth][rHight];
+		data.mapRooms = new Room[rWidth + 2][rHight + 2];
 		for (int i = 0; i < data.mapRooms.length; i++) {
 			Room[] rooms = data.mapRooms[i];
 			for (int j = 0; j < rooms.length; j++) {
@@ -44,6 +44,8 @@ public class RandMap implements Serializable {
 			}
 		}
 	}
+
+	// int Room(i, j) = 1+3; TODO
 
 	public String changeCharInPosition(int position, char ch, String str) {
 		char[] charArray = str.toCharArray();
@@ -59,7 +61,7 @@ public class RandMap implements Serializable {
 	public void createAsciiArtMap() {
 		String content1 = " ";
 		String content2 = "\n";
-		for (int i = 0; i < data.downEdge; i++) {
+		for (int i = 0; i <= data.downEdge + 1; i++) {
 			for (int j = 0; j < data.rightEdge * 2 + 3; j++) {
 				data.map += content1;
 			}
@@ -79,7 +81,7 @@ public class RandMap implements Serializable {
 			data.map = changeCharInPosition((data.w + 1) * (data.rightEdge * 2 + 4), 'x', data.map);
 		}
 		if (data.w == data.rightEdge && data.l == data.downEdge) {
-			data.map = changeCharInPosition((data.rightEdge * 2 + 4) * (data.w + 2), 'x', data.map);
+			data.map = changeCharInPosition((data.rightEdge * 2 + 4) * (data.w + 2) - 2, 'x', data.map);
 		}
 		if (data.w == 1) {
 			data.map = changeCharInPosition(data.l * 2, 'x', data.map);
@@ -125,5 +127,7 @@ public class RandMap implements Serializable {
 		data.l--;
 		asciiArtMap();
 	}
+
+	// if() TODO
 
 }

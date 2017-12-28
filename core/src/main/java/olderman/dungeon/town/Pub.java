@@ -18,6 +18,7 @@ public class Pub {
 		dungeon.println(Style.CENTER, "Welcome in \"Thirsty turtle\"!");
 		dungeon.println();
 		choices: while (true) {
+			dungeon.addEnergy();
 			dungeon.clear();
 			dungeon.println(YELLOW.BRIGHT, dungeon.getForAll().gold + " gold");
 			dungeon.println(dungeon.getForAll().energy + "/100 energy");
