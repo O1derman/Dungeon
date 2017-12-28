@@ -5,6 +5,7 @@ import olderman.dungeon.Style;
 
 public class Bomb extends InventoryItem {
 
+	private static final long serialVersionUID = 1L;
 	public static final int MIN_DAMAGE = 100;
 	public static final int MAX_DAMAGE = 300;
 	public static final int DAMAGE_RANGE = MAX_DAMAGE - MIN_DAMAGE;

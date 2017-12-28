@@ -315,6 +315,7 @@ public class Dungeon implements Serializable {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public void loadData() {
 		// create arraylist to store deserialized objects
 		ArrayList<Object> deserialized = new ArrayList<Object>();
