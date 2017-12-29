@@ -10,10 +10,20 @@ public class Room {
 	private int x;
 	private int y;
 	private Plebs plebs;
+	boolean searchedRoom;
+
+	public boolean isSearchedRoom() {
+		return searchedRoom;
+	}
+
+	public void setSearchedRoom(boolean searchedRoom) {
+		this.searchedRoom = searchedRoom;
+	}
 
 	public Room(int x, int y, Dungeon dungeon) {
 		this.x = x;
 		this.y = y;
+		searchedRoom = false;
 		plebs = new Plebs(dungeon);
 	}
 

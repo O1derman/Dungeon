@@ -38,6 +38,7 @@ public class Dungeon implements Serializable {
 	public int score;
 	public int bossX;
 	public int bossY;
+	boolean bossKilled = false;
 	boolean back = false;
 	private ForAll forAll;
 	private Plebs currentPlebs;
@@ -488,31 +489,96 @@ public class Dungeon implements Serializable {
 				boolean plebFight = true;
 				if (room.isFreeRoom()) {
 					while (true) {
-						println(Style.CENTER, "What now?");
-						volba = uzivatVolba("Go on", "Open inventory and info", "Go to town", "Exit");
-						if (volba == 1) { // Go on
+						if (way.randMap.data.l == bossY && way.randMap.data.w == bossX && room.isSearchedRoom()) {
+							println(Style.CENTER, "Here are the stairs to next floor.");
+							volba = uzivatVolba("Go to next floor", "Go on");
+							if (volba == 1) {
+								forAll.floor++;
+								way.randMap.initializeRooms();
+								timeWithoutFight = true;
+								continue FIGHT;
+							}
 							way.go();
 							back = true;
 							continue FIGHT;
-						} else if (volba == 2) { // Open inventory and info
-							inventoryAndInfo(false);
-							continue FIGHT;
+						} else if (room.isSearchedRoom()) {
+							println(Style.CENTER, "What now?");
+							volba = uzivatVolba("Go on", "Open inventory and info", "Go to town", "Exit");
+							if (volba == 1) { // Go on
+								way.go();
+								back = true;
+								continue FIGHT;
+							} else if (volba == 2) { // Open inventory and info
+								inventoryAndInfo(false);
+								continue FIGHT;
 
-						} else if (volba == 3) { // Go to town
-							town.town();
-							continue FIGHT;
-						} else if (volba == 4) { // Exit
-							println(Style.CENTER, "Really?...unsaved progres will be lost permanently!");
-							if (uzivatVolba("Yes", "No") == 1) {
-								return;
+							} else if (volba == 3) { // Go to town
+								town.town();
+								continue FIGHT;
+							} else if (volba == 4) { // Exit
+								println(Style.CENTER, "Really?...unsaved progres will be lost permanently!");
+								if (uzivatVolba("Yes", "No") == 1) {
+									return;
+								}
 							}
+
+						} else {
+							println(Style.CENTER, "What now?");
+							volba = uzivatVolba("Go on", "Search room", "Open inventory and info", "Go to town",
+									"Exit");
+							if (volba == 1) { // Go on
+								way.go();
+								back = true;
+								continue FIGHT;
+							} else if (volba == 2) {
+
+								if (forAll.energy < 20) {
+									println(Style.CENTER, "You don't have enough energy!");
+								} else {
+									if (way.randMap.data.l == bossY && way.randMap.data.w == bossX) {
+										println(Style.CENTER, "You found stairs to next floor!");
+									}
+									room.setSearchedRoom(true);
+									room.normalRoom(this);
+									forAll.energy -= 20;
+								}
+								if (way.randMap.data.l == bossY && way.randMap.data.w == bossX) {
+									volba = uzivatVolba("Go to next floor", "Continue");
+									if (volba == 1) {
+										forAll.floor++;
+										way.randMap.initializeRooms();
+										timeWithoutFight = true;
+										continue FIGHT;
+									}
+									if (volba == 2) {
+										continue FIGHT;
+									}
+									uzivatVolba("Continue");
+									continue FIGHT;
+								}
+							} else if (volba == 3) { // Open inventory and info
+								inventoryAndInfo(false);
+								continue FIGHT;
+
+							} else if (volba == 4) { // Go to town
+								town.town();
+								continue FIGHT;
+							} else if (volba == 5) { // Exit
+								println(Style.CENTER, "Really?...unsaved progres will be lost permanently!");
+								if (uzivatVolba("Yes", "No") == 1) {
+									return;
+								}
+							}
+
 						}
 
 					}
 				} else {
 					if (way.randMap.data.l == bossY && way.randMap.data.w == bossX) {
+
 						println(Style.CENTER, "Welcome in boss room for floor " + forAll.floor);
 						beep();
+
 					} else {
 						println(Style.CENTER, "You see " + getCurrentPlebs().enemy.nameWithArticle() + "!");
 
@@ -650,7 +716,6 @@ public class Dungeon implements Serializable {
 				}
 				int goldFound;
 				way.randMap.data.mapRooms[way.randMap.data.w][way.randMap.data.l].setFreeRoom(true);
-				boolean bossKilled = false;
 				println();
 				println();
 				println();
@@ -659,8 +724,6 @@ public class Dungeon implements Serializable {
 					bossKilled = true;
 					forAll.bossesKilled++;
 					goldFound = (rand.nextInt(100) + rand.nextInt(100)) + forAll.bossesKilled * 200;
-					forAll.floor++;
-					way.randMap.initializeRooms();
 
 				} else {
 					forAll.experience += getCurrentPlebs().experienceGain;
@@ -721,10 +784,27 @@ public class Dungeon implements Serializable {
 					if (forAll.energy < 20) {
 						println(Style.CENTER, "You don't have enough energy!");
 					} else {
+						if (way.randMap.data.l == bossY && way.randMap.data.w == bossX) {
+							println(Style.CENTER, "You found stairs to next floor!");
+						}
+						room.setSearchedRoom(true);
 						room.normalRoom(this);
 						forAll.energy -= 20;
 					}
-					uzivatVolba("Continue");
+					if (way.randMap.data.l == bossY && way.randMap.data.w == bossX) {
+						volba = uzivatVolba("Go to next floor", "Continue");
+						if (volba == 1) {
+							forAll.floor++;
+							way.randMap.initializeRooms();
+							timeWithoutFight = true;
+							continue FIGHT;
+						}
+						if (volba == 2) {
+							continue FIGHT;
+						}
+						uzivatVolba("Continue");
+						continue FIGHT;
+					}
 				}
 			}
 
