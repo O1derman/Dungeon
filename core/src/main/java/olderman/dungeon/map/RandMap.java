@@ -46,7 +46,7 @@ public class RandMap implements Serializable {
 		int iLength = r.nextInt(data.mapRooms.length - minWidth) + minWidth;
 		for (int i = 0; i < iLength; i++) {
 			barrierOnLine = 0;
-			if (i == 0 ^ i == data.mapRooms.length - 1) {
+			if (i == 0 || i == data.mapRooms.length - 1) {
 				for (int j = 0; j < data.mapRooms.length; j++) {
 				}
 			} else {
@@ -58,9 +58,9 @@ public class RandMap implements Serializable {
 				Room[] rooms = data.mapRooms[i];
 				int jLength = r.nextInt(rooms.length - minWidth) + minWidth;
 				for (int j = 0; j < jLength; j++) {
-					if (j == 0 ^ j == rooms.length - 1) {
+					if (j == 0 || j == rooms.length - 1) {
 					} else {
-						if (buildBarrier && (i != 1 ^ j != 1)) {
+						if (buildBarrier && (i != 1 || j != 1)) {
 							if (barrierOnLine != jLength - 1) {
 								if (dungeon.getRand().nextInt(100) > 20) {
 									barrierOnLine++;
