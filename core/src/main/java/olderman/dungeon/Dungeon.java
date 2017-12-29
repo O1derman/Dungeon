@@ -36,6 +36,9 @@ public class Dungeon implements Serializable {
 	// fields
 	private final Random rand = new Random();
 	public int score;
+	public int bossX;
+	public int bossY;
+	boolean back = false;
 	private ForAll forAll;
 	private Plebs currentPlebs;
 	private GameCharacter character;
@@ -489,6 +492,7 @@ public class Dungeon implements Serializable {
 						volba = uzivatVolba("Go on", "Open inventory and info", "Go to town", "Exit");
 						if (volba == 1) { // Go on
 							way.go();
+							back = true;
 							continue FIGHT;
 						} else if (volba == 2) { // Open inventory and info
 							inventoryAndInfo(false);
@@ -506,7 +510,7 @@ public class Dungeon implements Serializable {
 
 					}
 				} else {
-					if (way.randMap.data.l == way.randMap.data.rightEdge && way.randMap.data.w == way.randMap.data.w1) {
+					if (way.randMap.data.l == bossY && way.randMap.data.w == bossX) {
 						println(Style.CENTER, "Welcome in boss room for floor " + forAll.floor);
 						beep();
 					} else {
@@ -518,23 +522,29 @@ public class Dungeon implements Serializable {
 						println(Style.CENTER, "What now?");
 						volba = uzivatVolba("Fight", "Go back", "Open inventory and info", "Go to town", "Exit");
 						if (volba == 1) { // Attack
-							if (way.randMap.data.l == way.randMap.data.rightEdge
-									&& way.randMap.data.w == way.randMap.data.w1 && forAll.floor == 1) {
+							if (way.randMap.data.l == bossY && way.randMap.data.w == bossX && forAll.floor == 1) {
 								boss1.boss1Quote();
 
 								plebFight = false;
-							} else if (way.randMap.data.l == way.randMap.data.rightEdge
-									&& way.randMap.data.w == way.randMap.data.w1 && forAll.floor == 2) {
+							} else if (way.randMap.data.l == bossY && way.randMap.data.w == bossX
+									&& forAll.floor == 2) {
 
 							} else {
 
 							}
 							break;
 						} else if (volba == 2) { // Go back
-							way.randMap.previousPosition = way.randMap.mapPosition;
-							way.randMap.mapBack();
-							way.back();
-							continue FIGHT;
+							if (back) {
+								way.randMap.previousPosition = way.randMap.mapPosition;
+								way.randMap.mapBack();
+								way.back();
+								back = false;
+								continue FIGHT;
+							} else {
+								System.out.println("You can't back!");
+								uzivatVolba("Continue");
+								continue FIGHT;
+							}
 						} else if (volba == 3) { // Open inventory and info
 							inventoryAndInfo(false);
 							continue FIGHT;
@@ -559,28 +569,28 @@ public class Dungeon implements Serializable {
 						println();
 						println(Style.CENTER, "What would you like to do?");
 						println();
-						volba = uzivatVolba("Attack", "Run", "Open inventory and info");
+						volba = uzivatVolba("Attack", "Use potion of invisibility", "Open inventory and info");
 						if (volba == 1) { // Attack
 							plebFight(getCurrentPlebs());
-						} else if (volba == 2) { // Run
+						} else if (volba == 2) { // Use potion of invisibility
 							if (forAll.numPotionOfInvisibility < 1) {
-								println(Style.CENTER, "No time to run!");
+								println(Style.CENTER, "You don't have any!");
 								switch (uzivatVolba("Continue")) {
 								}
 							} else {
-								println(Style.CENTER, "Do you really want to run?");
+								println(Style.CENTER, "Do you really want to use potion of invisibility?");
 								println(Style.CENTER, "It will cost you one potion of invisibility!");
 								int volbaRun = uzivatVolba("Yes", "No");
 								switch (volbaRun) {
 								case 1:
-									println(Style.CENTER, "You run!");
+									clear();
+									println(Style.CENTER, "You used potion of invisibility!");
 									forAll.numPotionOfInvisibility--;
+									back = false;
 									forAll.resetDrinkHealthPotionCount();
-									switch (uzivatVolba("Continue")) {
-									}
+									way.randMap.mapBack();
+									way.go();
 									continue FIGHT;
-								case 2:
-									break;
 
 								}
 
@@ -594,21 +604,26 @@ public class Dungeon implements Serializable {
 						println("\t> Your HP: " + getHealth());
 						println("\t> " + boss1.boss1Name + "'s HP: " + boss1.boss1Health);
 						println();
-						volba = uzivatVolba("Attack", "Run", "Open inventory and info");
+						volba = uzivatVolba("Attack", "Use potion of invisibility", "Open inventory and info");
 						if (volba == 1) { // Attack
 							boss1.boss1Fight();
 						} else if (volba == 2) { // Run
-							if (forAll.numPotionOfInvisibility == 0) {
-								println(Style.CENTER, "No time to run!");
-								uzivatVolba("Continue");
+							if (forAll.numPotionOfInvisibility < 1) {
+								println(Style.CENTER, "You don't have any!");
+								switch (uzivatVolba("Continue")) {
+								}
 							} else {
-								println(Style.CENTER, "Do you really want to run?");
-								println(Style.CENTER, "It will cost you potion of invisibility!");
-								if (uzivatVolba("Yes", "No") == 1) {
-									println(Style.CENTER, "You run!");
+								println(Style.CENTER, "Do you really want to use potion of invisibility?");
+								println(Style.CENTER, "It will cost you one potion of invisibility!");
+								int volbaRun = uzivatVolba("Yes", "No");
+								switch (volbaRun) {
+								case 1:
+									clear();
+									println(Style.CENTER, "You used potion of invisibility!");
 									forAll.numPotionOfInvisibility--;
 									forAll.resetDrinkHealthPotionCount();
-									uzivatVolba("Continue");
+									way.randMap.mapBack();
+									way.go();
 									continue FIGHT;
 								}
 
@@ -639,14 +654,13 @@ public class Dungeon implements Serializable {
 				println();
 				println();
 				println();
-				if (way.randMap.data.l == way.randMap.data.rightEdge && way.randMap.data.w == way.randMap.data.w1) {
+				if (way.randMap.data.l == bossY && way.randMap.data.w == bossX) {
 					plebFight = true;
 					bossKilled = true;
 					forAll.bossesKilled++;
 					goldFound = (rand.nextInt(100) + rand.nextInt(100)) + forAll.bossesKilled * 200;
 					forAll.floor++;
-					// TODO set starting position for
-					// new floor
+					way.randMap.initializeRooms();
 
 				} else {
 					forAll.experience += getCurrentPlebs().experienceGain;
