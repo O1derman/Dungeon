@@ -22,8 +22,10 @@ public class RandMap implements Serializable {
 
 	private void initializeRooms() {
 		Random r = new Random();
-		int rMaxWidth = r.nextInt(10) + 5;
-		int rMaxHight = r.nextInt(10) + 5;
+		int rMaxWidth = 15;
+		int minWidth = 5;
+		int rMaxHight = 15;
+		int mindHight = 5;
 		int barrierOnLine = 0;
 		boolean buildBarrier;
 		// boolean isEven = rMaxWidth % 2 == 0;
@@ -41,7 +43,7 @@ public class RandMap implements Serializable {
 		data.rightEdge = rMaxWidth;
 		data.downEdge = rMaxHight;
 		data.mapRooms = new Room[rMaxWidth + 2][rMaxHight + 2];
-		int iLength = r.nextInt(data.mapRooms.length - 1) + 1;
+		int iLength = r.nextInt(data.mapRooms.length - minWidth) + minWidth;
 		for (int i = 0; i < iLength; i++) {
 			barrierOnLine = 0;
 			if (i == 0 ^ i == data.mapRooms.length - 1) {
@@ -54,12 +56,12 @@ public class RandMap implements Serializable {
 					buildBarrier = true;
 				}
 				Room[] rooms = data.mapRooms[i];
-				int jLength = r.nextInt(rooms.length - 1) + 1;
+				int jLength = r.nextInt(rooms.length - minWidth) + minWidth;
 				for (int j = 0; j < jLength; j++) {
 					if (j == 0 ^ j == rooms.length - 1) {
 					} else {
 						if (buildBarrier && (i != 1 ^ j != 1)) {
-							if (barrierOnLine != iLength - 1) {
+							if (barrierOnLine != jLength - 1) {
 								if (dungeon.getRand().nextInt(100) > 20) {
 									barrierOnLine++;
 								} else {
@@ -73,10 +75,10 @@ public class RandMap implements Serializable {
 
 						}
 					}
-					jLength = r.nextInt(rooms.length - 1) + 1;
+					jLength = r.nextInt(rooms.length - minWidth) + minWidth;
 				}
 			}
-			iLength = r.nextInt(data.mapRooms.length - 1) + 1;
+			iLength = r.nextInt(data.mapRooms.length - minWidth) + minWidth;
 		}
 
 	}
