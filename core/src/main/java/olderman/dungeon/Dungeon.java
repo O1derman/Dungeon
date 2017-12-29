@@ -475,7 +475,7 @@ public class Dungeon implements Serializable {
 			}
 			Room room = way.randMap.data.mapRooms[way.randMap.data.w][way.randMap.data.l];
 			if (room == null) {
-				System.out.println("You can't go there, there is a wall!");
+				println(Style.CENTER, "You can't go there, there is a wall!");
 				uzivatVolba("Continue");
 				way.randMap.previousPosition = way.randMap.mapPosition;
 				way.randMap.mapBarrier();
@@ -607,7 +607,7 @@ public class Dungeon implements Serializable {
 								back = false;
 								continue FIGHT;
 							} else {
-								System.out.println("You can't back!");
+								println(Style.CENTER,"You can't back!");
 								uzivatVolba("Continue");
 								continue FIGHT;
 							}
