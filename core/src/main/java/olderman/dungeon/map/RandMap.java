@@ -22,30 +22,64 @@ public class RandMap implements Serializable {
 
 	private void initializeRooms() {
 		Random r = new Random();
-		int rWidth = r.nextInt(10) + 5;
-		int rHight = r.nextInt(10) + 5;
-		boolean isEven = rWidth % 2 == 0;
-		if (isEven) {
-			data.w = (rWidth) / 2;
-			data.w1 = (rWidth) / 2;
-		} else {
-			data.w = (rWidth + 1) / 2; // find middle if width is odd
-			data.w1 = (rWidth + 1) / 2;
-		}
+		int rMaxWidth = r.nextInt(10) + 5;
+		int rMaxHight = r.nextInt(10) + 5;
+		int barrierOnLine = 0;
+		boolean buildBarrier;
+		// boolean isEven = rMaxWidth % 2 == 0;
+		data.w = 1;
+		data.w1 = 1;
+		// if (isEven) {
+		// data.w = (rMaxWidth) / 2;
+		// data.w1 = (rMaxWidth) / 2;
+		// } else {
+		// data.w = (rMaxWidth + 1) / 2; // find middle if width is odd
+		// data.w1 = (rMaxWidth + 1) / 2;
+		// }
 		data.l = 1;
 		data.leftEdge = 1;
-		data.rightEdge = rWidth;
-		data.downEdge = rHight;
-		data.mapRooms = new Room[rWidth + 2][rHight + 2];
-		for (int i = 0; i < data.mapRooms.length; i++) {
-			Room[] rooms = data.mapRooms[i];
-			for (int j = 0; j < rooms.length; j++) {
-				rooms[j] = new Room(i, j, dungeon);
-			}
-		}
-	}
+		data.rightEdge = rMaxWidth;
+		data.downEdge = rMaxHight;
+		data.mapRooms = new Room[rMaxWidth + 2][rMaxHight + 2];
+		int iLength = r.nextInt(data.mapRooms.length - 1) + 1;
+		for (int i = 0; i < iLength; i++) {
+			barrierOnLine = 0;
+			if (i == 0 ^ i == data.mapRooms.length - 1) {
+				for (int j = 0; j < data.mapRooms.length; j++) {
+				}
+			} else {
+				if (i % 2 == 0) {
+					buildBarrier = false;
+				} else {
+					buildBarrier = true;
+				}
+				Room[] rooms = data.mapRooms[i];
+				int jLength = r.nextInt(rooms.length - 1) + 1;
+				for (int j = 0; j < jLength; j++) {
+					if (j == 0 ^ j == rooms.length - 1) {
+					} else {
+						if (buildBarrier && (i != 1 ^ j != 1)) {
+							if (barrierOnLine != iLength - 1) {
+								if (dungeon.getRand().nextInt(100) > 20) {
+									barrierOnLine++;
+								} else {
+									rooms[j] = new Room(i, j, dungeon);
+								}
+							} else {
+								rooms[j] = new Room(i, j, dungeon);
+							}
+						} else {
+							rooms[j] = new Room(i, j, dungeon);
 
-	// int Room(i, j) = 1+3; TODO
+						}
+					}
+					jLength = r.nextInt(rooms.length - 1) + 1;
+				}
+			}
+			iLength = r.nextInt(data.mapRooms.length - 1) + 1;
+		}
+
+	}
 
 	public String changeCharInPosition(int position, char ch, String str) {
 		char[] charArray = str.toCharArray();
@@ -69,32 +103,13 @@ public class RandMap implements Serializable {
 		}
 	}
 
+	public void mapBarrier() {
+		mapPosition = data.w * (data.rightEdge * 2 + 4) + data.l * 2;
+		data.map = changeCharInPosition(mapPosition, 'x', data.map);
+	}
+
 	public void asciiArtMap() {
 		mapPosition = data.w * (data.rightEdge * 2 + 4) + data.l * 2;
-		if (data.w == 1 && data.l == 1) {
-			data.map = changeCharInPosition(0, 'x', data.map);
-		}
-		if (data.w == 1 && data.l == data.downEdge) {
-			data.map = changeCharInPosition(data.w * (data.rightEdge * 2 + 2), 'x', data.map);
-		}
-		if (data.w == data.rightEdge && data.l == 1) {
-			data.map = changeCharInPosition((data.w + 1) * (data.rightEdge * 2 + 4), 'x', data.map);
-		}
-		if (data.w == data.rightEdge && data.l == data.downEdge) {
-			data.map = changeCharInPosition((data.rightEdge * 2 + 4) * (data.w + 2) - 2, 'x', data.map);
-		}
-		if (data.w == 1) {
-			data.map = changeCharInPosition(data.l * 2, 'x', data.map);
-		}
-		if (data.w == data.rightEdge) {
-			data.map = changeCharInPosition((data.w + 1) * (data.rightEdge * 2 + 4) + data.l * 2, 'x', data.map);
-		}
-		if (data.l == 1) {
-			data.map = changeCharInPosition(data.w * (data.rightEdge * 2 + 4), 'x', data.map);
-		}
-		if (data.l == data.downEdge) {
-			data.map = changeCharInPosition((data.w + 1) * (data.rightEdge * 2 + 4) - 2, 'x', data.map);
-		}
 		data.map = data.map.replace('D', 'c');
 		data.map = changeCharInPosition(mapPosition, 'D', data.map);
 	}
