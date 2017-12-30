@@ -20,6 +20,7 @@ public class Way implements Serializable {
 	public int wayChoice;
 	int previousW;
 	int previousL;
+	int myWay;
 
 	public void go() {
 		dungeon.println(Style.CENTER, "Which way?");
@@ -50,12 +51,16 @@ public class Way implements Serializable {
 		String stringChoice = choices.get(wayChoice - 1);
 
 		if (stringChoice.equals(DirectionEnum.EAST.getDescription())) {
+			myWay = 1;
 			randMap.goStraight();
 		} else if (stringChoice.equals(DirectionEnum.NORTH.getDescription())) {
+			myWay = 2;
 			randMap.goLeft();
 		} else if (stringChoice.equals(DirectionEnum.SOUTH.getDescription())) {
+			myWay = 3;
 			randMap.goRight();
 		} else if (stringChoice.equals(DirectionEnum.WEST.getDescription())) {
+			myWay = 4;
 			randMap.goBackwards();
 		}
 	}
@@ -64,19 +69,19 @@ public class Way implements Serializable {
 		boolean back = true;
 		while (back) {
 
-			if (wayChoice == 1) {
+			if (myWay == 1) {
 				randMap.goBackwards();
 				break;
 			}
-			if (wayChoice == 2) {
+			if (myWay == 2) {
 				randMap.goRight();
 				break;
 			}
-			if (wayChoice == 3) {
+			if (myWay == 3) {
 				randMap.goLeft();
 				break;
 			}
-			if (wayChoice == 4) {
+			if (myWay == 4) {
 				randMap.goStraight();
 				break;
 			}
