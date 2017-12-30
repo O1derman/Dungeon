@@ -146,6 +146,29 @@ public class RandMap implements Serializable {
 			data.map = changeCharInPosition(mapPosition, 'o', data.map);
 		}
 	}
+	
+	/**
+	 * 
+	 * @param direction
+	 * @return Return next room in a given direction to the room character is in
+	 */
+	public Room getNextRoom(DirectionEnum direction) {
+		Room nextRoom = null;
+		int mapLength = data.mapRooms.length;
+		int mapWidth = data.mapRooms[0].length;
+		
+		int nexRoomPosilionW = data.w + direction.getNextRoomPositionW();
+		int nextRoomPositionL = data.l + direction.getNextRoomPositionL();		
+		
+		// if room would be out of map dimensions return null
+		if(nextRoomPositionL >= mapLength || nexRoomPosilionW >= mapWidth) {
+			nextRoom = null;
+		}else {
+		nextRoom = data.mapRooms[nexRoomPosilionW][nextRoomPositionL];	
+		}
+		
+		return nextRoom;
+	}
 
 	public void goLeft() {
 		data.w--;

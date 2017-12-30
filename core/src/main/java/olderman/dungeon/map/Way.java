@@ -1,6 +1,7 @@
 package olderman.dungeon.map;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import olderman.dungeon.Dungeon;
 import olderman.dungeon.Style;
@@ -22,28 +23,41 @@ public class Way implements Serializable {
 
 	public void go() {
 		dungeon.println(Style.CENTER, "Which way?");
-		while (true) {
-			wayChoice = dungeon.uzivatVolba("East", "North", "South", "West");
-			previousW = randMap.data.w;
-			previousL = randMap.data.l;
-			switch (wayChoice) {
-			case 1:
-				randMap.goStraight();
-				break;
-			case 2:
-				randMap.goLeft();
-				break;
-			case 3:
-				randMap.goRight();
-				break;
-			case 4:
-				randMap.goBackwards();
-				break;
+		previousW = randMap.data.w;
+		previousL = randMap.data.l;
 
-			}
-			break;
+		Room east = randMap.getNextRoom(DirectionEnum.EAST);
+		Room west = randMap.getNextRoom(DirectionEnum.WEST);
+		Room south = randMap.getNextRoom(DirectionEnum.SOUTH);
+		Room north = randMap.getNextRoom(DirectionEnum.NORTH);
+
+		ArrayList<String> choices = new ArrayList<>();
+		if (east != null) {
+			choices.add(DirectionEnum.EAST.getDescription());
+		}
+		if (north != null) {
+			choices.add(DirectionEnum.NORTH.getDescription());
+		}
+		if (south != null) {
+			choices.add(DirectionEnum.SOUTH.getDescription());
+		}
+		if (west != null) {
+			choices.add(DirectionEnum.WEST.getDescription());
 		}
 
+		wayChoice = dungeon.uzivatVolba(choices.toArray(new String[choices.size()]));
+
+		String stringChoice = choices.get(wayChoice - 1);
+
+		if (stringChoice.equals(DirectionEnum.EAST.getDescription())) {
+			randMap.goStraight();
+		} else if (stringChoice.equals(DirectionEnum.NORTH.getDescription())) {
+			randMap.goLeft();
+		} else if (stringChoice.equals(DirectionEnum.SOUTH.getDescription())) {
+			randMap.goRight();
+		} else if (stringChoice.equals(DirectionEnum.WEST.getDescription())) {
+			randMap.goBackwards();
+		}
 	}
 
 	public void back() {
