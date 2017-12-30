@@ -134,10 +134,10 @@ public class RandMap implements Serializable {
 		int waySouth = data.w + 1;
 		int wayEast = data.l + 1;
 		int wayWest = data.l - 1;
-		Room northRoom = dungeon.getWay().randMap.data.mapRooms[wayNorth][dungeon.getWay().randMap.data.l];
-		Room southRoom = dungeon.getWay().randMap.data.mapRooms[waySouth][dungeon.getWay().randMap.data.l];
-		Room eastRoom = dungeon.getWay().randMap.data.mapRooms[dungeon.getWay().randMap.data.w][wayEast];
-		Room westRoom = dungeon.getWay().randMap.data.mapRooms[dungeon.getWay().randMap.data.w][wayWest];
+		Room northRoom = data.mapRooms[wayNorth][dungeon.getWay().randMap.data.l];
+		Room southRoom = data.mapRooms[waySouth][dungeon.getWay().randMap.data.l];
+		Room eastRoom = data.mapRooms[dungeon.getWay().randMap.data.w][wayEast];
+		Room westRoom = data.mapRooms[dungeon.getWay().randMap.data.w][wayWest];
 
 		if (eastRoom == null) {
 			mapPosition = data.w * (data.rightEdge * 2 + 4) + wayEast * 2;
@@ -159,7 +159,7 @@ public class RandMap implements Serializable {
 
 		}
 		mapPosition = data.w * (data.rightEdge * 2 + 4) + data.l * 2;
-		if (data.l == dungeon.bossY && data.w == dungeon.bossX) {
+		if (dungeon.getWay().previousL == dungeon.bossY && dungeon.getWay().previousW == dungeon.bossX) {
 			data.map = data.map.replace('D', 'A');
 		} else {
 			data.map = data.map.replace('D', 'c');

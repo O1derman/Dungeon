@@ -18,8 +18,8 @@ public class Way implements Serializable {
 	private final Dungeon dungeon;
 	public RandMap randMap;
 	public int wayChoice;
-	int previousW;
-	int previousL;
+	public int previousW;
+	public int previousL;
 	int myWay;
 
 	public void go() {
