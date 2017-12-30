@@ -1,7 +1,5 @@
 package olderman.dungeon.town;
 
-import static olderman.dungeon.Style.YELLOW;
-
 import olderman.dungeon.Dungeon;
 import olderman.dungeon.Style;
 

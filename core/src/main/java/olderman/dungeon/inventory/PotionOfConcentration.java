@@ -1,9 +1,10 @@
 package olderman.dungeon.inventory;
 
 import olderman.dungeon.Dungeon;
-import olderman.dungeon.inventory.InventoryItem.Type;
 
 public class PotionOfConcentration extends InventoryItem {
+
+	private static final long serialVersionUID = 1L;
 
 	public static final PotionOfConcentration CONCENTRATION = new PotionOfConcentration(5);
 

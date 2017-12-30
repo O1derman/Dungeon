@@ -5,6 +5,8 @@ import olderman.dungeon.Style;
 
 public class Pot extends InventoryItem {
 
+	private static final long serialVersionUID = 1L;
+
 	public static final Pot POT = new Pot();
 
 	private Pot() {

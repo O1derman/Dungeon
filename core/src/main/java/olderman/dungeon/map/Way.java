@@ -24,6 +24,8 @@ public class Way implements Serializable {
 
 	public void go() {
 		dungeon.println(Style.CENTER, "Which way?");
+		dungeon.println();
+		dungeon.println(randMap.data.map);
 		previousW = randMap.data.w;
 		previousL = randMap.data.l;
 

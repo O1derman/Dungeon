@@ -2,13 +2,10 @@ package olderman.dungeon.map;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Random;
 
 import olderman.dungeon.Dungeon;
-import olderman.dungeon.Resources;
 
 public class RandMap implements Serializable {
 	public RandMapData data = new RandMapData();
@@ -23,13 +20,15 @@ public class RandMap implements Serializable {
 
 	public void initializeRooms() {
 		Random r = new Random();
-		int rMaxWidth = 15;
+		int rMaxWidth = 10;
 		int minWidth = 5;
-		int rMaxHight = 15;
+		int rMaxHight = 10;
 		int minHight = 5;
 		int barrierOnLine = 0;
 		boolean buildBarrier;
 		boolean firstTime = true;
+		boolean firstTimejLenght = true;
+		int previousjLength = 0;
 		// boolean isEven = rMaxWidth % 2 == 0;
 		// if (isEven) {
 		// data.w = (rMaxWidth) / 2;
@@ -39,10 +38,10 @@ public class RandMap implements Serializable {
 		// data.w1 = (rMaxWidth + 1) / 2;
 		// }
 		data.leftEdge = 1;
-		data.rightEdge = rMaxWidth;
-		data.downEdge = rMaxHight;
 		data.mapRooms = new Room[rMaxWidth + 2][rMaxHight + 2];
-		int iLength = r.nextInt(data.mapRooms.length - minHight) + minHight;
+		int iLength = r.nextInt(data.mapRooms.length - minHight - 1) + minHight + 1;
+		data.rightEdge = rMaxWidth;
+		data.downEdge = iLength;
 		for (int i = 0; i < iLength; i++) {
 			barrierOnLine = 0;
 			if (i == 0 || i == data.mapRooms.length - 1) {
@@ -55,13 +54,17 @@ public class RandMap implements Serializable {
 					buildBarrier = true;
 				}
 				Room[] rooms = data.mapRooms[i];
-				int jLength = r.nextInt(rooms.length - minWidth) + minWidth;
+				int jLength = r.nextInt(rooms.length - minWidth - 1) + minWidth + 1;
+				if (firstTimejLenght) {
+					previousjLength = jLength;
+					firstTimejLenght = false;
+				}
 				for (int j = 0; j < jLength; j++) {
 					if (j == 0 || j == rooms.length - 1) {
 					} else {
 						if (i != data.w || j != data.l) {
 							if (buildBarrier) {
-								if (barrierOnLine != jLength - 1) {
+								if (barrierOnLine != previousjLength - 2) {
 									if (dungeon.getRand().nextInt(100) > 20) {
 										barrierOnLine++;
 									} else {
@@ -94,6 +97,7 @@ public class RandMap implements Serializable {
 
 						}
 					}
+					previousjLength = jLength;
 				}
 			}
 		}
@@ -163,6 +167,43 @@ public class RandMap implements Serializable {
 			data.map = data.map.replace('D', 'c');
 		}
 		data.map = changeCharInPosition(mapPosition, 'D', data.map);
+	}
+
+	public void mapInvisibility() {
+		int wayNorth = dungeon.getWay().previousW - 1;
+		int waySouth = dungeon.getWay().previousW + 1;
+		int wayEast = dungeon.getWay().previousL + 1;
+		int wayWest = dungeon.getWay().previousL - 1;
+		Room northRoom = data.mapRooms[wayNorth][dungeon.getWay().randMap.data.l];
+		Room southRoom = data.mapRooms[waySouth][dungeon.getWay().randMap.data.l];
+		Room eastRoom = data.mapRooms[dungeon.getWay().randMap.data.w][wayEast];
+		Room westRoom = data.mapRooms[dungeon.getWay().randMap.data.w][wayWest];
+
+		if (eastRoom == null) {
+			mapPosition = dungeon.getWay().previousW * (data.rightEdge * 2 + 4) + wayEast * 2;
+			data.map = changeCharInPosition(mapPosition, 'x', data.map);
+		}
+		if (northRoom == null) {
+			mapPosition = wayNorth * (data.rightEdge * 2 + 4) + dungeon.getWay().previousL * 2;
+			data.map = changeCharInPosition(mapPosition, 'x', data.map);
+
+		}
+		if (southRoom == null) {
+			mapPosition = waySouth * (data.rightEdge * 2 + 4) + dungeon.getWay().previousL * 2;
+			data.map = changeCharInPosition(mapPosition, 'x', data.map);
+
+		}
+		if (westRoom == null) {
+			mapPosition = dungeon.getWay().previousW * (data.rightEdge * 2 + 4) + wayWest * 2;
+			data.map = changeCharInPosition(mapPosition, 'x', data.map);
+
+		}
+		mapPosition = dungeon.getWay().previousW * (data.rightEdge * 2 + 4) + dungeon.getWay().previousL * 2;
+		if (dungeon.getWay().previousL == dungeon.bossY && dungeon.getWay().previousW == dungeon.bossX) {
+			data.map = changeCharInPosition(mapPosition, 'A', data.map);
+		} else {
+			data.map = changeCharInPosition(mapPosition, 'o', data.map);
+		}
 	}
 
 	public void mapBack() {

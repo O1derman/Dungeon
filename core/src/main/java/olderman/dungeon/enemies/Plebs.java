@@ -1,11 +1,9 @@
 package olderman.dungeon.enemies;
 
 import java.io.Serializable;
-import java.util.Random;
 
 import olderman.dungeon.Dungeon;
 import olderman.dungeon.map.RandMapData;
-import olderman.dungeon.map.Room;
 
 public class Plebs implements Serializable {
 	public RandMapData data = new RandMapData();

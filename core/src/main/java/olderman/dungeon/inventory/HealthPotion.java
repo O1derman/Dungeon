@@ -4,6 +4,8 @@ import olderman.dungeon.Dungeon;
 
 public class HealthPotion extends InventoryItem {
 
+	private static final long serialVersionUID = 1L;
+
 	public static final HealthPotion SMALL = new HealthPotion("small -> +20hp", 20);
 	public static final HealthPotion MEDIUM = new HealthPotion("medium -> +50hp", 50);
 	public static final HealthPotion LARGE = new HealthPotion("large -> +100hp", 100);

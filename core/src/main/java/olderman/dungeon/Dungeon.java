@@ -395,6 +395,7 @@ public class Dungeon implements Serializable {
 					switch (uzivatVolba("continue")) {
 					}
 					town.town();
+					getWay().randMap.asciiArtMap();
 					game();
 				}
 
@@ -482,7 +483,6 @@ public class Dungeon implements Serializable {
 				way.back();
 				continue FIGHT;
 			} else {
-				way.randMap.asciiArtMap();
 				addEnergy();
 				currentPlebs = room.getPlebs();
 				forAll.resetDrinkHealthPotionCount();
@@ -499,6 +499,7 @@ public class Dungeon implements Serializable {
 								continue FIGHT;
 							}
 							way.go();
+							way.randMap.asciiArtMap();
 							back = true;
 							continue FIGHT;
 						} else if (room.isSearchedRoom()) {
@@ -506,9 +507,11 @@ public class Dungeon implements Serializable {
 							volba = uzivatVolba("Go on", "Open inventory and info", "Go to town", "Exit");
 							if (volba == 1) { // Go on
 								way.go();
+								way.randMap.asciiArtMap();
 								back = true;
 								continue FIGHT;
 							} else if (volba == 2) { // Open inventory and info
+								way.randMap.asciiArtMap();
 								inventoryAndInfo(false);
 								continue FIGHT;
 
@@ -528,6 +531,7 @@ public class Dungeon implements Serializable {
 									"Exit");
 							if (volba == 1) { // Go on
 								way.go();
+								way.randMap.asciiArtMap();
 								back = true;
 								continue FIGHT;
 							} else if (volba == 2) {
@@ -557,6 +561,7 @@ public class Dungeon implements Serializable {
 									continue FIGHT;
 								}
 							} else if (volba == 3) { // Open inventory and info
+								way.randMap.asciiArtMap();
 								inventoryAndInfo(false);
 								continue FIGHT;
 
@@ -586,7 +591,8 @@ public class Dungeon implements Serializable {
 
 					while (true) {
 						println(Style.CENTER, "What now?");
-						volba = uzivatVolba("Fight", "Go back", "Open inventory and info", "Go to town", "Exit");
+						volba = uzivatVolba("Fight", "Use potion of invisibility", "Go back", "Open inventory and info",
+								"Go to town", "Exit");
 						if (volba == 1) { // Attack
 							if (way.randMap.data.l == bossY && way.randMap.data.w == bossX && forAll.floor == 1) {
 								boss1.boss1Quote();
@@ -599,7 +605,30 @@ public class Dungeon implements Serializable {
 
 							}
 							break;
-						} else if (volba == 2) { // Go back
+						} else if (volba == 2) { // Use potion of invisibility
+							if (forAll.numPotionOfInvisibility < 1) {
+								println(Style.CENTER, "You don't have any!");
+								switch (uzivatVolba("Continue")) {
+								}
+							} else {
+								println(Style.CENTER, "Do you really want to use potion of invisibility?");
+								println(Style.CENTER, "It will cost you one potion of invisibility!");
+								int volbaRun = uzivatVolba("Yes", "No");
+								switch (volbaRun) {
+								case 1:
+									clear();
+									println(Style.CENTER, "You used potion of invisibility!");
+									forAll.numPotionOfInvisibility--;
+									back = false;
+									forAll.resetDrinkHealthPotionCount();
+									way.go();
+									way.randMap.mapInvisibility();
+									continue FIGHT;
+
+								}
+
+							}
+						} else if (volba == 3) { // Go back
 							if (back) {
 								way.randMap.previousPosition = way.randMap.mapPosition;
 								way.randMap.mapBack();
@@ -611,13 +640,14 @@ public class Dungeon implements Serializable {
 								uzivatVolba("Continue");
 								continue FIGHT;
 							}
-						} else if (volba == 3) { // Open inventory and info
+						} else if (volba == 4) { // Open inventory and info
+							way.randMap.asciiArtMap();
 							inventoryAndInfo(false);
 							continue FIGHT;
-						} else if (volba == 4) { // Go to town
+						} else if (volba == 5) { // Go to town
 							town.town();
 							continue FIGHT;
-						} else if (volba == 5) { // Exit
+						} else if (volba == 6) { // Exit
 							println(Style.CENTER, "Really?");
 							println(Style.CENTER, "Unsaved progres will be lost permanently!");
 							if (uzivatVolba("Yes", "No") == 1) {
@@ -654,14 +684,15 @@ public class Dungeon implements Serializable {
 									forAll.numPotionOfInvisibility--;
 									back = false;
 									forAll.resetDrinkHealthPotionCount();
-									way.randMap.mapBack();
 									way.go();
+									way.randMap.mapInvisibility();
 									continue FIGHT;
 
 								}
 
 							}
 						} else if (volba == 3) {// Open inventory and info
+							way.randMap.asciiArtMap();
 							inventoryAndInfo(true);
 						}
 
@@ -688,13 +719,14 @@ public class Dungeon implements Serializable {
 									println(Style.CENTER, "You used potion of invisibility!");
 									forAll.numPotionOfInvisibility--;
 									forAll.resetDrinkHealthPotionCount();
-									way.randMap.mapBack();
 									way.go();
+									way.randMap.mapInvisibility();
 									continue FIGHT;
 								}
 
 							}
 						} else if (volba == 3) {// Open inventory and info
+							way.randMap.asciiArtMap();
 							inventoryAndInfo(true);
 						}
 					}
@@ -866,7 +898,6 @@ public class Dungeon implements Serializable {
 			println("Map:");
 			println();
 			println(way.randMap.data.map);
-			println();
 			println("Map legend:");
 			println("D - your position");
 			println("x - wall");

@@ -149,6 +149,7 @@ public class DesktopOS implements OS {
 		}
 	}
 
+	@SuppressWarnings("incomplete-switch")
 	@Override
 	public void attribute(AttributeStyle style) {
 		if (style.isOn()) {

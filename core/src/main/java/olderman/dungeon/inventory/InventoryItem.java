@@ -6,6 +6,8 @@ import olderman.dungeon.Dungeon;
 
 public abstract class InventoryItem implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	public enum Type {
 		WEAPON, HEALTH_POTION, OTHER
 	}

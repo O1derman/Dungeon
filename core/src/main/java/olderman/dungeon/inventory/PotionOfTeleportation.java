@@ -1,9 +1,11 @@
 package olderman.dungeon.inventory;
 
 import olderman.dungeon.Dungeon;
-import olderman.dungeon.inventory.InventoryItem.Type;
 
 public class PotionOfTeleportation extends InventoryItem {
+
+	private static final long serialVersionUID = 1L;
+
 	public static final PotionOfTeleportation TELEPORTATION = new PotionOfTeleportation();
 
 	private PotionOfTeleportation() {
@@ -16,4 +18,4 @@ public class PotionOfTeleportation extends InventoryItem {
 		// TODO
 		return true;
 	}
-} 
+}

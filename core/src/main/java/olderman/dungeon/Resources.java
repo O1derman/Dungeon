@@ -26,6 +26,11 @@ public class Resources {
 	}
 
 	public static class NoSuchResourceException extends RuntimeException {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public NoSuchResourceException(String resourceName) {
 			super("Resource \"" + resourceName + "\" doesn't exist");
 		}
