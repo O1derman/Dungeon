@@ -864,9 +864,9 @@ public class Dungeon implements Serializable {
 			println(score + " score");
 			println();
 			println("Map:");
-			printEmptyLines(3);
+			println();
 			println(way.randMap.data.map);
-			printEmptyLines(3);
+			println();
 			println("Map legend:");
 			println("D - your position");
 			println("x - wall");

@@ -72,14 +72,14 @@ public class RandMap implements Serializable {
 								}
 							} else {
 								if (firstTime) {
-									int minWidthCalculator = minHight;
+									int iLengthCalculator = iLength;
 									int possibilities = 0;
-									for (int k = 0; k < minHight; k++) {
-										boolean isEven = minWidthCalculator % 2 == 0;
+									for (int k = 0; k < iLength; k++) {
+										boolean isEven = iLengthCalculator % 2 == 0;
 										if (isEven) {
 											possibilities++;
 										}
-										minWidthCalculator--;
+										iLengthCalculator--;
 									}
 									int possibility = r.nextInt(possibilities - 1) + 1;
 									dungeon.bossX = possibility * 2;
@@ -94,10 +94,8 @@ public class RandMap implements Serializable {
 
 						}
 					}
-					jLength = r.nextInt(rooms.length - minWidth) + minWidth;
 				}
 			}
-			iLength = r.nextInt(data.mapRooms.length - minHight) + minHight;
 		}
 
 	}
