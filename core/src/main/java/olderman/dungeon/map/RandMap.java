@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Random;
 
 import olderman.dungeon.Dungeon;
@@ -129,6 +130,34 @@ public class RandMap implements Serializable {
 	}
 
 	public void asciiArtMap() {
+		int wayNorth = data.w - 1;
+		int waySouth = data.w + 1;
+		int wayEast = data.l + 1;
+		int wayWest = data.l - 1;
+		Room northRoom = dungeon.getWay().randMap.data.mapRooms[wayNorth][dungeon.getWay().randMap.data.l];
+		Room southRoom = dungeon.getWay().randMap.data.mapRooms[waySouth][dungeon.getWay().randMap.data.l];
+		Room eastRoom = dungeon.getWay().randMap.data.mapRooms[dungeon.getWay().randMap.data.w][wayEast];
+		Room westRoom = dungeon.getWay().randMap.data.mapRooms[dungeon.getWay().randMap.data.w][wayWest];
+
+		if (eastRoom == null) {
+			mapPosition = data.w * (data.rightEdge * 2 + 4) + wayEast * 2;
+			data.map = changeCharInPosition(mapPosition, 'x', data.map);
+		}
+		if (northRoom == null) {
+			mapPosition = wayNorth * (data.rightEdge * 2 + 4) + data.l * 2;
+			data.map = changeCharInPosition(mapPosition, 'x', data.map);
+
+		}
+		if (southRoom == null) {
+			mapPosition = waySouth * (data.rightEdge * 2 + 4) + data.l * 2;
+			data.map = changeCharInPosition(mapPosition, 'x', data.map);
+
+		}
+		if (westRoom == null) {
+			mapPosition = data.w * (data.rightEdge * 2 + 4) + wayWest * 2;
+			data.map = changeCharInPosition(mapPosition, 'x', data.map);
+
+		}
 		mapPosition = data.w * (data.rightEdge * 2 + 4) + data.l * 2;
 		if (data.l == dungeon.bossY && data.w == dungeon.bossX) {
 			data.map = data.map.replace('D', 'A');
@@ -146,7 +175,7 @@ public class RandMap implements Serializable {
 			data.map = changeCharInPosition(mapPosition, 'o', data.map);
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param direction
@@ -156,17 +185,17 @@ public class RandMap implements Serializable {
 		Room nextRoom = null;
 		int mapLength = data.mapRooms.length;
 		int mapWidth = data.mapRooms[0].length;
-		
+
 		int nexRoomPosilionW = data.w + direction.getNextRoomPositionW();
-		int nextRoomPositionL = data.l + direction.getNextRoomPositionL();		
-		
+		int nextRoomPositionL = data.l + direction.getNextRoomPositionL();
+
 		// if room would be out of map dimensions return null
-		if(nextRoomPositionL >= mapLength || nexRoomPosilionW >= mapWidth) {
+		if (nextRoomPositionL >= mapLength || nexRoomPosilionW >= mapWidth) {
 			nextRoom = null;
-		}else {
-		nextRoom = data.mapRooms[nexRoomPosilionW][nextRoomPositionL];	
+		} else {
+			nextRoom = data.mapRooms[nexRoomPosilionW][nextRoomPositionL];
 		}
-		
+
 		return nextRoom;
 	}
 

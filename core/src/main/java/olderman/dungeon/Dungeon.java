@@ -392,7 +392,7 @@ public class Dungeon implements Serializable {
 					forAll.missChance = character.getMissChance();
 					println(character.getBeginning());
 					printAsciiArt(character.getAsciiArt());
-					switch (uzivatVolba("coninue")) {
+					switch (uzivatVolba("continue")) {
 					}
 					town.town();
 					game();
@@ -408,7 +408,7 @@ public class Dungeon implements Serializable {
 					game();
 				} else {
 					println(Style.CENTER, "You don't have any saved progress yet!");
-					switch (uzivatVolba("coninue")) {
+					switch (uzivatVolba("continue")) {
 					}
 					break;
 				}
@@ -607,7 +607,7 @@ public class Dungeon implements Serializable {
 								back = false;
 								continue FIGHT;
 							} else {
-								println(Style.CENTER,"You can't back!");
+								println(Style.CENTER, "You can't back!");
 								uzivatVolba("Continue");
 								continue FIGHT;
 							}
