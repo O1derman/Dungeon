@@ -375,78 +375,78 @@ public class Dungeon implements Serializable {
 			printAsciiArt(HEADLINE);
 			int volba = uzivatVolba("Start", "Load saved game", "Help", "Exit");
 			switch (volba) {
-			case 1:
-				println(Style.CENTER, "Welcome to the dungeon!");
-				println();
-				println(Style.CENTER, "Which character would you like to play?\n");
+				case 1:
+					println(Style.CENTER, "Welcome to the dungeon!");
+					println();
+					println(Style.CENTER, "Which character would you like to play?\n");
 
-				volba = uzivatVolba("Dwarf", "Orc", "Elf", "Goblin", /* "Superman", */ "Back");
+					volba = uzivatVolba("Dwarf", "Orc", "Elf", "Goblin", /* "Superman", */ "Back");
 
-				if (volba != 5) {
-					character = new GameCharacter[] { GameCharacter.DWARF, GameCharacter.ORC, GameCharacter.ELF,
-							GameCharacter.GOBLIN }[volba - 1];
+					if (volba != 5) {
+						character = new GameCharacter[] { GameCharacter.DWARF, GameCharacter.ORC, GameCharacter.ELF,
+								GameCharacter.GOBLIN }[volba - 1];
 
-					way.randMap.createAsciiArtMap();
-					forAll.health = character.getInitialHealth();
-					forAll.maximumHealth = character.getInitialMaximumHealth();
-					forAll.missChance = character.getMissChance();
-					println(character.getBeginning());
-					printAsciiArt(character.getAsciiArt());
-					switch (uzivatVolba("continue")) {
+						way.randMap.createAsciiArtMap();
+						forAll.health = character.getInitialHealth();
+						forAll.maximumHealth = character.getInitialMaximumHealth();
+						forAll.missChance = character.getMissChance();
+						println(character.getBeginning());
+						printAsciiArt(character.getAsciiArt());
+						switch (uzivatVolba("continue")) {
+						}
+						town.town();
+						getWay().randMap.asciiArtMap();
+						game();
 					}
-					town.town();
-					getWay().randMap.asciiArtMap();
-					game();
-				}
 
-				break;
-
-			case 2:
-				File f = new File("data.ser");
-				if (f.exists()) {
-					loadData();
-					town.getHouse().inside();
-					game();
-				} else {
-					println(Style.CENTER, "You don't have any saved progress yet!");
-					switch (uzivatVolba("continue")) {
-					}
 					break;
-				}
-			case 3:
-				// Ramecek.ramecek(Ramecek.data[1][0], "Dwarf");
-				println(">Orc");
-				println("\thas 30% miss chance");
-				println("\tcan carry 500kg");
-				println(">Dwarf");
-				println("\thas 20% miss chance");
-				println("\tcan carry 80kg");
-				println("\thas cheaper axes in store");
-				println(">Goblin");
-				println("\thas 10% miss chance");
-				println("\tcan carry 50kg");
-				println(">Elf");
-				println("\thas 5% miss chance");
-				println("\tcan carry 30kg");
-				// println(">Superman");
-				// println("\thas 0% miss chance");
-				println();
-				println(">Small health potion heals for 20 HP.");
-				println(">Medium health potion heals for 50 HP.");
-				println(">Large health potion heals for 100 HP.");
-				println();
-				println("You gain experience and have a small chance of getting some health potions for killing enemies.");
-				println("You can collect ingredients to be able to brew potions in a pot.");
-				println("You can save game in bed...if you die without save...you lose everything!");
-				println("In every floor is a boss room, if you beat the boss, you go to the next floor.");
-				println("Main goal of this game is to get the highest score!");
-				println("Some actions cost you energy.");
-				println("You get energy by drinking beer in a pub.");
-				uzivatVolba("Back");
-				break;
 
-			case 4:
-				return;
+				case 2:
+					File f = new File("data.ser");
+					if (f.exists()) {
+						loadData();
+						town.getHouse().inside();
+						game();
+					} else {
+						println(Style.CENTER, "You don't have any saved progress yet!");
+						switch (uzivatVolba("continue")) {
+						}
+						break;
+					}
+				case 3:
+					// Ramecek.ramecek(Ramecek.data[1][0], "Dwarf");
+					println(">Orc");
+					println("\thas 30% miss chance");
+					println("\tcan carry 500kg");
+					println(">Dwarf");
+					println("\thas 20% miss chance");
+					println("\tcan carry 80kg");
+					println("\thas cheaper axes in store");
+					println(">Goblin");
+					println("\thas 10% miss chance");
+					println("\tcan carry 50kg");
+					println(">Elf");
+					println("\thas 5% miss chance");
+					println("\tcan carry 30kg");
+					// println(">Superman");
+					// println("\thas 0% miss chance");
+					println();
+					println(">Small health potion heals for 20 HP.");
+					println(">Medium health potion heals for 50 HP.");
+					println(">Large health potion heals for 100 HP.");
+					println();
+					println("You gain experience and have a small chance of getting some health potions for killing enemies.");
+					println("You can collect ingredients to be able to brew potions in a pot.");
+					println("You can save game in bed...if you die without save...you lose everything!");
+					println("In every floor is a boss room, if you beat the boss, you go to the next floor.");
+					println("Main goal of this game is to get the highest score!");
+					println("Some actions cost you energy.");
+					println("You get energy by drinking beer in a pub.");
+					uzivatVolba("Back");
+					break;
+
+				case 4:
+					return;
 			}
 		}
 
@@ -615,15 +615,15 @@ public class Dungeon implements Serializable {
 								println(Style.CENTER, "It will cost you one potion of invisibility!");
 								int volbaRun = uzivatVolba("Yes", "No");
 								switch (volbaRun) {
-								case 1:
-									clear();
-									println(Style.CENTER, "You used potion of invisibility!");
-									forAll.numPotionOfInvisibility--;
-									back = false;
-									forAll.resetDrinkHealthPotionCount();
-									way.go();
-									way.randMap.mapInvisibility();
-									continue FIGHT;
+									case 1:
+										clear();
+										println(Style.CENTER, "You used potion of invisibility!");
+										forAll.numPotionOfInvisibility--;
+										back = false;
+										forAll.resetDrinkHealthPotionCount();
+										way.go();
+										way.randMap.mapInvisibility();
+										continue FIGHT;
 
 								}
 
@@ -678,15 +678,15 @@ public class Dungeon implements Serializable {
 								println(Style.CENTER, "It will cost you one potion of invisibility!");
 								int volbaRun = uzivatVolba("Yes", "No");
 								switch (volbaRun) {
-								case 1:
-									clear();
-									println(Style.CENTER, "You used potion of invisibility!");
-									forAll.numPotionOfInvisibility--;
-									back = false;
-									forAll.resetDrinkHealthPotionCount();
-									way.go();
-									way.randMap.mapInvisibility();
-									continue FIGHT;
+									case 1:
+										clear();
+										println(Style.CENTER, "You used potion of invisibility!");
+										forAll.numPotionOfInvisibility--;
+										back = false;
+										forAll.resetDrinkHealthPotionCount();
+										way.go();
+										way.randMap.mapInvisibility();
+										continue FIGHT;
 
 								}
 
@@ -714,14 +714,14 @@ public class Dungeon implements Serializable {
 								println(Style.CENTER, "It will cost you one potion of invisibility!");
 								int volbaRun = uzivatVolba("Yes", "No");
 								switch (volbaRun) {
-								case 1:
-									clear();
-									println(Style.CENTER, "You used potion of invisibility!");
-									forAll.numPotionOfInvisibility--;
-									forAll.resetDrinkHealthPotionCount();
-									way.go();
-									way.randMap.mapInvisibility();
-									continue FIGHT;
+									case 1:
+										clear();
+										println(Style.CENTER, "You used potion of invisibility!");
+										forAll.numPotionOfInvisibility--;
+										forAll.resetDrinkHealthPotionCount();
+										way.go();
+										way.randMap.mapInvisibility();
+										continue FIGHT;
 								}
 
 							}
@@ -798,7 +798,6 @@ public class Dungeon implements Serializable {
 					forAll.level++;
 					forAll.experience = forAll.experience - forAll.levelUp;
 					forAll.levelUp = 50 * forAll.level;
-					println();
 					fillLine(GREEN.BRIGHT, "*");
 					println(Style.CENTER, GREEN.BRIGHT, "Level Up!");
 					println(Style.CENTER, GREEN.BRIGHT, "Level " + forAll.level + "!");
