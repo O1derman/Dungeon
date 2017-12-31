@@ -798,7 +798,6 @@ public class Dungeon implements Serializable {
 					forAll.level++;
 					forAll.experience = forAll.experience - forAll.levelUp;
 					forAll.levelUp = 50 * forAll.level;
-					println();
 					fillLine(GREEN.BRIGHT, "*");
 					println(Style.CENTER, GREEN.BRIGHT, "Level Up!");
 					println(Style.CENTER, GREEN.BRIGHT, "Level " + forAll.level + "!");
