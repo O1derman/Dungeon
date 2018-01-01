@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
+import javax.swing.text.View;
+
 import olderman.dungeon.Style.AttributeStyle;
 import olderman.dungeon.Style.Color;
 import olderman.dungeon.Style.ColorStyle;
@@ -198,5 +200,60 @@ public class DesktopOS implements OS {
 		for (int i = 0; i < count; i++) {
 			print(text);
 		}
+	}
+
+	@Override
+	public void startVideoAd() {
+		println("This is just for android users!");
+	}
+
+	@Override
+	public void onRewardedVideoAdLoaded() {
+
+	}
+
+	@Override
+	public void onRewardedVideoAdOpened() {
+
+	}
+
+	@Override
+	public void onRewardedVideoStarted() {
+
+	}
+
+	@Override
+	public void onRewardedVideoAdClosed() {
+
+	}
+
+	@Override
+	public void onRewarded() {
+
+	}
+
+	@Override
+	public void onRewardedVideoAdLeftApplication() {
+
+	}
+
+	@Override
+	public void onRewardedVideoAdFailedToLoad(int i) {
+
+	}
+
+	@Override
+	public void onPause() {
+
+	}
+
+	@Override
+	public void onResume() {
+
+	}
+
+	@Override
+	public void onDestroy() {
+
 	}
 }

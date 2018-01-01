@@ -51,7 +51,6 @@ public class Pub {
 				}
 				case 2:
 					dungeon.startVideoAd();
-
 			}
 			break;
 		}

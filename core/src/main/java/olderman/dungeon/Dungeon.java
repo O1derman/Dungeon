@@ -123,8 +123,8 @@ public class Dungeon implements Serializable {
 		return os.uzivatVolba(options);
 	}
 
-	public void startVideoAd(View view){
-			os.startVideoAd(view);
+	public void startVideoAd(){
+			os.startVideoAd();
 	}
 
 	void onRewardedVideoAdLoaded(){

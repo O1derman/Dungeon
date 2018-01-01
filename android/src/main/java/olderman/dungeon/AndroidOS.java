@@ -382,6 +382,61 @@ public class AndroidOS implements OS {
 	}
 
 	@Override
+	public void startVideoAd() {
+		//MainActivity.
+	}
+
+	@Override
+	public void onRewardedVideoAdLoaded() {
+
+	}
+
+	@Override
+	public void onRewardedVideoAdOpened() {
+
+	}
+
+	@Override
+	public void onRewardedVideoStarted() {
+
+	}
+
+	@Override
+	public void onRewardedVideoAdClosed() {
+
+	}
+
+	@Override
+	public void onRewarded() {
+
+	}
+
+	@Override
+	public void onRewardedVideoAdLeftApplication() {
+
+	}
+
+	@Override
+	public void onRewardedVideoAdFailedToLoad(int i) {
+
+	}
+
+	@Override
+	public void onPause() {
+
+	}
+
+	@Override
+	public void onResume() {
+
+	}
+
+	@Override
+	public void onDestroy() {
+
+	}
+
+	@Override
 	public void beep() {
 
 	}

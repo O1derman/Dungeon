@@ -29,7 +29,7 @@ public interface OS {
 
 	void fillLine(String text);
 
-	void startVideoAd(View view);
+	void startVideoAd();
 
 	void onRewardedVideoAdLoaded();
 
