@@ -1,5 +1,7 @@
 package olderman.dungeon;
 
+import javax.swing.text.View;
+
 import olderman.dungeon.Style.AttributeStyle;
 import olderman.dungeon.Style.ColorStyle;
 
@@ -26,5 +28,27 @@ public interface OS {
 	void beep();
 
 	void fillLine(String text);
+
+	void startVideoAd(View view);
+
+	void onRewardedVideoAdLoaded();
+
+	void onRewardedVideoAdOpened();
+
+	void onRewardedVideoStarted();
+
+	void onRewardedVideoAdClosed();
+
+	void onRewarded();
+
+	void onRewardedVideoAdLeftApplication();
+
+	void onRewardedVideoAdFailedToLoad(int i);
+
+	void onPause();
+
+	void onResume();
+
+	void onDestroy();
 
 }

@@ -28,6 +28,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.text.View;
+
 public class Dungeon implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -119,6 +121,50 @@ public class Dungeon implements Serializable {
 
 	public int uzivatVolba(String... options) {
 		return os.uzivatVolba(options);
+	}
+
+	public void startVideoAd(View view){
+			os.startVideoAd(view);
+	}
+
+	void onRewardedVideoAdLoaded(){
+os.onRewardedVideoAdLoaded();
+	};
+
+	void onRewardedVideoAdOpened(){
+os.onRewardedVideoAdOpened();
+	};
+
+	void onRewardedVideoStarted(){
+os.onRewardedVideoStarted();
+	};
+
+	void onRewardedVideoAdClosed(){
+	os.onRewardedVideoAdClosed();
+	};
+
+	void onRewarded(){
+			getForAll().energy = 100;
+	};
+
+	void onRewardedVideoAdLeftApplication(){
+		os.onRewardedVideoAdLeftApplication();
+	};
+
+	void onRewardedVideoAdFailedToLoad(int i){
+			os.onRewardedVideoAdFailedToLoad(i);
+	};
+
+	private void onPause() {
+		os.onPause();
+	}
+
+	private void onResume() {
+		os.onResume();
+	}
+
+	private void onDestroy() {
+		os.onDestroy();
 	}
 
 	private void applyStyle(Style o) {
