@@ -24,7 +24,7 @@ public class Pub {
 			dungeon.println(dungeon.getForAll().energy + "/100 energy");
 			dungeon.println();
 			dungeon.printAsciiArt(BEER);
-			int volba = dungeon.uzivatVolba("Drink beer (" + dungeon.getForAll().beerCost + "G)", "Go away");
+			int volba = dungeon.uzivatVolba("Drink beer (" + dungeon.getForAll().beerCost + "G)","Play video to get full energy", "Go away");
 			switch (volba) {
 			case 1:
 				if (dungeon.getForAll().beerCost > dungeon.getForAll().gold) {
@@ -49,7 +49,10 @@ public class Pub {
 					}
 					continue choices;
 				}
-
+				case 2:
+					switch (dungeon.uzivatVolba("Continue")) {
+					}
+					continue choices;
 			}
 			break;
 		}
