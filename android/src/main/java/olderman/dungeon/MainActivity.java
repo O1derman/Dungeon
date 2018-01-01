@@ -24,6 +24,8 @@ public class MainActivity extends Activity implements RewardedVideoAdListener {
 
 	private RetainedFragment fragment;
 
+	private Dungeon dungeon;
+
 	private RewardedVideoAd mAd;
 	private TextView mText;
 
@@ -34,16 +36,18 @@ public class MainActivity extends Activity implements RewardedVideoAdListener {
 		setContentView(R.layout.activity_main);
 
 		mText = (TextView)findViewById(R.id.textView);
-		MobileAds.initialize(this,"ca-app-pub-3904893950784361/7108760108");
-		MobileAds.initialize(getApplicationContext(),"ca-app-pub-3904893950784361/5217093936");
+		//MobileAds.initialize(this,"ca-app-pub-3904893950784361/7108760108");
+		MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
 
 		mAd = MobileAds.getRewardedVideoAdInstance(this);
+		mAd.setRewardedVideoAdListener(this);
 		loadRewardedVideoAd();
 
 		AdView adView = (AdView) findViewById(R.id.adView);
 		AdRequest adRequest = new AdRequest.Builder()
 				.setRequestAgent("android_studio:ad_template").build();
 		adView.loadAd(adRequest);
+
 
 		TextView textView = (TextView) findViewById(R.id.textView);
 		LinearLayout buttons = (LinearLayout) findViewById(R.id.buttons);
@@ -60,11 +64,11 @@ public class MainActivity extends Activity implements RewardedVideoAdListener {
 
 	private void loadRewardedVideoAd(){
 		if(!mAd.isLoaded()){
-			mAd.loadAd("ca-app-pub-3904893950784361/5217093936", new AdRequest.Builder().build());
+			mAd.loadAd("ca-app-pub-3940256099942544/5224354917", new AdRequest.Builder().build());
 		}
 	}
 
-	public void startVideoAd(View view){
+	public void startVideoAd(){
 		if(mAd.isLoaded()){
 			 mAd.show();
 		}
@@ -102,12 +106,12 @@ public class MainActivity extends Activity implements RewardedVideoAdListener {
 
 	@Override
 	public void onRewardedVideoAdClosed() {
-            loadRewardedVideoAd();
+		loadRewardedVideoAd();
 	}
 
 	@Override
 	public void onRewarded(RewardItem rewardItem) {
-
+		dungeon.getForAll().energy = 100;
 	}
 
 	@Override
@@ -137,4 +141,8 @@ public class MainActivity extends Activity implements RewardedVideoAdListener {
 	    mAd.destroy(this);
         super.onDestroy();
     }
+
+	public void setDungeon(Dungeon dungeon) {
+		this.dungeon = dungeon;
+	}
 }

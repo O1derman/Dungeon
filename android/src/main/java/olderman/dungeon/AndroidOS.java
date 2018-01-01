@@ -63,7 +63,7 @@ public class AndroidOS implements OS {
 
 		// all confined to ui thread
 		private final List<Action> savedActions = new ArrayList<>();
-		private Activity activity;
+		private MainActivity activity;
 		private TextView textView;
 		private LinearLayout buttons;
 		private final SpannableStringBuilder sb = new SpannableStringBuilder();
@@ -76,7 +76,7 @@ public class AndroidOS implements OS {
 		}
 
 		@UiThread
-		public void set(Activity activity, TextView textView, LinearLayout buttons) {
+		public void set(MainActivity activity, TextView textView, LinearLayout buttons) {
 			if (this.activity != null) {
 				throw new IllegalStateException();
 			}
@@ -129,14 +129,21 @@ public class AndroidOS implements OS {
 			}
 		}
 
-		private void createButton(final int i, String text) {
+		private void createButton(final int i, final String text) {
 			Button button = new Button(activity);
 			button.setText(text);
 			button.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					if(text.equals("Play video to get full energy")){
+						activity.startVideoAd();
+						buttons.removeAllViews();
+						buttonLabels = null;
+					}
+					else{
 					buttons.removeAllViews();
 					buttonLabels = null;
+					}
 					result.set(i);
 				}
 			});
@@ -274,7 +281,7 @@ public class AndroidOS implements OS {
 	}
 
 	@UiThread
-	public void set(Activity activity, TextView textView, LinearLayout buttons) {
+	public void set(MainActivity activity, TextView textView, LinearLayout buttons) {
 		handler.set(activity, textView, buttons);
 	}
 
@@ -380,6 +387,7 @@ public class AndroidOS implements OS {
 	public void fillLine(String text) {
 		action(ACTION_FILL_LINE, text);
 	}
+
 
 	@Override
 	public void startVideoAd() {

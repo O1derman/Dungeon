@@ -50,7 +50,9 @@ public class Pub {
 					continue choices;
 				}
 				case 2:
-					dungeon.startVideoAd();
+					switch (dungeon.uzivatVolba("Continue")) {
+					}
+					continue choices;
 			}
 			break;
 		}
