@@ -898,8 +898,8 @@ public class Dungeon implements Serializable {
 			println();
 			println(way.randMap.data.map);
 			println("Map legend:");
-			println("D - your position");
-			println("x - wall");
+			println((char) 0x263B+" - your position");
+			println((char) 0x25A0+" - wall");
 			println("o - room with enemy");
 			println("A - boss room");
 			println("c - cleared room");

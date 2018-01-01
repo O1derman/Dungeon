@@ -181,21 +181,21 @@ public class RandMap implements Serializable {
 
 		if (eastRoom == null) {
 			mapPosition = dungeon.getWay().previousW * (data.rightEdge * 2 + 4) + wayEast * 2;
-			data.map = changeCharInPosition(mapPosition, 'x', data.map);
+			data.map = changeCharInPosition(mapPosition, (char) 0x25A0, data.map);
 		}
 		if (northRoom == null) {
 			mapPosition = wayNorth * (data.rightEdge * 2 + 4) + dungeon.getWay().previousL * 2;
-			data.map = changeCharInPosition(mapPosition, 'x', data.map);
+			data.map = changeCharInPosition(mapPosition, (char) 0x25A0, data.map);
 
 		}
 		if (southRoom == null) {
 			mapPosition = waySouth * (data.rightEdge * 2 + 4) + dungeon.getWay().previousL * 2;
-			data.map = changeCharInPosition(mapPosition, 'x', data.map);
+			data.map = changeCharInPosition(mapPosition, (char) 0x25A0, data.map);
 
 		}
 		if (westRoom == null) {
 			mapPosition = dungeon.getWay().previousW * (data.rightEdge * 2 + 4) + wayWest * 2;
-			data.map = changeCharInPosition(mapPosition, 'x', data.map);
+			data.map = changeCharInPosition(mapPosition, (char) 0x25A0, data.map);
 
 		}
 		mapPosition = dungeon.getWay().previousW * (data.rightEdge * 2 + 4) + dungeon.getWay().previousL * 2;
