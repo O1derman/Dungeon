@@ -3,6 +3,7 @@ package olderman.dungeon;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
@@ -11,7 +12,8 @@ import olderman.dungeon.Style.AttributeStyle;
 import olderman.dungeon.Style.Color;
 import olderman.dungeon.Style.ColorStyle;
 
-public class DesktopOS implements OS {
+public class DesktopOS implements OS, Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private Cheats cheats = null;
 

@@ -305,6 +305,7 @@ public class Dungeon implements Serializable {
 		data.add(getForAll());
 		data.add(way.randMap.data);
 		data.add(getCharacter());
+		data.add(way.randMap);
 
 		try {
 			FileOutputStream fileOut = new FileOutputStream("data.ser");

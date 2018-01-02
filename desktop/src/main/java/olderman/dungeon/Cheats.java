@@ -1,5 +1,6 @@
 package olderman.dungeon;
 
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,8 +10,8 @@ import olderman.dungeon.Dungeon;
  *
  */
 
-public class Cheats {
-
+public class Cheats implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private final Dungeon dungeon;
 
 	public Cheats(Dungeon dungeon) {

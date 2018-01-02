@@ -1,9 +1,11 @@
 package olderman.dungeon.shop;
 
+import java.io.Serializable;
+
 import olderman.dungeon.Dungeon;
 
-public abstract class ShopItem {
-
+public abstract class ShopItem implements Serializable{
+	private static final long serialVersionUID = 1L;
 	protected final Dungeon dungeon;
 	private final String name;
 	private int cost;

@@ -2,6 +2,7 @@ package olderman.dungeon.shop;
 
 import static olderman.dungeon.Style.YELLOW;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,12 @@ import olderman.dungeon.inventory.Bomb;
 import olderman.dungeon.inventory.Pot;
 import olderman.dungeon.inventory.Weapon;
 
-public class Shop {
+public class Shop implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public Shop(Dungeon dungeon) {
 		this.dungeon = dungeon;
