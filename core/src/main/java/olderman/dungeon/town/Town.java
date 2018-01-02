@@ -2,13 +2,16 @@ package olderman.dungeon.town;
 
 import static olderman.dungeon.Style.YELLOW;
 
+import java.io.Serializable;
+
 import olderman.dungeon.Dungeon;
 import olderman.dungeon.Resources;
 import olderman.dungeon.Style;
 import olderman.dungeon.shop.Shop;
 import olderman.dungeon.shop.ToolShop;
 
-public class Town {
+public class Town implements Serializable{
+	private static final long serialVersionUID = 1L;
 
 	public Town(Dungeon dungeon) {
 
@@ -107,7 +110,7 @@ public class Town {
 					case 1:
 						dungeon.getForAll().house++;
 						dungeon.getForAll().gold -= dungeon.getForAll().houseCost;
-						dungeon.println("You bought a house!");
+						dungeon.println(Style.CENTER, "You bought a house!");
 						switch (dungeon.uzivatVolba("Continue")) {
 						}
 					}

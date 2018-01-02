@@ -1,9 +1,12 @@
 package olderman.dungeon.town;
 
+import java.io.Serializable;
+
 import olderman.dungeon.Dungeon;
 import olderman.dungeon.Style;
 
-public class WorkHouse {
+public class WorkHouse implements Serializable{
+	private static final long serialVersionUID = 1L;
 
 	public WorkHouse(Dungeon dungeon) {
 		this.dungeon = dungeon;

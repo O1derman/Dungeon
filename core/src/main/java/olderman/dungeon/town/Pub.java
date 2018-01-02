@@ -2,11 +2,15 @@ package olderman.dungeon.town;
 
 import static olderman.dungeon.Style.YELLOW;
 
+import java.io.Serializable;
+
 import olderman.dungeon.Dungeon;
 import olderman.dungeon.Resources;
 import olderman.dungeon.Style;
 
-public class Pub {
+public class Pub implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	public Pub(Dungeon dungeon) {
 		this.dungeon = dungeon;
 	}

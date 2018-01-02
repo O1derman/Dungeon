@@ -2,10 +2,13 @@ package olderman.dungeon.shop;
 
 import static olderman.dungeon.Style.YELLOW;
 
+import java.io.Serializable;
+
 import olderman.dungeon.Dungeon;
 import olderman.dungeon.Style;
 
-public class ToolShop {
+public class ToolShop implements Serializable{
+	private static final long serialVersionUID = 1L;
 
 	public ToolShop(Dungeon dungeon) {
 		this.dungeon = dungeon;

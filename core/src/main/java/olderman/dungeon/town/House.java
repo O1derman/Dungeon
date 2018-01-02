@@ -1,11 +1,15 @@
 package olderman.dungeon.town;
 
+import java.io.Serializable;
+
 import olderman.dungeon.Dungeon;
 import olderman.dungeon.Resources;
 import olderman.dungeon.Style;
 import olderman.dungeon.inventory.Pot;
 
-public class House {
+public class House implements Serializable{
+	private static final long serialVersionUID = 1L;
+
 	public House(Dungeon dungeon) {
 
 		this.dungeon = dungeon;
