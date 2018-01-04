@@ -7,7 +7,7 @@ import olderman.dungeon.Resources;
 import olderman.dungeon.Style;
 import olderman.dungeon.inventory.Pot;
 
-public class House implements Serializable{
+public class House implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public House(Dungeon dungeon) {
@@ -30,16 +30,20 @@ public class House implements Serializable{
 					dungeon.println("Game is saved");
 					switch (dungeon.uzivatVolba("Continue")) {
 					}
-					break;
+					continue BACK;
 				case 2:
 					Pot.POT.use(dungeon);
-					break;
+					continue BACK;
 				case 3:
-					break BACK;
+					break;
 				}
 			} else if (dungeon.getForAll().bed > 0) {
 				if (dungeon.uzivatVolba("Use bed", "Go out of house") == 1) {
 					dungeon.saveData();
+					dungeon.println("Game is saved");
+					switch (dungeon.uzivatVolba("Continue")) {
+					}
+					continue BACK;
 				} else {
 					break;
 				}
@@ -47,6 +51,7 @@ public class House implements Serializable{
 			} else if (hasPot) {
 				if (dungeon.uzivatVolba("Use pot", "Go out of house") == 1) {
 					Pot.POT.use(dungeon);
+					continue BACK;
 				} else {
 					break;
 				}
@@ -54,9 +59,10 @@ public class House implements Serializable{
 			} else {
 				dungeon.println(Style.CENTER, "\nYou don't have anything to do at home.");
 				dungeon.println(Style.CENTER, "You have to buy a pot or build a bed!");
-				break;
+				switch (dungeon.uzivatVolba("Continue")) {
+				}
 			}
+			break;
 		}
-		dungeon.getTown().town();
 	}
 }

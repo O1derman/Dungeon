@@ -7,7 +7,7 @@ import java.io.Serializable;
 import olderman.dungeon.Dungeon;
 import olderman.dungeon.Style;
 
-public class ToolShop implements Serializable{
+public class ToolShop implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public ToolShop(Dungeon dungeon) {
@@ -16,6 +16,10 @@ public class ToolShop implements Serializable{
 
 	private final Dungeon dungeon;
 	boolean firstTime = true;
+	boolean ownKnife = false;
+	boolean ownBronzeAxe = false;
+	boolean ownIronAxe = false;
+	boolean ownSilverAxe = false;
 
 	public void shop() {
 		choices: while (true) {
@@ -29,10 +33,6 @@ public class ToolShop implements Serializable{
 			}
 			dungeon.println("You got:");
 			dungeon.println(YELLOW.BRIGHT, dungeon.getForAll().gold + " gold");
-			boolean ownKnife = false;
-			boolean ownBronzeAxe = false;
-			boolean ownIronAxe = false;
-			boolean ownSilverAxe = false;
 			String knife = "Knife (" + dungeon.getForAll().knifeCost + "Gold)...allows you to separate animals!";
 			String flashk = "Flashk (" + dungeon.getForAll().flashkCost
 					+ "Gold)...needed to be able to create potions!";
@@ -107,6 +107,7 @@ public class ToolShop implements Serializable{
 				} else {
 					dungeon.getForAll().bronzeAxe++;
 					dungeon.getForAll().gold -= dungeon.getForAll().bronzeAxeCost;
+					ownBronzeAxe = true;
 					dungeon.getForAll().ironAxe = 0;
 					dungeon.getForAll().silverAxe = 0;
 					dungeon.getForAll().woodenAxe = 0;
@@ -127,6 +128,7 @@ public class ToolShop implements Serializable{
 				} else {
 					dungeon.getForAll().ironAxe++;
 					dungeon.getForAll().gold -= dungeon.getForAll().ironAxeCost;
+					ownIronAxe = true;
 					dungeon.getForAll().silverAxe = 0;
 					dungeon.getForAll().bronzeAxe = 0;
 					dungeon.getForAll().woodenAxe = 0;
@@ -148,6 +150,7 @@ public class ToolShop implements Serializable{
 					dungeon.getForAll().silverAxe++;
 					dungeon.println(Style.CENTER, "You bought a silver axe.");
 					dungeon.getForAll().gold -= dungeon.getForAll().silverAxeCost;
+					ownSilverAxe = true;
 					dungeon.getForAll().bronzeAxe = 0;
 					dungeon.getForAll().ironAxe = 0;
 					dungeon.getForAll().woodenAxe = 0;

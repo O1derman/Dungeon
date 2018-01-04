@@ -800,8 +800,10 @@ public class Dungeon implements Serializable {
 					forAll.experience = forAll.experience - forAll.levelUp;
 					forAll.levelUp = 50 * forAll.level;
 					fillLine(GREEN.BRIGHT, "*");
+					println();
 					println(Style.CENTER, GREEN.BRIGHT, "Level Up!");
 					println(Style.CENTER, GREEN.BRIGHT, "Level " + forAll.level + "!");
+					println();
 					fillLine(GREEN.BRIGHT, "*");
 					println();
 					forAll.maximumHealth += ForAll.LEVEL_UP_HEALTH;
@@ -899,8 +901,8 @@ public class Dungeon implements Serializable {
 			println();
 			println(way.randMap.data.map);
 			println("Map legend:");
-			println((char) 0x263B+" - your position");
-			println((char) 0x25A0+" - wall");
+			println((char) 0x263B + " - your position");
+			println((char) 0x25A0 + " - wall");
 			println("o - room with enemy");
 			println("A - boss room");
 			println("c - cleared room");
