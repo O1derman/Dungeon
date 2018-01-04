@@ -5,6 +5,7 @@ import olderman.dungeon.enemies.Boss1;
 import olderman.dungeon.enemies.Plebs;
 import olderman.dungeon.inventory.HealthPotion;
 import olderman.dungeon.inventory.Inventory;
+import olderman.dungeon.map.MapConstants;
 import olderman.dungeon.map.RandMapData;
 import olderman.dungeon.map.Room;
 import olderman.dungeon.map.Way;
@@ -901,11 +902,11 @@ public class Dungeon implements Serializable {
 			println();
 			println(way.randMap.data.map);
 			println("Map legend:");
-			println((char) 0x263B + " - your position");
-			println((char) 0x25A0 + " - wall");
-			println("o - room with enemy");
-			println("A - boss room");
-			println("c - cleared room");
+			println(MapConstants.playerChar + " - your position");
+			println(MapConstants.wallChar + " - wall");
+			println(MapConstants.fullRoomChar + " - room with enemy");
+			println(MapConstants.bossChar + " - boss room");
+			println(MapConstants.clearRoomChar + " - cleared room");
 			println();
 		} while (this.getInventory().showInventory(fighting) != null);
 	}
