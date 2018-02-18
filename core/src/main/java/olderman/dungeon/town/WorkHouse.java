@@ -5,7 +5,7 @@ import java.io.Serializable;
 import olderman.dungeon.Dungeon;
 import olderman.dungeon.Style;
 
-public class WorkHouse implements Serializable{
+public class WorkHouse implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public WorkHouse(Dungeon dungeon) {
@@ -27,7 +27,7 @@ public class WorkHouse implements Serializable{
 			int posibilities = dungeon.uzivatVolba("Cut frog", "Cut sneak", "Cut squirel", "Cut bird", "Build bed",
 					"Exit");
 			if (posibilities == 1) {
-				if (dungeon.getForAll().knife == 1 && dungeon.getForAll().frog >= 1) {
+				if (dungeon.getForAll().knife >= 1 && dungeon.getForAll().frog >= 1) {
 					dungeon.println(Style.CENTER, separate + "a frog.");
 					dungeon.getForAll().frogLeg++;
 					dungeon.getForAll().frogHeart++;
@@ -41,7 +41,7 @@ public class WorkHouse implements Serializable{
 
 			}
 			if (posibilities == 2) {
-				if (dungeon.getForAll().knife == 1 && dungeon.getForAll().snake >= 1) {
+				if (dungeon.getForAll().knife >= 1 && dungeon.getForAll().snake >= 1) {
 					dungeon.println(Style.CENTER, separate + "a snake.");
 					dungeon.getForAll().snakeBrain++;
 					dungeon.getForAll().snake--;
@@ -51,7 +51,7 @@ public class WorkHouse implements Serializable{
 
 			}
 			if (posibilities == 3) {
-				if (dungeon.getForAll().knife == 1 && dungeon.getForAll().squirrel >= 1) {
+				if (dungeon.getForAll().knife >= 1 && dungeon.getForAll().squirrel >= 1) {
 					dungeon.println(Style.CENTER, separate + "a squirel.");
 					dungeon.getForAll().squirelTails++;
 					dungeon.getForAll().squirrel--;
@@ -60,7 +60,7 @@ public class WorkHouse implements Serializable{
 				}
 			}
 			if (posibilities == 4) {
-				if (dungeon.getForAll().knife == 1 && dungeon.getForAll().bird >= 1) {
+				if (dungeon.getForAll().knife >= 1 && dungeon.getForAll().bird >= 1) {
 					dungeon.println(Style.CENTER, separate + "a bird.");
 					dungeon.getForAll().feather += 10;
 					dungeon.getForAll().bird--;

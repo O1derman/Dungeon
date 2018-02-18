@@ -7,12 +7,15 @@ import olderman.dungeon.Resources;
 import olderman.dungeon.Style;
 import olderman.dungeon.inventory.Pot;
 
-public class House implements Serializable{
+public class House implements Serializable {
 	private static final long serialVersionUID = 1L;
+	
+	private Bin bin;
 
 	public House(Dungeon dungeon) {
-
+		
 		this.dungeon = dungeon;
+		this.bin = new Bin(dungeon);
 
 	}
 
@@ -24,39 +27,67 @@ public class House implements Serializable{
 			dungeon.printAsciiArt(HOUSE);
 			boolean hasPot = dungeon.getInventory().has(Pot.POT);
 			if (dungeon.getForAll().bed > 0 && hasPot) {
-				switch (dungeon.uzivatVolba("Use bed", "Use Pot", "Go out of house")) {
+				switch (dungeon.uzivatVolba("Use bed", "Use Pot", "Throw item in a bin", "Go out of house")) {
 				case 1:
 					dungeon.saveData();
 					dungeon.println("Game is saved");
 					switch (dungeon.uzivatVolba("Continue")) {
 					}
-					break;
+					continue BACK;
 				case 2:
 					Pot.POT.use(dungeon);
-					break;
+					continue BACK;
 				case 3:
-					break BACK;
+					bin.throwItems();
+					continue BACK;
+				case 4:
+					break;
 				}
 			} else if (dungeon.getForAll().bed > 0) {
-				if (dungeon.uzivatVolba("Use bed", "Go out of house") == 1) {
+				switch (dungeon.uzivatVolba("Use bed", "Throw item in a bin", "Go out of house")) {
+				case 1: {
 					dungeon.saveData();
-				} else {
+					dungeon.println("Game is saved");
+				}
+					switch (dungeon.uzivatVolba("Continue")) {
+					}
+					continue BACK;
+				case 2: {
+					bin.throwItems();
+					continue BACK;
+				}
+				case 3: {
+
 					break;
 				}
 
+				}
 			} else if (hasPot) {
-				if (dungeon.uzivatVolba("Use pot", "Go out of house") == 1) {
+				switch (dungeon.uzivatVolba("Use pot", "Throw item in a bin", "Go out of house")) {
+				case 1: {
 					Pot.POT.use(dungeon);
-				} else {
+					continue BACK;
+				}
+				case 2: {
+					bin.throwItems();
+					continue BACK;
+				}
+				case 3: {
 					break;
 				}
 
+				}
 			} else {
 				dungeon.println(Style.CENTER, "\nYou don't have anything to do at home.");
 				dungeon.println(Style.CENTER, "You have to buy a pot or build a bed!");
-				break;
+				switch (dungeon.uzivatVolba("Throw item in a bin", "Go out of house")) {
+				case 1: {
+					bin.throwItems();
+					continue BACK;
+				}
+				}
 			}
+			break;
 		}
-		dungeon.getTown().town();
 	}
 }

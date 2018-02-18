@@ -11,6 +11,8 @@ public class RandMap implements Serializable {
 	public RandMapData data = new RandMapData();
 	private static final long serialVersionUID = 1L;
 
+	private static final char wallChar = (char) 0x25A0;
+
 	private final Dungeon dungeon;
 
 	public RandMap(Dungeon dungeon) {
@@ -128,7 +130,7 @@ public class RandMap implements Serializable {
 
 	public void mapBarrier() {
 		mapPosition = data.w * (data.rightEdge * 2 + 4) + data.l * 2;
-		data.map = changeCharInPosition(mapPosition, (char) 0x25A0, data.map);
+		data.map = changeCharInPosition(mapPosition, MapConstants.wallChar, data.map);
 	}
 
 	public void asciiArtMap() {
@@ -143,30 +145,30 @@ public class RandMap implements Serializable {
 
 		if (eastRoom == null) {
 			mapPosition = data.w * (data.rightEdge * 2 + 4) + wayEast * 2;
-			data.map = changeCharInPosition(mapPosition, (char) 0x25A0, data.map);
+			data.map = changeCharInPosition(mapPosition, MapConstants.wallChar, data.map);
 		}
 		if (northRoom == null) {
 			mapPosition = wayNorth * (data.rightEdge * 2 + 4) + data.l * 2;
-			data.map = changeCharInPosition(mapPosition, (char) 0x25A0, data.map);
+			data.map = changeCharInPosition(mapPosition, MapConstants.wallChar, data.map);
 
 		}
 		if (southRoom == null) {
 			mapPosition = waySouth * (data.rightEdge * 2 + 4) + data.l * 2;
-			data.map = changeCharInPosition(mapPosition, (char) 0x25A0, data.map);
+			data.map = changeCharInPosition(mapPosition, MapConstants.wallChar, data.map);
 
 		}
 		if (westRoom == null) {
 			mapPosition = data.w * (data.rightEdge * 2 + 4) + wayWest * 2;
-			data.map = changeCharInPosition(mapPosition, (char) 0x25A0, data.map);
+			data.map = changeCharInPosition(mapPosition, MapConstants.wallChar, data.map);
 
 		}
 		mapPosition = data.w * (data.rightEdge * 2 + 4) + data.l * 2;
 		if (dungeon.getWay().previousL == dungeon.bossY && dungeon.getWay().previousW == dungeon.bossX) {
-			data.map = data.map.replace((char) 0x263B, 'A');
+			data.map = data.map.replace( MapConstants.playerChar, MapConstants.bossChar);
 		} else {
-			data.map = data.map.replace((char) 0x263B, 'c');
+			data.map = data.map.replace(MapConstants.playerChar, MapConstants.clearRoomChar);
 		}
-		data.map = changeCharInPosition(mapPosition, (char) 0x263B, data.map);
+		data.map = changeCharInPosition(mapPosition, MapConstants.playerChar, data.map);
 	}
 
 	public void mapInvisibility() {
@@ -181,37 +183,37 @@ public class RandMap implements Serializable {
 
 		if (eastRoom == null) {
 			mapPosition = dungeon.getWay().previousW * (data.rightEdge * 2 + 4) + wayEast * 2;
-			data.map = changeCharInPosition(mapPosition, (char) 0x25A0, data.map);
+			data.map = changeCharInPosition(mapPosition, MapConstants.wallChar, data.map);
 		}
 		if (northRoom == null) {
 			mapPosition = wayNorth * (data.rightEdge * 2 + 4) + dungeon.getWay().previousL * 2;
-			data.map = changeCharInPosition(mapPosition, (char) 0x25A0, data.map);
+			data.map = changeCharInPosition(mapPosition, MapConstants.wallChar, data.map);
 
 		}
 		if (southRoom == null) {
 			mapPosition = waySouth * (data.rightEdge * 2 + 4) + dungeon.getWay().previousL * 2;
-			data.map = changeCharInPosition(mapPosition, (char) 0x25A0, data.map);
+			data.map = changeCharInPosition(mapPosition, MapConstants.wallChar, data.map);
 
 		}
 		if (westRoom == null) {
 			mapPosition = dungeon.getWay().previousW * (data.rightEdge * 2 + 4) + wayWest * 2;
-			data.map = changeCharInPosition(mapPosition, (char) 0x25A0, data.map);
+			data.map = changeCharInPosition(mapPosition, MapConstants.wallChar, data.map);
 
 		}
 		mapPosition = dungeon.getWay().previousW * (data.rightEdge * 2 + 4) + dungeon.getWay().previousL * 2;
 		if (dungeon.getWay().previousL == dungeon.bossY && dungeon.getWay().previousW == dungeon.bossX) {
-			data.map = changeCharInPosition(mapPosition, 'A', data.map);
+			data.map = changeCharInPosition(mapPosition, MapConstants.bossChar, data.map);
 		} else {
-			data.map = changeCharInPosition(mapPosition, 'o', data.map);
+			data.map = changeCharInPosition(mapPosition, MapConstants.fullRoomChar, data.map);
 		}
 	}
 
 	public void mapBack() {
 		mapPosition = data.w * (data.rightEdge * 2 + 4) + data.l * 2;
 		if (data.l == dungeon.bossY && data.w == dungeon.bossX) {
-			data.map = changeCharInPosition(mapPosition, 'A', data.map);
+			data.map = changeCharInPosition(mapPosition, MapConstants.bossChar, data.map);
 		} else {
-			data.map = changeCharInPosition(mapPosition, 'o', data.map);
+			data.map = changeCharInPosition(mapPosition, MapConstants.fullRoomChar, data.map);
 		}
 	}
 

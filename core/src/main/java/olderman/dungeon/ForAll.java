@@ -22,6 +22,9 @@ public class ForAll implements Serializable {
 	public static final int MEDIUM_HEALTH_POTION_DROP_CHANCE = 50; // %
 	public static final int LARGE_HEALTH_POTION_DROP_CHANCE = 20; // %
 
+	// booleans
+	private boolean firstTimeTown = true;
+
 	// Player variables
 	public Weapon selectedWeapon = Weapon.HAND;
 	public int maximumHealth;
@@ -75,8 +78,8 @@ public class ForAll implements Serializable {
 	public int snake = 0;
 	public int snakeHeft = 5;
 	public int snakeChance = 10; // %
-	public int flashk = 0;
-	public int flashkCost = 100;
+	public int flask = 0;
+	public int flaskCost = 100;
 	public int frog = 0;
 	public int frogHeft = 10;
 	public int frogChance = 10; // %
@@ -89,5 +92,50 @@ public class ForAll implements Serializable {
 	public int bedCostFeather = 100;
 	public int woodForBed = bedCostWood - wood;
 	public int featherForBed = bedCostFeather - feather;
+
+	// remove ingrediences
+	public void addWorm() {
+		worm++;
+		lCapacity += wormHeft;
+	}
+
+	public void removeWorm() {
+		worm--;
+		lCapacity -= wormHeft;
+
+	}
+
+	public void removeBird() {
+		bird--;
+		lCapacity -= birdHeft;
+	}
+
+	public void removeFrog() {
+		frog--;
+		lCapacity -= frogHeft;
+	}
+
+	public void removeSquirrel() {
+		squirrel--;
+		lCapacity -= squirrelHeft;
+	}
+
+	public void removeSnake() {
+		snake--;
+		lCapacity -= snakeHeft;
+	}
+
+	public void removeWood() {
+		wood--;
+		lCapacity -= woodHeft;
+	}
+
+	public boolean isFirstTimeTown() {
+		return firstTimeTown;
+	}
+
+	public void setFirstTimeTown(boolean firstTimeTown) {
+		this.firstTimeTown = firstTimeTown;
+	}
 
 }

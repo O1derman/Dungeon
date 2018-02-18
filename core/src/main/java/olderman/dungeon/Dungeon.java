@@ -2,9 +2,12 @@ package olderman.dungeon;
 
 import olderman.dungeon.Style.ColorStyle;
 import olderman.dungeon.enemies.Boss1;
+import olderman.dungeon.enemies.Boss2;
 import olderman.dungeon.enemies.Plebs;
 import olderman.dungeon.inventory.HealthPotion;
 import olderman.dungeon.inventory.Inventory;
+import olderman.dungeon.inventory.Weapon;
+import olderman.dungeon.map.MapConstants;
 import olderman.dungeon.map.RandMapData;
 import olderman.dungeon.map.Room;
 import olderman.dungeon.map.Way;
@@ -28,8 +31,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.swing.text.View;
-
 public class Dungeon implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -48,7 +49,7 @@ public class Dungeon implements Serializable {
 	private Inventory inventory;
 	private Town town;
 	private Boss1 boss1 = new Boss1(this);
-	// private Boss2 boss2;
+	private Boss2 boss2 = new Boss2(this);
 	private Way way;
 
 	// getters
@@ -121,50 +122,6 @@ public class Dungeon implements Serializable {
 
 	public int uzivatVolba(String... options) {
 		return os.uzivatVolba(options);
-	}
-
-	public void startVideoAd(){
-			os.startVideoAd();
-	}
-
-	void onRewardedVideoAdLoaded(){
-os.onRewardedVideoAdLoaded();
-	};
-
-	void onRewardedVideoAdOpened(){
-os.onRewardedVideoAdOpened();
-	};
-
-	void onRewardedVideoStarted(){
-os.onRewardedVideoStarted();
-	};
-
-	void onRewardedVideoAdClosed(){
-	os.onRewardedVideoAdClosed();
-	};
-
-	void onRewarded(){
-			getForAll().energy = 100;
-	};
-
-	void onRewardedVideoAdLeftApplication(){
-		os.onRewardedVideoAdLeftApplication();
-	};
-
-	void onRewardedVideoAdFailedToLoad(int i){
-			os.onRewardedVideoAdFailedToLoad(i);
-	};
-
-	private void onPause() {
-		os.onPause();
-	}
-
-	private void onResume() {
-		os.onResume();
-	}
-
-	private void onDestroy() {
-		os.onDestroy();
 	}
 
 	private void applyStyle(Style o) {
@@ -303,11 +260,11 @@ os.onRewardedVideoStarted();
 			println(forAll.frogRightEye + " frog right eye");
 		}
 		if (forAll.frogLeg > 1) {
-			println(forAll.frogRightEye + " frog legs");
+			println(forAll.frogLeg + " frog legs");
 
 		}
 		if (forAll.frogLeg == 1) {
-			println(forAll.frogRightEye + " frog leg");
+			println(forAll.frogLeg + " frog leg");
 		}
 		if (forAll.frogLeftEye > 1) {
 			println(forAll.frogLeftEye + " frog left eyes");
@@ -336,10 +293,10 @@ os.onRewardedVideoStarted();
 		if (forAll.numPotionOfInvisibility > 1) {
 			println(forAll.numPotionOfInvisibility + " potions of invisibility");
 		}
-		if (forAll.flashk == 1) {
+		if (forAll.flask == 1) {
 			println(forAll.numPotionOfInvisibility + " flashk");
 		}
-		if (forAll.flashk > 1) {
+		if (forAll.flask > 1) {
 			println(forAll.numPotionOfInvisibility + " flashks");
 		}
 	}
@@ -420,80 +377,81 @@ os.onRewardedVideoStarted();
 
 			clear();
 			printAsciiArt(HEADLINE);
-			int volba = uzivatVolba("Start", "Load saved game", "Help", "Exit");
+			int volba = uzivatVolba("Start", "Load saved game", "Help");
 			switch (volba) {
-				case 1:
-					println(Style.CENTER, "Welcome to the dungeon!");
-					println();
-					println(Style.CENTER, "Which character would you like to play?\n");
+			case 1:
+				println(Style.CENTER, "Welcome to the dungeon!");
+				println();
+				println(Style.CENTER, "Which character would you like to play?\n");
 
-					volba = uzivatVolba("Dwarf", "Orc", "Elf", "Goblin", /* "Superman", */ "Back");
+				volba = uzivatVolba("Dwarf", "Orc", "Elf", "Goblin", /* "Superman", */ "Back");
 
-					if (volba != 5) {
-						character = new GameCharacter[] { GameCharacter.DWARF, GameCharacter.ORC, GameCharacter.ELF,
-								GameCharacter.GOBLIN }[volba - 1];
+				if (volba != 5) {
+					character = new GameCharacter[] { GameCharacter.DWARF, GameCharacter.ORC, GameCharacter.ELF,
+							GameCharacter.GOBLIN }[volba - 1];
 
-						way.randMap.createAsciiArtMap();
-						forAll.health = character.getInitialHealth();
-						forAll.maximumHealth = character.getInitialMaximumHealth();
-						forAll.missChance = character.getMissChance();
-						println(character.getBeginning());
-						printAsciiArt(character.getAsciiArt());
-						switch (uzivatVolba("continue")) {
-						}
-						town.town();
-						getWay().randMap.asciiArtMap();
-						game();
+					way.randMap.createAsciiArtMap();
+					forAll.health = character.getInitialHealth();
+					forAll.maximumHealth = character.getInitialMaximumHealth();
+					forAll.missChance = character.getMissChance();
+					println(character.getBeginning());
+					printAsciiArt(character.getAsciiArt());
+					switch (uzivatVolba("continue")) {
 					}
-
+					town.town();
+					getWay().randMap.asciiArtMap();
+					game();
 					break;
+				}
 
-				case 2:
-					File f = new File("data.ser");
-					if (f.exists()) {
-						loadData();
-						town.getHouse().inside();
-						game();
-					} else {
-						println(Style.CENTER, "You don't have any saved progress yet!");
-						switch (uzivatVolba("continue")) {
-						}
-						break;
+				break;
+
+			case 2:
+				File f = new File("data.ser");
+				if (f.exists()) {
+					loadData();
+					town.getHouse().inside();
+					town.town();
+					game();
+					break;
+				} else {
+					println(Style.CENTER, "You don't have any saved progress yet!");
+					switch (uzivatVolba("continue")) {
 					}
-				case 3:
-					// Ramecek.ramecek(Ramecek.data[1][0], "Dwarf");
-					println(">Orc");
-					println("\thas 30% miss chance");
-					println("\tcan carry 500kg");
-					println(">Dwarf");
-					println("\thas 20% miss chance");
-					println("\tcan carry 80kg");
-					println("\thas cheaper axes in store");
-					println(">Goblin");
-					println("\thas 10% miss chance");
-					println("\tcan carry 50kg");
-					println(">Elf");
-					println("\thas 5% miss chance");
-					println("\tcan carry 30kg");
-					// println(">Superman");
-					// println("\thas 0% miss chance");
-					println();
-					println(">Small health potion heals for 20 HP.");
-					println(">Medium health potion heals for 50 HP.");
-					println(">Large health potion heals for 100 HP.");
-					println();
-					println("You gain experience and have a small chance of getting some health potions for killing enemies.");
-					println("You can collect ingredients to be able to brew potions in a pot.");
-					println("You can save game in bed...if you die without save...you lose everything!");
-					println("In every floor is a boss room, if you beat the boss, you go to the next floor.");
-					println("Main goal of this game is to get the highest score!");
-					println("Some actions cost you energy.");
-					println("You get energy by drinking beer in a pub.");
-					uzivatVolba("Back");
 					break;
+				}
+			case 3:
+				// Ramecek.ramecek(Ramecek.data[1][0], "Dwarf");
+				println(">Orc");
+				println("\thas 30% miss chance");
+				println("\tcan carry 500kg");
+				println(">Dwarf");
+				println("\thas 20% miss chance");
+				println("\tcan carry 80kg");
+				println("\thas cheaper axes in store");
+				println(">Goblin");
+				println("\thas 10% miss chance");
+				println("\tcan carry 50kg");
+				println(">Elf");
+				println("\thas 5% miss chance");
+				println("\tcan carry 30kg");
+				// println(">Superman");
+				// println("\thas 0% miss chance");
+				println();
+				println(">Small health potion heals for 20 HP.");
+				println(">Medium health potion heals for 50 HP.");
+				println(">Large health potion heals for 100 HP.");
+				println();
+				println("You gain experience and have a small chance of getting some health potions for killing enemies.");
+				println("You can collect ingredients to be able to brew potions in a pot.");
+				println("You can save game in bed...if you die without save...you lose everything!");
+				println("In every floor is a boss room, if you beat the boss, you go to the next floor.");
+				println("Main goal of this game is to get the highest score!");
+				println("Some actions cost you energy.");
+				println("You get energy by drinking beer in a pub.");
+				uzivatVolba("Back");
+				break;
 
-				case 4:
-					return;
 			}
 		}
 
@@ -551,7 +509,7 @@ os.onRewardedVideoStarted();
 							continue FIGHT;
 						} else if (room.isSearchedRoom()) {
 							println(Style.CENTER, "What now?");
-							volba = uzivatVolba("Go on", "Open inventory and info", "Go to town", "Exit");
+							volba = uzivatVolba("Go on", "Open inventory and info", "Go to town", "Exit to main menu");
 							if (volba == 1) { // Go on
 								way.go();
 								way.randMap.asciiArtMap();
@@ -575,7 +533,7 @@ os.onRewardedVideoStarted();
 						} else {
 							println(Style.CENTER, "What now?");
 							volba = uzivatVolba("Go on", "Search room", "Open inventory and info", "Go to town",
-									"Exit");
+									"Exit to main menu");
 							if (volba == 1) { // Go on
 								way.go();
 								way.randMap.asciiArtMap();
@@ -639,7 +597,7 @@ os.onRewardedVideoStarted();
 					while (true) {
 						println(Style.CENTER, "What now?");
 						volba = uzivatVolba("Fight", "Use potion of invisibility", "Go back", "Open inventory and info",
-								"Go to town", "Exit");
+								"Go to town", "Exit to main menu");
 						if (volba == 1) { // Attack
 							if (way.randMap.data.l == bossY && way.randMap.data.w == bossX && forAll.floor == 1) {
 								boss1.boss1Quote();
@@ -647,6 +605,9 @@ os.onRewardedVideoStarted();
 								plebFight = false;
 							} else if (way.randMap.data.l == bossY && way.randMap.data.w == bossX
 									&& forAll.floor == 2) {
+								boss2.boss2Quote();
+
+								plebFight = false;
 
 							} else {
 
@@ -662,15 +623,15 @@ os.onRewardedVideoStarted();
 								println(Style.CENTER, "It will cost you one potion of invisibility!");
 								int volbaRun = uzivatVolba("Yes", "No");
 								switch (volbaRun) {
-									case 1:
-										clear();
-										println(Style.CENTER, "You used potion of invisibility!");
-										forAll.numPotionOfInvisibility--;
-										back = false;
-										forAll.resetDrinkHealthPotionCount();
-										way.go();
-										way.randMap.mapInvisibility();
-										continue FIGHT;
+								case 1:
+									clear();
+									println(Style.CENTER, "You used potion of invisibility!");
+									forAll.numPotionOfInvisibility--;
+									back = false;
+									forAll.resetDrinkHealthPotionCount();
+									way.go();
+									way.randMap.mapInvisibility();
+									continue FIGHT;
 
 								}
 
@@ -725,15 +686,15 @@ os.onRewardedVideoStarted();
 								println(Style.CENTER, "It will cost you one potion of invisibility!");
 								int volbaRun = uzivatVolba("Yes", "No");
 								switch (volbaRun) {
-									case 1:
-										clear();
-										println(Style.CENTER, "You used potion of invisibility!");
-										forAll.numPotionOfInvisibility--;
-										back = false;
-										forAll.resetDrinkHealthPotionCount();
-										way.go();
-										way.randMap.mapInvisibility();
-										continue FIGHT;
+								case 1:
+									clear();
+									println(Style.CENTER, "You used potion of invisibility!");
+									forAll.numPotionOfInvisibility--;
+									back = false;
+									forAll.resetDrinkHealthPotionCount();
+									way.go();
+									way.randMap.mapInvisibility();
+									continue FIGHT;
 
 								}
 
@@ -744,7 +705,7 @@ os.onRewardedVideoStarted();
 						}
 
 					}
-					while (boss1.boss1Health > 0 && getHealth() > 0 && !plebFight) {
+					while (boss1.boss1Health > 0 && getHealth() > 0 && !plebFight && getForAll().floor == 1) {
 						println("\t> Your HP: " + getHealth());
 						println("\t> " + boss1.boss1Name + "'s HP: " + boss1.boss1Health);
 						println();
@@ -761,14 +722,47 @@ os.onRewardedVideoStarted();
 								println(Style.CENTER, "It will cost you one potion of invisibility!");
 								int volbaRun = uzivatVolba("Yes", "No");
 								switch (volbaRun) {
-									case 1:
-										clear();
-										println(Style.CENTER, "You used potion of invisibility!");
-										forAll.numPotionOfInvisibility--;
-										forAll.resetDrinkHealthPotionCount();
-										way.go();
-										way.randMap.mapInvisibility();
-										continue FIGHT;
+								case 1:
+									clear();
+									println(Style.CENTER, "You used potion of invisibility!");
+									forAll.numPotionOfInvisibility--;
+									forAll.resetDrinkHealthPotionCount();
+									way.go();
+									way.randMap.mapInvisibility();
+									continue FIGHT;
+								}
+
+							}
+						} else if (volba == 3) {// Open inventory and info
+							way.randMap.asciiArtMap();
+							inventoryAndInfo(true);
+						}
+					}
+					while (boss2.boss2Health > 0 && getHealth() > 0 && !plebFight && getForAll().floor == 2) {
+						println("\t> Your HP: " + getHealth());
+						println("\t> " + boss2.boss2Name + "'s HP: " + boss2.boss2Health);
+						println();
+						volba = uzivatVolba("Attack", "Use potion of invisibility", "Open inventory and info");
+						if (volba == 1) { // Attack
+							boss2.boss2Fight();
+						} else if (volba == 2) { // Run
+							if (forAll.numPotionOfInvisibility < 1) {
+								println(Style.CENTER, "You don't have any!");
+								switch (uzivatVolba("Continue")) {
+								}
+							} else {
+								println(Style.CENTER, "Do you really want to use potion of invisibility?");
+								println(Style.CENTER, "It will cost you one potion of invisibility!");
+								int volbaRun = uzivatVolba("Yes", "No");
+								switch (volbaRun) {
+								case 1:
+									clear();
+									println(Style.CENTER, "You used potion of invisibility!");
+									forAll.numPotionOfInvisibility--;
+									forAll.resetDrinkHealthPotionCount();
+									way.go();
+									way.randMap.mapInvisibility();
+									continue FIGHT;
 								}
 
 							}
@@ -840,22 +834,69 @@ os.onRewardedVideoStarted();
 							+ inventory.getCount(HealthPotion.LARGE) + " total)");
 				}
 				if (forAll.experience >= forAll.levelUp ^ bossKilled) {
+					int minDamage = character.getDamage().minValue(this) + Weapon.HAND.getDamageIncrease();
+					int maxDamage = character.getDamage().maxValue(this) + Weapon.HAND.getDamageIncrease();
 					uzivatVolba("Continue");
 					clear();
 					forAll.level++;
 					forAll.experience = forAll.experience - forAll.levelUp;
 					forAll.levelUp = 50 * forAll.level;
 					fillLine(GREEN.BRIGHT, "*");
+					println();
 					println(Style.CENTER, GREEN.BRIGHT, "Level Up!");
 					println(Style.CENTER, GREEN.BRIGHT, "Level " + forAll.level + "!");
+					println();
 					fillLine(GREEN.BRIGHT, "*");
 					println();
 					forAll.maximumHealth += ForAll.LEVEL_UP_HEALTH;
 					increaseHealth(ForAll.LEVEL_UP_HEALTH);
-
 					println("\tYour maximum health is " + forAll.maximumHealth + "HP.");
-					println("\tYour damage is " + character.getDamage().minValue(this) + " - "
-							+ character.getDamage().maxValue(this) + ".");
+					println("\tYour base damage is " + character.getDamage().minValue(this) + "-"
+							+ character.getDamage().maxValue(this));
+					println("\tYour weapon damage is " + Weapon.HAND.getDamageIncrease());
+					println("\tYour final damage is " + minDamage + "-" + maxDamage);
+					uzivatVolba("Continue");
+					clear();
+					println("Which stat do you want do upgrade?");
+					println();
+					println("Load capacity - lets you carry more things");
+					println("Max health - increases your max health, not current health");
+					println("Perception - increases your chance to find chest in room and reduces miss chance on high rank");
+					println();
+					int lvlUpChoices;
+					ArrayList<String> choices = new ArrayList<>();
+					choices.add("Load capacity");
+					choices.add("Max health");
+					if (getForAll().missChance >= 10) {
+						choices.add("Perception");
+					}
+
+					lvlUpChoices = uzivatVolba(choices.toArray(new String[choices.size()]));
+					String stringChoice = choices.get(lvlUpChoices - 1);
+
+					if (stringChoice.equals("Load capacity")) {
+						println("load capacity before: " + getForAll().lCapacity);
+						getForAll().lCapacity += 50;
+						println("load capacity now: " + getForAll().lCapacity);
+						break;
+					}
+					if (stringChoice.equals("Max health")) {
+						println("maximum health before: " + getForAll().maximumHealth);
+						getForAll().maximumHealth += 50;
+						println("maximum health now: " + getForAll().maximumHealth);
+						break;
+					}
+					if (stringChoice.equals("Perception")) {
+						if (getForAll().chestChance < 61) {
+							getForAll().chestChance += 10;
+							println("Your chance to find chest is " + getForAll().chestChance + "%");
+						} else {
+							getForAll().missChance -= 10;
+							println("Your miss chance is " + getForAll().missChance + "%");
+						}
+					}
+					uzivatVolba("Continue");
+
 				}
 
 				if (uzivatVolba("Search room", "Continue") == 1) {
@@ -887,12 +928,23 @@ os.onRewardedVideoStarted();
 			}
 
 		}
+
 	}
 
 	public void inventoryAndInfo(boolean fighting) {
 		do {
+			int minDamage = character.getDamage().minValue(this) + Weapon.HAND.getDamageIncrease();
+			int maxDamage = character.getDamage().maxValue(this) + Weapon.HAND.getDamageIncrease();
 			addEnergy();
 			println(RED.BRIGHT, this.getHealth() + "/" + this.getForAll().maximumHealth + " health");
+			println("Your base damage is " + character.getDamage().minValue(this) + "-"
+					+ character.getDamage().maxValue(this));
+			if (Weapon.HAND.getDamageIncrease() > 0) {
+				println("Your weapon damage is " + Weapon.HAND.getDamageIncrease());
+			}
+			if (Weapon.HAND.getDamageIncrease() > 0) {
+				println("Your final damage is " + minDamage + "-" + maxDamage);
+			}
 			if (getForAll().experience > 0) {
 				println(GREEN.BRIGHT, this.getForAll().experience + "/" + this.getForAll().levelUp + " experience");
 			}
@@ -902,6 +954,16 @@ os.onRewardedVideoStarted();
 			if (forAll.enemiesKilled > 0) {
 				println("floor " + this.getForAll().floor);
 			}
+			println(forAll.lCapacity + "/" + this.getCharacter().loadCapacity + " load capacity");
+			if (getForAll().numPotionOfStrength > 0) {
+				println(this.getForAll().numPotionOfStrength + " potion(s) of strength");
+			}
+			if (getForAll().gold > 0) {
+				println(YELLOW.BRIGHT, this.getForAll().gold + " gold");
+
+			}
+			println(forAll.energy + "/100 energy");
+			println(forAll.missChance + "% miss chance");
 			if (getForAll().resistence > 0) {
 				println(100 - this.getForAll().resistence + "% resistance");
 				if (forAll.woodenAxe > 0) {
@@ -916,19 +978,13 @@ os.onRewardedVideoStarted();
 				if (forAll.ironAxe > 0) {
 					println("Iron axe");
 				}
-				printResources();
 
 			}
-			println(forAll.lCapacity + "/" + this.getCharacter().loadCapacity + " load capacity");
-			if (getForAll().numPotionOfStrength > 0) {
-				println(this.getForAll().numPotionOfStrength + " potion(s) of strength");
-			}
-			if (getForAll().gold > 0) {
-				println(YELLOW.BRIGHT, this.getForAll().gold + " gold");
-
-			}
-			println(forAll.energy + "/100 energy");
-			println(forAll.missChance + "% miss chance");
+			fillLine("-");
+			println();
+			printResources();
+			fillLine("-");
+			println();
 			if (forAll.enemiesKilled == 1) {
 				println(forAll.enemiesKilled + " killed enemy");
 			} else {
@@ -945,11 +1001,11 @@ os.onRewardedVideoStarted();
 			println();
 			println(way.randMap.data.map);
 			println("Map legend:");
-			println((char) 0x263B+" - your position");
-			println((char) 0x25A0+" - wall");
-			println("o - room with enemy");
-			println("A - boss room");
-			println("c - cleared room");
+			println(MapConstants.playerChar + " - your position");
+			println(MapConstants.wallChar + " - wall");
+			println(MapConstants.fullRoomChar + " - room with enemy");
+			println(MapConstants.bossChar + " - boss room");
+			println(MapConstants.clearRoomChar + " - cleared room");
 			println();
 		} while (this.getInventory().showInventory(fighting) != null);
 	}

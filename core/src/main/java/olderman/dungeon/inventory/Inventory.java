@@ -82,11 +82,11 @@ public class Inventory implements Serializable {
 				dungeon.println(name);
 			}
 		}
-
 		names.add("Exit inventory");
 		items.add(null);
 
 		InventoryItem item = items.get(dungeon.uzivatVolba(names.toArray(new String[names.size()])) - 1);
+
 		if (item == null) {
 			return null;
 		}
@@ -97,7 +97,7 @@ public class Inventory implements Serializable {
 				return null;
 			}
 			dungeon.getForAll().hasDrunkHealthPotion = true;
-			dungeon.getForAll().flashk++;
+			dungeon.getForAll().flask++;
 		}
 		if (type == Type.WEAPON) {
 			dungeon.getForAll().resetDrinkHealthPotionCount();

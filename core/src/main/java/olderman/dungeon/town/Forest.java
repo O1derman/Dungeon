@@ -77,6 +77,7 @@ public class Forest implements Serializable {
 					int foundWood = dungeon.getRand().nextInt(10);
 					dungeon.getForAll().energy -= 10;
 					dungeon.getForAll().wood += foundWood;
+					dungeon.getForAll().lCapacity += foundWood * dungeon.getForAll().woodHeft;
 					dungeon.println(Style.CENTER, "You got " + foundWood + " wood.");
 					switch (dungeon.uzivatVolba("Continue")) {
 					}
