@@ -34,8 +34,7 @@ public class ToolShop implements Serializable {
 			dungeon.println("You got:");
 			dungeon.println(YELLOW.BRIGHT, dungeon.getForAll().gold + " gold");
 			String knife = "Knife (" + dungeon.getForAll().knifeCost + "Gold)...allows you to separate animals!";
-			String flashk = "Flashk (" + dungeon.getForAll().flashkCost
-					+ "Gold)...needed to be able to create potions!";
+			String flask = "Flask (" + dungeon.getForAll().flaskCost + "Gold)...needed to be able to create potions!";
 			String bronzeAxe = "Bronze axe (" + dungeon.getForAll().bronzeAxeCost
 					+ "Gold)...allows you to cut trees faster!";
 			String ironAxe = "Iron axe (" + dungeon.getForAll().ironAxeCost + "Gold)...allows you to cut trees faster!";
@@ -54,15 +53,15 @@ public class ToolShop implements Serializable {
 				knife = "Knife - owned";
 			}
 			if (ownBronzeAxe) {
-				knife = "Bronze axe - owned";
+				bronzeAxe = "Bronze axe - owned";
 			}
 			if (ownIronAxe) {
-				knife = "Iron axe - owned";
+				ironAxe = "Iron axe - owned";
 			}
 			if (ownSilverAxe) {
-				knife = "Silver axe - owned";
+				silverAxe = "Silver axe - owned";
 			}
-			int volba = dungeon.uzivatVolba(knife, flashk, bronzeAxe, ironAxe, silverAxe, "Go away");
+			int volba = dungeon.uzivatVolba(knife, flask, bronzeAxe, ironAxe, silverAxe, "Go away");
 			switch (volba) {
 			case 1:
 				if (ownKnife) {
@@ -83,14 +82,14 @@ public class ToolShop implements Serializable {
 					continue choices;
 				}
 			case 2:
-				if (dungeon.getForAll().gold < dungeon.getForAll().flashkCost) {
+				if (dungeon.getForAll().gold < dungeon.getForAll().flaskCost) {
 					dungeon.println(Style.CENTER, "You don't have enough gold!");
 					dungeon.uzivatVolba("Continue");
 					continue choices;
 				} else {
-					dungeon.getForAll().flashk++;
-					dungeon.println(Style.CENTER, "You bought a flashk.");
-					dungeon.getForAll().gold -= dungeon.getForAll().flashkCost;
+					dungeon.getForAll().flask++;
+					dungeon.println(Style.CENTER, "You bought a flask.");
+					dungeon.getForAll().gold -= dungeon.getForAll().flaskCost;
 					dungeon.uzivatVolba("Continue");
 					continue choices;
 				}

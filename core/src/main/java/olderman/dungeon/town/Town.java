@@ -10,7 +10,7 @@ import olderman.dungeon.Style;
 import olderman.dungeon.shop.Shop;
 import olderman.dungeon.shop.ToolShop;
 
-public class Town implements Serializable{
+public class Town implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public Town(Dungeon dungeon) {
@@ -37,19 +37,18 @@ public class Town implements Serializable{
 	}
 
 	private final Forest forest;
-	boolean firstTime = true;
 	// Scanner scanner = new Scanner(System.in);
 	// String playersAnswer;
 	// String rightAnswer = "a right angle";
 
 	public void town() throws InterruptedException {
 		final String CITY = Resources.getString("/City");
-		if (firstTime) {
+		if (dungeon.getForAll().isFirstTimeTown()) {
 			dungeon.println();
 			dungeon.println(Style.CENTER, "***********************");
 			dungeon.println(Style.CENTER, "* WELCOME in Stander! *");
 			dungeon.println(Style.CENTER, "***********************");
-			firstTime = false;
+			dungeon.getForAll().setFirstTimeTown(false);
 		}
 		// dungeon.println("\n\tan old poorly looking wanderer: HEY STRANGER!");
 		// dungeon.println("\n\tan old poorly looking wanderer: Yea, YOU!");
@@ -90,7 +89,7 @@ public class Town implements Serializable{
 		BACK1: while (dungeon.getForAll().house == 0) {
 			dungeon.printAsciiArt(CITY);
 
-			switch (dungeon.uzivatVolba("Go in weapon shop", "Go in tool shop", "Buy house", "Go in workhouse",
+			switch (dungeon.uzivatVolba("Go in weapon shop", "Go in tool shop", "Buy house with bin", "Go in workhouse",
 					"Go in the forest", "Go in pub", "Open inventory and info", "Enter dungeon")) {
 			case 1:
 				shop.shop();
@@ -99,7 +98,7 @@ public class Town implements Serializable{
 				toolShop.shop();
 				continue BACK1;
 			case 3:
-				dungeon.println(Style.CENTER, "You can buy house for " + dungeon.getForAll().houseCost + "g");
+				dungeon.println(Style.CENTER, "You can buy house with bin for " + dungeon.getForAll().houseCost + "g");
 				if (dungeon.getForAll().gold < dungeon.getForAll().houseCost) {
 					switch (dungeon.uzivatVolba("Back")) {
 					}
@@ -110,7 +109,7 @@ public class Town implements Serializable{
 					case 1:
 						dungeon.getForAll().house++;
 						dungeon.getForAll().gold -= dungeon.getForAll().houseCost;
-						dungeon.println(Style.CENTER, "You bought a house!");
+						dungeon.println(Style.CENTER, "You bought a house with bin!");
 						switch (dungeon.uzivatVolba("Continue")) {
 						}
 					}
