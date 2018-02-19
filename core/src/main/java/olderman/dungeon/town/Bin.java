@@ -1,10 +1,12 @@
 package olderman.dungeon.town;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import olderman.dungeon.Dungeon;
 
-public class Bin {
+public class Bin implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private final Dungeon dungeon;
 

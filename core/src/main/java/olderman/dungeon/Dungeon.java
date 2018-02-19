@@ -857,10 +857,14 @@ public class Dungeon implements Serializable {
 					println("\tYour final damage is " + minDamage + "-" + maxDamage);
 					uzivatVolba("Continue");
 					clear();
-					println("Which stat do you want do upgrade?");
+					println(Style.CENTER, "Which stat do you want do upgrade?");
 					println();
 					println("Load capacity - lets you carry more things");
+					fillLine("-");
+					println();
 					println("Max health - increases your max health, not current health");
+					fillLine("-");
+					println();
 					println("Perception - increases your chance to find chest in room and reduces miss chance on high rank");
 					println();
 					int lvlUpChoices;
@@ -875,24 +879,24 @@ public class Dungeon implements Serializable {
 					String stringChoice = choices.get(lvlUpChoices - 1);
 
 					if (stringChoice.equals("Load capacity")) {
-						println("load capacity before: " + getForAll().lCapacity);
+						println(Style.CENTER, "load capacity before: " + getForAll().lCapacity);
 						getForAll().lCapacity += 50;
-						println("load capacity now: " + getForAll().lCapacity);
+						println(Style.CENTER, "load capacity now: " + getForAll().lCapacity);
 						break;
 					}
 					if (stringChoice.equals("Max health")) {
-						println("maximum health before: " + getForAll().maximumHealth);
+						println(Style.CENTER, "maximum health before: " + getForAll().maximumHealth);
 						getForAll().maximumHealth += 50;
-						println("maximum health now: " + getForAll().maximumHealth);
+						println(Style.CENTER, "maximum health now: " + getForAll().maximumHealth);
 						break;
 					}
 					if (stringChoice.equals("Perception")) {
 						if (getForAll().chestChance < 61) {
 							getForAll().chestChance += 10;
-							println("Your chance to find chest is " + getForAll().chestChance + "%");
+							println(Style.CENTER, "Your chance to find chest is " + getForAll().chestChance + "%");
 						} else {
 							getForAll().missChance -= 10;
-							println("Your miss chance is " + getForAll().missChance + "%");
+							println(Style.CENTER, "Your miss chance is " + getForAll().missChance + "%");
 						}
 					}
 					uzivatVolba("Continue");

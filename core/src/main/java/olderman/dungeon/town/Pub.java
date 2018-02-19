@@ -28,7 +28,7 @@ public class Pub implements Serializable {
 			dungeon.println(dungeon.getForAll().energy + "/100 energy");
 			dungeon.println();
 			dungeon.printAsciiArt(BEER);
-			int volba = dungeon.uzivatVolba("Drink beer (" + dungeon.getForAll().beerCost + "G)...adds you 40 energy",
+			int volba = dungeon.uzivatVolba("Drink beer (" + dungeon.getForAll().beerCost + "G)...adds you 20 energy",
 					"Play video to get full energy", "Go away");
 			switch (volba) {
 			case 1:
@@ -45,10 +45,10 @@ public class Pub implements Serializable {
 				} else {
 					dungeon.getForAll().gold -= dungeon.getForAll().beerCost;
 					dungeon.println(Style.CENTER, "You drank beer.");
-					if (dungeon.getForAll().energy >= 60)
+					if (dungeon.getForAll().energy >= 80)
 						dungeon.getForAll().energy = 100;
 					else {
-						dungeon.getForAll().energy += 40;
+						dungeon.getForAll().energy += 20;
 					}
 					switch (dungeon.uzivatVolba("Continue")) {
 					}

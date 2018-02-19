@@ -9,11 +9,11 @@ import olderman.dungeon.inventory.Pot;
 
 public class House implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private Bin bin;
 
 	public House(Dungeon dungeon) {
-		
+
 		this.dungeon = dungeon;
 		this.bin = new Bin(dungeon);
 
