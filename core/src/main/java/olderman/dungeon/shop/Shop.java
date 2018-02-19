@@ -13,10 +13,6 @@ import olderman.dungeon.inventory.Pot;
 import olderman.dungeon.inventory.Weapon;
 
 public class Shop implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public Shop(Dungeon dungeon) {
@@ -37,11 +33,10 @@ public class Shop implements Serializable {
 	public void shop() {
 
 		dungeon.println(Style.CENTER, "Welcome to a weapon shop \"Broken axe\"!");
+		dungeon.println();
 		while (true) {
-
+			dungeon.println("You got:");
 			dungeon.println(YELLOW.BRIGHT, dungeon.getForAll().gold + " gold");
-			dungeon.println();
-			dungeon.println(Style.CENTER, "What will you get?");
 
 			List<ShopItem> avilableItems = new ArrayList<>();
 			List<String> descriptions = new ArrayList<>();

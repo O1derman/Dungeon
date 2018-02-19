@@ -4,6 +4,7 @@ import olderman.dungeon.Dungeon;
 import olderman.dungeon.inventory.InventoryItem;
 
 public class InventoryShopItem extends ShopItem {
+	private static final long serialVersionUID = 1L;
 
 	private final InventoryItem item;
 
