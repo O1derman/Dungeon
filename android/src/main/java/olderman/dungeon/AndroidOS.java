@@ -388,7 +388,6 @@ public class AndroidOS implements OS {
 		action(ACTION_FILL_LINE, text);
 	}
 
-
 	@Override
 	public void startVideoAd() {
 		//MainActivity.
