@@ -10,7 +10,7 @@ import olderman.dungeon.Dungeon;
  *
  */
 
-public class Cheats implements Serializable{
+public class Cheats implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private final Dungeon dungeon;
 
