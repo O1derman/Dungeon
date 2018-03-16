@@ -30,7 +30,6 @@ public class House implements Serializable {
 				switch (dungeon.uzivatVolba("Use bed", "Use Pot", "Throw item in a bin", "Go out of house")) {
 				case 1:
 					dungeon.saveData();
-					dungeon.println("Game is saved");
 					switch (dungeon.uzivatVolba("Continue")) {
 					}
 					continue BACK;
@@ -47,7 +46,6 @@ public class House implements Serializable {
 				switch (dungeon.uzivatVolba("Use bed", "Throw item in a bin", "Go out of house")) {
 				case 1: {
 					dungeon.saveData();
-					dungeon.println("Game is saved");
 				}
 					switch (dungeon.uzivatVolba("Continue")) {
 					}

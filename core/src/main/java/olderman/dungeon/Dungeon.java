@@ -31,6 +31,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.naming.Context;
+
 public class Dungeon implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -309,9 +311,9 @@ public class Dungeon implements Serializable {
 		data.add(way.randMap.data);
 		data.add(getCharacter());
 		data.add(way.randMap);
-
+		
 		try {
-			FileOutputStream fileOut = new FileOutputStream("data.ser");
+			FileOutputStream fileOut = context.openFileOutput("Data.ser", Context.MODE_PRIVATE);
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(data);
 			out.close();
@@ -882,13 +884,11 @@ public class Dungeon implements Serializable {
 						println(Style.CENTER, "load capacity before: " + getForAll().lCapacity);
 						getForAll().lCapacity += 50;
 						println(Style.CENTER, "load capacity now: " + getForAll().lCapacity);
-						break;
 					}
 					if (stringChoice.equals("Max health")) {
 						println(Style.CENTER, "maximum health before: " + getForAll().maximumHealth);
 						getForAll().maximumHealth += 50;
 						println(Style.CENTER, "maximum health now: " + getForAll().maximumHealth);
-						break;
 					}
 					if (stringChoice.equals("Perception")) {
 						if (getForAll().chestChance < 61) {

@@ -8,6 +8,7 @@ public class PotionOfConcentration extends InventoryItem {
 
 	public static final PotionOfConcentration CONCENTRATION = new PotionOfConcentration(5);
 
+	private final int misschanceDecrease = 5;
 	private final int concentrationAmount;
 
 	private PotionOfConcentration(int concentrationAmount) {
@@ -19,8 +20,8 @@ public class PotionOfConcentration extends InventoryItem {
 	@Override
 	public boolean use(Dungeon dungeon) {
 		int missChance = dungeon.getForAll().missChance;
-		if (missChance <= 5) {
-			missChance -= concentrationAmount;
+		if (missChance >= 5) {
+			missChance -= misschanceDecrease;
 			dungeon.setMissChance(missChance);
 		}
 		return true;
