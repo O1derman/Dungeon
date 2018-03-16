@@ -1,9 +1,14 @@
 package olderman.dungeon;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
@@ -13,6 +18,7 @@ import javax.swing.text.View;
 import olderman.dungeon.Style.AttributeStyle;
 import olderman.dungeon.Style.Color;
 import olderman.dungeon.Style.ColorStyle;
+import olderman.dungeon.map.RandMapData;
 
 public class DesktopOS implements OS, Serializable {
 	private static final long serialVersionUID = 1L;
@@ -257,5 +263,25 @@ public class DesktopOS implements OS, Serializable {
 	@Override
 	public void onDestroy() {
 
+	}
+
+	@Override
+	public void trySaveData(ArrayList<Object> data) {
+
+		try {
+			FileOutputStream fileOut = new FileOutputStream("data.ser");
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(data);
+			out.close();
+			fileOut.close();
+
+		} catch (IOException i) {
+			i.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public void tryLoadData() {
 	}
 }

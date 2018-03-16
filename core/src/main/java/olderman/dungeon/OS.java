@@ -1,5 +1,7 @@
 package olderman.dungeon;
 
+import java.util.ArrayList;
+
 import javax.swing.text.View;
 
 import olderman.dungeon.Style.AttributeStyle;
@@ -12,6 +14,10 @@ public interface OS {
 	int uzivatVolba(String... options);
 
 	void print(String string);
+
+	void trySaveData(ArrayList<Object> data);
+
+	void tryLoadData();
 
 	void println();
 

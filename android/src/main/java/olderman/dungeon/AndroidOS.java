@@ -22,6 +22,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -135,14 +138,13 @@ public class AndroidOS implements OS {
 			button.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					if(text.equals("Play video to get full energy")){
+					if (text.equals("Play video to get full energy")) {
 						activity.startVideoAd();
 						buttons.removeAllViews();
 						buttonLabels = null;
-					}
-					else{
-					buttons.removeAllViews();
-					buttonLabels = null;
+					} else {
+						buttons.removeAllViews();
+						buttonLabels = null;
 					}
 					result.set(i);
 				}
@@ -390,7 +392,7 @@ public class AndroidOS implements OS {
 
 	@Override
 	public void startVideoAd() {
-		//MainActivity.
+		// MainActivity.
 	}
 
 	@Override
@@ -446,6 +448,25 @@ public class AndroidOS implements OS {
 	@Override
 	public void beep() {
 
+	}
+
+	@Override
+	public void trySaveData(ArrayList<Object> data) {
+		FileOutputStream fileOut = context.openFileOutput("data.ser", Context.MODE_PRIVATE);
+		ObjectOutputStream out = new ObjectOutputStream(fileOut);
+		out.writeObject(data);
+		out.close();
+		fileOut.close();
+
+	}
+	
+	@Override
+	public void tryLoadData() {
+		FileInputStream fis = context.openFileInput("data.ser");
+		ObjectInputStream is = new ObjectInputStream(fis);
+		SimpleClass simpleClass = (SimpleClass) is.readObject();
+		is.close();
+		fis.close();
 	}
 
 	private static int mapColor(Style.ColorStyle color) {

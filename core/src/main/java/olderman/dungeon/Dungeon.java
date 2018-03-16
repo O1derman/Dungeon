@@ -31,8 +31,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.naming.Context;
-
 public class Dungeon implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -116,6 +114,14 @@ public class Dungeon implements Serializable {
 
 	public void beep() {
 		os.beep();
+	}
+
+	public void trySaveData(ArrayList<Object> data) {
+		os.trySaveData(data);
+	}
+
+	public void tryLoadData() {
+		os.tryLoadData();
 	}
 
 	public void clear() {
@@ -311,50 +317,14 @@ public class Dungeon implements Serializable {
 		data.add(way.randMap.data);
 		data.add(getCharacter());
 		data.add(way.randMap);
-		
-		try {
-			FileOutputStream fileOut = context.openFileOutput("Data.ser", Context.MODE_PRIVATE);
-			ObjectOutputStream out = new ObjectOutputStream(fileOut);
-			out.writeObject(data);
-			out.close();
-			fileOut.close();
-			println(Style.CENTER, "Saved");
 
-		} catch (IOException i) {
-			i.printStackTrace();
-		}
+		trySaveData(data);
+		println(Style.CENTER, "Saved!");
 	}
 
 	@SuppressWarnings("unchecked")
 	public void loadData() {
-		// create arraylist to store deserialized objects
-		ArrayList<Object> deserialized = new ArrayList<Object>();
-
-		try {
-			FileInputStream fileIn = new FileInputStream("data.ser");
-			ObjectInputStream in = new ObjectInputStream(fileIn);
-			deserialized = (ArrayList<Object>) in.readObject();
-			for (Object o : deserialized) {
-				if (o instanceof ForAll) {
-					this.forAll = (ForAll) o;
-				}
-				if (o instanceof RandMapData) {
-					way.randMap.data = (RandMapData) o;
-				}
-				if (o instanceof GameCharacter) {
-					this.character = (GameCharacter) o;
-				}
-
-			}
-			in.close();
-			fileIn.close();
-		} catch (IOException i) {
-			i.printStackTrace();
-			return;
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
-			return;
-		}
+		tryLoadData();
 
 	}
 	// main
