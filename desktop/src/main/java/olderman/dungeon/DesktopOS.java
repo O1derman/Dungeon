@@ -1,12 +1,16 @@
 package olderman.dungeon;
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
+
 
 import olderman.dungeon.Style.AttributeStyle;
 import olderman.dungeon.Style.Color;
@@ -200,5 +204,76 @@ public class DesktopOS implements OS, Serializable {
 		for (int i = 0; i < count; i++) {
 			print(text);
 		}
+	}
+
+	@Override
+	public void startVideoAd() {
+		println("This is just for android users!");
+	}
+
+	@Override
+	public void onRewardedVideoAdLoaded() {
+
+	}
+
+	@Override
+	public void onRewardedVideoAdOpened() {
+
+	}
+
+	@Override
+	public void onRewardedVideoStarted() {
+
+	}
+
+	@Override
+	public void onRewardedVideoAdClosed() {
+
+	}
+
+	@Override
+	public void onRewarded() {
+
+	}
+
+	@Override
+	public void onRewardedVideoAdLeftApplication() {
+
+	}
+
+	@Override
+	public void onRewardedVideoAdFailedToLoad(int i) {
+
+	}
+
+	@Override
+	public void onPause() {
+
+	}
+
+	@Override
+	public void onResume() {
+
+	}
+
+	@Override
+	public void onDestroy() {
+
+	}
+
+	@Override
+	public void trySaveData(ArrayList<Object> data) {
+
+		try {
+			FileOutputStream fileOut = new FileOutputStream("data.ser");
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(data);
+			out.close();
+			fileOut.close();
+
+		} catch (IOException i) {
+			i.printStackTrace();
+		}
+
 	}
 }

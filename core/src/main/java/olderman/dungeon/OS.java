@@ -1,5 +1,10 @@
 package olderman.dungeon;
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
+import javax.swing.text.View;
+
 import olderman.dungeon.Style.AttributeStyle;
 import olderman.dungeon.Style.ColorStyle;
 
@@ -10,6 +15,8 @@ public interface OS {
 	int uzivatVolba(String... options);
 
 	void print(String string);
+
+	void trySaveData(ArrayList<Object> data) throws FileNotFoundException;
 
 	void println();
 
@@ -26,5 +33,27 @@ public interface OS {
 	void beep();
 
 	void fillLine(String text);
+
+	void startVideoAd();
+
+	void onRewardedVideoAdLoaded();
+
+	void onRewardedVideoAdOpened();
+
+	void onRewardedVideoStarted();
+
+	void onRewardedVideoAdClosed();
+
+	void onRewarded();
+
+	void onRewardedVideoAdLeftApplication();
+
+	void onRewardedVideoAdFailedToLoad(int i);
+
+	void onPause();
+
+	void onResume();
+
+	void onDestroy();
 
 }

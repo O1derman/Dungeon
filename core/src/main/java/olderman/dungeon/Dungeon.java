@@ -23,6 +23,7 @@ import static olderman.dungeon.Style.YELLOW;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -114,6 +115,10 @@ public class Dungeon implements Serializable {
 
 	public void beep() {
 		os.beep();
+	}
+
+	public void trySaveData(ArrayList<Object> data) throws FileNotFoundException {
+		os.trySaveData(data);
 	}
 
 	public void clear() {
@@ -302,7 +307,7 @@ public class Dungeon implements Serializable {
 	}
 
 	// Serialize data
-	public void saveData() {
+	public void saveData() throws FileNotFoundException {
 		// Massive object to store all our objects
 		ArrayList<Object> data = new ArrayList<Object>();
 		data.add(getForAll());
@@ -310,17 +315,8 @@ public class Dungeon implements Serializable {
 		data.add(getCharacter());
 		data.add(way.randMap);
 
-		try {
-			FileOutputStream fileOut = new FileOutputStream("data.ser");
-			ObjectOutputStream out = new ObjectOutputStream(fileOut);
-			out.writeObject(data);
-			out.close();
-			fileOut.close();
-			println(Style.CENTER, "Saved");
-
-		} catch (IOException i) {
-			i.printStackTrace();
-		}
+		trySaveData(data);
+		println(Style.CENTER, "Saved!");
 	}
 
 	@SuppressWarnings("unchecked")
@@ -361,14 +357,14 @@ public class Dungeon implements Serializable {
 		return currentPlebs;
 	}
 
-	public void run() throws InterruptedException {
+	public void run() throws InterruptedException, FileNotFoundException {
 		clear();
 		menu();
 	}
 
 	long startTime = System.nanoTime();
 
-	private void menu() throws InterruptedException {
+	private void menu() throws InterruptedException, FileNotFoundException {
 		while (true) {
 			forAll = new ForAll();
 			town = new Town(this);
@@ -471,7 +467,7 @@ public class Dungeon implements Serializable {
 		}
 	}
 
-	private void game() throws InterruptedException {
+	private void game() throws InterruptedException, FileNotFoundException {
 		int volba;
 		boolean timeWithoutFight = true;
 		FIGHT: while (true) {
@@ -882,13 +878,11 @@ public class Dungeon implements Serializable {
 						println(Style.CENTER, "load capacity before: " + getForAll().lCapacity);
 						getForAll().lCapacity += 50;
 						println(Style.CENTER, "load capacity now: " + getForAll().lCapacity);
-						break;
 					}
 					if (stringChoice.equals("Max health")) {
 						println(Style.CENTER, "maximum health before: " + getForAll().maximumHealth);
 						getForAll().maximumHealth += 50;
 						println(Style.CENTER, "maximum health now: " + getForAll().maximumHealth);
-						break;
 					}
 					if (stringChoice.equals("Perception")) {
 						if (getForAll().chestChance < 61) {

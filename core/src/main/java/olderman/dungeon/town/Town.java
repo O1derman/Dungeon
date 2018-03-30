@@ -2,6 +2,7 @@ package olderman.dungeon.town;
 
 import static olderman.dungeon.Style.YELLOW;
 
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 
 import olderman.dungeon.Dungeon;
@@ -41,7 +42,7 @@ public class Town implements Serializable {
 	// String playersAnswer;
 	// String rightAnswer = "a right angle";
 
-	public void town() throws InterruptedException {
+	public void town() throws InterruptedException, FileNotFoundException {
 		final String CITY = Resources.getString("/City");
 		if (dungeon.getForAll().isFirstTimeTown()) {
 			dungeon.println();
