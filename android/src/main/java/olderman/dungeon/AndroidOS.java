@@ -2,6 +2,7 @@ package olderman.dungeon;
 
 import android.app.Activity;
 
+import android.content.Context;
 import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Looper;
@@ -22,8 +23,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -450,23 +454,19 @@ public class AndroidOS implements OS {
 
 	}
 
+	@WorkerThread
 	@Override
-	public void trySaveData(ArrayList<Object> data) {
-		FileOutputStream fileOut = context.openFileOutput("data.ser", Context.MODE_PRIVATE);
-		ObjectOutputStream out = new ObjectOutputStream(fileOut);
-		out.writeObject(data);
-		out.close();
-		fileOut.close();
-
-	}
-	
-	@Override
-	public void tryLoadData() {
-		FileInputStream fis = context.openFileInput("data.ser");
-		ObjectInputStream is = new ObjectInputStream(fis);
-		SimpleClass simpleClass = (SimpleClass) is.readObject();
-		is.close();
-		fis.close();
+	public void trySaveData(ArrayList<Object> data) throws FileNotFoundException {
+		FileOutputStream fos = handler.activity.openFileOutput("data.set", Context.MODE_PRIVATE);
+		ObjectOutputStream os = null;
+		try {
+			os = new ObjectOutputStream(fos);
+			os.writeObject(data);
+			os.close();
+			fos.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private static int mapColor(Style.ColorStyle color) {

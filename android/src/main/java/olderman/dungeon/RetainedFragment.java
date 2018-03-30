@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.FileNotFoundException;
+
 /**
  *
  */
@@ -31,6 +33,8 @@ public class RetainedFragment extends Fragment {
 						Thread.sleep(500);
 						dungeon.run();
 					} catch (ExitException | InterruptedException ignored) {
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
 					}
 					finished = true;
 				}

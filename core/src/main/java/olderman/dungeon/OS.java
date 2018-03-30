@@ -1,5 +1,6 @@
 package olderman.dungeon;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import javax.swing.text.View;
@@ -15,9 +16,7 @@ public interface OS {
 
 	void print(String string);
 
-	void trySaveData(ArrayList<Object> data);
-
-	void tryLoadData();
+	void trySaveData(ArrayList<Object> data) throws FileNotFoundException;
 
 	void println();
 

@@ -23,6 +23,7 @@ import static olderman.dungeon.Style.YELLOW;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -116,12 +117,8 @@ public class Dungeon implements Serializable {
 		os.beep();
 	}
 
-	public void trySaveData(ArrayList<Object> data) {
+	public void trySaveData(ArrayList<Object> data) throws FileNotFoundException {
 		os.trySaveData(data);
-	}
-
-	public void tryLoadData() {
-		os.tryLoadData();
 	}
 
 	public void clear() {
@@ -310,7 +307,7 @@ public class Dungeon implements Serializable {
 	}
 
 	// Serialize data
-	public void saveData() {
+	public void saveData() throws FileNotFoundException {
 		// Massive object to store all our objects
 		ArrayList<Object> data = new ArrayList<Object>();
 		data.add(getForAll());
@@ -324,7 +321,34 @@ public class Dungeon implements Serializable {
 
 	@SuppressWarnings("unchecked")
 	public void loadData() {
-		tryLoadData();
+		// create arraylist to store deserialized objects
+		ArrayList<Object> deserialized = new ArrayList<Object>();
+
+		try {
+			FileInputStream fileIn = new FileInputStream("data.ser");
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			deserialized = (ArrayList<Object>) in.readObject();
+			for (Object o : deserialized) {
+				if (o instanceof ForAll) {
+					this.forAll = (ForAll) o;
+				}
+				if (o instanceof RandMapData) {
+					way.randMap.data = (RandMapData) o;
+				}
+				if (o instanceof GameCharacter) {
+					this.character = (GameCharacter) o;
+				}
+
+			}
+			in.close();
+			fileIn.close();
+		} catch (IOException i) {
+			i.printStackTrace();
+			return;
+		} catch (ClassNotFoundException c) {
+			c.printStackTrace();
+			return;
+		}
 
 	}
 	// main
@@ -333,14 +357,14 @@ public class Dungeon implements Serializable {
 		return currentPlebs;
 	}
 
-	public void run() throws InterruptedException {
+	public void run() throws InterruptedException, FileNotFoundException {
 		clear();
 		menu();
 	}
 
 	long startTime = System.nanoTime();
 
-	private void menu() throws InterruptedException {
+	private void menu() throws InterruptedException, FileNotFoundException {
 		while (true) {
 			forAll = new ForAll();
 			town = new Town(this);
@@ -443,7 +467,7 @@ public class Dungeon implements Serializable {
 		}
 	}
 
-	private void game() throws InterruptedException {
+	private void game() throws InterruptedException, FileNotFoundException {
 		int volba;
 		boolean timeWithoutFight = true;
 		FIGHT: while (true) {

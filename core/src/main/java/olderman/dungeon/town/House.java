@@ -1,5 +1,6 @@
 package olderman.dungeon.town;
 
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 
 import olderman.dungeon.Dungeon;
@@ -21,7 +22,7 @@ public class House implements Serializable {
 
 	private final Dungeon dungeon;
 
-	public void inside() throws InterruptedException {
+	public void inside() throws InterruptedException, FileNotFoundException {
 		final String HOUSE = Resources.getString("/House");
 		BACK: while (true) {
 			dungeon.printAsciiArt(HOUSE);
