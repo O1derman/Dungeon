@@ -21,6 +21,7 @@ import static olderman.dungeon.Style.RED;
 import static olderman.dungeon.Style.Reset;
 import static olderman.dungeon.Style.YELLOW;
 
+import java.beans.Transient;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -111,7 +112,7 @@ public class Dungeon implements Serializable {
 	}
 
 	// os
-	private final OS os;
+	private transient final OS os;
 
 	public void beep() {
 		os.beep();
@@ -119,6 +120,10 @@ public class Dungeon implements Serializable {
 
 	public void trySaveData(ArrayList<Object> data) throws FileNotFoundException {
 		os.trySaveData(data);
+	}
+
+	public FileInputStream tryLoadData() throws FileNotFoundException {
+		return os.tryLoadData();
 	}
 
 	public void clear() {
@@ -325,7 +330,7 @@ public class Dungeon implements Serializable {
 		ArrayList<Object> deserialized = new ArrayList<Object>();
 
 		try {
-			FileInputStream fileIn = new FileInputStream("data.ser");
+			FileInputStream fileIn = this.tryLoadData();
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 			deserialized = (ArrayList<Object>) in.readObject();
 			for (Object o : deserialized) {
@@ -403,8 +408,7 @@ public class Dungeon implements Serializable {
 				break;
 
 			case 2:
-				File f = new File("data.ser");
-				if (f.exists()) {
+				if (os.saveFileExists()) {
 					loadData();
 					town.getHouse().inside();
 					town.town();

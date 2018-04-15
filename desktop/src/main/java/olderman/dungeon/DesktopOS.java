@@ -1,6 +1,9 @@
 package olderman.dungeon;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -265,7 +268,7 @@ public class DesktopOS implements OS, Serializable {
 	public void trySaveData(ArrayList<Object> data) {
 
 		try {
-			FileOutputStream fileOut = new FileOutputStream("data.ser");
+			FileOutputStream fileOut = new FileOutputStream(Constants.saveFileName);
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(data);
 			out.close();
@@ -275,5 +278,16 @@ public class DesktopOS implements OS, Serializable {
 			i.printStackTrace();
 		}
 
+	}
+
+	@Override
+	public FileInputStream tryLoadData() throws FileNotFoundException {
+		return new FileInputStream(Constants.saveFileName);
+	}
+
+	@Override
+	public boolean saveFileExists() {
+		File f = new File(Constants.saveFileName);
+		return f.exists();
 	}
 }

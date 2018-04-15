@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -457,7 +458,7 @@ public class AndroidOS implements OS {
 	@WorkerThread
 	@Override
 	public void trySaveData(ArrayList<Object> data) throws FileNotFoundException {
-		FileOutputStream fos = handler.activity.openFileOutput("data.set", Context.MODE_PRIVATE);
+		FileOutputStream fos = handler.activity.openFileOutput(Constants.saveFileName, Context.MODE_PRIVATE);
 		ObjectOutputStream os = null;
 		try {
 			os = new ObjectOutputStream(fos);
@@ -467,6 +468,20 @@ public class AndroidOS implements OS {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@WorkerThread
+	@Override
+	public FileInputStream tryLoadData() throws FileNotFoundException {
+		FileInputStream fis = handler.activity.openFileInput(Constants.saveFileName);
+		return fis;
+	}
+
+	@WorkerThread
+	@Override
+	public boolean saveFileExists() {
+		File file = new File(handler.activity.getFilesDir(), Constants.saveFileName);
+		return file.exists();
 	}
 
 	private static int mapColor(Style.ColorStyle color) {

@@ -1,5 +1,6 @@
 package olderman.dungeon;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -17,6 +18,10 @@ public interface OS {
 	void print(String string);
 
 	void trySaveData(ArrayList<Object> data) throws FileNotFoundException;
+
+	FileInputStream tryLoadData() throws FileNotFoundException;
+
+	boolean saveFileExists();
 
 	void println();
 
