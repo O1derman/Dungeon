@@ -34,7 +34,7 @@ public class ToolShop implements Serializable {
 			dungeon.println("You got:");
 			dungeon.println(YELLOW.BRIGHT, dungeon.getForAll().gold + " gold");
 			String knife = "Knife (" + dungeon.getForAll().knifeCost + "Gold)...allows you to separate animals!";
-			String flask = "Flask (" + dungeon.getForAll().flaskCost + "Gold)...needed to be able to create potions!";
+			String flask = "Flask (" + dungeon.getForAll().flashkCost + "Gold)...needed to be able to create potions!";
 			String bronzeAxe = "Bronze axe (" + dungeon.getForAll().bronzeAxeCost
 					+ "Gold)...allows you to cut trees faster!";
 			String ironAxe = "Iron axe (" + dungeon.getForAll().ironAxeCost + "Gold)...allows you to cut trees faster!";
@@ -82,14 +82,14 @@ public class ToolShop implements Serializable {
 					continue choices;
 				}
 			case 2:
-				if (dungeon.getForAll().gold < dungeon.getForAll().flaskCost) {
+				if (dungeon.getForAll().gold < dungeon.getForAll().flashkCost) {
 					dungeon.println(Style.CENTER, "You don't have enough gold!");
 					dungeon.uzivatVolba("Continue");
 					continue choices;
 				} else {
-					dungeon.getForAll().flask++;
+					dungeon.getForAll().flashk++;
 					dungeon.println(Style.CENTER, "You bought a flask.");
-					dungeon.getForAll().gold -= dungeon.getForAll().flaskCost;
+					dungeon.getForAll().gold -= dungeon.getForAll().flashkCost;
 					dungeon.uzivatVolba("Continue");
 					continue choices;
 				}

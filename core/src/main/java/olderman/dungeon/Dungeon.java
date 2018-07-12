@@ -195,118 +195,122 @@ public class Dungeon implements Serializable {
 	}
 
 	public void printResources() {
+		println("number, item, heft");
 		if (forAll.snake > 1) {
-			println(forAll.snake + " snakes");
+			println(forAll.snake + " snakes" + " - " + forAll.snakeHeft);
 		}
 		if (forAll.snake == 1) {
-			println(forAll.snake + " snake");
+			println(forAll.snake + " snake" + " - " + forAll.snakeHeft);
 
 		}
 		if (forAll.frog > 1) {
-			println(forAll.frog + " frogs");
+			println(forAll.frog + " frogs" + " - " + forAll.frogHeft);
 
 		}
 		if (forAll.frog == 1) {
-			println(forAll.frog + " frog");
+			println(forAll.frog + " frog" + " - " + forAll.frogHeft);
 
 		}
 		if (forAll.worm > 1) {
-			println(forAll.worm + " worms");
+			println(forAll.worm + " worms" + " - " + forAll.wormHeft);
 
 		}
 		if (forAll.worm == 1) {
-			println(forAll.worm + " worm");
+			println(forAll.worm + " worm" + " - " + forAll.wormHeft);
 
 		}
 		if (forAll.squirrel > 1) {
-			println(forAll.squirrel + " squirels");
+			println(forAll.squirrel + " squirels" + " - " + forAll.squirrelHeft);
 
 		}
 		if (forAll.squirrel == 1) {
-			println(forAll.squirrel + " squirel");
+			println(forAll.squirrel + " squirel" + " - " + forAll.squirrelHeft);
 
 		}
 		if (forAll.wood > 1) {
-			println(forAll.wood + " wood");
+			println(forAll.wood + " wood" + " - " + forAll.woodHeft);
 
 		}
 		if (forAll.wood == 1) {
-			println(forAll.wood + " wood");
+			println(forAll.wood + " wood" + " - " + forAll.woodHeft);
 
 		}
 		if (forAll.bird > 1) {
-			println(forAll.bird + " birds");
+			println(forAll.bird + " birds" + " - " + forAll.birdHeft);
 
 		}
 		if (forAll.bird == 1) {
-			println(forAll.bird + " bird");
+			println(forAll.bird + " bird" + " - " + forAll.birdHeft);
 		}
 		if (forAll.feather > 1) {
-			println(forAll.feather + " feathers");
+			println(forAll.feather + " feathers" + " - " + "0");
 
 		}
 		if (forAll.feather == 1) {
-			println(forAll.feather + " feather");
+			println(forAll.feather + " feather" + " - " + "0");
 		}
 		if (forAll.squirelTails > 1) {
-			println(forAll.squirelTails + " squirel tails");
+			println(forAll.squirelTails + " squirel tails" + " - " + "0");
 
 		}
 		if (forAll.squirelTails == 1) {
-			println(forAll.squirelTails + " squirel tail");
+			println(forAll.squirelTails + " squirel tail" + " - " + "0");
 		}
 		if (forAll.snakeBrain > 1) {
-			println(forAll.snakeBrain + " snake brains");
+			println(forAll.snakeBrain + " snake brains" + " - " + "0");
 
 		}
 		if (forAll.snakeBrain == 1) {
-			println(forAll.snakeBrain + " snake brain");
+			println(forAll.snakeBrain + " snake brain" + " - " + "0");
 		}
 		if (forAll.frogRightEye > 1) {
-			println(forAll.frogRightEye + " frog right eyes");
+			println(forAll.frogRightEye + " frog right eyes" + " - " + "0");
 
 		}
 		if (forAll.frogRightEye == 1) {
-			println(forAll.frogRightEye + " frog right eye");
+			println(forAll.frogRightEye + " frog right eye" + " - " + "0");
 		}
 		if (forAll.frogLeg > 1) {
-			println(forAll.frogLeg + " frog legs");
+			println(forAll.frogLeg + " frog legs" + " - " + "0");
 
 		}
 		if (forAll.frogLeg == 1) {
-			println(forAll.frogLeg + " frog leg");
+			println(forAll.frogLeg + " frog leg" + " - " + "0");
 		}
 		if (forAll.frogLeftEye > 1) {
-			println(forAll.frogLeftEye + " frog left eyes");
+			println(forAll.frogLeftEye + " frog left eyes" + " - " + "0");
 
 		}
 		if (forAll.frogLeftEye == 1) {
-			println(forAll.frogLeftEye + " frog left eye");
+			println(forAll.frogLeftEye + " frog left eye" + " - " + "0");
 		}
 		if (forAll.frogHead > 1) {
-			println(forAll.frogHead + " frog heads");
+			println(forAll.frogHead + " frog heads" + " - " + "0");
 
 		}
 		if (forAll.frogHead == 1) {
-			println(forAll.frogHead + " frog head");
+			println(forAll.frogHead + " frog head" + " - " + "0");
 		}
 		if (forAll.frogHeart > 1) {
-			println(forAll.frogHeart + " frog hearts");
+			println(forAll.frogHeart + " frog hearts" + " - " + "0");
 
 		}
 		if (forAll.frogHeart == 1) {
-			println(forAll.frogHeart + " frog heart");
+			println(forAll.frogHeart + " frog heart" + " - " + "0");
 		}
+	}
+
+	public void printPots() {
 		if (forAll.numPotionOfInvisibility == 1) {
 			println(forAll.numPotionOfInvisibility + " potion of invisibility");
 		}
 		if (forAll.numPotionOfInvisibility > 1) {
 			println(forAll.numPotionOfInvisibility + " potions of invisibility");
 		}
-		if (forAll.flask == 1) {
+		if (forAll.flashk == 1) {
 			println(forAll.numPotionOfInvisibility + " flashk");
 		}
-		if (forAll.flask > 1) {
+		if (forAll.flashk > 1) {
 			println(forAll.numPotionOfInvisibility + " flashks");
 		}
 	}
@@ -384,6 +388,20 @@ public class Dungeon implements Serializable {
 				println(Style.CENTER, "Welcome to the dungeon!");
 				println();
 				println(Style.CENTER, "Which character would you like to play?\n");
+				println();
+				println(">Orc");
+				println("\thas 30% miss chance");
+				println("\tcan carry 500kg");
+				println(">Dwarf");
+				println("\thas 20% miss chance");
+				println("\tcan carry 80kg");
+				println("\thas cheaper axes in store");
+				println(">Goblin");
+				println("\thas 10% miss chance");
+				println("\tcan carry 50kg");
+				println(">Elf");
+				println("\thas 5% miss chance");
+				println("\tcan carry 30kg");
 
 				volba = uzivatVolba("Dwarf", "Orc", "Elf", "Goblin", /* "Superman", */ "Back");
 
@@ -445,10 +463,15 @@ public class Dungeon implements Serializable {
 				println("You gain experience and have a small chance of getting some health potions for killing enemies.");
 				println("You can collect ingredients to be able to brew potions in a pot.");
 				println("You can save game in bed...if you die without save...you lose everything!");
-				println("In every floor is a boss room, if you beat the boss, you go to the next floor.");
-				println("Main goal of this game is to get the highest score!");
+				println("There is a boss room in every floor, if you beat the boss, you go to the next floor.");
+				println("Main goal of this game is to get the highest score...but it is up to you, how you reach that!");
 				println("Some actions cost you energy.");
 				println("You get energy by drinking beer in a pub.");
+
+				println(Style.CENTER, "Q&A: (this section will grow up with time)");
+				println("Q1: I clicked \"play video to get full energy and nothing happened, what\'s wrong with it?");
+				println("A1: You were probably not connected to internet, otherwise please contact developer.");
+				
 				uzivatVolba("Back");
 				break;
 
@@ -985,6 +1008,7 @@ public class Dungeon implements Serializable {
 			fillLine("-");
 			println();
 			printResources();
+			printPots();
 			fillLine("-");
 			println();
 			if (forAll.enemiesKilled == 1) {

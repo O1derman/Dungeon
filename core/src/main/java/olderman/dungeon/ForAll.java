@@ -78,8 +78,8 @@ public class ForAll implements Serializable {
 	public int snake = 0;
 	public int snakeHeft = 5;
 	public int snakeChance = 10; // %
-	public int flask = 0;
-	public int flaskCost = 100;
+	public int flashk = 0;
+	public int flashkCost = 100;
 	public int frog = 0;
 	public int frogHeft = 10;
 	public int frogChance = 10; // %

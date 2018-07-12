@@ -86,7 +86,6 @@ public class Town implements Serializable {
 		// break;
 		// }
 		// }
-		dungeon.println(YELLOW.BRIGHT, dungeon.getForAll().gold + " gold");
 		BACK1: while (dungeon.getForAll().house == 0) {
 			dungeon.printAsciiArt(CITY);
 
@@ -99,6 +98,8 @@ public class Town implements Serializable {
 				toolShop.shop();
 				continue BACK1;
 			case 3:
+				dungeon.println(YELLOW.BRIGHT, dungeon.getForAll().gold + " gold");
+				dungeon.println();
 				dungeon.println(Style.CENTER, "You can buy house with bin for " + dungeon.getForAll().houseCost + "g");
 				if (dungeon.getForAll().gold < dungeon.getForAll().houseCost) {
 					switch (dungeon.uzivatVolba("Back")) {

@@ -18,6 +18,7 @@ public class Pot extends InventoryItem {
 		POTIONS: while (true) {
 			dungeon.clear();
 			dungeon.printResources();
+			dungeon.printPots();
 			dungeon.println(Style.CENTER, "What do you want to do?");
 			int potCrafting = dungeon.uzivatVolba("Read dormitory", "Create small health potion",
 					"Create medium health potion", "Create large health potion", "Create teleport potion",
@@ -33,7 +34,7 @@ public class Pot extends InventoryItem {
 						"To create potion of concentration you need 1 sneak brain, 2 squirel tails and 1 frog head.");
 				dungeon.println("To create potion of invisibility you need eye of snake and both eyes of frog.");
 			}
-			if (potCrafting != 1 && dungeon.getForAll().flask == 0) {
+			if (potCrafting != 1 && dungeon.getForAll().flashk == 0) {
 				dungeon.println(Style.CENTER, "You don't have flask to fill with potion.");
 				continue POTIONS;
 			}

@@ -21,7 +21,6 @@ public class Inventory implements Serializable {
 	public Inventory(Dungeon dungeon) {
 		this.dungeon = dungeon;
 		add(HealthPotion.SMALL, 3);
-		add(PotionOfConcentration.CONCENTRATION, 1);
 	}
 
 	private final Map<InventoryItem, Integer> items = new HashMap<>();
@@ -97,7 +96,7 @@ public class Inventory implements Serializable {
 				return null;
 			}
 			dungeon.getForAll().hasDrunkHealthPotion = true;
-			dungeon.getForAll().flask++;
+			dungeon.getForAll().flashk++;
 		}
 		if (type == Type.WEAPON) {
 			dungeon.getForAll().resetDrinkHealthPotionCount();
