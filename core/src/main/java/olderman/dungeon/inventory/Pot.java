@@ -41,7 +41,7 @@ public class Pot extends InventoryItem {
                     continue POTIONS;
                 }
                 case 2: {// Create small health potion
-                    if (dungeon.getForAll().flask == 0) {
+                    if (dungeon.getForAll().flashk == 0) {
                         dungeon.println(Style.CENTER, "You don't have flask to fill with potion.");
                     } else if (dungeon.getForAll().frogHeart >= 1 && dungeon.getForAll().worm >= 2) {
                         dungeon.println(Style.CENTER, "You created a small health potion.");
@@ -54,7 +54,7 @@ public class Pot extends InventoryItem {
                     break;
                 }
                 case 3: {// Create medium health potion
-                    if (dungeon.getForAll().flask == 0) {
+                    if (dungeon.getForAll().flashk == 0) {
                         dungeon.println(Style.CENTER, "You don't have flask to fill with potion.");
                     } else if (dungeon.getForAll().frogHeart >= 2 && dungeon.getForAll().worm >= 2) {
                         dungeon.println(Style.CENTER, "You created a medium health potion.");
@@ -67,7 +67,7 @@ public class Pot extends InventoryItem {
                     break;
                 }
                 case 4: {// Create large health potion
-                    if (dungeon.getForAll().flask == 0) {
+                    if (dungeon.getForAll().flashk == 0) {
                         dungeon.println(Style.CENTER, "You don't have flask to fill with potion.");
                     } else if (dungeon.getForAll().frogHeart >= 3 && dungeon.getForAll().worm >= 4) {
                         dungeon.println(Style.CENTER, "You created a large health potion.");
@@ -80,7 +80,7 @@ public class Pot extends InventoryItem {
                     break;
                 }
                 case 5: {// Create teleport potion
-                    if (dungeon.getForAll().flask == 0) {
+                    if (dungeon.getForAll().flashk == 0) {
                         dungeon.println(Style.CENTER, "You don't have flask to fill with potion.");
                     } else if (dungeon.getForAll().frogLeftEye >= 1 && dungeon.getForAll().frogLeg >= 4) {
                         dungeon.println(Style.CENTER, "You created a teleportation potion.");
@@ -93,7 +93,7 @@ public class Pot extends InventoryItem {
                     break;
                 }
                 case 6: {// Create potion of concentration
-                    if (dungeon.getForAll().flask == 0) {
+                    if (dungeon.getForAll().flashk == 0) {
                         dungeon.println(Style.CENTER, "You don't have flask to fill with potion.");
                     } else if (dungeon.getForAll().snakeBrain >= 1 && dungeon.getForAll().squirelTails >= 2
                             && dungeon.getForAll().frogHead >= 1) {
@@ -109,7 +109,7 @@ public class Pot extends InventoryItem {
                     break;
                 }
                 case 7: {// Create potion of invisibility
-                    if (dungeon.getForAll().flask == 0) {
+                    if (dungeon.getForAll().flashk == 0) {
                         dungeon.println(Style.CENTER, "You don't have flask to fill with potion.");
                     } else if (dungeon.getForAll().frogLeftEye >= 2 && dungeon.getForAll().frogLeg >= 4) {
                         dungeon.println(Style.CENTER, "You created a potion of invisibility.");

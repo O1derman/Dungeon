@@ -303,10 +303,10 @@ public class Dungeon implements Serializable {
         if (forAll.numPotionOfInvisibility > 1) {
             println(forAll.numPotionOfInvisibility + " potions of invisibility");
         }
-        if (forAll.flask == 1) {
+        if (forAll.flashk == 1) {
             println(forAll.numPotionOfInvisibility + " flashk");
         }
-        if (forAll.flask > 1) {
+        if (forAll.flashk > 1) {
             println(forAll.numPotionOfInvisibility + " flashks");
         }
     }
@@ -860,8 +860,8 @@ public class Dungeon implements Serializable {
                     println("\tYour maximum health is " + forAll.maximumHealth + "HP.");
                     println("\tYour base damage is " + character.getDamage().minValue(this) + "-"
                             + character.getDamage().maxValue(this));
-                    println("\tYour weapon damage is " + Weapon.HAND.getDamageIncrease());
-                    println("\tYour final damage is " + Weapon.HAND.minDamage(this) + "-" + Weapon.HAND.maxDamage(this));
+                    println("\tYour weapon damage is " + forAll.selectedWeapon.getDamageIncrease());
+                    println("\tYour final damage is " + forAll.selectedWeapon.minDamage(this) + "-" + forAll.selectedWeapon.maxDamage(this));
                     uzivatVolba("Continue");
                     clear();
                     println(Style.CENTER, "Which stat do you want do upgrade?");
@@ -948,9 +948,9 @@ public class Dungeon implements Serializable {
             println(RED.BRIGHT, this.getHealth() + "/" + this.getForAll().maximumHealth + " health");
             println("Your base damage is " + character.getDamage().minValue(this) + "-"
                     + character.getDamage().maxValue(this));
-            if (Weapon.HAND.getDamageIncrease() > 0) {
-                println("Your weapon damage is " + Weapon.HAND.getDamageIncrease());
-                println("Your final damage is " + Weapon.HAND.minDamage(this) + "-" + Weapon.HAND.maxDamage(this));
+            if (forAll.selectedWeapon.getDamageIncrease() > 0) {
+                println("Your weapon damage is " + forAll.selectedWeapon.getDamageIncrease());
+                println("Your final damage is " + forAll.selectedWeapon.minDamage(this) + "-" + forAll.selectedWeapon.maxDamage(this));
             }
             if (getForAll().experience > 0) {
                 println(GREEN.BRIGHT, this.getForAll().experience + "/" + this.getForAll().levelUp + " experience");
