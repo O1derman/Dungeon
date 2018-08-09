@@ -6,7 +6,7 @@ import olderman.dungeon.RandomValue;
 public class Weapon extends InventoryItem {
 
 	private static final long serialVersionUID = 1L;
-	public static final Weapon HAND = new Weapon("Hand", 0);
+	public static final  Weapon HAND = new Weapon("Hand", 0);
 
 	private final int damageIncrease;
 
@@ -18,7 +18,7 @@ public class Weapon extends InventoryItem {
 	@Override
 	public boolean use(Dungeon dungeon) {
 		dungeon.getForAll().selectedWeapon = this;
-		dungeon.println("\tYou now have " + minDamage(dungeon) + " - " + maxDamage(dungeon) + " attack damage!");
+		dungeon.println("You now have " + minDamage(dungeon) + " - " + maxDamage(dungeon) + " attack damage!");
 		return false;
 	}
 

@@ -21,7 +21,6 @@ public class Inventory implements Serializable {
 	public Inventory(Dungeon dungeon) {
 		this.dungeon = dungeon;
 		add(HealthPotion.SMALL, 3);
-		add(PotionOfConcentration.CONCENTRATION, 1);
 	}
 
 	private final Map<InventoryItem, Integer> items = new HashMap<>();

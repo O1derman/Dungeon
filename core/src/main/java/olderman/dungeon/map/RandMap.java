@@ -27,6 +27,15 @@ public class RandMap implements Serializable {
 		int rMaxHight = 10;
 		int minHight = 5;
 		int barrierOnLine = 0;
+		if(data.l >minHight && data.l>data.w){
+			minHight = data.l;
+			minWidth = data.w;
+		}
+		if(data.w>minWidth && data.w>data.l){
+			minHight = data.w;
+			minWidth = data.l;
+		}
+
 		boolean buildBarrier;
 		boolean firstTime = true;
 		boolean firstTimejLenght = true;

@@ -134,6 +134,8 @@ public class Town implements Serializable {
 
 		}
 		BACK2: while (dungeon.getForAll().house > 0) {
+			dungeon.printAsciiArt(CITY);
+
 			switch (dungeon.uzivatVolba("Go in shop", "Go in tool shop", "Go in house", "Go in workhouse",
 					"Go in the forest", "Go in pub", "Open inventory and info", "Enter dungeon")) {
 			case 1:

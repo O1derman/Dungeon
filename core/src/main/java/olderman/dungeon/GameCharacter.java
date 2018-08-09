@@ -39,7 +39,7 @@ public enum GameCharacter implements Serializable {
 			loadCapacity = 50;
 			damage = new RandomValue(35 /* minimum damage */,
 					5 /* damage range */, 5 /* increase per level */);
-			beginning = "You are small hardworking goblin!.\n";
+			beginning = "You are small hardworking goblin!\n";
 			asciiArt = Resources.getString("/Goblin");
 		}
 	},
