@@ -96,7 +96,7 @@ public class Inventory implements Serializable {
 				return null;
 			}
 			dungeon.getForAll().hasDrunkHealthPotion = true;
-			dungeon.getForAll().flask++;
+			dungeon.getForAll().flashk++;
 		}
 		if (type == Type.WEAPON) {
 			dungeon.getForAll().resetDrinkHealthPotionCount();
