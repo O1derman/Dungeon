@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "1053379669773",
+    "firebase_url": "https://ownproject-3ba18.firebaseio.com",
+    "project_id": "ownproject-3ba18",
+    "storage_bucket": "ownproject-3ba18.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1053379669773:android:e6095f4d5c76a52a",
+        "android_client_info": {
+          "package_name": "olderman.dungeon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1053379669773-7m7cma9ov0oqddkjese1u1s9ns2ak1bu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "olderman.dungeon",
+            "certificate_hash": "c78dd964832123d6a9b470aad4800ceb5b5ee2a2"
+          }
+        },
+        {
+          "client_id": "1053379669773-eqjt8ofdnrhsmo0ae2c3mne1ui8gg8d2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm1KsmAka9L8L1a6WURCljVlFkE5D6oC4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1053379669773-eqjt8ofdnrhsmo0ae2c3mne1ui8gg8d2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      },
+      "admob_app_id": "ca-app-pub-3904893950784361~5548266428"
+    }
+  ],
+  "configuration_version": "1"
+}
