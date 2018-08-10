@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
@@ -71,6 +72,7 @@ public class MainActivity extends Activity implements RewardedVideoAdListener {
     }
 
     public void startVideoAd() {
+        loadRewardedVideoAd();
         if (mAd.isLoaded()) {
             mAd.show();
         }
@@ -123,7 +125,8 @@ public class MainActivity extends Activity implements RewardedVideoAdListener {
 
     @Override
     public void onRewardedVideoAdFailedToLoad(int i) {
-
+        //Log.d("VideoAdFailedToLoad: ", String.valueOf(i));
+        loadRewardedVideoAd();
     }
 
     @Override
