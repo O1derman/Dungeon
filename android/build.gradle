@@ -21,8 +21,8 @@ android {
         applicationId "olderman.dungeon"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 30
-        versionName "2.5a"
+        versionCode 35
+        versionName "2.5f"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
