@@ -94,32 +94,6 @@ public class Room implements Serializable {
         }
     }
 
-    public void drawCorrectSymbol() {
-        if ((x == (data.yourPositionx - 1) && y == data.yourPositiony) || (x == data.yourPositionx && y == (data.yourPositiony - 1) || (x == (data.yourPositionx + 1) && y == data.yourPositiony)) || (x == data.yourPositionx && y == (data.yourPositiony + 1))) {
-            roomWasNextToYou = true;
-        }
-        if (yourPosition) {
-            str = MapConstants.playerChar + " ";
-            data.yourPositionx = x;
-            data.yourPositiony = y;
-        } else if (rightSideRoom && roomWasNextToYou) {
-            str = MapConstants.wallChar + "\n";
-        } else if (stone && roomWasNextToYou) {
-            str = MapConstants.wallChar + " ";
-        } else if (searchedRoom && visitedRoom) {
-            str = MapConstants.clearRoomChar + " ";
-        } else if (border && roomWasNextToYou) {
-            str = MapConstants.wallChar + " ";
-        } else if (!searchedRoom && visitedRoom) {
-            str = MapConstants.fullRoomChar + " ";
-        } else if (bossRoom && visitedRoom) {
-            str = MapConstants.bossChar + " ";
-        } else {
-            str = "  ";
-        }
-        data.map += str;
-    }
-
 
     public boolean isFreeRoom() {
         return freeRoom;
@@ -149,6 +123,10 @@ public class Room implements Serializable {
         return searchedRoom;
     }
 
+    public boolean isBorder() {
+        return border;
+    }
+
     public void setBossRoom(boolean bossRoom) {
         this.bossRoom = bossRoom;
     }
@@ -159,6 +137,46 @@ public class Room implements Serializable {
 
     public void setYourPosition(boolean yourPosition) {
         this.yourPosition = yourPosition;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public String getStr() {
+        return str;
+    }
+
+    public boolean isRightSideRoom() {
+        return rightSideRoom;
+    }
+
+    public boolean isRoomWasNextToYou() {
+        return roomWasNextToYou;
+    }
+
+    public boolean isStone() {
+        return stone;
+    }
+
+    public boolean isVisitedRoom() {
+        return visitedRoom;
+    }
+
+    public void setStr(String str) {
+        this.str = str;
+    }
+
+    public boolean isYourPosition() {
+        return yourPosition;
+    }
+
+    public void setRoomWasNextToYou(boolean roomWasNextToYou) {
+        this.roomWasNextToYou = roomWasNextToYou;
     }
 
 }

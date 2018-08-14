@@ -109,7 +109,7 @@ public class RandMap implements Serializable {
         for (int i = 0; i <= data.downEdge; i++) {
             for (int j = 0; j < data.rightEdge; j++) {
                 Room room = data.mapRooms[i][j];
-                room.drawCorrectSymbol();
+                drawCorrectSymbol();
             }
         }
     }
@@ -144,6 +144,46 @@ public class RandMap implements Serializable {
         }
 
         return nextRoom;
+    }
+
+    public void drawCorrectSymbol() {
+        Room room = data.mapRooms[data.yourPositionx][data.yourPositiony];
+
+        if ((room.getX() == (data.yourPositionx - 1) && room.getY() == data.yourPositiony) || (room.getX() == data.yourPositionx && room.getY() == (data.yourPositiony - 1) || (room.getX() == (data.yourPositionx + 1) && room.getY() == data.yourPositiony)) || (room.getX() == data.yourPositionx && room.getY() == (data.yourPositiony + 1))) {
+            room.setRoomWasNextToYou(true);
+        }
+        if (room.isYourPosition()) {
+            room.setStr(MapConstants.playerChar + " ");
+            data.yourPositionx = room.getX();
+            data.yourPositiony = room.getY();
+        }
+        if (room.isRightSideRoom() && room.isRoomWasNextToYou()) {
+            room.setStr(MapConstants.wallChar + "\n");
+        }
+        if ((room.isStone() && room.isRoomWasNextToYou()) || (room.isBorder() && room.isRoomWasNextToYou())) {
+            room.setStr(MapConstants.wallChar + " ");
+        } else if (room == null) {
+            room.setStr(MapConstants.wallChar + " ");
+
+        } else if (room.isSearchedRoom() && room.isVisitedRoom())
+
+        {
+            room.setStr(MapConstants.clearRoomChar + " ");
+        } else if (!room.searchedRoom && room.visitedRoom)
+
+        {
+            room.setStr(MapConstants.fullRoomChar + " ");
+        } else if (room.bossRoom && room.visitedRoom)
+
+        {
+            room.setStr(MapConstants.bossChar + " ");
+        } else
+
+        {
+            room.setStr("  ");
+        }
+
+        data.map += room.getStr();
     }
 
     private void visitedRoom() {
