@@ -35,16 +35,25 @@ public class Way implements Serializable {
         Room north = randMap.getNextRoom(DirectionEnum.NORTH);
 
         ArrayList<String> choices = new ArrayList<>();
-        if (east != null) {
+        if (east == null) {
+        } else if (east.isBorder() || east.isRightSideBorder()) {
+        } else {
             choices.add(DirectionEnum.EAST.getDescription());
         }
-        if (north != null) {
+        if (north == null) {
+        } else if (north.isBorder() || north.isRightSideBorder()) {
+
+        } else {
             choices.add(DirectionEnum.NORTH.getDescription());
         }
-        if (south != null) {
+        if (south == null) {
+        } else if (south.isBorder() || south.isRightSideBorder()) {
+        } else {
             choices.add(DirectionEnum.SOUTH.getDescription());
         }
-        if (west != null) {
+        if (west == null) {
+        } else if (west.isBorder() || west.isRightSideBorder()) {
+        } else {
             choices.add(DirectionEnum.WEST.getDescription());
         }
 

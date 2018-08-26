@@ -10,6 +10,6 @@ public class RandMapData implements Serializable {
     public int yourPositionx = 1;
     public int yourPositiony = 1;
     public int rightEdge;
-    public String map = "";
+    public StringBuilder map = new StringBuilder();
 
 }

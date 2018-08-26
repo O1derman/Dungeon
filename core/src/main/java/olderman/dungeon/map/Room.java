@@ -7,7 +7,6 @@ import olderman.dungeon.Style;
 import olderman.dungeon.enemies.Plebs;
 
 public class Room implements Serializable {
-    public RandMapData data = new RandMapData();
     private static final long serialVersionUID = 1L;
 
     private boolean freeRoom = false;
@@ -16,16 +15,16 @@ public class Room implements Serializable {
     private int y;
 
     private Plebs plebs;
-    boolean searchedRoom;
-    boolean visitedRoom;
-    boolean stone;
-    boolean yourPosition;
-    boolean rightSideRoom;
+    private boolean searchedRoom;
+    private boolean visitedRoom;
+    private boolean stone;
+    private boolean yourPosition;
+    private boolean rightSideBorder;
 
-    boolean bossRoom;
-    boolean roomWasNextToYou;
-    boolean border;
-    String str;
+    private boolean bossRoom;
+    private boolean roomWasNextToYou;
+    private boolean border;
+    private String str;
 
     public Room(int x, int y, Dungeon dungeon) {
         this.x = x;
@@ -35,10 +34,15 @@ public class Room implements Serializable {
         stone = false;
         bossRoom = false;
         yourPosition = false;
-        rightSideRoom = false;
+        rightSideBorder = false;
         roomWasNextToYou = false;
         border = false;
         plebs = new Plebs(dungeon);
+        if (y == dungeon.getWay().randMap.data.mapRooms.length - 1) {
+            rightSideBorder = true;
+        } else if (x == dungeon.getWay().randMap.data.mapRooms[0].length - 1 || x == 0 || y == 0) {
+            border = true;
+        }
     }
 
     public Plebs getPlebs() {
@@ -94,6 +98,38 @@ public class Room implements Serializable {
         }
     }
 
+    public void drawCorrectSymbol(Room room, Dungeon dungeon) {
+        if ((room.getX() == (dungeon.getWay().randMap.data.yourPositionx - 1) && room.getY() == dungeon.getWay().randMap.data.yourPositiony) || (room.getX() == dungeon.getWay().randMap.data.yourPositionx && room.getY() == (dungeon.getWay().randMap.data.yourPositiony - 1) || (room.getX() == (dungeon.getWay().randMap.data.yourPositionx + 1) && room.getY() == dungeon.getWay().randMap.data.yourPositiony)) || (room.getX() == dungeon.getWay().randMap.data.yourPositionx && room.getY() == (dungeon.getWay().randMap.data.yourPositiony + 1))) {
+            room.setRoomWasNextToYou(true);
+        }
+        if (room.isYourPosition()) {
+            dungeon.getWay().randMap.data.map.append(MapConstants.playerChar);
+            dungeon.getWay().randMap.data.map.append(" ");
+            dungeon.getWay().randMap.data.yourPositionx = room.getX();
+            dungeon.getWay().randMap.data.yourPositiony = room.getY();
+        } else if (room.isRightSideBorder() && room.isRoomWasNextToYou()) {
+            dungeon.getWay().randMap.data.map.append(MapConstants.wallChar);
+            dungeon.getWay().randMap.data.map.append("\n");
+        } else if ((room.isStone() && room.isRoomWasNextToYou()) || (room.isBorder() && room.isRoomWasNextToYou())) {
+            dungeon.getWay().randMap.data.map.append(MapConstants.wallChar);
+            dungeon.getWay().randMap.data.map.append(" ");
+        } else if (room.isSearchedRoom() && room.isVisitedRoom()) {
+            dungeon.getWay().randMap.data.map.append(MapConstants.clearRoomChar);
+            dungeon.getWay().randMap.data.map.append(" ");
+        } else if (!room.isSearchedRoom() && room.isVisitedRoom()) {
+            dungeon.getWay().randMap.data.map.append(MapConstants.fullRoomChar);
+            dungeon.getWay().randMap.data.map.append(" ");
+        } else if (room.isBossRoom() && room.isVisitedRoom()) {
+            dungeon.getWay().randMap.data.map.append(MapConstants.bossChar);
+            dungeon.getWay().randMap.data.map.append(" ");
+        } else if (room.isRightSideBorder()) {
+            dungeon.getWay().randMap.data.map.append(" ");
+            dungeon.getWay().randMap.data.map.append("\n");
+        } else {
+            dungeon.getWay().randMap.data.map.append("  ");
+        }
+    }
+
 
     public boolean isFreeRoom() {
         return freeRoom;
@@ -107,8 +143,8 @@ public class Room implements Serializable {
         this.stone = stone;
     }
 
-    public void setRightSideRoom(boolean rightSideRoom) {
-        this.rightSideRoom = rightSideRoom;
+    public void setRightSideBorder(boolean rightSideBorder) {
+        this.rightSideBorder = rightSideBorder;
     }
 
     public void setBorder(boolean border) {
@@ -151,8 +187,8 @@ public class Room implements Serializable {
         return str;
     }
 
-    public boolean isRightSideRoom() {
-        return rightSideRoom;
+    public boolean isRightSideBorder() {
+        return rightSideBorder;
     }
 
     public boolean isRoomWasNextToYou() {
@@ -179,4 +215,7 @@ public class Room implements Serializable {
         this.roomWasNextToYou = roomWasNextToYou;
     }
 
+    public boolean isBossRoom() {
+        return bossRoom;
+    }
 }

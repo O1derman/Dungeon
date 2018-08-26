@@ -12,5 +12,5 @@ public class MapConstants {
     public static final char clearRoomChar = '\u2686';
 
     public static final char fullRoomChar = '\u2688';
-
+    public static final char spaceChar = '\u00A0';
 }

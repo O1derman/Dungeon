@@ -471,6 +471,8 @@ public class Dungeon implements Serializable {
 
     private void game() throws InterruptedException, FileNotFoundException {
         int volba;
+        Room room = way.randMap.data.mapRooms[way.randMap.data.yourPositiony][way.randMap.data.yourPositionx];
+        room.setYourPosition(true);
         way.randMap.drawAsciiArtMap();
         boolean timeWithoutFight = true;
         FIGHT:
@@ -479,8 +481,6 @@ public class Dungeon implements Serializable {
                 println(Style.CENTER, "You are on a floor " + forAll.floor + "!");
                 timeWithoutFight = false;
             }
-            Room room = way.randMap.data.mapRooms[way.randMap.data.yourPositiony][way.randMap.data.yourPositionx];
-            room.setYourPosition(true);
             addEnergy();
             currentPlebs = room.getPlebs();
             forAll.resetDrinkHealthPotionCount();
@@ -981,7 +981,7 @@ public class Dungeon implements Serializable {
                 println(getForAll().bossesKilled + " killed bosses");
             }
             println(score + " score");
-            if (way.randMap.data.map == "") {
+            if (way.randMap.data.map.length() == 0) {
 
             } else {
                 println();
