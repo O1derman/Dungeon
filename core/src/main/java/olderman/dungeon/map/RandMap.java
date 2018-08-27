@@ -143,7 +143,7 @@ public class RandMap implements Serializable {
 
     public void goLeft() {
         visitedRoom();
-        data.yourPositiony--;
+        data.yourPositionx--;
         Room room = data.mapRooms[data.yourPositionx][data.yourPositiony];
         room.setYourPosition(true);
         drawAsciiArtMap();
@@ -151,7 +151,7 @@ public class RandMap implements Serializable {
 
     public void goRight() {
         visitedRoom();
-        data.yourPositiony++;
+        data.yourPositionx++;
         Room room = data.mapRooms[data.yourPositionx][data.yourPositiony];
         room.setYourPosition(true);
         drawAsciiArtMap();
@@ -159,7 +159,7 @@ public class RandMap implements Serializable {
 
     public void goStraight() {
         visitedRoom();
-        data.yourPositionx++;
+        data.yourPositiony++;
         Room room = data.mapRooms[data.yourPositionx][data.yourPositiony];
         room.setYourPosition(true);
         drawAsciiArtMap();
@@ -167,7 +167,7 @@ public class RandMap implements Serializable {
 
     public void goBackwards() {
         visitedRoom();
-        data.yourPositionx--;
+        data.yourPositiony--;
         Room room = data.mapRooms[data.yourPositionx][data.yourPositiony];
         room.setYourPosition(true);
         drawAsciiArtMap();

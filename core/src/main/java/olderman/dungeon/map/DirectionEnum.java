@@ -1,7 +1,7 @@
 package olderman.dungeon.map;
 
 public enum DirectionEnum {
-    EAST("East", 0, 1), NORTH("North", -1, 0), SOUTH("South", 1, 0), WEST("West", 0, -1);
+    EAST("East", 1, 0), NORTH("North", 0, -1), SOUTH("South", 0, 1), WEST("West", -1, 0);
 
     DirectionEnum(String description, int nextRoomPositionL, int nextRoomPositionW) {
         this.description = description;

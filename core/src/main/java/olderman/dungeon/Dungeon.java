@@ -477,6 +477,7 @@ public class Dungeon implements Serializable {
         boolean timeWithoutFight = true;
         FIGHT:
         while (true) {
+            room = way.randMap.data.mapRooms[way.randMap.data.yourPositiony][way.randMap.data.yourPositionx];
             if (timeWithoutFight) {
                 println(Style.CENTER, "You are on a floor " + forAll.floor + "!");
                 timeWithoutFight = false;
@@ -487,6 +488,7 @@ public class Dungeon implements Serializable {
             boolean plebFight = true;
             if (room.isFreeRoom()) {
                 while (true) {
+                    room = way.randMap.data.mapRooms[way.randMap.data.yourPositiony][way.randMap.data.yourPositionx];
                     if (way.randMap.data.yourPositiony == bossY && way.randMap.data.yourPositionx == bossX && room.isSearchedRoom()) {
                         println(Style.CENTER, "Here are the stairs to next floor.");
                         volba = uzivatVolba("Go to next floor", "Go on");
@@ -538,8 +540,7 @@ public class Dungeon implements Serializable {
                                 if (way.randMap.data.yourPositiony == bossY && way.randMap.data.yourPositionx == bossX) {
                                     println(Style.CENTER, "You found stairs to next floor!");
                                 }
-                                room.setSearchedRoom(true);
-                                room.normalRoom(this);
+                                room.normalRoom(this, room);
                                 forAll.energy -= 20;
                             }
                             if (way.randMap.data.yourPositiony == bossY && way.randMap.data.yourPositionx == bossX) {
@@ -772,7 +773,7 @@ public class Dungeon implements Serializable {
             }
             int goldFound;
             String enemy;
-            way.randMap.data.mapRooms[way.randMap.data.yourPositionx][way.randMap.data.yourPositiony].setFreeRoom(true);
+            room.setFreeRoom(true);
             println();
             println();
             println();
@@ -784,7 +785,6 @@ public class Dungeon implements Serializable {
                 goldFound = (rand.nextInt(100) + rand.nextInt(100)) + forAll.bossesKilled * 200;
 
             } else {
-                room.setFreeRoom(true);
                 enemy = getCurrentPlebs().enemy.name;
                 forAll.experience += getCurrentPlebs().experienceGain;
                 forAll.enemiesKilled++;
@@ -893,8 +893,7 @@ public class Dungeon implements Serializable {
                     if (way.randMap.data.yourPositiony == bossY && way.randMap.data.yourPositionx == bossX) {
                         println(Style.CENTER, "You found stairs to next floor!");
                     }
-                    room.setSearchedRoom(true);
-                    room.normalRoom(this);
+                    room.normalRoom(this, room);
                     forAll.energy -= 20;
                 }
                 if (way.randMap.data.yourPositiony == bossY && way.randMap.data.yourPositionx == bossX) {
@@ -991,9 +990,9 @@ public class Dungeon implements Serializable {
                 println("Map legend:");
                 println(MapConstants.playerChar + " - your position");
                 println(MapConstants.wallChar + " - wall");
-                println(MapConstants.fullRoomChar + " - room with enemy");
                 println(MapConstants.bossChar + " - boss room");
-                println(MapConstants.clearRoomChar + " - cleared room");
+                println(MapConstants.fullRoomChar + " - unsearched room");
+                println(MapConstants.clearRoomChar + " - searched room");
             }
             println();
         } while (this.getInventory().showInventory(fighting) != null);

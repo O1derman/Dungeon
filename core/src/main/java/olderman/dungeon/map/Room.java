@@ -9,12 +9,11 @@ import olderman.dungeon.enemies.Plebs;
 public class Room implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private boolean freeRoom = false;
-
     private int x;
     private int y;
 
     private Plebs plebs;
+    private boolean freeRoom;
     private boolean searchedRoom;
     private boolean visitedRoom;
     private boolean stone;
@@ -29,6 +28,7 @@ public class Room implements Serializable {
     public Room(int x, int y, Dungeon dungeon) {
         this.x = x;
         this.y = y;
+        freeRoom = false;
         searchedRoom = false;
         visitedRoom = false;
         stone = false;
@@ -38,18 +38,14 @@ public class Room implements Serializable {
         roomWasNextToYou = false;
         border = false;
         plebs = new Plebs(dungeon);
-        if (y == dungeon.getWay().randMap.data.mapRooms.length - 1) {
-            rightSideBorder = true;
-        } else if (x == dungeon.getWay().randMap.data.mapRooms[0].length - 1 || x == 0 || y == 0) {
-            border = true;
-        }
     }
 
     public Plebs getPlebs() {
         return plebs;
     }
 
-    public void normalRoom(Dungeon dungeon) {
+    public void normalRoom(Dungeon dungeon, Room room) {
+        room.setSearchedRoom(true);
         int chestGoldFound = dungeon.getRand().nextInt(600) + 550;
         boolean emptyRoom = true;
         if (dungeon.getRand().nextInt(100) < dungeon.getForAll().chestChance) {
@@ -102,6 +98,11 @@ public class Room implements Serializable {
         if ((room.getX() == (dungeon.getWay().randMap.data.yourPositionx - 1) && room.getY() == dungeon.getWay().randMap.data.yourPositiony) || (room.getX() == dungeon.getWay().randMap.data.yourPositionx && room.getY() == (dungeon.getWay().randMap.data.yourPositiony - 1) || (room.getX() == (dungeon.getWay().randMap.data.yourPositionx + 1) && room.getY() == dungeon.getWay().randMap.data.yourPositiony)) || (room.getX() == dungeon.getWay().randMap.data.yourPositionx && room.getY() == (dungeon.getWay().randMap.data.yourPositiony + 1))) {
             room.setRoomWasNextToYou(true);
         }
+        if (room.getY() == dungeon.getWay().randMap.data.rightEdge - 1) {
+            rightSideBorder = true;
+        } else if (room.getX() == dungeon.getWay().randMap.data.downEdge - 1 || room.getX() == 0 || room.getY() == 0) {
+            border = true;
+        }
         if (room.isYourPosition()) {
             dungeon.getWay().randMap.data.map.append(MapConstants.playerChar);
             dungeon.getWay().randMap.data.map.append(" ");
@@ -123,10 +124,9 @@ public class Room implements Serializable {
             dungeon.getWay().randMap.data.map.append(MapConstants.bossChar);
             dungeon.getWay().randMap.data.map.append(" ");
         } else if (room.isRightSideBorder()) {
-            dungeon.getWay().randMap.data.map.append(" ");
             dungeon.getWay().randMap.data.map.append("\n");
         } else {
-            dungeon.getWay().randMap.data.map.append("  ");
+            dungeon.getWay().randMap.data.map.append("   ");
         }
     }
 

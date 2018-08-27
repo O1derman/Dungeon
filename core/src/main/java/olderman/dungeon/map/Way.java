@@ -36,23 +36,23 @@ public class Way implements Serializable {
 
         ArrayList<String> choices = new ArrayList<>();
         if (east == null) {
-        } else if (east.isBorder() || east.isRightSideBorder()) {
+        } else if (east.isBorder() || east.isRightSideBorder() || east.isStone()) {
         } else {
             choices.add(DirectionEnum.EAST.getDescription());
         }
         if (north == null) {
-        } else if (north.isBorder() || north.isRightSideBorder()) {
+        } else if (north.isBorder() || north.isRightSideBorder() || north.isStone()) {
 
         } else {
             choices.add(DirectionEnum.NORTH.getDescription());
         }
         if (south == null) {
-        } else if (south.isBorder() || south.isRightSideBorder()) {
+        } else if (south.isBorder() || south.isRightSideBorder() || south.isStone()) {
         } else {
             choices.add(DirectionEnum.SOUTH.getDescription());
         }
         if (west == null) {
-        } else if (west.isBorder() || west.isRightSideBorder()) {
+        } else if (west.isBorder() || west.isRightSideBorder() || west.isStone()) {
         } else {
             choices.add(DirectionEnum.WEST.getDescription());
         }
