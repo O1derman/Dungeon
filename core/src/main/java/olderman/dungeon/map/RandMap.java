@@ -18,9 +18,9 @@ public class RandMap implements Serializable {
 
     public void initializeRooms() {
         Random r = new Random();
-        int rMaxWidth = 7;
+        int rMaxWidth = 12;
         int minWidth = 7;
-        int rMaxHight = 7;
+        int rMaxHight = 12;
         int minHight = 7;
         int barrierOnLine;
         data.mapRooms = new Room[rMaxWidth][rMaxHight];
@@ -56,11 +56,12 @@ public class RandMap implements Serializable {
             for (int j = 0; j < jLength; j++) {
                 if (i != data.yourPositionx || j != data.yourPositiony) {
                     if (buildBarrier) {
-                        if (barrierOnLine != previousjLength - 2) {
-                            if (dungeon.getRand().nextInt(100) > 20) {
+                        if (barrierOnLine < jLength - 3) {
+                            if (dungeon.getRand().nextInt(100) < 70) { //70% chance for stone
                                 rooms[j] = new Room(i, j, dungeon);
                                 Room room = data.mapRooms[i][j];
                                 room.setStone(true);
+                                barrierOnLine++;
                             } else {
                                 rooms[j] = new Room(i, j, dungeon);
                             }
@@ -102,7 +103,7 @@ public class RandMap implements Serializable {
         for (int i = 0; i < data.downEdge; i++) {
             for (int j = 0; j < data.rightEdge; j++) {
                 Room room = data.mapRooms[i][j];
-                room.drawCorrectSymbol(room, dungeon);
+                room.drawCorrectSymbol(room, dungeon, dungeon.getMapConstants());
 
             }
         }

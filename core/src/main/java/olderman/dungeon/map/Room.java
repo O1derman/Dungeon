@@ -1,6 +1,7 @@
 package olderman.dungeon.map;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import olderman.dungeon.Dungeon;
 import olderman.dungeon.Style;
@@ -94,7 +95,7 @@ public class Room implements Serializable {
         }
     }
 
-    public void drawCorrectSymbol(Room room, Dungeon dungeon) {
+    public void drawCorrectSymbol(Room room, Dungeon dungeon, MapConstants mapConstants) {
         if ((room.getX() == (dungeon.getWay().randMap.data.yourPositionx - 1) && room.getY() == dungeon.getWay().randMap.data.yourPositiony) || (room.getX() == dungeon.getWay().randMap.data.yourPositionx && room.getY() == (dungeon.getWay().randMap.data.yourPositiony - 1) || (room.getX() == (dungeon.getWay().randMap.data.yourPositionx + 1) && room.getY() == dungeon.getWay().randMap.data.yourPositiony)) || (room.getX() == dungeon.getWay().randMap.data.yourPositionx && room.getY() == (dungeon.getWay().randMap.data.yourPositiony + 1))) {
             room.setRoomWasNextToYou(true);
         }
@@ -104,29 +105,37 @@ public class Room implements Serializable {
             border = true;
         }
         if (room.isYourPosition()) {
-            dungeon.getWay().randMap.data.map.append(MapConstants.playerChar);
-            dungeon.getWay().randMap.data.map.append(" ");
+            dungeon.getWay().randMap.data.map.append(mapConstants.playerChar);
+            dungeon.getWay().randMap.data.map.append(mapConstants.whiteSpace);
             dungeon.getWay().randMap.data.yourPositionx = room.getX();
             dungeon.getWay().randMap.data.yourPositiony = room.getY();
         } else if (room.isRightSideBorder() && room.isRoomWasNextToYou()) {
-            dungeon.getWay().randMap.data.map.append(MapConstants.wallChar);
+            dungeon.getWay().randMap.data.map.append(mapConstants.wallChar);
             dungeon.getWay().randMap.data.map.append("\n");
         } else if ((room.isStone() && room.isRoomWasNextToYou()) || (room.isBorder() && room.isRoomWasNextToYou())) {
-            dungeon.getWay().randMap.data.map.append(MapConstants.wallChar);
-            dungeon.getWay().randMap.data.map.append(" ");
+            dungeon.getWay().randMap.data.map.append(mapConstants.wallChar);
+            dungeon.getWay().randMap.data.map.append(mapConstants.whiteSpace);
         } else if (room.isSearchedRoom() && room.isVisitedRoom()) {
-            dungeon.getWay().randMap.data.map.append(MapConstants.clearRoomChar);
-            dungeon.getWay().randMap.data.map.append(" ");
+            dungeon.getWay().randMap.data.map.append(mapConstants.clearRoomChar);
+            dungeon.getWay().randMap.data.map.append(mapConstants.whiteSpace);
         } else if (!room.isSearchedRoom() && room.isVisitedRoom()) {
-            dungeon.getWay().randMap.data.map.append(MapConstants.fullRoomChar);
-            dungeon.getWay().randMap.data.map.append(" ");
+            dungeon.getWay().randMap.data.map.append(mapConstants.fullRoomChar);
+            dungeon.getWay().randMap.data.map.append(mapConstants.whiteSpace);
         } else if (room.isBossRoom() && room.isVisitedRoom()) {
-            dungeon.getWay().randMap.data.map.append(MapConstants.bossChar);
-            dungeon.getWay().randMap.data.map.append(" ");
+            dungeon.getWay().randMap.data.map.append(mapConstants.bossChar);
+            dungeon.getWay().randMap.data.map.append(mapConstants.whiteSpace);
         } else if (room.isRightSideBorder()) {
             dungeon.getWay().randMap.data.map.append("\n");
         } else {
-            dungeon.getWay().randMap.data.map.append("   ");
+            if (dungeon.isChangeMap()) {
+                dungeon.getWay().randMap.data.map.append(mapConstants.uncoveredRoom);
+                dungeon.getWay().randMap.data.map.append(mapConstants.whiteSpace);
+
+            } else {
+                dungeon.getWay().randMap.data.map.append(mapConstants.uncoveredRoom);
+                dungeon.getWay().randMap.data.map.append(mapConstants.uncoveredRoom);
+                dungeon.getWay().randMap.data.map.append(mapConstants.whiteSpace);
+            }
         }
     }
 

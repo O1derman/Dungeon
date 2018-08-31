@@ -11,54 +11,60 @@ import olderman.dungeon.Style.ColorStyle;
 
 public interface OS {
 
-	void clear();
+    void clear();
 
-	int uzivatVolba(String... options);
+    int uzivatVolba(String... options);
 
-	void print(String string);
+    void print(String string);
 
-	void trySaveData(ArrayList<Object> data) throws FileNotFoundException;
+    void trySaveData(ArrayList<Object> data) throws FileNotFoundException;
 
-	FileInputStream tryLoadData() throws FileNotFoundException;
+    FileInputStream tryLoadData() throws FileNotFoundException;
 
-	boolean saveFileExists();
+    boolean saveFileExists();
 
-	void println();
+    void println();
 
-	void reset();
+    void reset();
 
-	void color(ColorStyle style);
+    void color(ColorStyle style);
 
-	void attribute(AttributeStyle style);
+    void attribute(AttributeStyle style);
 
-	void flush();
+    void flush();
 
-	void printAsciiArt(String asciiArt);
+    void printAsciiArt(String asciiArt);
 
-	void beep();
+    void beep();
 
-	void fillLine(String text);
+    void fillLine(String text);
 
-	void startVideoAd();
+    void createSwitch();
 
-	void onRewardedVideoAdLoaded();
+    void hideSwitch();
 
-	void onRewardedVideoAdOpened();
+    boolean checkSwitch();
 
-	void onRewardedVideoStarted();
+    void startVideoAd();
 
-	void onRewardedVideoAdClosed();
+    void onRewardedVideoAdLoaded();
 
-	void onRewarded();
+    void onRewardedVideoAdOpened();
 
-	void onRewardedVideoAdLeftApplication();
+    void onRewardedVideoStarted();
 
-	void onRewardedVideoAdFailedToLoad(int i);
+    void onRewardedVideoAdClosed();
 
-	void onPause();
+    void onRewarded();
 
-	void onResume();
+    void onRewardedVideoAdLeftApplication();
 
-	void onDestroy();
+    void onRewardedVideoAdFailedToLoad(int i);
+
+    void onPause();
+
+    void onResume();
+
+    void onDestroy();
 
 }

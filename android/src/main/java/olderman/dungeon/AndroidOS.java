@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.io.File;
@@ -74,6 +75,7 @@ public class AndroidOS implements OS {
         private MainActivity activity;
         private TextView textView;
         private LinearLayout buttons;
+        private Switch simpleSwitch;
         private final SpannableStringBuilder sb = new SpannableStringBuilder();
         private String[] buttonLabels;
 
@@ -84,16 +86,18 @@ public class AndroidOS implements OS {
         }
 
         @UiThread
-        public void set(MainActivity activity, TextView textView, LinearLayout buttons) {
+        public void set(MainActivity activity, TextView textView, LinearLayout buttons, Switch simpleSwitch) {
             if (this.activity != null) {
                 throw new IllegalStateException();
             }
             Objects.requireNonNull(activity);
             Objects.requireNonNull(buttons);
             Objects.requireNonNull(textView);
+            Objects.requireNonNull(simpleSwitch);
             this.activity = activity;
             this.textView = textView;
             this.buttons = buttons;
+            this.simpleSwitch = simpleSwitch;
             createButtonsImpl();
             doActionsImpl(savedActions); // will also call flushImpl()
             savedActions.clear();
@@ -107,6 +111,7 @@ public class AndroidOS implements OS {
             activity = null;
             textView = null;
             buttons = null;
+            simpleSwitch = null;
         }
 
         @Override
@@ -127,6 +132,19 @@ public class AndroidOS implements OS {
                     }
                     break;
             }
+        }
+
+        private void createSwitch() {
+            simpleSwitch.setVisibility(Switch.VISIBLE);
+
+        }
+
+        private void hideSwitch() {
+            simpleSwitch.setVisibility(Switch.GONE);
+        }
+
+        private boolean checkSwitch() {
+            return simpleSwitch.isChecked();
         }
 
         private void createButtonsImpl() {
@@ -304,8 +322,8 @@ public class AndroidOS implements OS {
     }
 
     @UiThread
-    public void set(MainActivity activity, TextView textView, LinearLayout buttons) {
-        handler.set(activity, textView, buttons);
+    public void set(MainActivity activity, TextView textView, LinearLayout buttons, Switch simpleSwitch) {
+        handler.set(activity, textView, buttons, simpleSwitch);
     }
 
     @UiThread
@@ -409,6 +427,21 @@ public class AndroidOS implements OS {
     @Override
     public void fillLine(String text) {
         action(ACTION_FILL_LINE, text);
+    }
+
+    @Override
+    public void createSwitch() {
+
+    }
+
+    @Override
+    public void hideSwitch() {
+
+    }
+
+    @Override
+    public boolean checkSwitch() {
+        return false;
     }
 
     @Override

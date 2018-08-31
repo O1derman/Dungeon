@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -49,6 +50,8 @@ public class MainActivity extends Activity implements RewardedVideoAdListener {
 
         TextView textView = (TextView) findViewById(R.id.textView);
         LinearLayout buttons = (LinearLayout) findViewById(R.id.buttons);
+        Switch simpleSwitch = (Switch) findViewById(R.id.simpleSwitch);
+
 
         mAd = MobileAds.getRewardedVideoAdInstance(this);
         mAd.setRewardedVideoAdListener(this);
@@ -60,7 +63,7 @@ public class MainActivity extends Activity implements RewardedVideoAdListener {
             fragment = new RetainedFragment();
             fm.beginTransaction().add(fragment, TAG_RETAINED_FRAGMENT).commit();
         }
-        fragment.set(this, textView, buttons);
+        fragment.set(this, textView, buttons, simpleSwitch);
         fragment.start();
     }
 

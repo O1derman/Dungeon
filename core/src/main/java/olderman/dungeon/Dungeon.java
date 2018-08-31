@@ -15,6 +15,7 @@ import olderman.dungeon.town.Town;
 
 import static olderman.dungeon.Style.AttributeStyle;
 import static olderman.dungeon.Style.BLUE;
+import static olderman.dungeon.Style.CENTER;
 import static olderman.dungeon.Style.DEFAULT_COLOR;
 import static olderman.dungeon.Style.GREEN;
 import static olderman.dungeon.Style.RED;
@@ -43,9 +44,12 @@ public class Dungeon implements Serializable {
     public int score;
     public int bossX;
     public int bossY;
+    private boolean changeMap;
+    private boolean previousState = false;
     boolean bossKilled = false;
     boolean back = false;
     private ForAll forAll;
+    private MapConstants mapConstants;
     private Plebs currentPlebs;
     private GameCharacter character;
     private Inventory inventory;
@@ -182,6 +186,18 @@ public class Dungeon implements Serializable {
     public void fillLine(String text) {
         os.fillLine(text);
         os.flush();
+    }
+
+    public void createSwitch() {
+        os.createSwitch();
+    }
+
+    public void hideSwitch() {
+        os.hideSwitch();
+    }
+
+    public boolean checkSwitch() {
+        return os.checkSwitch();
     }
 
     public void println() {
@@ -398,11 +414,30 @@ public class Dungeon implements Serializable {
                         printAsciiArt(character.getAsciiArt());
                         switch (uzivatVolba("continue")) {
                         }
+                        println(Style.CENTER, "Which map do you find more clear?");
+                        println("Example 1):");
+                        println(Style.CENTER, "      \u26DE \u26DE \u26DE");
+                        println(Style.CENTER, "   \u26DE \u263B \u2686 \u26DE");
+                        println(Style.CENTER, "\u26DE \u2688 \u2686 \u2620 \u26DE");
+                        println(Style.CENTER, "\u26DE \u26DE \u26DE \u26DE \u26DE");
+                        println();
+                        println("Example 2):");
+                        println(Style.CENTER, "\u3000 \u3000 \uff38 \uff38 \uff38");
+                        println(Style.CENTER, "\u3000 \uff38 \uff0a \uff10 \uff38");
+                        println(Style.CENTER, "\uff38 \uff1f \uff10 \uff01 \uff38");
+                        println(Style.CENTER, "\uff38 \uff38 \uff38 \uff38 \uff38");
+                        switch (uzivatVolba("1", "2")) {
+                            case 1:
+                                changeMap = false;
+                                break;
+                            case 2:
+                                changeMap = true;
+                        }
+                        mapConstants = new MapConstants(this);
                         town.town();
                         game();
                         break;
                     }
-
                     break;
 
                 case 2:
@@ -471,13 +506,13 @@ public class Dungeon implements Serializable {
 
     private void game() throws InterruptedException, FileNotFoundException {
         int volba;
-        Room room = way.randMap.data.mapRooms[way.randMap.data.yourPositiony][way.randMap.data.yourPositionx];
+        Room room = way.randMap.data.mapRooms[way.randMap.data.yourPositionx][way.randMap.data.yourPositiony];
         room.setYourPosition(true);
         way.randMap.drawAsciiArtMap();
         boolean timeWithoutFight = true;
         FIGHT:
         while (true) {
-            room = way.randMap.data.mapRooms[way.randMap.data.yourPositiony][way.randMap.data.yourPositionx];
+            room = way.randMap.data.mapRooms[way.randMap.data.yourPositionx][way.randMap.data.yourPositiony];
             if (timeWithoutFight) {
                 println(Style.CENTER, "You are on a floor " + forAll.floor + "!");
                 timeWithoutFight = false;
@@ -921,6 +956,7 @@ public class Dungeon implements Serializable {
 
     public void inventoryAndInfo(boolean fighting) {
         do {
+            createSwitch();
             addEnergy();
             println(RED.BRIGHT, this.getHealth() + "/" + this.getForAll().maximumHealth + " health");
             println("Your base damage is " + character.getDamage().minValue(this) + "-"
@@ -988,14 +1024,19 @@ public class Dungeon implements Serializable {
                 println();
                 println(way.randMap.data.map);
                 println("Map legend:");
-                println(MapConstants.playerChar + " - your position");
-                println(MapConstants.wallChar + " - wall");
-                println(MapConstants.bossChar + " - boss room");
-                println(MapConstants.fullRoomChar + " - unsearched room");
-                println(MapConstants.clearRoomChar + " - searched room");
+                println(mapConstants.playerChar + " - your position");
+                println(mapConstants.wallChar + " - wall");
+                println(mapConstants.bossChar + " - boss room");
+                println(mapConstants.fullRoomChar + " - unsearched room");
+                println(mapConstants.clearRoomChar + " - searched room");
             }
             println();
         } while (this.getInventory().showInventory(fighting) != null);
+        if (isPreviousState() != isChangeMap()) {
+            setPreviousState(isChangeMap());
+            inventoryAndInfo(fighting);
+        }
+        hideSwitch();
     }
 
     private void plebFight(Plebs plebs) {
@@ -1033,4 +1074,23 @@ public class Dungeon implements Serializable {
 
     }
 
+    public boolean isChangeMap() {
+        return changeMap;
+    }
+
+    public MapConstants getMapConstants() {
+        return mapConstants;
+    }
+
+    public void setChangeMap(boolean changeMap) {
+        this.changeMap = changeMap;
+    }
+
+    public boolean isPreviousState() {
+        return previousState;
+    }
+
+    public void setPreviousState(boolean previousState) {
+        this.previousState = previousState;
+    }
 }
