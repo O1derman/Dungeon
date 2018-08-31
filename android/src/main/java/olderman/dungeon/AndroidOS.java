@@ -1,12 +1,11 @@
 package olderman.dungeon;
 
-import android.app.Activity;
-
 import android.content.Context;
 import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.preference.SwitchPreference;
 import android.support.annotation.UiThread;
 import android.support.annotation.WorkerThread;
 import android.support.v4.content.ContextCompat;
@@ -29,7 +28,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +73,7 @@ public class AndroidOS implements OS {
         private MainActivity activity;
         private TextView textView;
         private LinearLayout buttons;
-        private Switch simpleSwitch;
+        private Switch changeMap;
         private final SpannableStringBuilder sb = new SpannableStringBuilder();
         private String[] buttonLabels;
 
@@ -86,18 +84,32 @@ public class AndroidOS implements OS {
         }
 
         @UiThread
-        public void set(MainActivity activity, TextView textView, LinearLayout buttons, Switch simpleSwitch) {
+        public void hideSwitch() {
+            Looper.prepare();
+        }
+
+        @UiThread
+        public void visibleSwitch() {
+            changeMap.setVisibility(changeMap.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+        }
+
+        public boolean checkSwitch() {
+            return changeMap.isChecked();
+        }
+
+        @UiThread
+        public void set(MainActivity activity, TextView textView, LinearLayout buttons, Switch changeMap) {
             if (this.activity != null) {
                 throw new IllegalStateException();
             }
             Objects.requireNonNull(activity);
             Objects.requireNonNull(buttons);
             Objects.requireNonNull(textView);
-            Objects.requireNonNull(simpleSwitch);
+            Objects.requireNonNull(changeMap);
             this.activity = activity;
             this.textView = textView;
             this.buttons = buttons;
-            this.simpleSwitch = simpleSwitch;
+            this.changeMap = changeMap;
             createButtonsImpl();
             doActionsImpl(savedActions); // will also call flushImpl()
             savedActions.clear();
@@ -111,7 +123,7 @@ public class AndroidOS implements OS {
             activity = null;
             textView = null;
             buttons = null;
-            simpleSwitch = null;
+            changeMap = null;
         }
 
         @Override
@@ -132,19 +144,6 @@ public class AndroidOS implements OS {
                     }
                     break;
             }
-        }
-
-        private void createSwitch() {
-            simpleSwitch.setVisibility(Switch.VISIBLE);
-
-        }
-
-        private void hideSwitch() {
-            simpleSwitch.setVisibility(Switch.GONE);
-        }
-
-        private boolean checkSwitch() {
-            return simpleSwitch.isChecked();
         }
 
         private void createButtonsImpl() {
@@ -322,8 +321,8 @@ public class AndroidOS implements OS {
     }
 
     @UiThread
-    public void set(MainActivity activity, TextView textView, LinearLayout buttons, Switch simpleSwitch) {
-        handler.set(activity, textView, buttons, simpleSwitch);
+    public void set(MainActivity activity, TextView textView, LinearLayout buttons, Switch changeMap) {
+        handler.set(activity, textView, buttons, changeMap);
     }
 
     @UiThread
@@ -431,17 +430,18 @@ public class AndroidOS implements OS {
 
     @Override
     public void createSwitch() {
-
+        handler.visibleSwitch();
     }
 
     @Override
     public void hideSwitch() {
+        handler.hideSwitch();
 
     }
 
     @Override
     public boolean checkSwitch() {
-        return false;
+        return handler.checkSwitch();
     }
 
     @Override
@@ -577,6 +577,7 @@ public class AndroidOS implements OS {
                     throw new IllegalArgumentException();
             }
         }
+
     }
 
 }

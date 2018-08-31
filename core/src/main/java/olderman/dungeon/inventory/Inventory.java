@@ -79,18 +79,18 @@ public class Inventory implements Serializable {
             } else {
                 dungeon.println(name);
             }
-            if (dungeon.checkSwitch()) {
-                dungeon.setChangeMap(true);
-            } else {
-                dungeon.setChangeMap(false);
-            }
-            if (dungeon.isPreviousState() != dungeon.isChangeMap()) {
-                return null;
-            }
-            dungeon.setPreviousState(dungeon.isChangeMap());
 
-        
+
         }
+        if (dungeon.checkSwitch()) {
+            dungeon.setChangeMap(true);
+        } else {
+            dungeon.setChangeMap(false);
+        }
+        if (dungeon.isPreviousState() != dungeon.isChangeMap()) {
+            return null;
+        }
+        dungeon.setPreviousState(dungeon.isChangeMap());
         names.add("Exit inventory");
         items.add(null);
 

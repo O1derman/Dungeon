@@ -50,7 +50,7 @@ public class MainActivity extends Activity implements RewardedVideoAdListener {
 
         TextView textView = (TextView) findViewById(R.id.textView);
         LinearLayout buttons = (LinearLayout) findViewById(R.id.buttons);
-        Switch simpleSwitch = (Switch) findViewById(R.id.simpleSwitch);
+        Switch changeMap = (Switch) findViewById(R.id.changeMap);
 
 
         mAd = MobileAds.getRewardedVideoAdInstance(this);
@@ -63,7 +63,7 @@ public class MainActivity extends Activity implements RewardedVideoAdListener {
             fragment = new RetainedFragment();
             fm.beginTransaction().add(fragment, TAG_RETAINED_FRAGMENT).commit();
         }
-        fragment.set(this, textView, buttons, simpleSwitch);
+        fragment.set(this, textView, buttons, changeMap);
         fragment.start();
     }
 

@@ -19,9 +19,9 @@ public class RetainedFragment extends Fragment {
     private boolean started = false;
     private volatile boolean finished = false;
 
-    public void set(MainActivity activity, TextView textView, LinearLayout buttons, Switch simpleSwitch) {
+    public void set(MainActivity activity, TextView textView, LinearLayout buttons, Switch changeMap) {
         activity.setDungeon(dungeon);
-        os.set(activity, textView, buttons, simpleSwitch);
+        os.set(activity, textView, buttons, changeMap);
     }
 
     public void start() {

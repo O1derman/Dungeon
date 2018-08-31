@@ -45,7 +45,7 @@ public class Dungeon implements Serializable {
     public int bossX;
     public int bossY;
     private boolean changeMap;
-    private boolean previousState = false;
+    private boolean previousState;
     boolean bossKilled = false;
     boolean back = false;
     private ForAll forAll;
@@ -387,6 +387,7 @@ public class Dungeon implements Serializable {
 
     private void menu() throws InterruptedException, FileNotFoundException {
         while (true) {
+            hideSwitch();
             forAll = new ForAll();
             town = new Town(this);
             way = new Way(this);
@@ -434,6 +435,7 @@ public class Dungeon implements Serializable {
                                 changeMap = true;
                         }
                         mapConstants = new MapConstants(this);
+                        setPreviousState(isChangeMap());
                         town.town();
                         game();
                         break;
@@ -956,7 +958,11 @@ public class Dungeon implements Serializable {
 
     public void inventoryAndInfo(boolean fighting) {
         do {
-            createSwitch();
+            if (isPreviousState() == isChangeMap()) {
+                createSwitch();
+            }
+            setPreviousState(isChangeMap());
+            clear();
             addEnergy();
             println(RED.BRIGHT, this.getHealth() + "/" + this.getForAll().maximumHealth + " health");
             println("Your base damage is " + character.getDamage().minValue(this) + "-"
@@ -1033,10 +1039,11 @@ public class Dungeon implements Serializable {
             println();
         } while (this.getInventory().showInventory(fighting) != null);
         if (isPreviousState() != isChangeMap()) {
-            setPreviousState(isChangeMap());
+            mapConstants = new MapConstants(this);
+            way.randMap.drawAsciiArtMap();
             inventoryAndInfo(fighting);
         }
-        hideSwitch();
+        createSwitch();
     }
 
     private void plebFight(Plebs plebs) {
