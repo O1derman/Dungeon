@@ -19,6 +19,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -94,12 +95,14 @@ public class AndroidOS implements OS {
                 @Override
                 public void run() {
                     changeMap.setVisibility(changeMap.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-                }});
+                }
+            });
         }
 
         public boolean checkSwitch() {
             return changeMap.isChecked();
         }
+
 
         @UiThread
         public void set(MainActivity activity, TextView textView, LinearLayout buttons, Switch changeMap) {
@@ -117,6 +120,13 @@ public class AndroidOS implements OS {
             createButtonsImpl();
             doActionsImpl(savedActions); // will also call flushImpl()
             savedActions.clear();
+
+
+            changeMap.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                }
+            });
         }
 
         @UiThread

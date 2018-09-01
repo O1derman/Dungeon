@@ -24,7 +24,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="265dp"
-                android:text="Switch map" />
+                android:text="Switch map"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/textView"
