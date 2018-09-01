@@ -35,6 +35,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 public class AndroidOS implements OS {
 
     private static final int ACTION_APPEND = 0;
@@ -83,14 +84,17 @@ public class AndroidOS implements OS {
             super(looper);
         }
 
-        @UiThread
+
         public void hideSwitch() {
             Looper.prepare();
         }
 
-        @UiThread
         public void visibleSwitch() {
-            changeMap.setVisibility(changeMap.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    changeMap.setVisibility(changeMap.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+                }});
         }
 
         public boolean checkSwitch() {
