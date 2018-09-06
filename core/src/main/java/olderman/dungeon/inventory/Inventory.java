@@ -88,6 +88,7 @@ public class Inventory implements Serializable {
             dungeon.setChangeMap(false);
         }
         if (dungeon.isPreviousState() != dungeon.isChangeMap()) {
+            add(HealthPotion.SMALL, 1);
             return null;
         }
         dungeon.setPreviousState(dungeon.isChangeMap());

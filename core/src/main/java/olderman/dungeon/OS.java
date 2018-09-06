@@ -39,9 +39,11 @@ public interface OS {
 
     void fillLine(String text);
 
-    void createSwitch();
+    void visibleSwitch();
 
-    void hideSwitch();
+    void switchSwitch();
+
+    void looper();
 
     boolean checkSwitch();
 

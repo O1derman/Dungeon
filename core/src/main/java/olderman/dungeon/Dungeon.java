@@ -6,7 +6,6 @@ import olderman.dungeon.enemies.Boss2;
 import olderman.dungeon.enemies.Plebs;
 import olderman.dungeon.inventory.HealthPotion;
 import olderman.dungeon.inventory.Inventory;
-import olderman.dungeon.inventory.Weapon;
 import olderman.dungeon.map.MapConstants;
 import olderman.dungeon.map.RandMapData;
 import olderman.dungeon.map.Room;
@@ -15,21 +14,16 @@ import olderman.dungeon.town.Town;
 
 import static olderman.dungeon.Style.AttributeStyle;
 import static olderman.dungeon.Style.BLUE;
-import static olderman.dungeon.Style.CENTER;
 import static olderman.dungeon.Style.DEFAULT_COLOR;
 import static olderman.dungeon.Style.GREEN;
 import static olderman.dungeon.Style.RED;
 import static olderman.dungeon.Style.Reset;
 import static olderman.dungeon.Style.YELLOW;
 
-import java.beans.Transient;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
@@ -90,7 +84,6 @@ public class Dungeon implements Serializable {
     // public Boss2 getBoss2() {
     // return boss2;
     // }
-
     public int getHealth() {
         return forAll.health;
     }
@@ -188,12 +181,16 @@ public class Dungeon implements Serializable {
         os.flush();
     }
 
-    public void createSwitch() {
-        os.createSwitch();
+    public void visibleSwitch() {
+        os.visibleSwitch();
     }
 
-    public void hideSwitch() {
-        os.hideSwitch();
+    public void switchSwitch() {
+        os.switchSwitch();
+    }
+
+    public void looper() {
+        os.looper();
     }
 
     public boolean checkSwitch() {
@@ -387,7 +384,7 @@ public class Dungeon implements Serializable {
 
     private void menu() throws InterruptedException, FileNotFoundException {
         while (true) {
-            hideSwitch();
+            looper();
             forAll = new ForAll();
             town = new Town(this);
             way = new Way(this);
@@ -433,6 +430,7 @@ public class Dungeon implements Serializable {
                                 break;
                             case 2:
                                 changeMap = true;
+                                switchSwitch();
                         }
                         mapConstants = new MapConstants(this);
                         setPreviousState(isChangeMap());
@@ -957,10 +955,8 @@ public class Dungeon implements Serializable {
     }
 
     public void inventoryAndInfo(boolean fighting) {
+        visibleSwitch();
         do {
-            if (isPreviousState() == isChangeMap()) {
-                createSwitch();
-            }
             setPreviousState(isChangeMap());
             clear();
             addEnergy();
@@ -1038,12 +1034,12 @@ public class Dungeon implements Serializable {
             }
             println();
         } while (this.getInventory().showInventory(fighting) != null);
+        visibleSwitch();
         if (isPreviousState() != isChangeMap()) {
             mapConstants = new MapConstants(this);
             way.randMap.drawAsciiArtMap();
             inventoryAndInfo(fighting);
         }
-        createSwitch();
     }
 
     private void plebFight(Plebs plebs) {

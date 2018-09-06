@@ -5,7 +5,6 @@ import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.preference.SwitchPreference;
 import android.support.annotation.UiThread;
 import android.support.annotation.WorkerThread;
 import android.support.v4.content.ContextCompat;
@@ -86,7 +85,7 @@ public class AndroidOS implements OS {
         }
 
 
-        public void hideSwitch() {
+        public void looper() {
             Looper.prepare();
         }
 
@@ -97,6 +96,10 @@ public class AndroidOS implements OS {
                     changeMap.setVisibility(changeMap.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
                 }
             });
+        }
+
+        public void switchSwitch() {
+            changeMap.setChecked(changeMap.isChecked() == false ? true : false);
         }
 
         public boolean checkSwitch() {
@@ -124,7 +127,8 @@ public class AndroidOS implements OS {
 
             changeMap.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+                    buttonLabels = null;
+                    result.set(1);
                 }
             });
         }
@@ -443,13 +447,18 @@ public class AndroidOS implements OS {
     }
 
     @Override
-    public void createSwitch() {
+    public void visibleSwitch() {
         handler.visibleSwitch();
     }
 
     @Override
-    public void hideSwitch() {
-        handler.hideSwitch();
+    public void switchSwitch() {
+        handler.switchSwitch();
+    }
+
+    @Override
+    public void looper() {
+        handler.looper();
 
     }
 
@@ -591,7 +600,6 @@ public class AndroidOS implements OS {
                     throw new IllegalArgumentException();
             }
         }
-
     }
 
 }
